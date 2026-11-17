@@ -60,12 +60,17 @@ detection, a 70,000-cell plan, batch acknowledgements and the actual packaged
 three-blueprint example. It uses no game data or external test framework.
 See [EXTENDED-TESTING.md](EXTENDED-TESTING.md) for tested Windows/WSL commands,
 sanitizers, installation and the personal in-game acceptance protocol.
-With Python 3, also run `python -m unittest discover -s tests -p test_project_example.py`:
+With Python 3.12 (tested on Windows and WSL), also run `python -m unittest discover -s tests -p test_project_example.py`:
 this checks fixture reproducibility and the example generator's non-overwrite guarantee.
 `test_extended` covers plane intersection, object transforms/flag policy, scoped
 replacement, components, storeys and native stair layouts. `test_project_export`
 compiles the actual exporter with file-only host adapters to check read-back,
 non-overwrite and manifest publication on failed writes. These run in `build/`.
+`test_extended_config` compiles the actual profile adapter with an isolated
+in-memory profile store. It checks defaults, invalid ranges, round trips and
+preservation of keys outside this extension. It does not exercise Windows itself.
+After packaging, run `python3 tools/verify_package.py` to verify both archives,
+their PE/DLL imports, fixture bytes, languages, docs and safe file layout.
 
 `tests/test_core.cpp` runs on the build machine (host compiler, `HOSTCXX` to override):
 
@@ -96,6 +101,16 @@ non-overwrite and manifest publication on failed writes. These run in `build/`.
 | `tools/re/` | Python scripts used to analyse the game executable (see its README) |
 
 ## Releasing
+
+For this local Extended fork, use the development branch and `./build.sh package`.
+The build does not install, push, tag or upload anything. Publication requires
+separate user authorization. Both development archives and their SHA-256 list
+are created in `dist/` after verification.
+
+### Historical upstream pipeline reference
+
+The following describes the upstream author's environment, not a configured
+release service for this fork:
 
 The GitHub repository is not used any more (the account is suspended). The working repo is
 on the build VM, with a bare repo `~/git/Enshrouded-BuildingTools.git` (remote `vm`), and a

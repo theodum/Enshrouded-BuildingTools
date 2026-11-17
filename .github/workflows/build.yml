@@ -19,6 +19,8 @@ jobs:
         run: ./build.sh package
       - name: Check reproducible example and non-overwrite guarantees
         run: python3 -m unittest discover -s tests -p test_project_example.py
+      - name: Verify both installation packages
+        run: python3 tools/verify_package.py
       - uses: actions/upload-artifact@v4
         with:
           name: EnshroudedBuildingTools

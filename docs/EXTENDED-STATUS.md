@@ -1,8 +1,15 @@
-# État de Building Tools Extended 0.34.0-dev2
+# État de Building Tools Extended 0.34.0-dev3
 
 Les fonctionnalités ci-dessous sont du code dans la DLL Windows. « Implémenté »
 ne signifie pas « validé dans Enshrouded » : aucun monde n'a été chargé par l'agent.
 La recette personnelle reste nécessaire, en commençant par les trois modules.
+
+Dev3 est préparée pour cette campagne, sans installation automatique. Les objets
+et pièces natifs automatiques sont **expérimentaux et désactivés par défaut**.
+Home → Options contient maintenant huit sections et des accès à la fenêtre native.
+L'audit et les résultats sont dans [DEV3-AUDIT.md](DEV3-AUDIT.md) et
+[DEV3-VALIDATION.md](DEV3-VALIDATION.md) ; la recette de douze étapes est dans
+[EXTENDED-TESTING.md](EXTENDED-TESTING.md).
 
 | Demande | État du code |
 |---|---|
@@ -28,6 +35,10 @@ La recette personnelle reste nécessaire, en commençant par les trois modules.
 | Sauvegarde du projet conçu | Export en nouveaux BTBP et manifeste publié en dernier ; pas d'écrasement |
 | Erreurs de génération | Restauration du brouillon en mémoire, y compris les paliers |
 | Sauvegardes personnelles | Aucun accès ; pas de lecteur/éditeur `.ksd` ni d'installation automatique |
+| Consolidation dev3 | Rotations complètes des escaliers/paliers, comptages idempotents, enveloppes d'objets, paramètres persistés et coûts d'objets seuls |
+| Garde ABI native | ItemInfo, EquipmentSetup et les 22 drapeaux réfléchis contrôlés ; changement = placement natif désactivé |
+| Lots/diagnostic | 128 voxels par défaut, réduction après contrôle lent ; 1 pièce ou 4 objets par lot ; ID/empreinte/rapport de l'opération |
+| Campagne d'exemples | Trois bâtiments reliés, trois niveaux, grille dans le vide et village de 75 648 cellules ; exemple natif généré depuis le vrai registre |
 
 ## Limites qui empêchent de déclarer toute la mission terminée
 
@@ -43,6 +54,9 @@ La réflexion de l'exécutable local confirme `ItemInfo.flags` à `0x5d8`,
 `IsLogicEntity` au bit 19, `IsFactoryEntity` au bit 20, ainsi que les drapeaux
 HasKnowledgeUnlocks, HasPIDE, IsNpc et IsAnimal. Ceux-ci sont traités séparément,
 avec le champ natif requiresAltarSlot déjà exclu par le mod.
+Dev3 exclut aussi les plans/outils spéciaux, appâts, récompenses Twitch, objets
+de commerce et bits inconnus. La procédure native reste à tester pour chaque
+compatible : l'existence de son ID n'est pas considérée comme validation d'usage.
 
 Écrire dans le writer d'un autre système serait une hypothèse dangereuse sur
 l'ordonnancement du moteur. Il reste à identifier une voie de livraison native
@@ -56,6 +70,7 @@ de `BuildingTools-Extended.ini` active une trace bornée des vrais placements
 manuels : item, résultat, index d'événement et variation du buffer. Elle lit le
 writer de son propriétaire ; elle ne réutilise ce writer ni n'injecte d'événement.
 L'option est désactivée par défaut et n'a pas été exécutée dans un jeu ici.
+Elle est désormais réglable dans Diagnostics, sans édition manuelle de l'INI.
 
 ### Autels et annulation totale
 
@@ -70,6 +85,10 @@ une annulation partielle. Le journal ne constitue pas une transaction de sauvega
 Sans API native de rollback vérifiée, un remboursement ou une suppression massive
 automatique risquerait d'effacer des modifications ultérieures ou de dupliquer
 des ressources. Un lot payé mais incomplet reste possible et est signalé.
+Le rapport dev3 conserve l'identité, l'empreinte du plan et le préfixe acquitté.
+Il facilite le diagnostic, mais ne prouve pas l'état actuel du monde. Un retrait
+automatique ne peut pas distinguer un bloc ajouté puis modifié d'une construction
+ultérieure identique ; aucune reprise/suppression aveugle n'est activée.
 
 ### Aperçu, collisions d'entités et géométrie
 
@@ -90,7 +109,11 @@ volume ne prouvent pas son sens de montée ou la hauteur exacte de son palier.
 Rotation et montée sont réglables, et la circulation doit être vérifiée en jeu.
 Une fondation sélectionnée à la place d'un escalier resterait une fondation.
 
-## Recette complémentaire de dev2
+## Contrôles complémentaires
+
+Pour dev3, suivre en priorité [EXTENDED-TESTING.md](EXTENDED-TESTING.md) et
+[DEV3-EXAMPLES.md](DEV3-EXAMPLES.md). Les points ci-dessous restent pertinents,
+avec l'activation expérimentale explicite pour les objets/pièces automatiques.
 
 1. **Grille** : activer Free Placement (F10 par défaut), puis dans Home activer
    le plan virtuel et prendre l'altitude de la caméra comme référence. Ajuster Y.

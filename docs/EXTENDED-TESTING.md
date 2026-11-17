@@ -1,4 +1,4 @@
-# Building Tools Extended 0.34.0-dev2 — installation et recette
+# Building Tools Extended 0.34.0-dev3 — installation et recette
 
 Version de développement du fork, basée sur Building Tools 0.33.2.
 La compilation et les tests automatisés ne remplacent pas votre test dans le jeu.
@@ -7,7 +7,7 @@ La compilation et les tests automatisés ne remplacent pas votre test dans le je
 ## Installation manuelle
 
 Fermer le jeu. Utiliser l'archive locale
-`dist/EnshroudedBuildingTools-0.34.0-dev2.zip`, ou l'archive Shroudforge si ce
+`dist/EnshroudedBuildingTools-0.34.0-dev3.zip`, ou l'archive Shroudforge si ce
 chargeur est déjà utilisé. Les deux archives contiennent la même DLL.
 
 1. Conserver une copie de votre DLL de mod précédente si vous souhaitez revenir
@@ -18,13 +18,71 @@ chargeur est déjà utilisé. Les deux archives contiennent la même DLL.
 3. Avec Shroudforge, extraire l'archive correspondante : la DLL est dans
    `mods/building-tools/BuildingTools.dll`. Conserver une seule copie de Building
    Tools chargée. Les projets restent à côté de l'exécutable du jeu.
-4. Démarrer un **monde local de test** et vérifier la bannière 0.34.0-dev2 et
+4. Démarrer un **monde local de test** et vérifier la bannière 0.34.0-dev3 et
    `BuildingTools.log`. Aucun test ci-dessous ne doit utiliser votre monde principal.
 
 Le développement n'installe rien dans le jeu. Aucun fichier `.ksd`, sauvegarde
 Steam ou monde existant n'est modifié par les scripts de compilation et de test.
 Avant tout essai de construction, conserver hors du répertoire du jeu une copie
 de votre monde de test, jeu arrêté ; la DLL ne réalise pas de sauvegarde automatique.
+
+Le ZIP fournit `BuildingTools-Extended.ini.example`, pas un INI actif susceptible
+d'écraser vos réglages. Les valeurs par défaut sont intégrées à la DLL. Les changer
+dans Home → Options → Section Extended ; l'extension ne réécrit que ses propres clés.
+Avec Shroudforge, conserver son `dinput8.dll` et une seule entrée `building-tools`.
+Vérifier aussi l'absence d'une seconde copie dans `dinput8-chain.ini` ou un ancien
+dossier de plugin. Une ligne « second copy » dans le journal indique un doublon.
+
+## Campagne personnelle dev3 : douze étapes
+
+**Tous ces essais restent à effectuer dans Enshrouded.** Le tableau décrit les
+résultats attendus, pas des résultats observés. Utiliser des emplacements distincts
+et libres pour chaque construction. Tenir le marteau ; ouvrir une fois son sélecteur
+de matériaux pour observer le registre et les bases, puis le fermer.
+
+Home → Options → Section Extended donne accès aux projets, grille, aperçu,
+matériaux, créatif, objets natifs, autels et diagnostics. Les raccourcis Home/F5/F6/F10
+ci-dessous désignent les valeurs par défaut ; utiliser vos touches si elles ont été
+reliées autrement. L'ouverture depuis Home initialise la fenêtre avec un clic natif
+sans construction ; si elle ne s'ouvre pas, consulter le journal puis utiliser le
+chemin classique Blueprint → Placer → premier clic.
+
+| Étape | Action | Résultat attendu | Informations à relever en cas d'échec |
+|---|---|---|---|
+| 1. Chargement et Home | Démarrer la copie du monde, ouvrir Home, choisir Options puis chaque section Extended | Bannière dev3, une seule DLL active, contrôles français lisibles ; projets et diagnostics s'ouvrent avec le marteau | Début de `BuildingTools.log`, bannière, écran et section concernés, chargeur et liste des autres mods |
+| 2. Outils originaux | Sur quelques blocs de test, vérifier F5, Area/Replace, Free Placement, BTBP classique et annulation native | Fonctions originales disponibles, touches personnalisées conservées ; aucune nouvelle option ne s'active seule | Mode, touche réellement configurée, forme/matériau, journal et captures avant/après |
+| 3. Composite simple | Cube de 0,5 m, charger `Trois_modules_test`, fixer l'ancrage et cliquer Construire une fois | Passe de contrôle sans écriture, puis 312 placements aux positions du tableau ci-dessous | Ancrage, rotation, journal complet de l'opération et photo des trois volumes |
+| 4. Rotations et hauteur | Recommencer sur une autre zone à 90/180/270°, puis décaler Y | Un pivot commun pour tous les modules ; décalages relatifs inchangés, Y commun | Ancrage et angle affichés, module décalé, coordonnées attendues/observées ; aucun deuxième clic d'alignement nécessaire |
+| 5. Vide et grille | Section Grille : activer Free Placement et le plan, régler Y=120 ; charger `Dev3_Grille_vide_Y120` | Visée du plan sans support, grille transparente, pas 0,5/1 m ; origine et niveaux conservés après redémarrage ; aucune plateforme invisible | Y/origine/pas, direction de visée, couverture des autels, `BuildingTools-Extended.ini` |
+| 6. Escaliers réels | Suivre l'exemple natif de `DEV3-EXAMPLES.md`, d'abord une petite volée puis les deux niveaux | Vrai modèle choisi dans la bibliothèque, montée sans sauter, orientation et paliers cohérents à chaque rotation ; arrêt explicite si incompatible | ID et nom exacts, dimensions, orientation du modèle, montée réglée, type de tracé, image du débouché et diagnostic ABI |
+| 7. Objets gratuits | Activer Créatif original, Objets natifs créatifs et Placement natif expérimental ; choisir un petit meuble/éclairage compatible absent du stock | Aperçu par repère, coût nul en créatif, modèle natif, usage/lumière à vérifier après sauvegarde et rechargement ; objets spéciaux/logiques refusés | ID/nom, trois options créatives, résultat de paiement, fonctionnement et journal après rechargement |
+| 8. Plusieurs étages | Charger `Dev3_Batiment_etages`, puis `Dev3_Trois_batiments_relies` sur deux zones distinctes | Planchers Y=0/4/8 relativement à A, trémies alignées de 2×2 m ; trois maisons et passages de même niveau | Ancrage, niveau décalé, cellule manquante, matériaux et éventuelles réservations |
+| 9. Aperçu | Déplacer, tourner, afficher une tranche et masquer un module ; remplacer un matériau puis Vérifier sans construire | Emprise et modules visibles ; repères des natifs, coûts dans Matériaux ; filtres purement visuels ; fin d'inspection sans `BATCH_BEGIN` | Capture avant/après, section/filtres, taille du projet, ID d'opération et trace `INSPECTED` |
+| 10. Autels et collisions | Déborder d'une zone en X/Z puis Y ; analyser et déplacer une proposition ; viser ensuite un bloc existant | Recommandations manuelles, volumes or/verts, échantillons non couverts signalés ; contrôle de construction refuse zone/collision avant premier lot | Zones observées dans Diagnostics, ancrage, premier repère rouge, options d'objets et journaux ; absence d'autel créé automatiquement |
+| 11. Grand projet | Charger `Dev3_Village_36_batiments`, inspecter puis construire seulement si toute la zone est couverte | 96 modules, 75 648 cellules, emprise 68×8×68 m ; lots progressifs et interface réactive ; durée potentiellement longue | Progression CHECK/BATCH_RESULT, durée maximale de contrôle et limite adaptative dans Diagnostics, captures et ID d'opération |
+| 12. Erreurs/interruption | Annuler une inspection puis un petit chantier ; tester une copie invalide du manifeste et un export vers un emplacement non accessible | Aucun lot après arrêt ; inspection sans écriture ; lots acceptés conservés ; fichier invalide refusé ; export incomplet non publié | `BuildingTools.log`, `BuildingTools-Projects.log`, rapport via Diagnostics, message exact et dernier lot acquitté |
+
+Les grandes actions n'ont pas d'annulation totale. Le rapport donne l'identifiant,
+l'empreinte du plan, l'ancrage, la rotation et le préfixe acquitté par le moteur.
+Ce n'est ni une preuve du contenu actuel de la sauvegarde ni une autorisation de
+supprimer/rejouer ces cellules : un lot payé peut être incomplet et le monde peut
+avoir changé. Restaurer la copie du monde de test si nécessaire, jeu arrêté.
+
+La couverture d'assistance des pièces/objets utilise neuf échantillons de leurs
+limites ; le contrôle avant placement reste obligatoire. Les collisions de toutes
+les entités, l'usage des objets et la circulation ne sont pas validés par cet aperçu.
+
+## Retour à la version précédente
+
+1. Fermer le jeu. Conserver les journaux et projets de test pour le diagnostic.
+2. Installation standard : remplacer uniquement la DLL Extended par la copie de
+   votre DLL précédente. Avec Shroudforge : restaurer la précédente
+   `mods/building-tools/BuildingTools.dll`, en conservant son chargeur à la racine.
+3. Conserver vos `BuildingTools.ini`, blueprints et projets ; ne supprimer aucun
+   monde. L'ancien mod ignore `BuildingTools-Extended.ini` et les `.btproject`.
+4. Vérifier qu'une seule version est chargée. Pour supprimer toute construction
+   de test, restaurer votre propre copie du monde de test ; changer de DLL ne retire
+   pas les lots déjà construits.
 
 ## Premier test : trois modules, une validation
 
@@ -100,7 +158,8 @@ d'annulation totale garantie. Les coûts d'un lot payé peuvent rester consommé
 
 ## Compilation depuis Windows / WSL
 
-Les essais complémentaires de dev2 sont décrits dans
+Les exemples et les placements natifs de dev3 sont décrits dans
+[DEV3-EXAMPLES.md](DEV3-EXAMPLES.md). L'état détaillé reste dans
 [EXTENDED-STATUS.md](EXTENDED-STATUS.md). Commencer par les trois modules ci-dessus
 avant d'essayer les objets ou les escaliers dans ce même monde de test.
 
@@ -137,6 +196,8 @@ c++ -std=c++17 -g -fsanitize=address,undefined tests/test_extended.cpp -o build/
 ./build/test_extended-sanitize
 c++ -std=c++17 -g -fsanitize=address,undefined tests/test_project_export.cpp -o build/test_project_export-sanitize
 ./build/test_project_export-sanitize
+c++ -std=c++17 -g -fsanitize=address,undefined tests/test_extended_config.cpp -o build/test_config-sanitize
+./build/test_config-sanitize
 ```
 
 Les signatures contrôlées sur l'exécutable local passent au 17 novembre 2026.

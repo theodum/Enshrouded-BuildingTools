@@ -1,5 +1,8 @@
 # Compte rendu de validation — 17 novembre 2026
 
+Rapport historique de dev2. La livraison courante est décrite dans
+[DEV3-VALIDATION.md](DEV3-VALIDATION.md).
+
 Version : **0.34.0-dev2**. Branche : `feature/composite-projects`.
 Base du fork : `6af1321`, Building Tools 0.33.2.
 

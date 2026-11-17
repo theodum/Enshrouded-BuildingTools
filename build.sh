@@ -50,6 +50,7 @@ clang++ $TARGET $SDKLIB -fuse-ld=lld -nostdlib -shared -o build/dinput8.dll \
 echo "built build/dinput8.dll"
 
 VERSION=$(sed -n 's/^#define MOD_VERSION "\(.*\)".*/\1/p' src/main.cpp)
+case "$VERSION" in ''|*[!0-9A-Za-z.-]*) echo "Invalid version for packaging" >&2; exit 1;; esac
 
 if [ "$1" = "test" ] || [ "$1" = "package" ]; then
     ${HOSTCXX:-c++} -std=c++17 -O1 -DSRC_DIR="\"$(pwd)/tests\"" -o build/test_core tests/test_core.cpp
@@ -74,12 +75,26 @@ if [ "$1" = "package" ]; then
     cp lang/*.txt build/pkg/BuildingTools-Languages/
     mkdir -p build/pkg/BuildingTools-Projects
     cp examples/three-modules/*.btbp examples/three-modules/*.btproject build/pkg/BuildingTools-Projects/
-    sed 's/](EXTENDED-STATUS.md)/](BuildingToolsExtended-STATUS.md)/g' docs/EXTENDED-TESTING.md > build/pkg/BuildingToolsExtended-TESTING.md
-    cp docs/BTPROJECT.md build/pkg/BuildingToolsExtended-FORMAT.md
-    cp docs/EXTENDED-STATUS.md build/pkg/BuildingToolsExtended-STATUS.md
+    cp examples/dev3/*.btbp examples/dev3/*.btproject build/pkg/BuildingTools-Projects/
+    cp package/BuildingTools-Extended.ini.example build/pkg/
+    package_doc() {
+        sed -e 's/](EXTENDED-TESTING.md)/](BuildingToolsExtended-TESTING.md)/g' \
+            -e 's/](BTPROJECT.md)/](BuildingToolsExtended-FORMAT.md)/g' \
+            -e 's/](EXTENDED-STATUS.md)/](BuildingToolsExtended-STATUS.md)/g' \
+            -e 's/](DEV3-EXAMPLES.md)/](BuildingToolsExtended-EXAMPLES.md)/g' \
+            -e 's/](DEV3-AUDIT.md)/](BuildingToolsExtended-AUDIT.md)/g' \
+            -e 's/](DEV3-VALIDATION.md)/](BuildingToolsExtended-VALIDATION.md)/g' "$1" > "build/pkg/BuildingToolsExtended-$2.md"
+    }
+    package_doc docs/EXTENDED-TESTING.md TESTING
+    package_doc docs/BTPROJECT.md FORMAT
+    package_doc docs/EXTENDED-STATUS.md STATUS
+    package_doc docs/DEV3-EXAMPLES.md EXAMPLES
+    package_doc docs/DEV3-AUDIT.md AUDIT
+    package_doc docs/DEV3-VALIDATION.md VALIDATION
+    cp CHANGELOG.md build/pkg/BuildingToolsExtended-CHANGELOG.md
     ZIP="dist/EnshroudedBuildingTools-$VERSION.zip"
     rm -f "$ZIP"
-    (cd build/pkg && zip -q -9 "../../$ZIP" dinput8.dll BuildingTools-README.txt BuildingTools-LICENSE.txt BuildingTools-Languages/*.txt \
+    (cd build/pkg && zip -q -9 "../../$ZIP" dinput8.dll BuildingTools-README.txt BuildingTools-LICENSE.txt BuildingTools-Extended.ini.example BuildingTools-Languages/*.txt \
         BuildingTools-Projects/* BuildingToolsExtended-*.md)
     echo "packaged $ZIP"
 
@@ -96,11 +111,12 @@ if [ "$1" = "package" ]; then
     mkdir -p build/pkg-sf/BuildingTools-Projects
     cp build/pkg/BuildingTools-Projects/* build/pkg-sf/BuildingTools-Projects/
     cp build/pkg/BuildingToolsExtended-*.md build/pkg-sf/
+    cp build/pkg/BuildingTools-Extended.ini.example build/pkg-sf/
     SFZIP="dist/EnshroudedBuildingTools-Shroudforge-$VERSION.zip"
     rm -f "$SFZIP"
     (cd build/pkg-sf && zip -q -9 "../../$SFZIP" mods/building-tools/BuildingTools.dll mods/building-tools/mod.json \
         mods/building-tools/extended.mod.json mods/building-tools/native-plugin.ini \
-        BuildingTools-README.txt BuildingTools-LICENSE.txt BuildingTools-Languages/*.txt \
+        BuildingTools-README.txt BuildingTools-LICENSE.txt BuildingTools-Extended.ini.example BuildingTools-Languages/*.txt \
         BuildingTools-Projects/* BuildingToolsExtended-*.md)
     echo "packaged $SFZIP"
 fi

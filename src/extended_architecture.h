@@ -101,6 +101,7 @@ static bool architecture_stairs(int kind, int flights, const int* offset, int ba
     CursorXf zero{}; zero.rot[3] = 1; zero.scale = 1;
     const float identity[] = {0,0,0,1}; core::bp_turn_rot(g_stairModelTurn,identity,zero.rot);
     Aabb box{}; shape_bounds(item, &zero, &box);
+    for (int a=0;a<3;++a) if (!extended::finite(box.mn[a]) || !extended::finite(box.mx[a]) || box.mx[a]<=box.mn[a]) return false;
     const int width = (int)((box.mx[0] - box.mn[0]) * 16 + 0.5f), height = riseOverride ? riseOverride : (int)((box.mx[1] - box.mn[1]) * 16 + 0.5f), run = (int)((box.mx[2] - box.mn[2]) * 16 + 0.5f);
     static extended::StairStep steps[160]; const int n = extended::stair_layout(kind, flights, width, height, run, steps, 160);
     if (!n) return false;

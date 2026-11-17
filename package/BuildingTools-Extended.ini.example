@@ -1,0 +1,30 @@
+; Reference only. Do not overwrite an existing BuildingTools-Extended.ini.
+; Configure these options in Home > Options > Extended section.
+[Extended]
+Grid=0
+Height16=1920
+GridStep16=8
+GridRadius=32
+OriginX16=0
+OriginZ16=0
+Axes=1
+SelectedLevel=0
+Level0=0
+Level1=320
+Level2=640
+Level3=960
+Level4=1280
+Level5=1600
+Level6=1920
+Level7=2240
+CreativeObjects=0
+ExperimentalNativePlacement=0
+ProjectObjects=1
+ProjectBatchCells=128
+ShowAltars=1
+ShowModules=1
+ShowObjects=1
+PreviewSlice=0
+SliceY16=0
+SliceHeight16=64
+NativeObjectTrace=0

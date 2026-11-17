@@ -3,6 +3,37 @@
 Each `## x.y.z` section is used as the release notes on GitHub and as the file
 changelog on Nexus Mods, so keep it short and written for players.
 
+## 0.34.0-dev3
+
+- **Home integration**: sections for projects, grid, preview, materials, creative
+  building, native objects, altars and diagnostics; native window shortcuts and
+  a less crowded project view, with French controls.
+- **Stair correction**: rotate the entire flight layout and landings together;
+  separate native-model orientation from assembly rotation. An in-game example
+  uses the selected real stair/material IDs with two floors and reserved openings.
+- **Native safety**: automatic props/pieces are experimental and off by default.
+  Validate reflected ItemInfo/EquipmentSetup layouts and all ItemFlag values,
+  as well as native commit/pricing instructions. Special/commerce/reward/unknown
+  prop flags are refused. Incompatible items stay read-only with an explanation.
+- **Consolidation**: idempotent material counts, deterministic duplicate ownership,
+  object bounds in the project envelope, object-only costs, and bounded voxel
+  collision checks for props. Indexed planned-cell overlap queries replace full
+  plan scans for each piece.
+- **Large builds**: configurable 128-voxel default batches, reduced automatically
+  after slow checks; one native piece or four props per batch. Large native bounds
+  fail with a clear explanation instead of unbounded probing.
+- **Altars/configuration**: estimates also sample native bounds in 3D; authoritative
+  coverage checks still run before construction. Save visibility, slice and level
+  preferences without replacing other INI keys.
+- **Diagnostics**: operation ID, plan fingerprint, timing and a non-overwriting
+  report of the acknowledged prefix. No automatic removal/replay or save editing.
+- **Test pack**: connected buildings, three storeys with openings, a virtual-plane
+  example and 36 buildings / 60 passages / 75,648 native cells. Additional tests
+  cover 0.5/1/2/4 m grids, stairs, collisions, interruptions, ABI and configuration.
+- **Development build**: no in-game validation. Logic-linked composite objects,
+  entity collision queries, textured/model ghosts, round spiral stairs, automatic
+  altars and full rollback remain unavailable. Manual acceptance guide included.
+
 ## 0.34.0-dev2
 
 - **Virtual plane**: a drawn grid at a fixed altitude, 0.5 / 1 m snapping, movable

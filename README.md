@@ -1,8 +1,10 @@
 # Enshrouded Building Tools
 
-A mod for **Enshrouded 1.0, Patch #1, Hotfix #4 and Hotfix #5** (single player and dedicated servers) that extends the Construction Hammer:
+A development fork of the Enshrouded Construction Hammer mod. The original tools
+include local and dedicated-server building; Extended composite projects require
+a locally hosted world. This build has not been validated in the game.
 
-This fork's **Building Tools Extended 0.34.0-dev2** adds native composite projects:
+This fork's **Building Tools Extended 0.34.0-dev3** adds native composite projects:
 one anchor, relative module rotations, one Build confirmation, preflight and progressive
 batches. Start with the included three-module example. See the
 [installation and in-game test protocol](docs/EXTENDED-TESTING.md),
@@ -12,6 +14,14 @@ compatible native props, native-piece stair layouts, architectural components,
 material replacement, read-only altar assistance and project export. See the
 [feature status and limits](docs/EXTENDED-STATUS.md). In-game behavior awaits
 personal validation. Original tools and classic `.btbp` files remain available.
+
+Dev3 consolidates Home navigation, French controls, configuration persistence,
+whole-stair rotations, bounded/adaptive batches and operation reports. Automatic
+native parts/props require an explicit experimental opt-in; reflection and code
+ABI mismatches disable them. Four additional test projects include three connected
+buildings, three storeys, a virtual-plane example and a 75,648-cell village.
+See the [dev3 audit](docs/DEV3-AUDIT.md), [validation results](docs/DEV3-VALIDATION.md)
+and [example instructions](docs/DEV3-EXAMPLES.md).
 
 - **Replace**: repaint existing blocks with your current material, as a full shape,
   only where the shape overlaps existing blocks, or **connected** (fill bucket: every

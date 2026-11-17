@@ -87,7 +87,9 @@ les blueprints. Les prix viennent du `PlaceShape` natif et le paiement reste nat
 
 La première passe refuse les ressources manquantes ou inconnues pour le projet
 entier. Le mode créatif existant ignore les coûts comme auparavant. Chaque lot
-comporte au plus `min(MaxShapes, 256)` voxels. Les confirmations utilisateur ne
+comporte au plus `min(MaxShapes, ProjectBatchCells)` voxels : 128 par défaut,
+réglable jusqu'à 256. Dev3 réduit ce plafond pendant l'opération si un contrôle
+dépasse 50 ms ; la géométrie et l'ordre ne changent pas. Les confirmations ne
 sont pas répétées ; le mod réutilise les clics natifs synthétiques d'Exact mode.
 
 Sur échec, aucune nouvelle tâche n'est envoyée ; `BuildingTools-Projects.log`
@@ -130,12 +132,20 @@ sont refusés dans les composites. Les stocks des objets ne sont pas dans le cac
 des blocs : leur paiement natif est contrôlé par lot, sans garantie globale de stock.
 
 L'ordre de construction est blocs, pièces natives, puis objets compatibles.
-Les lots sont limités à 256 voxels, 8 pièces natives ou 32 objets, et à MaxShapes
-si cette valeur est inférieure. La couverture des objets utilise leurs limites
+Les lots sont limités à 256 voxels, une pièce native ou quatre objets, et à MaxShapes
+si cette valeur est inférieure. Le plafond voxel par défaut est 128. La couverture des objets utilise leurs limites
 natives tournées. Les pièces natives utilisent leurs volumes et leur dégagement ;
 les chevauchements avec les blocs du projet sont refusés avant la première écriture.
 Les cellules et pièces identiques sont dédupliquées. Le compteur de progression
 compte des placements, pas les voxels intérieurs d'une pièce native.
+
+Dev3 désactive par défaut l'automatisation des pièces et objets. L'activation
+expérimentale se fait dans Home, avec explication des limites. La réflexion
+ItemInfo/EquipmentSetup et tous les drapeaux natifs sont contrôlés avant d'utiliser
+ces voies. Les volumes sont bornés à 4 096 sondes voxel par pièce (dégagement inclus)
+et 512 par objet. Les intersections avec les blocs du plan utilisent un index
+Y/Z/X ; les limites englobantes rendent ces contrôles conservateurs. La physique
+de toutes les entités n'est pas interrogée.
 
 ## Aperçu, analyse et export
 
@@ -149,6 +159,9 @@ et revient à l'aperçu, avec le premier voxel problématique marqué en rouge.
 
 L'assistance aux autels analyse les zones et sous-zones natives, en 3D, puis
 propose jusqu'à 64 positions modifiables à partir des dimensions observées.
+Les blocs sont tous examinés ; neuf échantillons par pièce/objet inclus servent
+à estimer leur couverture. Ce calcul progressif ne remplace pas la validation
+native avant construction.
 Ces zones théoriques ne vérifient pas progression, terrain, quota ou permission
 de créer un nouvel autel. Aucun autel n'est placé ni supprimé.
 
@@ -160,6 +173,12 @@ projet recalcule ses prix natifs avant construction. Le manifeste garde les piè
 natives et est publié en dernier par renommage sans remplacement. Un échec peut
 laisser de nouveaux fichiers incomplets sans publier de projet terminé ; aucun
 fichier existant n'est écrasé. L'export n'enregistre aucun état de coffre ou de quête.
+
+Le journal dev3 identifie chaque opération et son empreinte FNV64 diagnostique,
+sans valeur cryptographique. Diagnostics permet d'écrire un nouveau rapport TXT
+avec ancrage/rotation, budgets et préfixe acquitté. L'export peut répartir un module
+en plusieurs tuiles/catégories et regrouper les objets dans des sources distinctes ;
+positions, matériaux, pivots et rotations sont conservés, pas les indices de modules.
 
 Uniquement dans un monde hébergé localement, clavier/souris. Les collisions de
 meubles/entités, les fantômes texturés, une spirale arrondie vérifiée, la reprise

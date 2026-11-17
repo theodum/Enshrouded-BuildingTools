@@ -1,4 +1,4 @@
-Enshrouded Building Tools 0.34.0-dev2
+Enshrouded Building Tools 0.34.0-dev3
 ================================
 
 Files in the game folder
@@ -10,6 +10,7 @@ Files in the game folder
   BuildingTools-Languages\   the translations, one text file per language
   BuildingTools-Projects\    composite manifests and their BTBP modules
   BuildingTools-Projects.log diagnostic batch journal (created when used)
+  BuildingTools-Extended.ini.example reference defaults; never replaces your INI
 
 Building Tools Extended (development build)
   Blueprint mode -> Place -> Composite projects. Select the 0.5 m cube,
@@ -25,8 +26,15 @@ Building Tools Extended (development build)
   Native stairs use the selected real piece. The spiral layout is square.
   Large previews use module volumes, piece bounds and object markers.
   Save project writes NEW files; it never overwrites an existing blueprint.
+  Dev3: Home > Options > Extended section opens projects and diagnostics.
+  Native automatic placement is EXPERIMENTAL and disabled by default. Enable it
+  explicitly in a test world. Ordinary block composites need no native opt-in.
+  Examples include linked buildings, three storeys, a floating-plane exercise and
+  a 75,648-cell village. The native stair example is generated in-game using the
+  selected real registry IDs, then can be exported as a complete project.
   See BuildingToolsExtended-TESTING.md and BuildingToolsExtended-FORMAT.md.
   BuildingToolsExtended-STATUS.md lists remaining limits and extra test cases.
+  BuildingToolsExtended-EXAMPLES.md describes each included project.
   Use a local TEST world: in-game composite behavior awaits personal validation.
   Original author and MIT license: BuildingTools-LICENSE.txt.
 
