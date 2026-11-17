@@ -2,12 +2,15 @@
 
 A mod for **Enshrouded 1.0, Patch #1, Hotfix #4 and Hotfix #5** (single player and dedicated servers) that extends the Construction Hammer:
 
-This fork's **Building Tools Extended 0.34.0-dev1** adds native composite projects:
+This fork's **Building Tools Extended 0.34.0-dev2** adds native composite projects:
 one anchor, relative module rotations, one Build confirmation, preflight and progressive
 batches. Start with the included three-module example. See the
 [installation and in-game test protocol](docs/EXTENDED-TESTING.md),
 [manifest format and limitations](docs/BTPROJECT.md) and [fork audit](docs/EXTENDED-AUDIT.md).
-Composite v1 places blocks in locally hosted worlds; its in-game behavior awaits
+It also adds a virtual altitude plane with saved levels, the real item catalogue,
+compatible native props, native-piece stair layouts, architectural components,
+material replacement, read-only altar assistance and project export. See the
+[feature status and limits](docs/EXTENDED-STATUS.md). In-game behavior awaits
 personal validation. Original tools and classic `.btbp` files remain available.
 
 - **Replace**: repaint existing blocks with your current material, as a full shape,

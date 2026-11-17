@@ -1,10 +1,11 @@
-Enshrouded Building Tools 0.34.0-dev1
+Enshrouded Building Tools 0.34.0-dev2
 ================================
 
 Files in the game folder
   dinput8.dll           the mod (Windows loads it with the game; with the
                         Shroudforge download: mods\building-tools\BuildingTools.dll)
   BuildingTools.ini     settings, created on first start
+  BuildingTools-Extended.ini virtual plane, reference levels and extension options
   BuildingTools.log     what the mod did (previous session: BuildingTools.prev.log)
   BuildingTools-Languages\   the translations, one text file per language
   BuildingTools-Projects\    composite manifests and their BTBP modules
@@ -15,8 +16,17 @@ Building Tools Extended (development build)
   load Trois_modules_test, move/turn the whole project, press Build once.
   The mod checks every cell, then builds progressive batches automatically.
   Escape stops future batches. Existing blocks stay; large actions have only
-  partial native undo. Composite v1 places blocks only, not native objects.
+  partial native undo. Compatible props and native pieces are now supported;
+  logic-linked and progression objects are refused in composites.
+  Home: virtual altitude plane, persistent levels, Creative native objects.
+  The virtual plane requires Free Placement (F10 by default).
+  Place window: real item library, architectural components, material replacement,
+  Check without building, editable altar proposals and project export.
+  Native stairs use the selected real piece. The spiral layout is square.
+  Large previews use module volumes, piece bounds and object markers.
+  Save project writes NEW files; it never overwrites an existing blueprint.
   See BuildingToolsExtended-TESTING.md and BuildingToolsExtended-FORMAT.md.
+  BuildingToolsExtended-STATUS.md lists remaining limits and extra test cases.
   Use a local TEST world: in-game composite behavior awaits personal validation.
   Original author and MIT license: BuildingTools-LICENSE.txt.
 

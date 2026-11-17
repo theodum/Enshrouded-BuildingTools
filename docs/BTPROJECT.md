@@ -57,7 +57,7 @@ comme le placement original.
 - Tous les champs de l'exemple sont requis ; `rotation` est optionnelle dans
   un module (0 par défaut). Champs inconnus, doublons JSON et versions futures
   sont refusés. Rotations : 0, 90, 180 ou 270 degrés.
-- Maximum 128 modules, manifeste de 128 Kio, nom UTF-8 de 191 octets,
+- Maximum 128 modules, manifeste de 512 Kio, nom UTF-8 de 191 octets,
   nom de fichier de 191 octets, chemin Windows complet inférieur à MAX_PATH.
 - Seulement des noms de fichiers `.btbp` simples : pas de sous-dossier,
   chemin absolu, `..`, lecteur ou flux NTFS.
@@ -98,18 +98,71 @@ peut rester partielle ; les matériaux d'un lot déjà payé peuvent avoir été
 consommés même si son écriture échoue. Pas de rollback ni de remboursement
 supplémentaire inventé. L'annulation native conserve ses limites d'origine.
 
-## Limites de la première intégration
+## Extensions facultatives de dev2
 
-Blocs échantillonnés uniquement ; objets natifs des composites omis et signalés,
-sans modifier le placement d'objets des blueprints classiques. La subdivision
-ne recrée pas des escaliers, toitures ou objets natifs absents du contenu voxel.
-Collisions d'entités/meubles et prévisualisation des matériaux non implémentées.
-Le moteur peut encore refuser une cellule malgré le précontrôle.
+Un module peut avoir une `category` : `general`, `wall`, `floor`, `roof`, `tower`,
+`stairs` ou `furniture`. Elle permet de cibler un remplacement de matériau.
+Les anciens manifests sans cette propriété restent lisibles.
 
-L'aperçu global réutilise Vulkan : cellules translucides pour un volume englobant
-d'au plus 40 000 voxels, boîte englobante au-delà. Pas encore de maillage simplifié
-par module, de surbrillance des collisions ou de carte des zones d'autels.
-Uniquement dans un monde hébergé localement, avec clavier/souris ; pas de serveur
-dédié ni de placement automatique d'autels. La grille virtuelle à altitude fixe,
-le créatif étendu aux objets et les composants architecturaux sont des étapes
-ultérieures ; Free Placement existant permet déjà de viser dans le vide.
+Le tableau facultatif `pieces` ajoute jusqu'à 2 048 éléments natifs. Chaque entrée :
+
+| Champ | Signification |
+|---|---|
+| `item` | Identifiant entier uint32 non nul, lu dans la bibliothèque native ; obligatoire |
+| `offset` | Position du pivot natif en mètres, trois axes ; obligatoire |
+| `rotation` | 0, 90, 180 ou 270 degrés ; 0 par défaut |
+| `material` | Identifiant d'un vrai matériau de construction ; sinon matériau du marteau capturé au début du contrôle |
+| `clearance` | Dégagement vertical à vérifier, 0 à 8 m ; 0 par défaut, 2 m pour les escaliers générés |
+
+Le pivot d'une pièce native est celui de son modèle, différent du coin inférieur
+d'un module BTBP. Le générateur mesure les limites réelles du modèle et calcule
+le décalage nécessaire. Les manifests ne peuvent pas inventer une géométrie : le
+registre doit reconnaître un élément de construction et les appels natifs doivent
+accepter son coût. Les autels sont exclus. Aucun exemple d'identifiant d'escalier
+n'est inventé ; sélectionner l'élément réel puis exporter fournit les bons nombres.
+Un projet composé uniquement de `pieces` peut avoir `modules: []`.
+
+Les objets présents dans les BTBP sont transformés avec leur quaternion d'origine.
+Maximum 65 536 objets chargés. L'option Inclure les objets décide de leur placement.
+Leurs modèles et initialisations passent par PlaceProp ; les objets spéciaux,
+PNJ/animaux, objets à déverrouillages, PIDE, usines et objets liés à la logique
+sont refusés dans les composites. Les stocks des objets ne sont pas dans le cache
+des blocs : leur paiement natif est contrôlé par lot, sans garantie globale de stock.
+
+L'ordre de construction est blocs, pièces natives, puis objets compatibles.
+Les lots sont limités à 256 voxels, 8 pièces natives ou 32 objets, et à MaxShapes
+si cette valeur est inférieure. La couverture des objets utilise leurs limites
+natives tournées. Les pièces natives utilisent leurs volumes et leur dégagement ;
+les chevauchements avec les blocs du projet sont refusés avant la première écriture.
+Les cellules et pièces identiques sont dédupliquées. Le compteur de progression
+compte des placements, pas les voxels intérieurs d'une pièce native.
+
+## Aperçu, analyse et export
+
+L'aperçu réutilise Vulkan : cellules translucides pour un volume englobant d'au
+plus 40 000 voxels, volumes de modules au-delà, limites des pièces natives et
+repères d'objets. Pas de textures réelles ni de rendu du modèle complet des meubles.
+Les lignes sont regroupées en instances GPU, avec un budget de 4 096 segments.
+Les filtres de visibilité et d'altitude concernent seulement l'affichage ; tous
+les modules seront construits. Vérifier sans construire effectue la passe native
+et revient à l'aperçu, avec le premier voxel problématique marqué en rouge.
+
+L'assistance aux autels analyse les zones et sous-zones natives, en 3D, puis
+propose jusqu'à 64 positions modifiables à partir des dimensions observées.
+Ces zones théoriques ne vérifient pas progression, terrain, quota ou permission
+de créer un nouvel autel. Aucun autel n'est placé ni supprimé.
+
+Enregistrer le projet écrit uniquement de nouveaux fichiers. Le plan est découpé
+en tuiles BTBP de 32³ cellules (16 m de côté), par module et catégorie. Les objets
+sont répartis en fichiers de 512 objets. La limite de 128 fichiers sources reste
+appliquée. Les coûts indicatifs des tuiles exportées peuvent être inconnus ; le
+projet recalcule ses prix natifs avant construction. Le manifeste garde les pièces
+natives et est publié en dernier par renommage sans remplacement. Un échec peut
+laisser de nouveaux fichiers incomplets sans publier de projet terminé ; aucun
+fichier existant n'est écrasé. L'export n'enregistre aucun état de coffre ou de quête.
+
+Uniquement dans un monde hébergé localement, clavier/souris. Les collisions de
+meubles/entités, les fantômes texturés, une spirale arrondie vérifiée, la reprise
+de chantier et le rollback complet restent indisponibles. Le moteur peut encore
+refuser un placement après contrôle. Voir `EXTENDED-STATUS.md` pour les limites
+et le protocole de validation en jeu.

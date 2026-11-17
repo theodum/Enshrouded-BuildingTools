@@ -58,20 +58,23 @@ if [ "$1" = "test" ] || [ "$1" = "package" ]; then
     ./build/test_project
     ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_extended tests/test_extended.cpp
     ./build/test_extended
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_project_export tests/test_project_export.cpp
+    ./build/test_project_export
 fi
 
 if [ "$1" = "package" ]; then
     # Nexus Mods / manual install layout: the zip root is the game folder.
     rm -rf build/pkg && mkdir -p build/pkg dist
     cp build/dinput8.dll build/pkg/
-    sed "s/^Enshrouded Building Tools [0-9.]*/Enshrouded Building Tools $VERSION/" package/BuildingTools-README.txt > build/pkg/BuildingTools-README.txt
+    sed "s/^Enshrouded Building Tools .*/Enshrouded Building Tools $VERSION/" package/BuildingTools-README.txt > build/pkg/BuildingTools-README.txt
     cp LICENSE build/pkg/BuildingTools-LICENSE.txt
     mkdir -p build/pkg/BuildingTools-Languages
     cp lang/*.txt build/pkg/BuildingTools-Languages/
     mkdir -p build/pkg/BuildingTools-Projects
     cp examples/three-modules/*.btbp examples/three-modules/*.btproject build/pkg/BuildingTools-Projects/
-    cp docs/EXTENDED-TESTING.md build/pkg/BuildingToolsExtended-TESTING.md
+    sed 's/](EXTENDED-STATUS.md)/](BuildingToolsExtended-STATUS.md)/g' docs/EXTENDED-TESTING.md > build/pkg/BuildingToolsExtended-TESTING.md
     cp docs/BTPROJECT.md build/pkg/BuildingToolsExtended-FORMAT.md
+    cp docs/EXTENDED-STATUS.md build/pkg/BuildingToolsExtended-STATUS.md
     ZIP="dist/EnshroudedBuildingTools-$VERSION.zip"
     rm -f "$ZIP"
     (cd build/pkg && zip -q -9 "../../$ZIP" dinput8.dll BuildingTools-README.txt BuildingTools-LICENSE.txt BuildingTools-Languages/*.txt \

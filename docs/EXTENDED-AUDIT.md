@@ -44,3 +44,31 @@ Validation progressive avant la première écriture et revalidation avant chaque
 lot ; arrêt explicite, journal conservé en cas d'échec. Pas de reprise aveugle ni
 de promesse d'annulation totale. Les objets des composites restent exclus de
 cette première version ; les blueprints originaux conservent leurs objets.
+
+## Vérifications natives supplémentaires pour dev2
+
+Analyse statique en lecture seule de l'exécutable local dont le SHA-256 est
+consigné dans `EXTENDED-VALIDATION.md`. Les adresses ci-dessous sont propres
+à ce binaire ; elles ne remplacent pas les signatures lors du chargement.
+
+- `BaseAt`, RVA `0x470410` : le masque de zones à un bit utilise le volume
+  global ; plusieurs bits sélectionnent les intersections avec les sous-volumes.
+  Les propositions d'autels utilisent ces zones observées sans les modifier.
+- `PlaceCommit`, RVA `0x48e6f0` : à `+0x8c`, le chargement de `[r15+0x1c]`
+  alimente la recherche du matériau dans le registre. Le champ est un identifiant
+  de matériau, pas un identifiant de joueur. La disposition du commit est conservée.
+- `PlaceShape`, RVA `0x491a10` : à `+0x56`, le prix lit le matériau à `+0x454`
+  sur son argument matériau. Les nouvelles pièces conservent séparément forme
+  et matériau, sans changer la voie classique. Les deux instructions sont
+  vérifiées avant d'autoriser les pièces natives, ainsi que dans `test_core`.
+- Réflexion `keen::ItemInfo` : `flags` à `0x5d8`. L'énumération `keen::ItemFlag`
+  confirme `IsLogicEntity` au bit 19 et `IsFactoryEntity` au bit 20 ; les drapeaux
+  de connaissances, PIDE, PNJ et animaux sont également exclus des composites.
+- Le problème du writer `LogicEntityPlacedEvent` décrit dans `bpobjects.h`
+  demeure : aucune propriété sûre d'un writer extérieur au système Blueprint
+  n'a été établie. Les composites refusent ces objets. Une trace native optionnelle
+  en lecture seule prépare une investigation ultérieure en jeu, sans injection.
+
+Les API de quota/progression d'autel et de rollback complet ne sont pas exposées
+par les fonctions vérifiées. Les replis et les fonctions encore non livrées sont
+détaillés dans `EXTENDED-STATUS.md`. Aucun accès aux sauvegardes n'a été nécessaire.

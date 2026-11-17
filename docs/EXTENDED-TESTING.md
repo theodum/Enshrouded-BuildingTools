@@ -1,4 +1,4 @@
-# Building Tools Extended 0.34.0-dev1 — installation et recette
+# Building Tools Extended 0.34.0-dev2 — installation et recette
 
 Version de développement du fork, basée sur Building Tools 0.33.2.
 La compilation et les tests automatisés ne remplacent pas votre test dans le jeu.
@@ -7,7 +7,7 @@ La compilation et les tests automatisés ne remplacent pas votre test dans le je
 ## Installation manuelle
 
 Fermer le jeu. Utiliser l'archive locale
-`dist/EnshroudedBuildingTools-0.34.0-dev1.zip`, ou l'archive Shroudforge si ce
+`dist/EnshroudedBuildingTools-0.34.0-dev2.zip`, ou l'archive Shroudforge si ce
 chargeur est déjà utilisé. Les deux archives contiennent la même DLL.
 
 1. Conserver une copie de votre DLL de mod précédente si vous souhaitez revenir
@@ -18,7 +18,7 @@ chargeur est déjà utilisé. Les deux archives contiennent la même DLL.
 3. Avec Shroudforge, extraire l'archive correspondante : la DLL est dans
    `mods/building-tools/BuildingTools.dll`. Conserver une seule copie de Building
    Tools chargée. Les projets restent à côté de l'exécutable du jeu.
-4. Démarrer un **monde local de test** et vérifier la bannière 0.34.0-dev1 et
+4. Démarrer un **monde local de test** et vérifier la bannière 0.34.0-dev2 et
    `BuildingTools.log`. Aucun test ci-dessous ne doit utiliser votre monde principal.
 
 Le développement n'installe rien dans le jeu. Aucun fichier `.ksd`, sauvegarde
@@ -45,7 +45,7 @@ de votre monde de test, jeu arrêté ; la DLL ne réalise pas de sauvegarde auto
 6. Garder la rotation globale à 0°. Cliquer **Construire une seule fois** et
    ne pas changer d'outil, ouvrir de menu ou quitter la fenêtre du jeu pendant
    l'opération. Le mod contrôle tous les lots sans écrire, puis les construit.
-7. Attendre « Projet terminé : 312 cellules écrites ». Aucun clic manuel pour
+7. Attendre « Projet terminé : 312 placements effectués ». Aucun clic manuel pour
    aligner ou confirmer les modules suivants ne doit être nécessaire.
 
 Par rapport à l'ancrage monde A affiché :
@@ -100,6 +100,10 @@ d'annulation totale garantie. Les coûts d'un lot payé peuvent rester consommé
 
 ## Compilation depuis Windows / WSL
 
+Les essais complémentaires de dev2 sont décrits dans
+[EXTENDED-STATUS.md](EXTENDED-STATUS.md). Commencer par les trois modules ci-dessus
+avant d'essayer les objets ou les escaliers dans ce même monde de test.
+
 Dans PowerShell, depuis la racine du dépôt, avec WSL Ubuntu 24.04 et les
 dépendances décrites dans `docs/BUILDING.md` du dépôt installées :
 
@@ -129,6 +133,10 @@ Pour vérifier le parseur et le planificateur avec les sanitizers :
 ```sh
 c++ -std=c++17 -g -fsanitize=address,undefined tests/test_project.cpp -o build/test_project-sanitize
 ./build/test_project-sanitize
+c++ -std=c++17 -g -fsanitize=address,undefined tests/test_extended.cpp -o build/test_extended-sanitize
+./build/test_extended-sanitize
+c++ -std=c++17 -g -fsanitize=address,undefined tests/test_project_export.cpp -o build/test_project_export-sanitize
+./build/test_project_export-sanitize
 ```
 
 Les signatures contrôlées sur l'exécutable local passent au 17 novembre 2026.

@@ -3,6 +3,35 @@
 Each `## x.y.z` section is used as the release notes on GitHub and as the file
 changelog on Nexus Mods, so keep it short and written for players.
 
+## 0.34.0-dev2
+
+- **Virtual plane**: a drawn grid at a fixed altitude, 0.5 / 1 m snapping, movable
+  origin, camera-altitude reference and eight persistent levels in the separate
+  `BuildingTools-Extended.ini`. No invisible world blocks.
+- **Projects**: compatible native objects and verified native building-piece IDs,
+  quarter-turn transforms, item flags checked for special/logic-linked objects,
+  native pricing and per-entry geometry/material at commit. Ordinary prop placement
+  can be free with the opt-in Creative native objects option.
+- **Native library and architecture**: real registry IDs/names; walls with openings
+  and frames, floors with voids/borders, roofs, square/round multi-storey towers,
+  native straight/turning/imperial/square-spiral stair assemblies and landings.
+  Failed generation restores the previous in-memory draft.
+- **Preview**: bounded instanced Vulkan lines for grid, modules, altar areas,
+  native-piece bounds and object markers; module visibility and altitude slices.
+  Check without building returns to the preview and marks an offending voxel.
+- **Materials**: replacement in the preview for the whole project, a module or
+  architectural category, with native costs shown after checking.
+- **Altars**: observed 3D areas/sub-areas and editable theoretical proposals;
+  no automatic altar placement or bypass of progression/slot limits.
+- **Export**: new BTBP tiles plus a manifest published last; preserve native-piece
+  IDs/rotations/materials/headroom. Never overwrite existing files. Failed writes
+  do not publish a completed manifest.
+- Extended portable and exporter tests, UTF-8 validation, Win32-sized overflow
+  guards, native ABI checks and an opt-in read-only native-prop diagnostic trace.
+- **Experimental**: no in-game validation yet. Logic/special composite objects,
+  entity collision queries, exact textured/model ghosts and full rollback remain
+  unavailable; the status document gives the reasons and acceptance tests.
+
 ## 0.34.0-dev1
 
 - **Extended composite projects**: the Blueprint Place window adds Composite projects

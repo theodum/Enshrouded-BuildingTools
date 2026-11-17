@@ -30,6 +30,15 @@ The shaders in `src/shaders/` are compiled into the `src/*_vert.h` / `src/*_frag
 which are checked in. After changing a shader, regenerate them with `glslangValidator`, e.g.
 `glslangValidator -V --vn kCellsVert -o src/cells_vert.h src/shaders/cells.vert` (fragment
 shaders twice, the second time with `-DDEPTH` and a `Depth` name).
+The Extended line shaders have no depth variant:
+
+```sh
+glslangValidator -V --vn kLinesVert -o src/lines_vert.h src/shaders/lines.vert
+glslangValidator -V --vn kLinesFrag -o src/lines_frag.h src/shaders/lines.frag
+```
+
+`glslangValidator` is supplied by Ubuntu's `glslang-tools`; it is only needed
+when changing shader sources, not for a normal build.
 
 ## Commands
 
@@ -53,6 +62,10 @@ See [EXTENDED-TESTING.md](EXTENDED-TESTING.md) for tested Windows/WSL commands,
 sanitizers, installation and the personal in-game acceptance protocol.
 With Python 3, also run `python -m unittest discover -s tests -p test_project_example.py`:
 this checks fixture reproducibility and the example generator's non-overwrite guarantee.
+`test_extended` covers plane intersection, object transforms/flag policy, scoped
+replacement, components, storeys and native stair layouts. `test_project_export`
+compiles the actual exporter with file-only host adapters to check read-back,
+non-overwrite and manifest publication on failed writes. These run in `build/`.
 
 `tests/test_core.cpp` runs on the build machine (host compiler, `HOSTCXX` to override):
 
@@ -77,6 +90,8 @@ this checks fixture reproducibility and the example generator's non-overwrite gu
 | `tests/` | Unit tests |
 | `src/project.h` | Portable composite manifest, integer transforms, sparse plan and job state |
 | `src/project_runtime.h` | Native composite loading, preview, preflight, batch placement and journal |
+| `src/extended_*.h` | Plane, real registry catalogue, architecture, read-only altar assistance and native controls |
+| `src/project_export.h` | Non-overwriting project export and tiled legacy BTBP files |
 | `examples/three-modules/` | Packaged BTBP v1 fixtures and their BTProject manifest |
 | `tools/re/` | Python scripts used to analyse the game executable (see its README) |
 
