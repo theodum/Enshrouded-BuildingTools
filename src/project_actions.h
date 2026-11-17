@@ -44,11 +44,14 @@ template<class Runtime> bool dispatch_action(Action action, Runtime& runtime) {
 }
 // Always let the command policy explain a refusal, including a wrong cube size.
 // Native UI disabled buttons cannot call back and were silent in dev3.
-template<class View,class Request> void action_buttons(View& view,Request request) {
-    if(view.button(Action::Inspect,true))request(Action::Inspect);
-    if(view.button(Action::Build,true))request(Action::Build);
+template<class View,class Request> void action_buttons(View& view,Request request,bool enterHeld=false) {
+    // Enter has one owner (the existing keyboard Build path). The native UI can
+    // also report Enter on its focused button; do not race Inspect against Build.
+    if(view.button(Action::Inspect,true) && !enterHeld)request(Action::Inspect);
+    if(view.button(Action::Build,true) && !enterHeld)request(Action::Build);
 }
 enum class LaunchPoll { Wait, Ready, Timeout, Interrupted };
+inline bool live_commit(bool running,int pending,uint32_t age){return running && pending>0 && age<3000;}
 struct Launch {
     bool pending=false,closed=false,ready=false;uint32_t at=0;
     void begin(uint32_t now){pending=true;closed=ready=false;at=now;}

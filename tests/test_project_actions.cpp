@@ -68,6 +68,8 @@ int main(){
         rt.startFailure=ActionIssue::None;click(rt,action);CHECK(rt.starts==2 && rt.closes==1);
     }
     Runtime keyboard;CHECK(dispatch_action(Action::Build,keyboard));CHECK(!keyboard.inspect && keyboard.starts==1);
+    Runtime focusedInspect;Buttons nativeEnter{true,false};action_buttons(nativeEnter,[&](Action a){dispatch_action(a,focusedInspect);},true);
+    CHECK(focusedInspect.receivedActions.empty());CHECK(dispatch_action(Action::Build,focusedInspect));CHECK(!focusedInspect.inspect && focusedInspect.starts==1);
     Runtime doubleClick;Buttons both{true,true};action_buttons(both,[&](Action a){dispatch_action(a,doubleClick);});
     CHECK(doubleClick.starts==1 && doubleClick.closes==1 && doubleClick.inspect && doubleClick.lastIssue==ActionIssue::Busy);
     Runtime unchanged;Buttons none;action_buttons(none,[&](Action a){dispatch_action(a,unchanged);});CHECK(unchanged.receivedActions.empty());
@@ -77,5 +79,7 @@ int main(){
     launch.begin(100);CHECK(launch.poll(110,false,true)==LaunchPoll::Wait); // no close acknowledgement, never send a click
     launch.begin(0xfffffff0u);CHECK(launch.window_closed(true));CHECK(launch.poll(10,false,false)==LaunchPoll::Wait);CHECK(launch.poll(20,false,true)==LaunchPoll::Ready);
     launch.reset();CHECK(launch.poll(21,false,true)==LaunchPoll::Interrupted);
+    CHECK(live_commit(true,1,0));CHECK(live_commit(true,1,2999));CHECK(!live_commit(true,1,3000));CHECK(!live_commit(false,1,0));
+    CHECK(!live_commit(true,0,10)); // an abandoned queue stays suppressed even if a new operation is already running
     std::printf("actions: %d checks, %d failures\n",checks,failures);return failures!=0;
 }

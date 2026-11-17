@@ -69,6 +69,10 @@ non-overwrite and manifest publication on failed writes. These run in `build/`.
 `test_extended_config` compiles the actual profile adapter with an isolated
 in-memory profile store. It checks defaults, invalid ranges, round trips and
 preservation of keys outside this extension. It does not exercise Windows itself.
+`test_project_actions` runs the shared native-button dispatcher, command admission
+and close handshake: both actions, wrong cube, session/mode/base refusals, journal
+failure, duplicate input and a delayed UI screen update. The engine and native
+UI event delivery remain outside the host tests.
 After packaging, run `python3 tools/verify_package.py` to verify both archives,
 their PE/DLL imports, fixture bytes, languages, docs and safe file layout.
 

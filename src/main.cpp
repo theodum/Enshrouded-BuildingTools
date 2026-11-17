@@ -2565,7 +2565,8 @@ static uint8_t place_commit_hook_body(void* ctx, Commit* c, uint32_t shape) {
     // A cancelled or expired composite action must never fall through to a vanilla
     // write at the aimed position. Keep its marker until this commit is consumed.
     if (g_pend.project && g_pend.ctx == ctx && g_pend.tid == GetCurrentThreadId() &&
-        (!g_projectRunning || GetTickCount() - g_pend.tick >= 3000)) {
+        !project::live_commit(g_projectRunning!=0,g_pend.n,GetTickCount()-g_pend.tick)) {
+        LOG(.str("project commit SUPPRESSED pending=").i(g_pend.n).str(" running=").i(g_projectRunning).str(" ageMs=").u(GetTickCount()-g_pend.tick));
         g_pend.n = 0; g_pend.project = false; return 0;
     }
     bool mine = g_pend.n > 0 && g_pend.ctx == ctx && g_pend.tid == GetCurrentThreadId() &&

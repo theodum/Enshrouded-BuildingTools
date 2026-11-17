@@ -85,14 +85,18 @@ if [ "$1" = "package" ]; then
             -e 's/](EXTENDED-STATUS.md)/](BuildingToolsExtended-STATUS.md)/g' \
             -e 's/](DEV3-EXAMPLES.md)/](BuildingToolsExtended-EXAMPLES.md)/g' \
             -e 's/](DEV3-AUDIT.md)/](BuildingToolsExtended-AUDIT.md)/g' \
-            -e 's/](DEV3-VALIDATION.md)/](BuildingToolsExtended-VALIDATION.md)/g' "$1" > "build/pkg/BuildingToolsExtended-$2.md"
+            -e 's/](DEV3-VALIDATION.md)/](BuildingToolsExtended-BASELINE-DEV3.md)/g' \
+            -e 's/](DEV4-VALIDATION.md)/](BuildingToolsExtended-VALIDATION.md)/g' \
+            -e 's/](DEV4-ACTIONS-FIX.md)/](BuildingToolsExtended-ACTIONS-FIX.md)/g' "$1" > "build/pkg/BuildingToolsExtended-$2.md"
     }
     package_doc docs/EXTENDED-TESTING.md TESTING
     package_doc docs/BTPROJECT.md FORMAT
     package_doc docs/EXTENDED-STATUS.md STATUS
     package_doc docs/DEV3-EXAMPLES.md EXAMPLES
     package_doc docs/DEV3-AUDIT.md AUDIT
-    package_doc docs/DEV3-VALIDATION.md VALIDATION
+    package_doc docs/DEV3-VALIDATION.md BASELINE-DEV3
+    package_doc docs/DEV4-VALIDATION.md VALIDATION
+    package_doc docs/DEV4-ACTIONS-FIX.md ACTIONS-FIX
     cp CHANGELOG.md build/pkg/BuildingToolsExtended-CHANGELOG.md
     ZIP="dist/EnshroudedBuildingTools-$VERSION.zip"
     rm -f "$ZIP"

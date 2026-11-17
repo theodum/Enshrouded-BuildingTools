@@ -1,8 +1,14 @@
-# État de Building Tools Extended 0.34.0-dev3
+# État de Building Tools Extended 0.34.0-dev4
 
 Les fonctionnalités ci-dessous sont du code dans la DLL Windows. « Implémenté »
 ne signifie pas « validé dans Enshrouded » : aucun monde n'a été chargé par l'agent.
 La recette personnelle reste nécessaire, en commençant par les trois modules.
+
+Le premier test utilisateur de dev3 confirme le chargement de la DLL, l'interface,
+Vulkan et les manifests ; les actions ne démarraient pas. Dev4 corrige les refus
+silencieux et sécurise la fermeture de la fenêtre avant l'exécution. Voir
+[DEV4-ACTIONS-FIX.md](DEV4-ACTIONS-FIX.md) et [DEV4-VALIDATION.md](DEV4-VALIDATION.md).
+**Le placement réel avec dev4 reste à valider par l'utilisateur.**
 
 Dev3 est préparée pour cette campagne, sans installation automatique. Les objets
 et pièces natifs automatiques sont **expérimentaux et désactivés par défaut**.

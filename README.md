@@ -4,7 +4,7 @@ A development fork of the Enshrouded Construction Hammer mod. The original tools
 include local and dedicated-server building; Extended composite projects require
 a locally hosted world. This build has not been validated in the game.
 
-This fork's **Building Tools Extended 0.34.0-dev3** adds native composite projects:
+This fork's **Building Tools Extended 0.34.0-dev4** adds native composite projects:
 one anchor, relative module rotations, one Build confirmation, preflight and progressive
 batches. Start with the included three-module example. See the
 [installation and in-game test protocol](docs/EXTENDED-TESTING.md),
@@ -22,6 +22,12 @@ ABI mismatches disable them. Four additional test projects include three connect
 buildings, three storeys, a virtual-plane example and a 75,648-cell village.
 See the [dev3 audit](docs/DEV3-AUDIT.md), [validation results](docs/DEV3-VALIDATION.md)
 and [example instructions](docs/DEV3-EXAMPLES.md).
+
+Dev4 fixes silent composite-action refusals and the transition from the placement
+window to the job. Use the **0.5 m hammer cube**; source blueprint grids may still
+be larger. See the [action diagnosis and focused retest](docs/DEV4-ACTIONS-FIX.md)
+and [current validation report](docs/DEV4-VALIDATION.md). Real dev4 execution awaits
+the user's in-game retest; successful compilation is not treated as game validation.
 
 - **Replace**: repaint existing blocks with your current material, as a full shape,
   only where the shape overlaps existing blocks, or **connected** (fill bucket: every

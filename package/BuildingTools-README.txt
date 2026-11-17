@@ -1,4 +1,4 @@
-Enshrouded Building Tools 0.34.0-dev3
+Enshrouded Building Tools 0.34.0-dev4
 ================================
 
 Files in the game folder
@@ -35,6 +35,11 @@ Building Tools Extended (development build)
   See BuildingToolsExtended-TESTING.md and BuildingToolsExtended-FORMAT.md.
   BuildingToolsExtended-STATUS.md lists remaining limits and extra test cases.
   BuildingToolsExtended-EXAMPLES.md describes each included project.
+  Dev4: Build/Check clicks log their outcome and show any refusal by the buttons.
+  Select the actual 0.5 m HAMMER CUBE, then reopen the placement window. This does
+  not restrict source blueprint grids. Refresh altar zones/stock through the
+  native selector if requested. See BuildingToolsExtended-ACTIONS-FIX.md for the
+  short retest and expected log sequence. Actual dev4 execution awaits your test.
   Use a local TEST world: in-game composite behavior awaits personal validation.
   Original author and MIT license: BuildingTools-LICENSE.txt.
 

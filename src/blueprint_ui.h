@@ -354,7 +354,7 @@ static void draw_bp_place_window() {
         struct Buttons {
             bool button(project::Action action,bool enabled){return ui_button(T(action==project::Action::Inspect ? S_EXT_CHECK : S_EXACT_BUILD),enabled);}
         } buttons;
-        project::action_buttons(buttons,[](project::Action action){project_request_action(action,"button");});
+        project::action_buttons(buttons,[](project::Action action){project_request_action(action,"button");},(GetAsyncKeyState(VK_RETURN)&0x8000)!=0);
         if (ui_button(T(S_BP_BACK))) { g_bpPage = 0; g_bpPlaced = 0; }
         if (ui_button(T(S_EXACT_CANCEL))) g_menuReq = 2;
         bp_row_end(row); bp_keys(S_EXACT_BUILD); bp_frame_end(f); return;

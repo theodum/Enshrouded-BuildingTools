@@ -3,6 +3,27 @@
 Each `## x.y.z` section is used as the release notes on GitHub and as the file
 changelog on Nexus Mods, so keep it short and written for players.
 
+## 0.34.0-dev4
+
+- **Composite actions**: Build and Check now always receive the click and explain
+  refusals, rather than silently disabling the buttons for an incompatible held
+  shape. The captured dimensions and required 0.5 m hammer cube are shown beside
+  the actions. Source blueprints at 1/2/4 m remain supported.
+- Buttons and Enter share one guarded command path, with persistent French error
+  messages and explicit logs for receipt, refusal, startup, window handoff,
+  native input, validation results and build batches. Duplicate commands cannot
+  start a second operation.
+- Wait for the requested placement window closure and a stable game screen before
+  sending the first native click; timeout cleanly if the handoff fails. Do not
+  mistake a one-frame menu transition for cancellation. Existing safety checks
+  for shape, session, mode, altars, resources and collisions remain enforced.
+- Add access to the native altar/stock selector from the project window. Errors
+  before any published batch return to the preview with their reason; no automatic
+  retry or replay of a potentially paid batch.
+- Add regression tests for both button actions, refusal paths, journal failure,
+  duplicate input and the window-close handshake. Actual dev4 placement remains
+  subject to personal in-game testing; the package includes a focused retest guide.
+
 ## 0.34.0-dev3
 
 - **Home integration**: sections for projects, grid, preview, materials, creative
