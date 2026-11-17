@@ -15,6 +15,23 @@ static void bp_arm() {
     LeaveCriticalSection(&g_stateLock);
     g_menuReq = 2;
 }
+static bool project_request_action(project::Action action,const char* source) {
+    ProjectStateGuard guard;
+    struct Runtime {
+        const char* source;
+        project::ActionContext context(){return project_action_context();}
+        void received(project::Action action){project_log_action("CLICK",action,source,context());}
+        project::ActionIssue start(project::Action action){return project_start(action);}
+        void refused(project::Action action,project::ActionIssue issue,const project::ActionContext& c){project_refuse(action,issue,c);}
+        void handoff(project::Action action){
+            const DWORD now=GetTickCount();g_projectLaunch.begin(now);
+            g_exactPhase=0;g_exactArmTick=now;g_exactArmed=1;g_exactFire=0;
+            g_menuReq=2;
+            LOG(.str("project command CLOSE_REQUEST action=").str(project::action_name(action)).str(" op=").x(g_projectOperation).str(" armed=1 legacyFire=0"));
+        }
+    } runtime{source};
+    return project::dispatch_action(action,runtime);
+}
 static bool bp_save_confirm() {
     if (!g_exactOpen || g_exactArmed || g_bpWin != BPW_SAVE) return false;
     I3 c[2]; bp_save_corners(c);
@@ -31,15 +48,8 @@ static bool bp_save_confirm() {
     return true;
 }
 static bool bp_build_confirm() {
+    if(g_projectList)return project_request_action(project::Action::Build,"enter");
     if (!g_exactOpen || g_exactArmed || g_bpWin != BPW_PLACE || g_bpPage != 1 || !g_bp.ok) return false;
-    if (g_projectList) {
-        EnterCriticalSection(&g_stateLock);
-        g_projectInspect = false;
-        const bool started = project_start();
-        LeaveCriticalSection(&g_stateLock);
-        if (started) bp_arm();
-        return started;
-    }
     g_bpMinArm = bp_min_from(bp_anchor_now());
     write_full_ini(g_cfg);
     LOG(.str("blueprint: build armed, turn ").i(g_bpRot).str(", low cell (").fix(g_bpMinArm.x).c(',').fix(g_bpMinArm.y).c(',').fix(g_bpMinArm.z).c(')'));
@@ -335,12 +345,16 @@ static void draw_bp_place_window() {
         }
         bool shape = true; for (int a = 0; a < 3; ++a) if (g_scStep[a] != 0.5f) shape = false;
         if (!shape) bp_text(T(S_PROJECT_SHAPE));
-        bp_frame_rows_end(f); BpRow row; bp_row_begin(row);
-        if (ui_button(T(S_EXT_CHECK), shape && !g_projectRunning)) {
-            EnterCriticalSection(&g_stateLock); g_projectInspect = true; bool started = project_start(); LeaveCriticalSection(&g_stateLock);
-            if (started) bp_arm();
-        }
-        if (ui_button(T(S_EXACT_BUILD), shape && !g_projectRunning)) bp_build_confirm();
+        if(ui_button(T(S_EXT_ACTION_REFRESH))){LOG(.str("project action REFRESH_NATIVE_CATALOG"));g_exactPickReq=1;}
+        bp_frame_rows_end(f);
+        { Buf dimensions[3],hint;project_shape_dimensions(dimensions,g_scStep);
+          hint.fmt(T(S_EXT_ACTION_CURRENT_SHAPE),dimensions[0].z(),dimensions[1].z(),dimensions[2].z());bp_text(hint.z()); }
+        if(g_projectLastProblem)bp_text(g_projectLastProblem); // visible outside the scrolling body, beside the actions
+        BpRow row; bp_row_begin(row);
+        struct Buttons {
+            bool button(project::Action action,bool enabled){return ui_button(T(action==project::Action::Inspect ? S_EXT_CHECK : S_EXACT_BUILD),enabled);}
+        } buttons;
+        project::action_buttons(buttons,[](project::Action action){project_request_action(action,"button");});
         if (ui_button(T(S_BP_BACK))) { g_bpPage = 0; g_bpPlaced = 0; }
         if (ui_button(T(S_EXACT_CANCEL))) g_menuReq = 2;
         bp_row_end(row); bp_keys(S_EXACT_BUILD); bp_frame_end(f); return;

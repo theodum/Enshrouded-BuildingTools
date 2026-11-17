@@ -27,8 +27,12 @@ static bool g_projectProblem = false;
 static I3 g_projectProblemAt;
 static const char* g_projectLastProblem = nullptr;
 static DWORD g_projectReturnAt = 0;
+static project::Launch g_projectLaunch;
+static char g_projectActionMessage[512] = {};
+static bool g_projectPublishedBatch = false;
 static void project_preview_return() {
     g_projectRunning = 0; g_projectBatch = false; g_projectWaiting = 0; g_exactArmed = 0; g_exactFire = 0;
+    g_projectLaunch.reset();
     g_bpRot = g_projectRotation; g_bpWin = BPW_PLACE; g_bpPage = 1; g_bpPlaced = 1;
     g_bpAnchor = I3{g_projectOrigin.x + ((int64_t)1 << 30), g_projectOrigin.y + ((int64_t)1 << 30), g_projectOrigin.z + ((int64_t)1 << 30)};
     for (int a = 0; a < 3; ++a) g_bpOff[a] = 0;
@@ -196,7 +200,7 @@ static bool project_load(const wchar_t* name) {
     g_bp.filled = g_projectPlan.count; g_bp.ok = true; g_bpMirror = 0; g_projectLoaded = true; ++g_projectGeneration;
     LOG(.str("project loaded: ").str(g_projectManifest.name).str(" modules=").i(g_projectManifest.count)
         .str(" occupied native cells=").i(g_projectPlan.count).str(" duplicates removed=").i(g_projectPlan.duplicates)
-        .str(" objects loaded=").i(g_projectObjectCount));
+        .str(" objects loaded=").i(g_projectObjectCount).str(" captured shape size=(").f(g_scStep[0],4).c(',').f(g_scStep[1],4).c(',').f(g_scStep[2],4).str(")m"));
     return true;
 }
 static I3 project_origin_now() {
@@ -247,26 +251,79 @@ static void project_ghost_bits() {
 }
 static void project_stop(const char* why) {
     if (!g_projectRunning) return;
+    const bool returnPreview=g_projectInspect || !g_projectPublishedBatch;
+    LOG(.str("project execution ERROR op=").x(g_projectOperation).str(" phase=").i((int)g_projectJob.phase).str(" waiting=").i(g_projectWaiting).str(" published=").i(g_projectPublishedBatch).str(" reason=").str(why));
     g_projectJob.phase = project::Phase::Stopped;
     project_journal("STOP", why);
     g_projectRunning = 0; g_projectWaiting = 0; g_projectBatch = false;
+    g_projectLaunch.reset();
     g_exactArmed = 0; g_exactFire = 0; g_bpWin = BPW_NONE; g_bpGhost = 0;
     g_pend.n = 0; // preserve the project marker to suppress a late native commit
     g_bpRot = g_projectRotation;
     Buf b; b.fmt(T(S_EXT_JOB_STOP), num(g_projectJob.completed).s, why); flash(b.z()); beep(MB_ICONHAND);
     g_projectLastProblem = why;
     g_projectRunError = why;
-    if (g_projectInspect) project_preview_return();
+    if (returnPreview) project_preview_return();
 }
-static bool project_start() {
-    if (!g_projectLoaded || g_projectRunning || remote_session()) return false;
-    for (int a = 0; a < 3; ++a) if (g_scStep[a] != 0.5f) { flash(T(S_PROJECT_SHAPE)); return false; }
-    if (!g_remove || !g_caveForce || !g_baseAt || !g_projectBaseSys || GetTickCount() - g_projectBaseSeen > 10000) { flash(T(S_PROJECT_UNAVAILABLE)); return false; }
+static project::ActionContext project_action_context() {
+    project::ActionContext c;
+    c.running=g_projectRunning!=0; c.window=g_exactOpen && !g_exactHidden && g_bpWin==BPW_PLACE && g_bpPage==1;
+    c.armed=g_exactArmed!=0; c.loaded=g_projectList && g_projectLoaded && g_bp.ok;
+    c.local=!g_dedicated && !remote_session(); c.enabled=!g_modOff; c.mode=g_mode==MODE_BLUEPRINT && bp_tool();
+    c.systems=g_remove && g_caveForce && g_baseAt && g_placeOrig && g_placeCommitOrig;
+    c.bases=g_projectBaseSys!=nullptr; c.baseAge=GetTickCount()-g_projectBaseSeen; c.native=g_experimentalNative!=0;
+    for(int a=0;a<3;++a)c.step[a]=g_scStep[a];
+    c.cells=g_projectPlan.count;c.pieces=g_projectManifest.pieceCount;c.objects=g_projectUseObjects ? g_projectObjectCount : 0;
+    return c;
+}
+static void project_shape_dimensions(Buf* sizes,const float* step) {
+    for(int a=0;a<3;++a) { if(extended::finite(step[a]))sizes[a].f(step[a],4);else sizes[a].str("?"); }
+}
+static void project_log_action(const char* event,project::Action action,const char* source,const project::ActionContext& c) {
+    Buf dimensions[3];project_shape_dimensions(dimensions,c.step);
+    LOG(.str("project action ").str(event).str(" action=").str(project::action_name(action)).str(" source=").str(source)
+        .str(" window=").i(c.window).str(" armed=").i(c.armed).str(" loaded=").i(c.loaded).str(" running=").i(c.running)
+        .str(" exactOpen=").i(g_exactOpen).str(" hidden=").i(g_exactHidden).str(" bpWin=").i(g_bpWin).str(" page=").i(g_bpPage)
+        .str(" local=").i(c.local).str(" mode=").i(g_mode).str(" enabled=").i(c.enabled).str(" systems=").i(c.systems)
+        .str(" bases=").i(c.bases).str(" baseAgeMs=").u(c.baseAge).str(" step=(").str(dimensions[0].z()).c(',').str(dimensions[1].z()).c(',').str(dimensions[2].z())
+        .str(") cells=").i(c.cells).str(" pieces=").i(c.pieces).str(" objects=").i(c.objects));
+}
+static void project_refuse(project::Action action,project::ActionIssue issue,const project::ActionContext& context) {
+    Str key=S_PROJECT_NATIVE;
+    switch(issue) {
+    case project::ActionIssue::Busy:key=S_EXT_ACTION_BUSY;break;
+    case project::ActionIssue::Window:key=S_EXT_ACTION_WINDOW;break;
+    case project::ActionIssue::Armed:key=S_EXT_ACTION_ARMED;break;
+    case project::ActionIssue::NoProject:key=S_EXT_ACTION_NO_PROJECT;break;
+    case project::ActionIssue::Remote:key=S_BP_REMOTE;break;
+    case project::ActionIssue::Disabled:key=S_EXT_ACTION_DISABLED;break;
+    case project::ActionIssue::Mode:key=S_EXT_ACTION_MODE;break;
+    case project::ActionIssue::Shape:key=S_EXT_ACTION_SHAPE;break;
+    case project::ActionIssue::Systems:key=S_EXT_ACTION_SYSTEMS;break;
+    case project::ActionIssue::NoBases:key=S_EXT_ACTION_NO_BASES;break;
+    case project::ActionIssue::StaleBases:key=S_EXT_ACTION_STALE_BASES;break;
+    case project::ActionIssue::NativeDisabled:key=S_EXT_NATIVE_DISABLED;break;
+    case project::ActionIssue::Empty:key=S_BP_NOTHING;break;
+    case project::ActionIssue::Limits:key=S_PROJECT_RANGE;break;
+    case project::ActionIssue::Journal:key=S_PROJECT_JOURNAL;break;
+    default:break;
+    }
+    Buf reason;
+    if(issue==project::ActionIssue::Shape) {
+        Buf sizes[3];project_shape_dimensions(sizes,context.step);
+        reason.fmt(T(key),sizes[0].z(),sizes[1].z(),sizes[2].z());
+    } else reason.str(T(key));
+    copy_text(g_projectActionMessage,reason.z(),sizeof g_projectActionMessage);g_projectLastProblem=g_projectActionMessage;
+    flash(reason.z());beep(MB_ICONHAND);
+    LOG(.str("project action REFUSED action=").str(project::action_name(action)).str(" code=").str(project::issue_code(issue)).str(" reason=").str(reason.z()));
+}
+static project::ActionIssue project_start(project::Action action) {
+    const auto issue=project::action_issue(project_action_context()); if(issue!=project::ActionIssue::None)return issue;
+    g_projectInspect=action==project::Action::Inspect;
+    g_projectPublishedBatch=false;
     g_projectOrigin = project_origin_now(); g_projectRotation = g_bpRot;
     g_projectProblem = false; g_projectLastProblem = nullptr;
     g_projectObjectsInJob = g_projectUseObjects ? g_projectObjectCount : 0;
-    if ((g_projectObjectsInJob || g_projectManifest.pieceCount) && !g_experimentalNative) { flash(T(S_EXT_NATIVE_DISABLED)); return false; }
-    if (!g_projectPlan.count && !g_projectObjectsInJob && !g_projectManifest.pieceCount) { flash(T(S_BP_NOTHING)); return false; }
     g_projectJob.start(g_projectPlan.count + g_projectManifest.pieceCount + g_projectObjectsInJob); g_projectWaiting = 0; g_projectNeedN = 0;
     g_projectSourceMaterial = nullptr;
     g_projectShape = 0; g_projectCreative = creative_on();
@@ -277,10 +334,17 @@ static bool project_start() {
     g_projectWorstCheck=0; g_projectActiveLimit=g_projectBatchLimit;
     g_projectReturnAt = 0;
     g_projectDue = GetTickCount() + 500; g_projectWaitSince = GetTickCount();
+    if (!project_journal("BEGIN",project::action_name(action))) { g_projectJob.phase=project::Phase::Stopped;g_projectRunError=T(S_PROJECT_JOURNAL);return project::ActionIssue::Journal; }
     g_projectRunning = 1;
-    if (!project_journal("BEGIN")) { project_stop(T(S_PROJECT_JOURNAL)); g_bpWin = BPW_PLACE; return false; }
+    LOG(.str("project command START action=").str(project::action_name(action)).str(" op=").x(g_projectOperation).str(" validation=queued total=").i(g_projectJob.total));
     flash(T(S_PROJECT_BEGIN));
-    return true;
+    return project::ActionIssue::None;
+}
+static void project_window_closed(bool gameScreen,const char* why) {
+    ProjectStateGuard guard;
+    if(!g_projectRunning)return;
+    LOG(.str("project window CLOSED op=").x(g_projectOperation).str(" gameScreen=").i(gameScreen).str(" armed=").i(g_exactArmed).str(" reason=").str(why));
+    if(!g_projectLaunch.window_closed(gameScreen))project_stop(T(S_EXT_ACTION_WINDOW_CHANGED));
 }
 static bool project_cost(uint32_t item, uint32_t count, bool prop = false) {
     int n = 0; while (n < g_projectNeedN && g_projectNeed[n].item != item) ++n;
@@ -392,6 +456,7 @@ static uint8_t project_queue_pieces(CostList* list, void* ctx, void* state, uint
     }
     g_pendCost[g_pend.n] = (uint32_t)list->count; g_pend.tick = GetTickCount(); g_actList = list; g_actShapes = g_pend.n;
     if (!project_journal("NATIVE_PIECE_BATCH_BEGIN")) { list->count = before; project_stop(T(S_PROJECT_JOURNAL)); return 0; }
+    g_projectPublishedBatch=true;
     return 1;
 }
 static bool project_check(void* ctx, void* state, const CursorXf& target, bool costs) {
@@ -473,19 +538,21 @@ static bool project_check(void* ctx, void* state, const CursorXf& target, bool c
     return true;
 }
 static uint8_t project_click(CostList* list, void* ctx, void* state, uint8_t* pdata, const CursorXf& target) {
-    if (g_exactOpen || g_projectWaiting != 1) return 0;
+    if (g_exactOpen || g_projectWaiting != 1) { LOG(.str("project native click IGNORED window=").i(g_exactOpen).str(" waiting=").i(g_projectWaiting)); return 0; }
+    LOG(.str("project native click RECEIVED op=").x(g_projectOperation).str(" phase=").i((int)g_projectJob.phase).str(" next=").i(g_projectJob.next).str(" batch=").i(g_projectJob.batch));
     g_exactArmed = 0; g_exactFire = 0; g_projectWaiting = 2; g_projectWaitSince = GetTickCount();
     if (!g_projectShape) g_projectShape = state ? *(uint32_t*)state : 0;
     if (!g_projectSourceMaterial) g_projectSourceMaterial = pdata;
     if (!g_projectShape || !state || *(uint32_t*)state != g_projectShape || remote_session() || creative_on() != g_projectCreative) { project_stop(T(S_PROJECT_CHANGED)); return 0; }
     const bool checking = g_projectJob.phase == project::Phase::Checking;
+    if(checking && !g_projectJob.next)LOG(.str("project validation START op=").x(g_projectOperation).str(" inspect=").i(g_projectInspect));
     const DWORD checkAt=GetTickCount(); const bool valid=project_check(ctx,state,target,checking);
     const DWORD checkMs=GetTickCount()-checkAt;
     if (checkMs>g_projectWorstCheck) g_projectWorstCheck=checkMs;
     g_projectActiveLimit=extended::adapt_batch(g_projectActiveLimit,checkMs);
     if (!valid) return 0;
     if (checking) {
-        g_projectJob.checked(g_projectJob.batch);
+        if(!g_projectJob.checked(g_projectJob.batch)){project_stop(T(S_PROJECT_PARTIAL));return 0;}
         if (g_projectJob.phase == project::Phase::Building && !creative_on()) {
             for (int q = 0; q < g_projectNeedN; ++q) {
                 const int64_t have = stock_of(g_projectNeed[q].item);
@@ -493,10 +560,13 @@ static uint8_t project_click(CostList* list, void* ctx, void* state, uint8_t* pd
                 if (have < 0 || (uint64_t)have < g_projectNeed[q].count) { project_stop(T(S_PROJECT_STOCK)); return 0; }
             }
         }
-        project_journal(g_projectJob.phase == project::Phase::Checking ? "CHECK" : "CHECKED");
+        if(!project_journal(g_projectJob.phase == project::Phase::Checking ? "CHECK" : "CHECKED")){project_stop(T(S_PROJECT_JOURNAL));return 0;}
+        if(g_projectJob.phase==project::Phase::Building)LOG(.str("project validation RESULT op=").x(g_projectOperation).str(" valid=1 placements=").i(g_projectJob.total).str(" inspect=").i(g_projectInspect));
         if (g_projectInspect && g_projectJob.phase == project::Phase::Building) {
-            project_journal("INSPECTED"); project_preview_return(); flash(T(S_EXT_CHECK_OK)); return 0;
+            if(!project_journal("INSPECTED")){project_stop(T(S_PROJECT_JOURNAL));return 0;}
+            project_preview_return();g_projectLastProblem=T(S_EXT_CHECK_OK);flash(T(S_EXT_CHECK_OK));return 0;
         }
+        if(g_projectJob.phase==project::Phase::Building && !project_journal("BUILD_STARTED")){project_stop(T(S_PROJECT_JOURNAL));return 0;}
         g_projectWaiting = 0; g_projectDue = GetTickCount() + 150;
         return 0; // preflight clicks never return a buildable action to the game
     }
@@ -517,6 +587,7 @@ static uint8_t project_click(CostList* list, void* ctx, void* state, uint8_t* pd
         }
         g_pendCost[g_pend.n] = (uint32_t)list->count;
         if (!project_journal("OBJECT_BATCH_BEGIN")) { list->count = before; project_stop(T(S_PROJECT_JOURNAL)); return 0; }
+        g_projectPublishedBatch=true;
         g_pend.tick = GetTickCount(); g_actList = list; g_actShapes = g_pend.n; return 1;
     }
     g_bp.h.n[0] = g_projectJob.batch; g_bp.h.n[1] = g_bp.h.n[2] = 1;
@@ -527,6 +598,7 @@ static uint8_t project_click(CostList* list, void* ctx, void* state, uint8_t* pd
     if (!project_journal("BATCH_BEGIN")) { project_stop(T(S_PROJECT_JOURNAL)); return 0; }
     uint8_t result = bp_fill(list, ctx, state, pdata, target);
     if (!result || g_pend.n != g_projectJob.batch) { project_stop(T(S_PROJECT_NATIVE)); return 0; }
+    g_projectPublishedBatch=true;
     return result; // the game pays and invokes the existing commit hook
 }
 static bool project_commit_object(int index, void* ctx) {
@@ -549,6 +621,7 @@ static void project_committed(int expected, int written) {
     g_projectBatch = false; g_projectWaiting = 0; g_projectDue = GetTickCount() + 250;
     if (g_projectJob.phase == project::Phase::Complete) {
         project_journal("COMPLETE"); g_projectRunning = 0; g_exactArmed = 0; g_exactFire = 0;
+        g_projectLaunch.reset();
         g_bpWin = BPW_NONE; g_bpGhost = 0; g_bpRot = g_projectRotation;
         Buf b; b.fmt(T(S_EXT_JOB_DONE), num(g_projectJob.completed).s); flash(b.z());
     }
@@ -557,10 +630,16 @@ static void project_committed(int expected, int written) {
 // only when this returns true. Never retry a priced action or a partial commit.
 static bool project_poll(bool focus, bool inGame, uint8_t* held) {
     if (!g_projectRunning) return false;
-    if (!focus || g_modOff || g_mode != MODE_BLUEPRINT || !bp_tool() || remote_session() || creative_on() != g_projectCreative) { project_stop(T(S_PROJECT_CHANGED)); return false; }
+    if(!focus){project_stop(T(S_EXT_ACTION_FOCUS));return false;}
+    if(g_modOff || g_mode!=MODE_BLUEPRINT || !bp_tool()){project_stop(T(S_EXT_ACTION_MODE));return false;}
+    if(remote_session()){project_stop(T(S_BP_REMOTE));return false;}
+    if(creative_on()!=g_projectCreative){project_stop(T(S_EXT_ACTION_CREATIVE));return false;}
     if ((GetAsyncKeyState(VK_ESCAPE) & 0x8000) || key_down(g_cfg.keyCancel) || key_down(g_cfg.keyMenu) || key_down(g_cfg.keyOff)) { project_stop(T(S_PROJECT_CANCEL)); return false; }
     DWORD now = GetTickCount();
-    if (g_exactOpen) return false; // allow the confirmed window to finish closing
+    const auto launch=g_projectLaunch.poll(now,g_exactOpen!=0,inGame);
+    if(launch==project::LaunchPoll::Wait)return false;
+    if(launch==project::LaunchPoll::Timeout){project_stop(T(S_EXT_ACTION_CLOSE_TIMEOUT));return false;}
+    if(launch==project::LaunchPoll::Interrupted){project_stop(T(S_EXT_ACTION_WINDOW_CHANGED));return false;}
     if (!inGame || !held || (g_projectShape && *(uint32_t*)held != g_projectShape)) { project_stop(T(S_PROJECT_CHANGED)); return false; }
     if (g_projectWaiting) {
         if (now - g_projectWaitSince > 10000) project_stop(T(S_PROJECT_TIMEOUT));
@@ -573,6 +652,7 @@ static bool project_poll(bool focus, bool inGame, uint8_t* held) {
     if (project_piece_batch() && limit > 1) limit = 1;
     if (project_object_batch() && limit > 4) limit = 4;
     g_projectJob.prepare(limit); g_projectWaiting = 1; g_projectWaitSince = now;
+    LOG(.str("project native click SCHEDULED op=").x(g_projectOperation).str(" phase=").i((int)g_projectJob.phase).str(" next=").i(g_projectJob.next).str(" batch=").i(g_projectJob.batch));
     g_exactArmed = 1; g_exactFire = 0; g_bpWin = BPW_PLACE;
     Buf b; b.fmt(T(g_projectJob.phase == project::Phase::Checking ? S_EXT_JOB_CHECK : S_EXT_JOB_BUILD), num(g_projectJob.next).s, num(g_projectJob.total).s); flash(b.z());
     return true;

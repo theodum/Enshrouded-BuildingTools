@@ -104,6 +104,22 @@ FRENCH = {
     'extended.check_ms': 'Contrôle le plus lent (ms) ; limite actuelle par lot : {0} ; {1}',
     'extended.object_bounds_fail': 'Objet natif non préparé : incompatibilité, registre ou dimensions indisponibles, ou limite du projet atteinte. Aucun objet placé. Voir Diagnostics et BuildingTools.log.',
     'extended.config_fail': 'Réglages Extended non enregistrés. Les valeurs restent actives pour cette session ; vérifier l’accès en écriture à BuildingTools-Extended.ini. Voir BuildingTools.log.',
+    'extended.action_busy': 'Une opération composite est déjà en cours. L’arrêter avant d’en lancer une autre.',
+    'extended.action_window': 'Ouvrir la fenêtre de placement et sélectionner un projet composite avant cette action.',
+    'extended.action_armed': 'Un placement est déjà armé. L’annuler avant de demander une autre action.',
+    'extended.action_no_project': 'Aucun projet composite valide chargé. Sélectionner ou recharger un projet.',
+    'extended.action_disabled': 'Building Tools est désactivé. Activer le mod avant de vérifier ou construire.',
+    'extended.action_mode': 'L’exécution composite exige le mode Blueprint et l’outil Blueprint activé. L’opération n’a pas été poursuivie.',
+    'extended.action_shape': 'Action refusée : forme capturée de {0} × {1} × {2} m. Cube de 0,5 × 0,5 × 0,5 m requis. Fermer cette fenêtre, choisir ce cube dans le marteau puis rouvrir le projet.',
+    'extended.action_systems': 'Fonctions natives de validation ou placement indisponibles. Voir Diagnostics et BuildingTools.log ; aucune construction démarrée.',
+    'extended.action_no_bases': 'Zones d’autels non observées. Ouvrir Actualiser autels et stocks, puis revenir au projet.',
+    'extended.action_stale_bases': 'Données d’autels trop anciennes pour démarrer. Ouvrir Actualiser autels et stocks, puis réessayer. Les contrôles de couverture restent obligatoires.',
+    'extended.action_current_shape': 'Forme capturée : {0} × {1} × {2} m. Cube requis : 0,5 m.',
+    'extended.action_refresh': 'Actualiser autels et stocks (sélecteur natif)',
+    'extended.action_close_timeout': 'La fenêtre native n’est pas revenue au jeu en 5 secondes. Opération arrêtée avant tout nouveau clic. Voir BuildingTools.log.',
+    'extended.action_window_changed': 'L’écran actif a changé de façon inattendue. Exécution composite arrêtée ; aucun nouveau lot envoyé.',
+    'extended.action_focus': 'Le jeu a perdu le focus. Exécution composite arrêtée ; aucun nouveau lot envoyé.',
+    'extended.action_creative': 'Le mode créatif a changé pendant l’opération. Exécution arrêtée pour conserver des coûts cohérents.',
 }
 
 

@@ -15,6 +15,7 @@
 #include <windows.h>
 #include "core.h"
 #include "project.h"
+#include "project_actions.h"
 #include "extended_core.h"
 #include "native_abi.h"
 
@@ -24,7 +25,7 @@ using core::Aabb;
 using core::I3;
 
 #define MOD_NAME    "Building Tools"
-#define MOD_VERSION "0.34.0-dev3"
+#define MOD_VERSION "0.34.0-dev4"
 
 // -------------------------------------------------------------- freestanding
 extern "C" {
@@ -3693,7 +3694,10 @@ static uint8_t place_hook_body(CostList* list, void* ctx, void* state, void* pda
 
     // ---- server world
     EnterCriticalSection(&g_stateLock);
-    if (g_projectRunning && g_projectWaiting != 1) { LeaveCriticalSection(&g_stateLock); return 0; }
+    if (g_projectRunning && g_projectWaiting != 1) {
+        LOG(.str("project native server click IGNORED waiting=").i(g_projectWaiting).str(" window=").i(g_exactOpen));
+        LeaveCriticalSection(&g_stateLock); return 0;
+    }
     if (InterlockedExchange(&g_cancelReq, 0)) reset_corners();
     if (g_refundList && g_refundList != list) { g_refundN = 0; g_refundList = nullptr; }   // stale
     g_pend.n = 0;
@@ -4909,7 +4913,8 @@ static void play_ui_hook(void* a, void* b, void* c, void* d) {
             }
             else if (g_exactShown || GetTickCount() - g_exactReqTick > 1500) {
                 g_exactOpen = 0;
-                if (!g_exactArmed) exact_cancel(g_exactShown ? "window closed" : "window did not come up");
+                if (g_projectRunning) project_window_closed(wheel_screen(*scr),g_exactShown ? "window closed" : "window did not come up");
+                else if (!g_exactArmed) exact_cancel(g_exactShown ? "window closed" : "window did not come up");
                 else LOG(.str("exact: window closed, building"));
             }
         }
@@ -5426,6 +5431,7 @@ static int* exact_field(int k) { return k == 1 ? &g_cfg.exactW : k == 2 ? &g_cfg
 static void exact_cancel(const char* why) {
     EnterCriticalSection(&g_stateLock);
     if (g_projectRunning) project_stop(T(S_PROJECT_CANCEL));
+    g_projectReturnAt=0;g_projectLaunch.reset();
     g_exactArmed = 0; g_exactFire = 0; g_exactPhase = 0;
     reset_corners();
     const bool bp = g_bpWin != 0;
@@ -6394,9 +6400,11 @@ static DWORD WINAPI input_thread(void*) {
                 INPUT in[2] = {}; in[0].type = in[1].type = INPUT_MOUSE;
                 in[0].mi.dwFlags = MOUSEEVENTF_LEFTDOWN; in[1].mi.dwFlags = MOUSEEVENTF_LEFTUP;
                 const UINT sent = SendInput(1, &in[0], sizeof(INPUT));
+                LOG(.str("project native input SEND down=").i(sent).str(" error=").u(sent ? 0 : GetLastError()));
                 Sleep(70); // the existing native click path samples the mouse over frames
-                SendInput(1, &in[1], sizeof(INPUT));
-                if (!sent) { EnterCriticalSection(&g_stateLock); project_stop(T(S_PROJECT_TIMEOUT)); LeaveCriticalSection(&g_stateLock); }
+                const UINT released=SendInput(1,&in[1],sizeof(INPUT));
+                if(!released)LOG(.str("project native input RELEASE_FAILED error=").u(GetLastError()));
+                if (!sent || !released) { EnterCriticalSection(&g_stateLock); project_stop(T(S_PROJECT_TIMEOUT)); LeaveCriticalSection(&g_stateLock); }
             }
             for (bool& p : prev) p = true;
             continue;

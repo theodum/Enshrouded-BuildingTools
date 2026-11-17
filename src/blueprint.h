@@ -64,7 +64,7 @@ static volatile DWORD g_extendedLaunchAt = 0;
 static bool g_extendedLaunchSent = false;
 static int g_projectTab = 0;
 static bool project_load(const wchar_t* name);
-static bool project_start();
+static project::ActionIssue project_start(project::Action action);
 static uint8_t project_click(CostList*, void*, void*, uint8_t*, const CursorXf&);
 static I3 project_position(int index);
 static bool project_commit_object(int index, void* ctx);
@@ -776,7 +776,8 @@ static uint8_t bp_place_click(CostList* list, void* ctx, void* state, uint8_t* p
     if (!g_bpItemReg) bp_item_registry(ctx, state);    // the window's item names
     if (requestedPage == 3) catalog_refresh();
     LOG(.str("blueprint: ").str(g_bpSub == BP_SAVE ? "save" : "place").str(" window, block (")
-        .fix(g_scPos[0].x).c(',').fix(g_scPos[0].y).c(',').fix(g_scPos[0].z).c(')'));
+        .fix(g_scPos[0].x).c(',').fix(g_scPos[0].y).c(',').fix(g_scPos[0].z).str(") shape=").x(state ? *(uint32_t*)state : 0)
+        .str(" size=(").f(g_scStep[0],4).c(',').f(g_scStep[1],4).c(',').f(g_scStep[2],4).str(")m"));
     exact_begin(OP_BUILD);
     beep(MB_OK);
     return 0;

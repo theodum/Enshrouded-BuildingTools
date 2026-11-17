@@ -514,7 +514,23 @@
     X(S_EXT_OBJECT_BUDGET, "extended.object_budget", "Object bounds exceed 512 probe voxels. Use a smaller compatible object or the original manual placement tool.") \
     X(S_EXT_CHECK_MS, "extended.check_ms", "Slowest check (ms); current batch ceiling: {0}; {1}") \
     X(S_EXT_OBJECT_BOUNDS_FAIL, "extended.object_bounds_fail", "Native object could not be prepared: incompatible item, unavailable registry/bounds or project limit reached. No object was placed. See Diagnostics and BuildingTools.log.") \
-    X(S_EXT_CONFIG_FAIL, "extended.config_fail", "Extended settings could not be saved. Current values work for this session; check write access to BuildingTools-Extended.ini. See BuildingTools.log.")
+    X(S_EXT_CONFIG_FAIL, "extended.config_fail", "Extended settings could not be saved. Current values work for this session; check write access to BuildingTools-Extended.ini. See BuildingTools.log.") \
+    X(S_EXT_ACTION_BUSY, "extended.action_busy", "A composite operation is already running. Stop it before starting another.") \
+    X(S_EXT_ACTION_WINDOW, "extended.action_window", "Open the placement window and select a composite project before using this action.") \
+    X(S_EXT_ACTION_ARMED, "extended.action_armed", "A placement is already armed. Cancel it before requesting another action.") \
+    X(S_EXT_ACTION_NO_PROJECT, "extended.action_no_project", "No valid composite project is loaded. Select or reload a project.") \
+    X(S_EXT_ACTION_DISABLED, "extended.action_disabled", "Building Tools is disabled. Enable the mod before checking or building.") \
+    X(S_EXT_ACTION_MODE, "extended.action_mode", "Composite execution requires Blueprint mode and the Blueprint tool enabled. The operation was not continued.") \
+    X(S_EXT_ACTION_SHAPE, "extended.action_shape", "Action refused: captured shape is {0} x {1} x {2} m. A 0.5 x 0.5 x 0.5 m cube is required. Close this window, select that cube in the hammer and reopen the project.") \
+    X(S_EXT_ACTION_SYSTEMS, "extended.action_systems", "Required native validation/placement hooks are unavailable. Check Diagnostics and BuildingTools.log; no construction was started.") \
+    X(S_EXT_ACTION_NO_BASES, "extended.action_no_bases", "Altar zones have not been observed. Open Refresh altar zones and stock, then return to this project.") \
+    X(S_EXT_ACTION_STALE_BASES, "extended.action_stale_bases", "Altar data is too old to start safely. Open Refresh altar zones and stock, then try again. Coverage checks remain required.") \
+    X(S_EXT_ACTION_CURRENT_SHAPE, "extended.action_current_shape", "Captured shape: {0} x {1} x {2} m. Required cube: 0.5 m.") \
+    X(S_EXT_ACTION_REFRESH, "extended.action_refresh", "Refresh altar zones and stock (native selector)") \
+    X(S_EXT_ACTION_CLOSE_TIMEOUT, "extended.action_close_timeout", "The native placement window did not return to the game within 5 seconds. Operation stopped before sending another click. See BuildingTools.log.") \
+    X(S_EXT_ACTION_WINDOW_CHANGED, "extended.action_window_changed", "The active game screen changed unexpectedly. Composite execution was stopped; no further batch was sent.") \
+    X(S_EXT_ACTION_FOCUS, "extended.action_focus", "The game lost focus. Composite execution was stopped; no further batch was sent.") \
+    X(S_EXT_ACTION_CREATIVE, "extended.action_creative", "Creative building changed during the operation. Execution stopped to keep pricing consistent.")
 
 enum Str {
 #define BT_STR_ID(id, key, en) id,
