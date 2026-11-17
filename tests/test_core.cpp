@@ -107,6 +107,8 @@ static void binary_checks(const char* exe) {
     CHECK(!memcmp(&img[0x499540], popStolen, 5), "pop hook steals mov [rsp+10h],rbx");
     const uint8_t commitStolen[5] = {0x48,0x8B,0xC4,0x55,0x53};
     CHECK(!memcmp(&img[0x48e6f0], commitStolen, 5), "commit hook steals mov rax,rsp; push rbp; push rbx");
+    CHECK(!memcmp(&img[0x48e77c], "\x41\x8b\x4f\x1c", 4), "native pieces: commit material item comes from +0x1c");
+    CHECK(!memcmp(&img[0x491a66], "\x44\x0f\xb6\xae\x54\x04\x00\x00", 8), "native pieces: price uses material item +0x454");
     CHECK(0x2d88f2 + 81 == 0x2d8943, "server branch sits directly before the placement call");
     {   // magic chests: the two StockCount calls of the missing-materials check, found by scan
         const uint8_t* hits[4];

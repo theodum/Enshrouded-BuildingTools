@@ -538,6 +538,7 @@ static uint8_t bp_fill(CostList* list, void* ctx, void* state, uint8_t* pdata, c
     for (int q = 0; q < g_bp.h.nm; q++) {
         const core::BpMat& bm = g_bp.h.m[q];
         item[q] = nullptr; g_bpMatByte[q] = 0; mat[q] = -1;
+        if (g_projectBatch && !bm.cells) continue;
         if (bm.item && reg) {
             uint8_t* it = g_bpItemById(bm.item, g_bpItemReg);                  // as the game looks items up
             if (bp_block_item(it)) item[q] = it;
@@ -604,6 +605,7 @@ static uint8_t bp_fill(CostList* list, void* ctx, void* state, uint8_t* pdata, c
                 I3 p = g_projectBatch ? project_position(ri) : bp_cell_pos(mn, rs, ri, j, rk);
                 xf.pos[0] = p.x + off[0]; xf.pos[1] = p.y + off[1]; xf.pos[2] = p.z + off[2];
                 g_pendMat[g_pend.n] = mi;
+                g_pendNativeShape[g_pend.n] = 0;
                 g_pendObj[g_pend.n] = 0;
                 const uint64_t before = list->count;
                 if (price_shape(list, ctx, state, item[mi], &xf, false)) priced++;
@@ -753,7 +755,7 @@ static uint8_t bp_place_click(CostList* list, void* ctx, void* state, uint8_t* p
     g_scCursorOff = g_bpSub == BP_SAVE && aim ? 0x338 : 0x300;          // the live aim (place window)
     g_scOff[0] = g_scPos[0].x - t.pos[0]; g_scOff[1] = g_scPos[0].y - t.pos[1]; g_scOff[2] = g_scPos[0].z - t.pos[2];
     set_sc_rot(t.rot);
-    g_bpPlaced = 0; g_bpPage = 0; g_projectList = false; g_projectLoaded = false;
+    g_bpPlaced = 0; g_bpPage = 0; g_projectList = false;
     for (int a = 0; a < 3; a++) { g_bpOff[a] = 0; g_bpSaveOff[a] = 0; }
     g_bpNameEdit = 0;
     g_bpWin = g_bpSub == BP_SAVE ? BPW_SAVE : BPW_PLACE;

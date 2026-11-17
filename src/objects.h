@@ -290,7 +290,7 @@ static uint8_t prop_pay_hook(uint8_t* mode, CostList* list, uint8_t consume) {
     g_objStage = 0;
     const int m = obj_mode();
     const float* nativePos = readable(mode - 0x2b0 + 0x10, 12) ? (const float*)(mode - 0x2b0 + 0x10) : nullptr;
-    const bool free = g_creativeProps && creative_on() && !obj_remote() && prop_item(g_propItem) && own_click(nativePos);
+    const bool free = g_creativeProps && creative_on() && !obj_remote() && extended_prop_item(g_propItem, true) && own_click(nativePos);
     if (m == core::OBJ_SINGLE || g_dedicated) return free ? 1 : g_payOrig(mode, list, consume);
     // the place info (rbp+0x120) is filled before the pay call; mode is rbp+0x3d0 at both calls
     const float* clickPos = readable(mode - 0x2b0 + 0x10, 12) ? (const float*)(mode - 0x2b0 + 0x10) : nullptr;
@@ -325,6 +325,26 @@ static uint8_t prop_pay_hook(uint8_t* mode, CostList* list, uint8_t consume) {
     g_objStepList = (uint8_t*)list != mode + 0xf0 && many.data ? list : nullptr;
     return 1;
 }
+// Optional, read-only diagnostics of the real prop system's event writer. This
+// never borrows that writer for a blueprint or sends synthetic logic events.
+static uint8_t observed_native_prop(void* ctx, uint8_t* info, uint32_t item) {
+    static int traces = 0;
+    BpEventBuf* buffer = nullptr; uint32_t before = 0; uint16_t type = 0;
+    bool trace = g_nativeObjectTrace && traces < 64;
+    if (trace && ctx && readable((uint8_t*)ctx + 0xe0, 8)) {
+        auto writer = *(uint8_t**)((uint8_t*)ctx + 0xe0);
+        if (writer && readable(writer, 0x1c0)) {
+            type = *(uint16_t*)(writer + 0xb8); auto b = *(BpEventBuf**)(writer + 0x1b8);
+            if (b && readable(b, sizeof *b) && b->cap <= 1048576 && b->used <= b->cap) { buffer = b; before = b->used; }
+        }
+    }
+    uint8_t result = g_placePropOrig(ctx, info, item);
+    if (trace) {
+        ++traces; uint32_t after = buffer && readable(buffer, sizeof *buffer) ? buffer->used : before;
+        LOG(.str("native prop trace: item=").x(item).str(" result=").i(result).str(" eventTypeIndex=").i(type).str(" eventBytes=").u(before).str(" -> ").u(after));
+    }
+    return result;
+}
 static uint8_t prop_place_hook(void* ctx, uint8_t* info, uint32_t item) {
     LONG stage = g_objStageTid == GetCurrentThreadId() ? InterlockedExchange(&g_objStage, 0) : 0;
     const int m = obj_mode();
@@ -338,9 +358,9 @@ static uint8_t prop_place_hook(void* ctx, uint8_t* info, uint32_t item) {
         pos[1] += (float)(core::obj_rand((uint32_t)g_cfg.objSeed, (int)k, 2) * g_cfg.objElev / 100.0);
         float base[4]; memcpy(base, info + 0x1c, 16);
         core::obj_turn(base, core::obj_rand((uint32_t)g_cfg.objSeed, (int)k, 1) * g_cfg.objRot * core::kPi / 180.0, (float*)(one + 0x1c));
-        return g_placePropOrig(ctx, one, item);
+        return observed_native_prop(ctx, one, item);
     }
-    if (!stage || !info || m == core::OBJ_SINGLE) return g_placePropOrig(ctx, info, item);
+    if (!stage || !info || m == core::OBJ_SINGLE) return observed_native_prop(ctx, info, item);
     const float* fp = (const float*)(info + 0x10);
     const double click[3] = { fp[0], fp[1], fp[2] };
     const int need = core::obj_points(m);
@@ -378,7 +398,7 @@ static uint8_t prop_place_hook(void* ctx, uint8_t* info, uint32_t item) {
     g_objPtN = 0;
     LeaveCriticalSection(&g_stateLock);
     obj_undo_flag();
-    if (clicked != need - 1) { LOG(.str("objects: ").i(clicked).str(" points clicked, ").i(need - 1).str(" needed; placed one")); return g_placePropOrig(ctx, info, item); }
+    if (clicked != need - 1) { LOG(.str("objects: ").i(clicked).str(" points clicked, ").i(need - 1).str(" needed; placed one")); return observed_native_prop(ctx, info, item); }
     if (!fromClient) {
         for (int a = 0; a < 3; a++) pt[need - 1][a] = click[a];
         if (o.ref == core::OBJ_REF_GROUND) o.ref = core::OBJ_REF_SLOPE;
@@ -398,7 +418,7 @@ static uint8_t prop_place_hook(void* ctx, uint8_t* info, uint32_t item) {
         pos[0] = (float)spot[i].p[0]; pos[1] = (float)spot[i].p[1]; pos[2] = (float)spot[i].p[2];
         core::obj_spot_rot(base, spot[i], (float*)(one + 0x1c));
         undo_before(us, i);
-        if (g_placePropOrig(ctx, one, item)) placed++;
+        if (observed_native_prop(ctx, one, item)) placed++;
         undo_after(us);
     }
     undo_end(us);

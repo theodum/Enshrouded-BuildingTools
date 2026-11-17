@@ -4,11 +4,12 @@
 #include "core.h"
 
 namespace project {
-constexpr int MaxModules = 128, MaxCells = 1048576, MaxBytes = 131072;
+constexpr int MaxModules = 128, MaxCells = 1048576, MaxBytes = 524288, MaxPieces = 2048;
 constexpr int Unit = 16, Cell = 8; // integer sixteenths of a metre; native 0.5 m voxels
 constexpr int MaxCoord = 1048576;
 struct Module { char file[192]; int offset[3]; int rotation; int category; };
-struct Manifest { char name[192]; int grid; int anchor[3]; int count; Module modules[MaxModules]; };
+struct NativePiece { uint32_t item; int offset[3]; int rotation; uint32_t material; int clearance; };
+struct Manifest { char name[192]; int grid; int anchor[3]; int count; Module modules[MaxModules]; int pieceCount; NativePiece pieces[MaxPieces]; };
 struct Error { const char* message = nullptr; int at = 0; int module = -1; };
 inline bool equal(const char* a, const char* b) { while (*a && *a == *b) { ++a; ++b; } return *a == *b; }
 inline bool safe_file(const char* s) {
@@ -45,7 +46,19 @@ struct Reader {
             unsigned char c = (unsigned char)s[at++];
             if (c == '"') { out[n] = 0; return true; }
             if (c < 32) return fail("Control character in string");
-            if (c != '\\') { if (!put(c)) return false; continue; }
+            if (c != '\\') {
+                if (c < 0x80) { if (!put(c)) return false; continue; }
+                int count = c >= 0xc2 && c <= 0xdf ? 1 : c >= 0xe0 && c <= 0xef ? 2 : c >= 0xf0 && c <= 0xf4 ? 3 : -1;
+                if (count < 0 || !put(c)) return fail("Invalid UTF-8 string");
+                unsigned value = c & ((1u << (6 - count)) - 1);
+                for (int k = 0; k < count; ++k) {
+                    if (at == size) return fail("Truncated UTF-8 string"); unsigned char next = (unsigned char)s[at++];
+                    if ((next & 0xc0) != 0x80 || !put(next)) return fail("Invalid UTF-8 continuation");
+                    value = (value << 6) | (next & 63);
+                }
+                if ((count == 1 && value < 0x80) || (count == 2 && value < 0x800) || (count == 3 && value < 0x10000) || value > 0x10ffff || (value >= 0xd800 && value <= 0xdfff)) return fail("Invalid UTF-8 code point");
+                continue;
+            }
             if (at == size) return fail("Truncated escape");
             c = (unsigned char)s[at++];
             if (c == '"' || c == '\\' || c == '/') { if (!put(c)) return false; }
@@ -86,6 +99,14 @@ struct Reader {
         *out = (int)(v * Unit / den) * (neg ? -1 : 1); return true;
     }
     bool vector(int* p) { return want('[') && number(p) && want(',') && number(p + 1) && want(',') && number(p + 2) && want(']'); }
+    bool item_id(uint32_t* out) {
+        space(); uint64_t value = 0; int digits = 0; const int start = at;
+        while (at < size && s[at] >= '0' && s[at] <= '9') {
+            value = value * 10 + s[at++] - '0'; if (++digits > 10 || value > 0xffffffffu) return fail("Item ID out of range");
+        }
+        if (!digits || !value || (digits > 1 && s[start] == '0')) return fail("Expected nonzero integer item ID");
+        *out = (uint32_t)value; return true;
+    }
     bool field(unsigned* seen, unsigned bit) { if (*seen & bit) return fail("Repeated JSON field"); *seen |= bit; return true; }
     bool module(Module* m) {
         if (!want('{')) return false;
@@ -102,14 +123,34 @@ struct Reader {
                 char value[24]; if (!field(&seen, 8) || !string(value, sizeof value)) return false;
                 const char* names[] = {"general", "wall", "floor", "roof", "tower", "stairs", "furniture"};
                 int at = 0; while (at < 7 && !equal(value, names[at])) ++at;
-                if (at == 7) return fail("Unknown architectural category"); m->category = at;
+                if (at == 7) return fail("Unknown architectural category");
+                m->category = at;
             } else return fail("Unknown module field");
         } while (take(','));
         return want('}') && ((seen & 3) == 3 || fail("Module needs file and offset"));
     }
+    bool piece(NativePiece* piece) {
+        if (!want('{')) return false;
+        unsigned seen = 0; piece->rotation = 0; piece->material = 0; piece->clearance = 0;
+        do {
+            char key[32]; if (!string(key, sizeof key) || !want(':')) return false;
+            if (equal(key, "item")) {
+                if (!field(&seen, 1)) return false;
+                if (!item_id(&piece->item)) return false;
+            } else if (equal(key, "offset")) { if (!field(&seen, 2) || !vector(piece->offset)) return false; }
+            else if (equal(key, "rotation")) {
+                int r; if (!field(&seen, 4) || !number(&r)) return false;
+                if (r < 0 || r > 270 * Unit || r % (90 * Unit)) return fail("Invalid native-piece rotation");
+                piece->rotation = r / (90 * Unit);
+            } else if (equal(key, "material")) { if (!field(&seen, 8) || !item_id(&piece->material)) return false; }
+            else if (equal(key, "clearance")) { if (!field(&seen, 16) || !number(&piece->clearance) || piece->clearance < 0 || piece->clearance > 128) return fail("Native clearance must be between 0 and 8 m"); }
+            else return fail("Unknown native piece field");
+        } while (take(','));
+        return want('}') && ((seen & 3) == 3 || fail("Native piece needs item and offset"));
+    }
 };
 inline bool decode(const char* data, int size, Manifest* out, Error* error) {
-    *error = Error{}; out->count = 0; out->grid = Unit; out->name[0] = 0;
+    *error = Error{}; out->count = out->pieceCount = 0; out->grid = Unit; out->name[0] = 0;
     for (int a = 0; a < 3; ++a) out->anchor[a] = 0;
     Reader r{data, size, 0, error}; unsigned seen = 0;
     if (!data || size < 2 || size > MaxBytes) return r.fail("Manifest size out of range");
@@ -129,6 +170,7 @@ inline bool decode(const char* data, int size, Manifest* out, Error* error) {
         } else if (equal(key, "anchor")) { if (!r.field(&seen, 16) || !r.vector(out->anchor)) return false; }
         else if (equal(key, "modules")) {
             if (!r.field(&seen, 32) || !r.want('[')) return false;
+            if (r.take(']')) continue;
             do {
                 if (out->count == MaxModules) return r.fail("Too many modules");
                 error->module = out->count;
@@ -137,18 +179,26 @@ inline bool decode(const char* data, int size, Manifest* out, Error* error) {
             } while (r.take(','));
             if (!r.want(']')) return false;
             error->module = -1;
+        } else if (equal(key, "pieces")) {
+            if (!r.field(&seen, 64) || !r.want('[')) return false;
+            if (r.take(']')) continue;
+            do {
+                if (out->pieceCount == MaxPieces) return r.fail("Too many native pieces");
+                if (!r.piece(&out->pieces[out->pieceCount++])) return false;
+            } while (r.take(','));
+            if (!r.want(']')) return false;
         } else return r.fail("Unknown project field");
     } while (r.take(','));
     if (!r.want('}')) return false;
     r.space(); if (r.at != size) return r.fail("Trailing data after manifest");
-    if (seen != 63) return r.fail("Missing project field");
+    if ((seen & 63) != 63 || (!out->count && !out->pieceCount)) return r.fail("Missing project field or empty project");
     for (int a = 0; a < 3; ++a) if (out->anchor[a] % Cell) return r.fail("Anchor must align to the 0.5 m grid");
     for (int m = 0; m < out->count; ++m)
         for (int a = 0; a < 3; ++a) if (out->modules[m].offset[a] % Cell) { error->module = m; return r.fail("Module offset must align to the 0.5 m grid"); }
     return true;
 }
 
-struct CellEntry { int p[3]; uint16_t module; uint8_t material; };
+struct CellEntry { int p[3]; uint16_t module; uint8_t material; uint8_t category; };
 struct Plan {
     CellEntry* cells; int capacity, count = 0;
     core::BpMat materials[core::BP_MAX_MATS] = {}; int materialCount = 0;
@@ -205,7 +255,7 @@ inline bool add(Plan* plan, const Module& module, int index, const core::BpHeade
             c.p[0] = module.offset[0] + (x * turnedScale[0] + xx) * Cell;
             c.p[1] = module.offset[1] + (j * turnedScale[1] + yy) * Cell;
             c.p[2] = module.offset[2] + (z * turnedScale[2] + zz) * Cell;
-            c.module = (uint16_t)index; c.material = (uint8_t)mapping[m];
+            c.module = (uint16_t)index; c.material = (uint8_t)mapping[m]; c.category = (uint8_t)module.category;
             for (int a = 0; a < 3; ++a) if (c.p[a] < -MaxCoord || c.p[a] > MaxCoord - Cell) return fail(error, "Expanded project coordinate out of range", index);
         }
     }
@@ -255,7 +305,8 @@ inline int replace_material(Plan* plan, const Manifest& manifest, int source, in
     for (int i = 0; i < plan->count; ++i) {
         auto& c = plan->cells[i];
         if (c.module >= manifest.count) return -1;
-        if (c.material == source && (module < 0 || c.module == module) && (category < 0 || manifest.modules[c.module].category == category)) {
+        const int type = c.category ? c.category : manifest.modules[c.module].category;
+        if (c.material == source && (module < 0 || c.module == module) && (category < 0 || type == category)) {
             if (c.material != target) { c.material = (uint8_t)target; ++changed; }
         }
     }

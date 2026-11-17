@@ -384,6 +384,7 @@
     X(S_GRID_ON, "grid.on", "Virtual construction plane") \
     X(S_GRID_STEP, "grid.step", "Grid increment") \
     X(S_GRID_HEIGHT, "grid.height", "Plane altitude Y (m)") \
+    X(S_GRID_CAMERA_Y, "grid.camera_y", "Use the camera altitude as a reference") \
     X(S_GRID_X, "grid.x", "Grid origin X (m)") \
     X(S_GRID_Z, "grid.z", "Grid origin Z (m)") \
     X(S_GRID_AXES, "grid.axes", "Show grid axes") \
@@ -404,7 +405,7 @@
     X(S_EXT_MATERIALS, "extended.materials", "Building materials") \
     X(S_EXT_PROPS, "extended.props", "Compatible native objects") \
     X(S_EXT_PIECES, "extended.pieces", "Native building pieces") \
-    X(S_EXT_LINKED, "extended.linked", "Logic-linked objects (read only)") \
+    X(S_EXT_LINKED, "extended.linked", "Special or logic-linked objects (read only)") \
     X(S_EXT_CATEGORY, "extended.category", "Category") \
     X(S_EXT_REFRESH, "extended.refresh", "Refresh library") \
     X(S_EXT_PAGE, "extended.page", "Page") \
@@ -424,7 +425,63 @@
     X(S_EXT_REPLACE, "extended.replace", "Apply material replacement to the preview") \
     X(S_EXT_REPLACED, "extended.replaced", "Material replaced in {0} cells; world unchanged") \
     X(S_EXT_CHECK, "extended.check", "Check without building") \
-    X(S_EXT_CHECK_OK, "extended.check_ok", "Project checked without world changes. Build will check again.")
+    X(S_EXT_CHECK_OK, "extended.check_ok", "Project checked without world changes. Build will check again.") \
+    X(S_EXT_ALTARS, "extended.altars", "Altar coverage assistance") \
+    X(S_EXT_ZONE_TEMPLATE, "extended.zone_template", "Observed coverage zone used as template") \
+    X(S_EXT_PROPOSE, "extended.propose", "Analyze coverage and suggest altar positions") \
+    X(S_EXT_COVERAGE, "extended.coverage", "Uncovered cells: {0}. Checked {1}/{2}. Suggested areas: {3}.") \
+    X(S_EXT_ALTAR_HELP, "extended.altar_help", "Gold: existing areas. Green: theoretical proposals using the observed area's dimensions. Positions are editable. Altar limits, upgrades, terrain suitability and permission still need checking in the game; no altar is placed automatically.") \
+    X(S_EXT_PROPOSAL, "extended.proposal", "Suggested altar") \
+    X(S_EXT_UNASSIGNED, "extended.unassigned", "Cells still outside the proposed areas: {0} (maximum 64 proposals)") \
+    X(S_EXT_ARCHITECTURE, "extended.architecture", "Architectural components") \
+    X(S_EXT_ARCH_HELP, "extended.arch_help", "Choose real materials in the library first. Components change only the preview; use Check and Build afterwards. Dimensions and offsets are metres. Floors use opening Y as depth Z. Rotation follows the project's native quarter turns.") \
+    X(S_EXT_APPEND, "extended.append", "Add to the current project") \
+    X(S_EXT_STRUCTURE_MAT, "extended.structure_mat", "Use library selection for the structure") \
+    X(S_EXT_FRAME_MAT, "extended.frame_mat", "Use library selection for frames and borders") \
+    X(S_EXT_WIDTH, "extended.width", "Width X (m)") \
+    X(S_EXT_HEIGHT, "extended.height", "Height Y (m)") \
+    X(S_EXT_DEPTH, "extended.depth", "Depth Z (m)") \
+    X(S_EXT_THICKNESS, "extended.thickness", "Thickness (m)") \
+    X(S_EXT_OPENING, "extended.opening", "Opening / floor void") \
+    X(S_EXT_OPENING_X, "extended.opening_x", "Opening offset X (m)") \
+    X(S_EXT_OPENING_Y, "extended.opening_y", "Opening offset Y / Z for floors (m)") \
+    X(S_EXT_OPENING_W, "extended.opening_w", "Opening width (m)") \
+    X(S_EXT_OPENING_H, "extended.opening_h", "Opening height / depth for floors (m)") \
+    X(S_EXT_ROUND, "extended.round", "Round tower") \
+    X(S_EXT_FLOORS, "extended.floors", "Storeys") \
+    X(S_EXT_FLOOR_HEIGHT, "extended.floor_height", "Storey height (m)") \
+    X(S_EXT_CRENELS, "extended.crenels", "Battlements") \
+    X(S_EXT_FLOOR_HOLE, "extended.floor_hole", "Reserve openings through tower floors") \
+    X(S_EXT_STRAIGHT, "extended.straight", "Straight") \
+    X(S_EXT_TURNING, "extended.turning", "Quarter turn with landing") \
+    X(S_EXT_IMPERIAL, "extended.imperial", "Imperial with two branches") \
+    X(S_EXT_SPIRAL, "extended.spiral", "Square spiral with landings") \
+    X(S_EXT_LAYOUT, "extended.layout", "Stair arrangement") \
+    X(S_EXT_FLIGHTS, "extended.flights", "Native sections per flight") \
+    X(S_EXT_RISE, "extended.rise", "Rise per native section (m; 0 = measured bounds)") \
+    X(S_EXT_RESERVE, "extended.reserve", "Cut preview floor openings and 2 m headroom") \
+    X(S_EXT_NATIVE_STAIR_HELP, "extended.native_stair_help", "Select the actual native stair piece in the library. Its measured width and depth drive the layout; choose rotation so its climb faces +Z. Straight, turning and imperial flights use that real geometry. The spiral is square. Rise and walkability must be checked in-game. No cube steps are generated.") \
+    X(S_EXT_GENERATE, "extended.generate", "Generate into the project preview") \
+    X(S_EXT_GENERATE_FAIL, "extended.generate_fail", "Generation refused: check dimensions, openings, material, native piece, overlaps and size limits") \
+    X(S_EXT_PIECE_OVERLAP, "extended.piece_overlap", "A native piece overlaps planned blocks; reserve the floor opening or adjust its offset") \
+    X(S_EXT_EXPORT, "extended.export", "Save the current project as new files") \
+    X(S_EXT_EXPORTED, "extended.exported", "Project exported: {0}") \
+    X(S_EXT_EXPORT_FAIL, "extended.export_fail", "Export refused: check write access and the 128 output-module limit. New incomplete files may remain; existing files were not overwritten.") \
+    X(S_EXT_SLICE, "extended.slice", "Preview one altitude range") \
+    X(S_EXT_SLICE_Y, "extended.slice_y", "Preview lower project Y (m)") \
+    X(S_EXT_SLICE_HEIGHT, "extended.slice_height", "Preview level height (m)") \
+    X(S_EXT_VISIBLE, "extended.visible", "Module visible in the preview") \
+    X(S_EXT_VISUAL_ONLY, "extended.visual_only", "Visibility and altitude range affect the preview only. All project modules are built. Large plans use module volumes and native-piece bounds.") \
+    X(S_EXT_OBJECT_PREVIEW, "extended.object_preview", "Show object position markers") \
+    X(S_EXT_QUOTE, "extended.quote", "Costs calculated in the last check (partial if the check stopped early):") \
+    X(S_EXT_COST_ROW, "extended.cost_row", "{0}: {1} required; known stock {2}") \
+    X(S_EXT_RESUME, "extended.resume", "Resume the project kept in memory") \
+    X(S_EXT_NATIVE_COUNT, "extended.native_count", "Native building pieces: {0}") \
+    X(S_EXT_JOB_CHECK, "extended.job_check", "Checking placements: {0}/{1}. Escape cancels.") \
+    X(S_EXT_JOB_BUILD, "extended.job_build", "Building placements: {0}/{1}. Escape stops future batches.") \
+    X(S_EXT_JOB_DONE, "extended.job_done", "Project finished: {0} placements completed") \
+    X(S_EXT_JOB_STOP, "extended.job_stop", "Project stopped after {0} completed placements: {1}. See BuildingTools-Projects.log.") \
+    X(S_EXT_NATIVE_DIMS, "extended.native_dims", "Measured native bounds X/Y/Z: {0} / {1} / {2} m")
 
 enum Str {
 #define BT_STR_ID(id, key, en) id,

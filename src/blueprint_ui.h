@@ -233,8 +233,12 @@ static void draw_bp_save_window() {
 // ---- Place: page 0 the list, page 1 the chosen blueprint
 static void draw_catalog_window();
 static void draw_project_materials();
+static void draw_project_altars();
+static void draw_architecture_window();
+static void draw_project_preview_options();
 static void draw_bp_place_window() {
     if (g_bpPage == 3) { draw_catalog_window(); return; }
+    if (g_bpPage == 4) { draw_architecture_window(); return; }
     static DWORD s_lastDraw = 0;
     const DWORD now = GetTickCount();
     if (now - s_lastDraw > 500) bp_list_files();     // the window just came up (or back)
@@ -242,8 +246,10 @@ static void draw_bp_place_window() {
     if (g_bpPage == 0) {
         BpFrame f; bp_frame_begin(f, T(g_projectList ? S_PROJECT_LIST : S_BP_LIST_TITLE), "");
         if (ui_button(T(S_EXT_CATALOG))) { catalog_refresh(); g_bpPage = 3; }
+        if (ui_button(T(S_EXT_ARCHITECTURE))) g_bpPage = 4;
+        if (g_projectLoaded && ui_button(T(S_EXT_RESUME))) { ProjectStateGuard guard; project_generated_finish(); }
         if (ui_button(T(g_projectList ? S_PROJECT_CLASSIC : S_PROJECT_LIST))) {
-            g_projectList = !g_projectList; g_projectLoaded = false; g_bpBitsOk = 0; bp_list_files();
+            g_projectList = !g_projectList; g_bpBitsOk = 0; bp_list_files();
         }
         if (!g_bpFiles) bp_text(T(g_projectList ? S_PROJECT_NONE : S_BP_NONE));
         for (int q = 0; q < g_bpFiles; q++)
@@ -298,11 +304,21 @@ static void draw_bp_place_window() {
         Buf x, y, z, point; x.fix(anchor.x); y.fix(anchor.y); z.fix(anchor.z);
         point.fmt(T(S_PROJECT_ANCHOR), x.z(), y.z(), z.z()); bp_text(point.z());
         Buf objects; objects.fmt(T(S_PROJECT_OBJECTS), num(g_projectPlan.objects).s); bp_text(objects.z());
+        { Buf pieces; pieces.fmt(T(S_EXT_NATIVE_COUNT), num(g_projectManifest.pieceCount).s); bp_text(pieces.z()); }
         const char* objectOptions[] = {T(S_BP_OBJ_LEAVE), T(S_BP_OBJ_BUILD)};
         if (ui_option(T(S_EXT_OBJECTS), objectOptions, 2, g_projectUseObjects, &v)) { g_projectUseObjects = v; extended_save(); }
         if (g_projectUseObjects && g_projectObjectCount) bp_text(T(S_EXT_OBJECT_HELP));
         if (g_projectLastProblem) bp_text(g_projectLastProblem);
         draw_project_materials();
+        draw_project_altars();
+        draw_project_preview_options();
+        if (ui_button(T(S_EXT_ARCHITECTURE))) g_bpPage = 4;
+        if (ui_button(T(S_EXT_CATALOG))) { catalog_refresh(); g_bpPage = 3; }
+        if (ui_button(T(S_EXT_EXPORT))) {
+            char filename[128];
+            if (project_export(filename, sizeof filename)) { Buf b; b.fmt(T(S_EXT_EXPORTED), filename); flash(b.z()); }
+            else flash(T(S_EXT_EXPORT_FAIL));
+        }
         for (int m = 0; m < g_projectPlan.materialCount; ++m) {
             const auto& material = g_projectPlan.materials[m]; Buf label, row;
             bp_item_label(label, material.item); row.fmt(T(S_PROJECT_MATERIAL_ROW), label.z(), num(material.cells).s); bp_text(row.z());
@@ -340,7 +356,9 @@ static void draw_bp_place_window() {
         Buf label; bp_item_label(label, m.item);
         Buf hv; if (have == -2) hv.str("-"); else if (have < 0) { hv.str(T(S_BP_MAT_UNKNOWN)); unknown = true; } else hv.i(have);
         if (have >= 0 && have < (int64_t)m.items) shortN++;
-        Buf row; row.fmt(T(S_BP_MAT_ROW), label.z(), num(m.items).s, hv.z());
+        const bool unpriced = m.cells && !m.items;
+        if (unpriced) unknown = true;
+        Buf row; row.fmt(T(S_BP_MAT_ROW), label.z(), unpriced ? T(S_BP_MAT_UNKNOWN) : num(m.items).s, hv.z());
         bp_text(row.z());
     }
     if (g_cfg.bpObjects)                                 // the objects: one of each item per object

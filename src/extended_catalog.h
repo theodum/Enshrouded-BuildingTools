@@ -19,8 +19,8 @@ static bool catalog_refresh() {
             if (duplicate) continue;
             uint8_t* item = g_bpItemById(id, g_bpItemReg); int kind = -1;
             if (bp_block_item(item)) kind = 0;
-            else if (prop_item(item) && readable(item + 0x5d8, 4)) kind = bp_logic_item(item) ? 3 : 1;
-            else if (item && item_kind(item) == ITEM_PIECE && readable(item + 0x427, 1) && !item[0x427]) kind = 2;
+            else if (prop_item(item) && readable(item + 0x5d8, 4)) kind = extended_prop_item(item) ? 1 : 3;
+            else if (item && (item_kind(item) == ITEM_PIECE || item_kind(item) == ITEM_BIG_SHAPE) && readable(item + 0x427, 1) && !item[0x427]) kind = 2;
             if (kind >= 0) g_catalog[g_catalogCount++] = ExtendedItem{id, kind};
         }
     }
@@ -35,20 +35,35 @@ static bool project_generated_begin(const char* name) {
     if (!g_projectPlan.cells || !g_projectObjects) return false;
     auto cells = g_projectPlan.cells; g_projectPlan = project::Plan{}; g_projectPlan.cells = cells; g_projectPlan.capacity = project::MaxCells;
     g_projectObjectCount = 0; memset(&g_projectManifest, 0, sizeof g_projectManifest); memset(&g_bp.h, 0, sizeof g_bp.h);
+    g_projectNeedN = 0; g_projectLastProblem = nullptr; g_projectProblem = false;
+    memset(g_projectModuleVisible, 1, sizeof g_projectModuleVisible);
     copy_text(g_projectManifest.name, name, sizeof g_projectManifest.name); g_projectManifest.grid = 8; g_projectManifest.count = 1;
     g_projectLoaded = false; g_bp.ok = false; return true;
 }
 static void project_generated_finish() {
+    g_projectNeedN = 0; g_projectProblem = false; g_projectLastProblem = nullptr;
+    for (int m = 0; m < g_projectPlan.materialCount; ++m) g_projectPlan.materials[m].cells = 0;
+    for (int i = 0; i < g_projectPlan.count; ++i) ++g_projectPlan.materials[g_projectPlan.cells[i].material].cells;
     for (int a = 0; a < 3; ++a) { g_bp.h.n[a] = (g_projectPlan.hi[a] - g_projectPlan.lo[a]) / 8; if (g_bp.h.n[a] < 1) g_bp.h.n[a] = 1; g_bp.h.step[a] = 0.5f; }
     g_bp.h.nm = g_projectPlan.materialCount; for (int m = 0; m < g_bp.h.nm; ++m) g_bp.h.m[m] = g_projectPlan.materials[m];
     g_bp.filled = g_projectPlan.count; g_bp.ok = true; g_projectLoaded = true; g_projectList = true; g_bpPage = 1; g_bpMirror = 0; g_bpBitsOk = 0; ++g_projectGeneration;
 }
-static bool catalog_object(uint32_t id) {
+static bool catalog_object(uint32_t id, const int* offset = nullptr, int rotation = 0, bool append = false, int module = 0) {
     ProjectStateGuard guard;
     uint8_t* item = g_bpItemById ? g_bpItemById(id, g_bpItemReg) : nullptr;
-    if (!prop_item(item) || bp_logic_item(item) || !project_generated_begin(bp_item_name(id) ? bp_item_name(id) : "Native object")) return false;
-    auto& object = g_projectObjects[0]; object = extended::Object{}; object.item = id; object.rotation[3] = 1;
-    g_projectObjectCount = g_projectPlan.objects = 1; g_projectUseObjects = 1;
-    for (int a = 0; a < 3; ++a) { g_projectPlan.lo[a] = g_projectModuleBoxes[0].lo[a] = 0; g_projectPlan.hi[a] = g_projectModuleBoxes[0].hi[a] = 8; }
+    if (!extended_prop_item(item)) return false;
+    bool add = append && g_projectLoaded;
+    if (!add && !project_generated_begin(bp_item_name(id) ? bp_item_name(id) : "Native object")) return false;
+    if (g_projectObjectCount == kProjectMaxObjects) return false;
+    auto& object = g_projectObjects[g_projectObjectCount++]; object = extended::Object{}; object.item = id;
+    const float identity[] = {0,0,0,1}; core::bp_turn_rot(rotation, identity, object.rotation);
+    object.module = (uint16_t)(module >= 0 && module < g_projectManifest.count ? module : 0);
+    g_projectPlan.objects = g_projectObjectCount; g_projectUseObjects = 1; g_projectNeedN = 0;
+    for (int a = 0; a < 3; ++a) {
+        int p = offset ? offset[a] : 0; object.p[a] = p / 16.0;
+        if (!add || p < g_projectPlan.lo[a]) g_projectPlan.lo[a] = p;
+        if (!add || p + 8 > g_projectPlan.hi[a]) g_projectPlan.hi[a] = p + 8;
+        if (!add) { g_projectModuleBoxes[0].lo[a] = p; g_projectModuleBoxes[0].hi[a] = p + 8; }
+    }
     project_generated_finish(); return true;
 }

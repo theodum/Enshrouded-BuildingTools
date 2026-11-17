@@ -13,12 +13,15 @@ static int g_projectObjectCount = 0, g_projectObjectsInJob = 0;
 static constexpr int kProjectMaxObjects = project::MaxModules * core::BP_MAX_OBJS;
 static project::Plan g_projectPlan{};
 static project::Job g_projectJob;
-static bool project_object_batch() { return g_projectJob.next >= g_projectPlan.count; }
+static bool project_object_batch() { return g_projectJob.next >= g_projectPlan.count + g_projectManifest.pieceCount; }
+static bool project_piece_batch() { return g_projectJob.next >= g_projectPlan.count && !project_object_batch(); }
 static int g_projectRotation = 0, g_projectWaiting = 0;
 static I3 g_projectOrigin;
 static DWORD g_projectDue = 0, g_projectWaitSince = 0;
 static uint32_t g_projectShape = 0;
 static int g_projectGeneration = 0;
+static bool g_projectModuleVisible[project::MaxModules];
+static int g_projectSlice = 0, g_projectSliceY = 0, g_projectSliceHeight = 64;
 static bool g_projectCreative = false;
 static bool g_projectInspect = false;
 static bool g_projectProblem = false;
@@ -35,12 +38,18 @@ static void project_preview_return() {
 static void project_return_poll(bool focus, bool inGame) {
     if (!g_projectReturnAt) return;
     DWORD now = GetTickCount();
-    if (!focus || now - g_projectReturnAt > 3000) { g_projectReturnAt = 0; return; }
-    if ((LONG)(now - g_projectReturnAt) >= 0 && inGame && !(GetAsyncKeyState(VK_LBUTTON) & 0x8000) && !(GetAsyncKeyState(VK_RBUTTON) & 0x8000)) {
+    const int32_t elapsed = extended::elapsed(now, g_projectReturnAt);
+    if (!focus || elapsed > 3000) { g_projectReturnAt = 0; return; }
+    if (elapsed >= 0 && inGame && !(GetAsyncKeyState(VK_LBUTTON) & 0x8000) && !(GetAsyncKeyState(VK_RBUTTON) & 0x8000)) {
         g_projectReturnAt = 0; g_exactReq = 1;
     }
 }
 static int g_projectNeedN = 0;
+static uint8_t* g_projectSourceMaterial = nullptr;
+static extended::Box g_projectPieceBoxes[project::MaxPieces];
+static bool project_check_pieces(void*, void*, const CursorXf&, bool);
+static uint8_t project_queue_pieces(CostList*, void*, void*, uint8_t*, const CursorXf&);
+static bool project_piece_bounds();
 struct ProjectNeed { uint32_t item; uint64_t count; bool prop; };
 static ProjectNeed g_projectNeed[128];
 
@@ -74,7 +83,9 @@ static bool project_path(wchar_t* out, const wchar_t* leaf) {
 static bool project_load(const wchar_t* name) {
     ProjectStateGuard guard;
     if (g_projectRunning) return false;
+    memset(g_projectModuleVisible, 1, sizeof g_projectModuleVisible);
     g_projectLoaded = false; g_bp.ok = false; g_bpBitsOk = 0;
+    g_projectNeedN = 0; g_projectLastProblem = nullptr; g_projectProblem = false;
     if (g_projectObjects) VirtualFree(g_projectObjects, 0, MEM_RELEASE);
     g_projectObjectCount = 0;
     g_projectObjects = (extended::Object*)VirtualAlloc(nullptr, sizeof(extended::Object) * kProjectMaxObjects, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
@@ -118,7 +129,11 @@ static bool project_load(const wchar_t* name) {
         }
         LOG(.str("project module ").i(m).str(": ").str(g_projectManifest.modules[m].file).str(" cells so far=").i(g_projectPlan.count));
     }
-    if (!project::finish(&g_projectPlan, &e)) { project_error(e); return false; }
+    if (g_projectPlan.count) {
+        if (!project::finish(&g_projectPlan, &e)) { project_error(e); return false; }
+    } else if (!g_projectObjectCount && !g_projectManifest.pieceCount) { e.message = "Project is empty"; project_error(e); return false; }
+    else for (int a = 0; a < 3; ++a) { g_projectPlan.lo[a] = 0; g_projectPlan.hi[a] = 8; }
+    if (!project_piece_bounds()) { e.message = "Unknown native piece or invalid native bounds"; project_error(e); return false; }
     memset(&g_bp.h, 0, sizeof g_bp.h);
     for (int a = 0; a < 3; ++a) {
         g_bp.h.step[a] = 0.5f; g_bp.h.n[a] = (g_projectPlan.hi[a] - g_projectPlan.lo[a]) / project::Cell;
@@ -169,6 +184,8 @@ static void project_ghost_bits() {
     memset(g_bpBits, 0, sizeof g_bpBits);
     for (int i = 0; i < g_projectPlan.count; ++i) {
         int p[3]; project::cell_low(g_projectPlan.cells[i], g_projectManifest.anchor, rotation, p);
+        const auto& cell = g_projectPlan.cells[i];
+        if (!g_projectModuleVisible[cell.module] || (g_projectSlice && (cell.p[1] < g_projectSliceY || cell.p[1] >= g_projectSliceY + g_projectSliceHeight))) continue;
         for (int a = 0; a < 3; ++a) p[a] = (p[a] - lo[a]) / project::Cell;
         const int bit = p[0] + n[0] * (p[1] + n[1] * p[2]);
         g_bpBits[bit >> 5] |= 1u << (bit & 31);
@@ -183,7 +200,7 @@ static void project_stop(const char* why) {
     g_exactArmed = 0; g_exactFire = 0; g_bpWin = BPW_NONE; g_bpGhost = 0;
     g_pend.n = 0; // preserve the project marker to suppress a late native commit
     g_bpRot = g_projectRotation;
-    Buf b; b.fmt(T(S_PROJECT_STOP), num(g_projectJob.completed).s, why); flash(b.z()); beep(MB_ICONHAND);
+    Buf b; b.fmt(T(S_EXT_JOB_STOP), num(g_projectJob.completed).s, why); flash(b.z()); beep(MB_ICONHAND);
     g_projectLastProblem = why;
     if (g_projectInspect) project_preview_return();
 }
@@ -194,8 +211,9 @@ static bool project_start() {
     g_projectOrigin = project_origin_now(); g_projectRotation = g_bpRot;
     g_projectProblem = false; g_projectLastProblem = nullptr;
     g_projectObjectsInJob = g_projectUseObjects ? g_projectObjectCount : 0;
-    if (!g_projectPlan.count && !g_projectObjectsInJob) { flash(T(S_BP_NOTHING)); return false; }
-    g_projectJob.start(g_projectPlan.count + g_projectObjectsInJob); g_projectWaiting = 0; g_projectNeedN = 0;
+    if (!g_projectPlan.count && !g_projectObjectsInJob && !g_projectManifest.pieceCount) { flash(T(S_BP_NOTHING)); return false; }
+    g_projectJob.start(g_projectPlan.count + g_projectManifest.pieceCount + g_projectObjectsInJob); g_projectWaiting = 0; g_projectNeedN = 0;
+    g_projectSourceMaterial = nullptr;
     g_projectShape = 0; g_projectCreative = creative_on();
     g_projectDue = GetTickCount() + 500; g_projectWaitSince = GetTickCount();
     g_projectRunning = 1;
@@ -222,6 +240,101 @@ static bool project_covered(const I3& p) {
     }
     return true;
 }
+static uint8_t* project_piece_item(const project::NativePiece& piece) {
+    if (!g_nativePartsAvailable) return nullptr;
+    uint8_t* item = g_bpItemById && g_bpItemReg ? g_bpItemById(piece.item, g_bpItemReg) : nullptr;
+    const int kind = item_kind(item);
+    return item && (kind == ITEM_PIECE || kind == ITEM_BIG_SHAPE) && readable(item + 0x427, 1) && !item[0x427] ? item : nullptr;
+}
+static CursorXf project_piece_transform(const project::NativePiece& piece, bool world = true) {
+    int p[3]; for (int a = 0; a < 3; ++a) p[a] = piece.offset[a] - (world ? g_projectManifest.anchor[a] : 0);
+    int turned[3]; project::turn(world ? g_projectRotation : 0, p, turned);
+    CursorXf xf{}; const int64_t origin[] = {g_projectOrigin.x, g_projectOrigin.y, g_projectOrigin.z};
+    for (int a = 0; a < 3; ++a) xf.pos[a] = (world ? origin[a] : 0) + (int64_t)turned[a] * kProjectFixUnit;
+    const float identity[] = {0, 0, 0, 1}; core::bp_turn_rot(piece.rotation + (world ? g_projectRotation : 0), identity, xf.rot); xf.scale = 1.f;
+    return xf;
+}
+static bool project_piece_bounds() {
+    int kept = 0;
+    for (int i = 0; i < g_projectManifest.pieceCount; ++i) {
+        const auto p = g_projectManifest.pieces[i]; bool duplicate = false;
+        for (int j = 0; j < kept; ++j) {
+            auto& other = g_projectManifest.pieces[j];
+            if (p.item == other.item && p.material == other.material && p.rotation == other.rotation && !memcmp(p.offset, other.offset, sizeof p.offset)) { if (p.clearance > other.clearance) other.clearance = p.clearance; duplicate = true; break; }
+        }
+        if (!duplicate) g_projectManifest.pieces[kept++] = p;
+    }
+    g_projectManifest.pieceCount = kept;
+    for (int i = 0; i < g_projectManifest.pieceCount; ++i) {
+        const auto& piece = g_projectManifest.pieces[i]; uint8_t* item = project_piece_item(piece); if (!item || !g_bounds) return false;
+        CursorXf xf = project_piece_transform(piece, false); Aabb box{}; shape_bounds(item, &xf, &box);
+        for (int a = 0; a < 3; ++a) {
+            if (!extended::finite(box.mn[a]) || !extended::finite(box.mx[a]) || !(box.mx[a] > box.mn[a])) return false;
+            int lo = (int)(box.mn[a] * 16), hi = (int)(box.mx[a] * 16);
+            if (box.mn[a] * 16 < lo) --lo; if (box.mx[a] * 16 > hi) ++hi;
+            g_projectPieceBoxes[i].lo[a] = lo; g_projectPieceBoxes[i].hi[a] = hi;
+            const int gridLo = lo >= 0 ? lo / 8 * 8 : -((-lo + 7) / 8 * 8);
+            const int gridHi = hi >= 0 ? (hi + 7) / 8 * 8 : -((-hi) / 8 * 8);
+            if (gridLo < g_projectPlan.lo[a]) g_projectPlan.lo[a] = gridLo; if (gridHi > g_projectPlan.hi[a]) g_projectPlan.hi[a] = gridHi;
+        }
+    }
+    return true;
+}
+static bool project_check_pieces(void* ctx, void* state, const CursorXf& target, bool costs) {
+    Aabb templateBox; shape_bounds(state, &target, &templateBox); I3 tc = box_centre(templateBox);
+    const int64_t off[] = {target.pos[0] - tc.x, target.pos[1] - tc.y, target.pos[2] - tc.z};
+    static CostEntry entries[256];
+    for (int i = 0; i < g_projectJob.batch; ++i) {
+        const int index = g_projectJob.next - g_projectPlan.count + i;
+        const auto& piece = g_projectManifest.pieces[index]; uint8_t* item = project_piece_item(piece);
+        uint8_t* material = piece.material && g_bpItemById ? g_bpItemById(piece.material, g_bpItemReg) : g_projectSourceMaterial;
+        if (!item || !bp_block_item(material)) { project_stop(T(S_PROJECT_MATERIAL)); return false; }
+        CursorXf xf = project_piece_transform(piece); Aabb box{}; shape_bounds(item, &xf, &box);
+        int low[3], high[3]; int64_t cells = 1;
+        for (int a = 0; a < 3; ++a) {
+            if (!extended::finite(box.mn[a]) || !extended::finite(box.mx[a]) || box.mx[a] <= box.mn[a]) { project_stop(T(S_PROJECT_RANGE)); return false; }
+            low[a] = (int)(box.mn[a] * 2); if (low[a] > box.mn[a] * 2) --low[a];
+            high[a] = (int)(box.mx[a] * 2); if (high[a] < box.mx[a] * 2) ++high[a];
+            cells *= high[a] - low[a];
+        }
+        high[1] += (piece.clearance + 7) / 8;
+        cells = (int64_t)(high[0] - low[0]) * (high[1] - low[1]) * (high[2] - low[2]);
+        if (cells > 32768) { project_stop(T(S_PROJECT_RANGE)); return false; }
+        if (costs) for (int c = 0; c < g_projectPlan.count; ++c) {
+            const auto& cell = g_projectPlan.cells[c]; const auto& b = g_projectPieceBoxes[index]; bool overlaps = true;
+            for (int a = 0; a < 3; ++a) if (cell.p[a] + 8 <= b.lo[a] || cell.p[a] >= b.hi[a] + (a == 1 ? piece.clearance : 0)) overlaps = false;
+            if (overlaps) { project_stop(T(S_EXT_PIECE_OVERLAP)); return false; }
+        }
+        if (costs) for (int other = 0; other < index; ++other) {
+            const bool overlap = extended::intersects(g_projectPieceBoxes[index], g_projectPieceBoxes[other], piece.clearance)
+                || extended::intersects(g_projectPieceBoxes[other], g_projectPieceBoxes[index], g_projectManifest.pieces[other].clearance);
+            if (overlap) { project_stop(T(S_EXT_PIECE_OVERLAP)); return false; }
+        }
+        for (int y = low[1]; y < high[1]; ++y) for (int z = low[2]; z < high[2]; ++z) for (int x = low[0]; x < high[0]; ++x) {
+            I3 p{(int64_t)(x * 8 + 4) * kProjectFixUnit, (int64_t)(y * 8 + 4) * kProjectFixUnit, (int64_t)(z * 8 + 4) * kProjectFixUnit};
+            if (!project_covered(p)) { g_projectProblem = true; g_projectProblemAt = p; project_stop(T(S_PROJECT_COVERAGE)); return false; }
+            CursorXf probe = target; probe.pos[0] = p.x + off[0]; probe.pos[1] = p.y + off[1]; probe.pos[2] = p.z + off[2];
+            CostList scratch{entries, 0, 256, nullptr}; memset(g_remVols, 0, sizeof g_remVols); price_removal(&scratch, ctx, state, &probe); g_refundN = 0; g_refundList = nullptr;
+            for (int m = 0x80; m < 256; ++m) if (g_remVols[m] > 0) { g_projectProblem = true; g_projectProblemAt = p; project_stop(T(S_PROJECT_COLLISION)); return false; }
+        }
+        CostList price{entries, 0, 256, nullptr};
+        if (!g_placeOrig(&price, ctx, item, material, &xf)) { project_stop(T(S_PROJECT_NATIVE)); return false; }
+        if (costs) for (uint64_t q = 0; q < price.count; ++q) if (!project_cost(*(uint32_t*)(entries[q].b + 0x10), *(uint32_t*)(entries[q].b + 0x14))) { project_stop(T(S_PROJECT_MATERIAL)); return false; }
+    }
+    return true;
+}
+static uint8_t project_queue_pieces(CostList* list, void* ctx, void* state, uint8_t* pdata, const CursorXf& target) {
+    uint64_t before = list->count; pend_begin(ctx, target, false, state ? *(uint32_t*)state : 0); g_pend.bp = g_pend.project = true;
+    for (int i = 0; i < g_projectJob.batch; ++i) {
+        const auto& piece = g_projectManifest.pieces[g_projectJob.next - g_projectPlan.count + i]; uint8_t* item = project_piece_item(piece);
+        uint8_t* material = piece.material ? g_bpItemById(piece.material, g_bpItemReg) : g_projectSourceMaterial; CursorXf xf = project_piece_transform(piece);
+        g_pendObj[i] = 0; g_pendMat[i] = 0xff; g_pendNativeShape[i] = piece.item; g_pendNativeMaterial[i] = *(uint32_t*)material; memcpy(g_pendNativeRotation[i], xf.rot, 16);
+        if (!price_shape(list, ctx, item, material, &xf, false)) { list->count = before; project_stop(T(S_PROJECT_NATIVE)); return 0; }
+    }
+    g_pendCost[g_pend.n] = (uint32_t)list->count; g_pend.tick = GetTickCount(); g_actList = list; g_actShapes = g_pend.n;
+    if (!project_journal("NATIVE_PIECE_BATCH_BEGIN")) { list->count = before; project_stop(T(S_PROJECT_JOURNAL)); return 0; }
+    return 1;
+}
 static bool project_check(void* ctx, void* state, const CursorXf& target, bool costs) {
     Aabb box; shape_bounds(state, &target, &box);
     for (int a = 0; a < 3; ++a) if (box.mx[a] - box.mn[a] != 0.5f) { project_stop(T(S_PROJECT_SHAPE)); return false; }
@@ -230,21 +343,33 @@ static bool project_check(void* ctx, void* state, const CursorXf& target, bool c
     static CostEntry entries[256];
     uint8_t* material[core::BP_MAX_MATS] = {};
     if (!bp_item_registry(ctx, state)) { project_stop(T(S_PROJECT_UNAVAILABLE)); return false; }
+    if (project_piece_batch()) return project_check_pieces(ctx, state, target, costs);
     if (project_object_batch()) {
         if (creative_on() && !g_creativeProps) { project_stop(T(S_EXT_OBJECT_CREATIVE)); return false; }
         for (int i = 0; i < g_projectJob.batch; ++i) {
-            const auto& o = g_projectObjects[g_projectJob.next - g_projectPlan.count + i];
+            const auto& o = g_projectObjects[g_projectJob.next - g_projectPlan.count - g_projectManifest.pieceCount + i];
             uint8_t* it = g_bpItemById(o.item, g_bpItemReg);
-            if (!prop_item(it) || !readable(it + 0x5d8, 4) || bp_logic_item(it)) { project_stop(T(S_EXT_OBJECT_UNSAFE)); return false; }
+            if (!extended_prop_item(it)) { project_stop(T(S_EXT_OBJECT_UNSAFE)); return false; }
             double pos[3]; float rot[4]; extended::object_world(o, g_projectManifest.anchor, g_projectRotation, g_projectOrigin, pos, rot);
             I3 center{(int64_t)(pos[0] * core::kFix), (int64_t)(pos[1] * core::kFix), (int64_t)(pos[2] * core::kFix)};
             if (!project_covered(center)) { project_stop(T(S_PROJECT_COVERAGE)); return false; }
+            float low[3], high[3];
+            if (!bp_item_bounds(it, low, high)) { project_stop(T(S_PROJECT_UNAVAILABLE)); return false; }
+            const double x = rot[0], y = rot[1], z = rot[2], w = rot[3];
+            for (int corner = 0; corner < 8; ++corner) {
+                double p[3]; for (int a = 0; a < 3; ++a) { double eps = (high[a] - low[a]) * 0.001; p[a] = (corner >> a) & 1 ? high[a] - eps : low[a] + eps; }
+                float v[] = {(float)(pos[0] + (1-2*(y*y+z*z))*p[0] + 2*(x*y-w*z)*p[1] + 2*(x*z+w*y)*p[2]),
+                             (float)(pos[1] + 2*(x*y+w*z)*p[0] + (1-2*(x*x+z*z))*p[1] + 2*(y*z-w*x)*p[2]),
+                             (float)(pos[2] + 2*(x*z-w*y)*p[0] + 2*(y*z+w*x)*p[1] + (1-2*(x*x+y*y))*p[2])};
+                if (!extended::finite(v[0]) || !extended::finite(v[1]) || !extended::finite(v[2]) || base_at(g_projectBaseSys, v) < 0) { project_stop(T(S_PROJECT_COVERAGE)); return false; }
+            }
             if (costs && !project_cost(o.item, 1, true)) { project_stop(T(S_PROJECT_MATERIAL)); return false; }
         }
         return true;
     }
     for (int m = 0; m < g_projectPlan.materialCount; ++m) {
         const auto& bm = g_projectPlan.materials[m];
+        if (!bm.cells) continue;
         uint8_t* it = g_bpItemById(bm.item, g_bpItemReg);
         if (!bp_block_item(it)) { // same legacy #61 guard as classic blueprints
             uint8_t* blk = bp_block_of_material((uint8_t*)state, bm.mat); CostEntry refund;
@@ -280,6 +405,7 @@ static uint8_t project_click(CostList* list, void* ctx, void* state, uint8_t* pd
     if (g_exactOpen || g_projectWaiting != 1) return 0;
     g_exactArmed = 0; g_exactFire = 0; g_projectWaiting = 2; g_projectWaitSince = GetTickCount();
     if (!g_projectShape) g_projectShape = state ? *(uint32_t*)state : 0;
+    if (!g_projectSourceMaterial) g_projectSourceMaterial = pdata;
     if (!g_projectShape || !state || *(uint32_t*)state != g_projectShape || remote_session() || creative_on() != g_projectCreative) { project_stop(T(S_PROJECT_CHANGED)); return 0; }
     const bool checking = g_projectJob.phase == project::Phase::Checking;
     if (!project_check(ctx, state, target, checking)) return 0;
@@ -302,11 +428,12 @@ static uint8_t project_click(CostList* list, void* ctx, void* state, uint8_t* pd
     // A small synthetic header lets bp_fill keep its proven material mapping,
     // native costs and commit queue. Positions come from the immutable sparse plan.
     g_bpRot = 0; g_bpMirror = 0; g_projectBatch = true;
+    if (project_piece_batch()) return project_queue_pieces(list, ctx, state, pdata, target);
     if (project_object_batch()) {
         const uint64_t before = list->count;
         pend_begin(ctx, target, false, state ? *(uint32_t*)state : 0); g_pend.bp = g_pend.project = true; g_pend.list = list;
         for (int i = 0; i < g_projectJob.batch; ++i) {
-            const auto& o = g_projectObjects[g_projectJob.next - g_projectPlan.count + i];
+            const auto& o = g_projectObjects[g_projectJob.next - g_projectPlan.count - g_projectManifest.pieceCount + i];
             uint8_t* it = g_bpItemById(o.item, g_bpItemReg); g_pendCost[i] = (uint32_t)list->count;
             CostEntry* e = list_push(list);
             if (!e) { list->count = before; project_stop(T(S_PROJECT_NATIVE)); return 0; }
@@ -329,7 +456,7 @@ static uint8_t project_click(CostList* list, void* ctx, void* state, uint8_t* pd
 }
 static bool project_commit_object(int index, void* ctx) {
     if (!project_object_batch()) return false;
-    const auto& o = g_projectObjects[g_projectJob.next - g_projectPlan.count + index];
+    const auto& o = g_projectObjects[g_projectJob.next - g_projectPlan.count - g_projectManifest.pieceCount + index];
     double pos[3]; float rot[4]; extended::object_world(o, g_projectManifest.anchor, g_projectRotation, g_projectOrigin, pos, rot);
     return bp_place_object(ctx, o.item, pos, rot);
 }
@@ -348,7 +475,7 @@ static void project_committed(int expected, int written) {
     if (g_projectJob.phase == project::Phase::Complete) {
         project_journal("COMPLETE"); g_projectRunning = 0; g_exactArmed = 0; g_exactFire = 0;
         g_bpWin = BPW_NONE; g_bpGhost = 0; g_bpRot = g_projectRotation;
-        Buf b; b.fmt(T(S_PROJECT_COMPLETE), num(g_projectJob.completed).s); flash(b.z());
+        Buf b; b.fmt(T(S_EXT_JOB_DONE), num(g_projectJob.completed).s); flash(b.z());
     }
 }
 // Input thread calls this under g_stateLock. The caller sends one native click
@@ -367,9 +494,11 @@ static bool project_poll(bool focus, bool inGame, uint8_t* held) {
     if ((LONG)(now - g_projectDue) < 0 || (GetAsyncKeyState(VK_LBUTTON) & 0x8000) || (GetAsyncKeyState(VK_RBUTTON) & 0x8000)) return false;
     int limit = g_cfg.maxShapes; if (limit > 256) limit = 256; if (limit < 1) limit = 1;
     if (g_projectJob.next < g_projectPlan.count && limit > g_projectPlan.count - g_projectJob.next) limit = g_projectPlan.count - g_projectJob.next;
+    if (project_piece_batch() && limit > g_projectPlan.count + g_projectManifest.pieceCount - g_projectJob.next) limit = g_projectPlan.count + g_projectManifest.pieceCount - g_projectJob.next;
+    if (project_piece_batch() && limit > 8) limit = 8;
     if (project_object_batch() && limit > 32) limit = 32;
     g_projectJob.prepare(limit); g_projectWaiting = 1; g_projectWaitSince = now;
     g_exactArmed = 1; g_exactFire = 0; g_bpWin = BPW_PLACE;
-    Buf b; b.fmt(T(g_projectJob.phase == project::Phase::Checking ? S_PROJECT_CHECKING : S_PROJECT_BUILDING), num(g_projectJob.next).s, num(g_projectJob.total).s); flash(b.z());
+    Buf b; b.fmt(T(g_projectJob.phase == project::Phase::Checking ? S_EXT_JOB_CHECK : S_EXT_JOB_BUILD), num(g_projectJob.next).s, num(g_projectJob.total).s); flash(b.z());
     return true;
 }

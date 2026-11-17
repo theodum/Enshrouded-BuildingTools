@@ -998,13 +998,15 @@ inline int bp_encode(const BpHeader& h, const uint8_t* cells, uint8_t* out, int 
     BpWriter w{ out, 0, cap };
     if (h.nm < 0 || h.nm > BP_MAX_MATS) return 0;
     for (int a = 0; a < 3; a++) if (h.n[a] < 1 || h.n[a] > 0xffff) return 0;
+    const int64_t total64 = (int64_t)h.n[0] * h.n[1] * h.n[2];
+    if (total64 > 0x7fffffff) return 0;
     w.put("BTBP", 4); w.u16(1); w.u16(0);
     for (int a = 0; a < 3; a++) w.f32(h.step[a]);
     for (int a = 0; a < 3; a++) w.u16((uint16_t)h.n[a]);
     w.u32(h.shape);
     w.u16((uint16_t)h.nm);
     for (int k = 0; k < h.nm; k++) { w.u32(h.m[k].item); w.u8(h.m[k].mat); w.u8(0); w.u16(0); w.u32(h.m[k].cells); w.u32(h.m[k].items); }
-    const long total = (long)h.n[0] * h.n[1] * h.n[2];
+    const long total = (long)total64;
     int runsAt = w.n; w.u32(0);
     uint32_t runs = 0;
     for (long q = 0; q < total;) {

@@ -5,6 +5,10 @@ static int failures = 0, checks = 0;
 #define CHECK(x) do { ++checks; if (!(x)) { std::printf("FAIL %d: %s\n", __LINE__, #x); ++failures; } } while (0)
 int main() {
     using namespace extended;
+    CHECK(elapsed(1000,1200) == -200); CHECK(elapsed(1200,1200) == 0);
+    CHECK(elapsed(10,0xfffffff0u) == 26); CHECK(elapsed(5,10) < 0);
+    CHECK(object_flags_allowed(0)); CHECK(!object_flags_allowed(1u << 0)); CHECK(!object_flags_allowed(1u << 8));
+    CHECK(!object_flags_allowed(1u << 19)); CHECK(object_flags_allowed(1u << 19,true)); CHECK(!object_flags_allowed(1u << 20,true));
     Grid grid; grid.enabled = 1; grid.height = 120 * 16;
     const double cam[] = {10.13, 128, -3.13}, ray[] = {0, -1, 0}; core::I3 hit;
     CHECK(grid_hit(grid, cam, ray, &hit)); CHECK(hit.x / core::kFix == 10.0 && hit.y / core::kFix == 120.0 && hit.z / core::kFix == -3.0);
@@ -17,6 +21,9 @@ int main() {
     Proposal p; const int low[] = {100, 200, 300}, dimensions[] = {640, 640, 640};
     CHECK(suggest(low, dimensions, &p)); CHECK(contains(p.box, low)); int above[] = {100, 200 + 640, 300}; CHECK(!contains(p.box, above));
     int small[] = {0, 640, 640}; CHECK(!suggest(low, small, &p));
+    const Box flight = {{0,0,0},{32,16,48}}, touching = {{32,0,0},{64,16,48}}, overhead = {{0,24,0},{32,32,48}}, high = {{0,48,0},{32,64,48}};
+    CHECK(!intersects(flight,touching)); CHECK(!intersects(flight,overhead));
+    CHECK(intersects(flight,overhead,32)); CHECK(!intersects(overhead,flight,32)); CHECK(!intersects(flight,high,32));
     core::BpHeader h{}; h.n[0] = 3; h.n[1] = 2; h.n[2] = 5;
     for (float& step : h.step) step = 0.5f;
     core::BpObject source{0x1234, {0.25f, 0.5f, 0.75f}, {0, 0, 0, 1}};
@@ -35,6 +42,17 @@ int main() {
     CHECK(project::replace_material(&materialPlan,categories,1,0,-1,Wall) == 2);
     CHECK(materialPlan.materials[0].cells == 3 && materialPlan.materials[1].cells == 0);
     CHECK(project::replace_material(&materialPlan,categories,0,10) == -1);
+    StairStep steps[160];
+    int sections = stair_layout(0,3,32,16,48,steps,160); CHECK(sections == 3);
+    CHECK(steps[0].low[2] == 0 && steps[1].low[2] == 48 && steps[2].low[1] == 32);
+    sections = stair_layout(1,4,32,16,48,steps,160); CHECK(sections == 5);
+    CHECK(steps[2].landing && steps[3].rotation == 1);
+    sections = stair_layout(2,2,32,16,48,steps,160); CHECK(sections == 7);
+    CHECK(steps[2].landing && steps[3].rotation == 1 && steps[5].rotation == 3);
+    sections = stair_layout(3,8,32,16,48,steps,160); CHECK(sections == 15);
+    CHECK(!stair_layout(0,2,8,16,48,steps,160)); CHECK(!stair_layout(0,2,32,0,48,steps,160));
+    CHECK(!stair_layout(2,32,32,16,48,steps,10));
+    CHECK(!stair_layout(1,1,32,16,48,steps,160)); CHECK(!stair_layout(3,3,32,16,48,steps,160));
     Component c; c.kind = Wall; c.size[0] = 12; c.size[1] = 8; c.size[2] = 2; c.thickness = 2;
     c.openingCount = 1; c.openings[0] = {4, 0, 4, 5}; CHECK(valid(c));
     CHECK(component_cell(c, 1, 0, 0)); CHECK(!component_cell(c, 5, 2, 0)); CHECK(component_cell(c, 5, 6, 0));

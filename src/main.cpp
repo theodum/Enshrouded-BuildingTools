@@ -882,7 +882,8 @@ typedef Aabb*   (*BoundsFn)(Aabb* out, void* shapeState, const float* pos4, cons
 typedef uint8_t (*PayFn)(uint8_t* mode, CostList* list, uint8_t consume);
 // Commit record the game builds after payment: position (metres), rotation,
 // player entity id, flag. Same layout for the remove commit (first 0x1c bytes).
-struct Commit { float pos[3]; float rot[4]; uint32_t player; uint8_t flag; uint8_t pad[7]; };
+// +0x1c is the material ItemInfo ID (48e77c resolves it through the item registry).
+struct Commit { float pos[3]; float rot[4]; uint32_t materialItem; uint8_t flag; uint8_t pad[7]; };
 static_assert(sizeof(Commit) == 0x28, "commit size");
 typedef uint8_t  (*CommitFn)(void* ctx, Commit* c, uint32_t shape);
 // Items a material costs for a volume: ceil(volume / (exchangeRate * 8)).
@@ -2290,6 +2291,8 @@ struct Pending { void* ctx; DWORD tid; DWORD tick; int n; bool replace; LONG sty
 static uint32_t g_pendCost[kMaxPending + 1];     // cost list count before shape i (n = end)
 static uint8_t g_pendMat[kMaxPending];           // blueprint build: the material (blueprint table index) of each queued shape
 static uint16_t g_pendObj[kMaxPending];          // blueprint build: 1 + the object (blueprint table) a queued entry places, 0 = a shape
+static uint32_t g_pendNativeShape[kMaxPending], g_pendNativeMaterial[kMaxPending];
+static float g_pendNativeRotation[kMaxPending][4];
 static const int kVolSnaps = 40;                 // replace: old-material voxel counts after shape i
 static uint32_t g_volSnap[kVolSnaps][256];
 
@@ -2589,7 +2592,12 @@ static uint8_t place_commit_hook_body(void* ctx, Commit* c, uint32_t shape) {
         Commit pc = *c;
         for (int a = 0; a < 3; a++) pc.pos[a] = (float)g_pendPos[i][a] * kInv;
         for (int k = 0; k < 4; k++) pc.rot[k] = pd.rot[k];
-        const bool wrote = g_placeCommitOrig(ctx, &pc, shape) != 0;
+        uint32_t shapeItem = shape;
+        if (pd.project && g_pendNativeShape[i]) {
+            shapeItem = g_pendNativeShape[i]; pc.materialItem = g_pendNativeMaterial[i];
+            memcpy(pc.rot, g_pendNativeRotation[i], 16); if (g_caveForce) *g_caveForce = 0;
+        }
+        const bool wrote = g_placeCommitOrig(ctx, &pc, shapeItem) != 0;
         if (wrote) { any = 1; placed++; }
         undo_after(us);
         if (pd.project && !wrote) break;
@@ -3455,6 +3463,9 @@ static uint8_t connected_remove(CostList* list, void* ctx, void* state, Aabb* bx
 #include "blueprint.h"
 #include "project_runtime.h"
 #include "extended_catalog.h"
+#include "extended_architecture.h"
+#include "project_export.h"
+#include "extended_altars.h"
 
 static uint8_t remove_hook_body(void* list, void* ctx, void* state, void* box, void* xfp, void* filter, uint8_t check);
 static uint8_t remove_hook(void* list, void* ctx, void* state, void* box, void* xfp, void* filter, uint8_t check) {
@@ -6586,6 +6597,8 @@ static DWORD WINAPI init_thread(void*) {
     uint8_t* sc     = find_unique("ServerCheck", SIG_SERVER_CHECK);
     uint8_t* pay    = find_hookable("PayCost", SIG_PAY, 7);
     uint8_t* pcommit = find_hookable("PlaceCommit", SIG_PLACE_COMMIT, 5);
+    g_nativePartsAvailable = pcommit && readable(pcommit + 0x8c, 4) && !memcmp(pcommit + 0x8c, "\x41\x8B\x4F\x1C", 4)
+        && place && readable(place + 0x56, 8) && !memcmp(place + 0x56, "\x44\x0F\xB6\xAE\x54\x04\x00\x00", 8);
     uint8_t* rcommit = find_hookable("RemoveCommit", SIG_REMOVE_COMMIT, 5);
     uint8_t* matItem = find_unique("MaterialItem", SIG_MATERIAL_ITEM);
     uint8_t* refundBuild = find_hookable("RefundBuild", SIG_REFUND_BUILD, 7);

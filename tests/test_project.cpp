@@ -29,6 +29,9 @@ int main() {
     CHECK(!parse(replace(valid, "Citadelle", "bad\\u0000name")));
     CHECK(!parse(replace(valid, "Citadelle", "bad\\ud800")));
     CHECK(!parse(replace(valid, "Citadelle", "bad\\udc00")));
+    CHECK(!parse(replace(valid,"Citadelle",std::string("\xc0\xaf",2))));
+    CHECK(!parse(replace(valid,"Citadelle",std::string("\xed\xa0\x80",3))));
+    CHECK(!parse(replace(valid,"Citadelle",std::string("\xf4\x90\x80\x80",4))));
     CHECK(!parse(replace(valid, "\"version\":1", "\"version\":2")));
     CHECK(!parse(replace(valid, "\"version\":1", "\"version\":1,\"version\":1")));
     CHECK(!parse(replace(valid, "\"version\":1", "\"unknown\":1")));
@@ -43,6 +46,11 @@ int main() {
     CHECK(!parse(replace(valid, "[-3,1,5]", "[-3.25,1,5]")));
     CHECK(!parse(replace(valid, "[-3,1,5]", "[-9999999,1,5]")));
     CHECK(!parse(std::string(valid) + "{}"));
+    std::string native = R"({"format":"BuildingToolsExtendedProject","version":1,"name":"native","gridSize":0.5,"anchor":[0,0,0],"modules":[],"pieces":[{"item":4294967295,"material":42,"offset":[-1,0.5,2],"rotation":90}]})";
+    CHECK(parse(native)); CHECK(manifest.pieceCount == 1 && manifest.pieces[0].item == 0xffffffff && manifest.pieces[0].material == 42);
+    CHECK(!parse(replace(native,"4294967295","4294967296")));
+    CHECK(!parse(replace(native,"4294967295","00012")));
+    CHECK(!parse(replace(native,"4294967295","0")));
     for (size_t n = 0; n < std::strlen(valid); ++n) CHECK(!parse(std::string(valid, n)));
     std::string many = R"({"format":"BuildingToolsExtendedProject","version":1,"name":"many","gridSize":1,"anchor":[0,0,0],"modules":[)";
     for (int i = 0; i < MaxModules + 1; ++i) { if (i) many += ','; many += R"({"file":"a.btbp","offset":[0,0,0]})"; }
