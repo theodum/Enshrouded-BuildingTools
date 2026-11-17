@@ -31,6 +31,7 @@ static bool bp_build_confirm() {
     if (!g_exactOpen || g_exactArmed || g_bpWin != BPW_PLACE || g_bpPage != 1 || !g_bp.ok) return false;
     if (g_projectList) {
         EnterCriticalSection(&g_stateLock);
+        g_projectInspect = false;
         const bool started = project_start();
         LeaveCriticalSection(&g_stateLock);
         if (started) bp_arm();
@@ -230,13 +231,17 @@ static void draw_bp_save_window() {
 }
 
 // ---- Place: page 0 the list, page 1 the chosen blueprint
+static void draw_catalog_window();
+static void draw_project_materials();
 static void draw_bp_place_window() {
+    if (g_bpPage == 3) { draw_catalog_window(); return; }
     static DWORD s_lastDraw = 0;
     const DWORD now = GetTickCount();
     if (now - s_lastDraw > 500) bp_list_files();     // the window just came up (or back)
     s_lastDraw = now;
     if (g_bpPage == 0) {
         BpFrame f; bp_frame_begin(f, T(g_projectList ? S_PROJECT_LIST : S_BP_LIST_TITLE), "");
+        if (ui_button(T(S_EXT_CATALOG))) { catalog_refresh(); g_bpPage = 3; }
         if (ui_button(T(g_projectList ? S_PROJECT_CLASSIC : S_PROJECT_LIST))) {
             g_projectList = !g_projectList; g_projectLoaded = false; g_bpBitsOk = 0; bp_list_files();
         }
@@ -256,7 +261,7 @@ static void draw_bp_place_window() {
         return;
     }
     bp_ghost_bits();
-    BpFrame f; bp_frame_begin(f, g_bpSel < g_bpFiles ? g_bpName[g_bpSel] : T(S_BP_LIST_TITLE), T(g_bpPlaced ? S_BP_PLACED : S_BP_FOLLOWING));
+    BpFrame f; bp_frame_begin(f, g_projectList && g_projectLoaded ? g_projectManifest.name : g_bpSel < g_bpFiles ? g_bpName[g_bpSel] : T(S_BP_LIST_TITLE), T(g_bpPlaced ? S_BP_PLACED : S_BP_FOLLOWING));
     int rn[3]; float rs[3]; bp_dims(g_bpRot, rn, rs);
     {   Buf b; b.fmt(T(S_BP_SIZE), num(rn[g_exRAxis]).s, num(rn[g_exFAxis]).s, num(rn[1]).s, num(g_bp.filled).s); bp_text(b.z()); }
     LONG v;
@@ -293,6 +298,11 @@ static void draw_bp_place_window() {
         Buf x, y, z, point; x.fix(anchor.x); y.fix(anchor.y); z.fix(anchor.z);
         point.fmt(T(S_PROJECT_ANCHOR), x.z(), y.z(), z.z()); bp_text(point.z());
         Buf objects; objects.fmt(T(S_PROJECT_OBJECTS), num(g_projectPlan.objects).s); bp_text(objects.z());
+        const char* objectOptions[] = {T(S_BP_OBJ_LEAVE), T(S_BP_OBJ_BUILD)};
+        if (ui_option(T(S_EXT_OBJECTS), objectOptions, 2, g_projectUseObjects, &v)) { g_projectUseObjects = v; extended_save(); }
+        if (g_projectUseObjects && g_projectObjectCount) bp_text(T(S_EXT_OBJECT_HELP));
+        if (g_projectLastProblem) bp_text(g_projectLastProblem);
+        draw_project_materials();
         for (int m = 0; m < g_projectPlan.materialCount; ++m) {
             const auto& material = g_projectPlan.materials[m]; Buf label, row;
             bp_item_label(label, material.item); row.fmt(T(S_PROJECT_MATERIAL_ROW), label.z(), num(material.cells).s); bp_text(row.z());
@@ -300,6 +310,10 @@ static void draw_bp_place_window() {
         bool shape = true; for (int a = 0; a < 3; ++a) if (g_scStep[a] != 0.5f) shape = false;
         if (!shape) bp_text(T(S_PROJECT_SHAPE));
         bp_frame_rows_end(f); BpRow row; bp_row_begin(row);
+        if (ui_button(T(S_EXT_CHECK), shape && !g_projectRunning)) {
+            EnterCriticalSection(&g_stateLock); g_projectInspect = true; bool started = project_start(); LeaveCriticalSection(&g_stateLock);
+            if (started) bp_arm();
+        }
         if (ui_button(T(S_EXACT_BUILD), shape && !g_projectRunning)) bp_build_confirm();
         if (ui_button(T(S_BP_BACK))) { g_bpPage = 0; g_bpPlaced = 0; }
         if (ui_button(T(S_EXACT_CANCEL))) g_menuReq = 2;

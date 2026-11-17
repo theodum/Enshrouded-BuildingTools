@@ -7,7 +7,7 @@ namespace project {
 constexpr int MaxModules = 128, MaxCells = 1048576, MaxBytes = 131072;
 constexpr int Unit = 16, Cell = 8; // integer sixteenths of a metre; native 0.5 m voxels
 constexpr int MaxCoord = 1048576;
-struct Module { char file[192]; int offset[3]; int rotation; };
+struct Module { char file[192]; int offset[3]; int rotation; int category; };
 struct Manifest { char name[192]; int grid; int anchor[3]; int count; Module modules[MaxModules]; };
 struct Error { const char* message = nullptr; int at = 0; int module = -1; };
 inline bool equal(const char* a, const char* b) { while (*a && *a == *b) { ++a; ++b; } return *a == *b; }
@@ -89,7 +89,7 @@ struct Reader {
     bool field(unsigned* seen, unsigned bit) { if (*seen & bit) return fail("Repeated JSON field"); *seen |= bit; return true; }
     bool module(Module* m) {
         if (!want('{')) return false;
-        unsigned seen = 0; m->rotation = 0;
+        unsigned seen = 0; m->rotation = 0; m->category = 0;
         do {
             char key[32]; if (!string(key, sizeof key) || !want(':')) return false;
             if (equal(key, "file")) { if (!field(&seen, 1) || !string(m->file, sizeof m->file) || !safe_file(m->file)) return fail("Expected a .btbp filename in the project directory"); }
@@ -98,6 +98,11 @@ struct Reader {
                 int r; if (!field(&seen, 4) || !number(&r)) return false;
                 if (r < 0 || r > 270 * Unit || r % (90 * Unit)) return fail("Rotation must be 0, 90, 180 or 270 degrees");
                 m->rotation = r / (90 * Unit);
+            } else if (equal(key, "category")) {
+                char value[24]; if (!field(&seen, 8) || !string(value, sizeof value)) return false;
+                const char* names[] = {"general", "wall", "floor", "roof", "tower", "stairs", "furniture"};
+                int at = 0; while (at < 7 && !equal(value, names[at])) ++at;
+                if (at == 7) return fail("Unknown architectural category"); m->category = at;
             } else return fail("Unknown module field");
         } while (take(','));
         return want('}') && ((seen & 3) == 3 || fail("Module needs file and offset"));
@@ -231,6 +236,7 @@ inline bool finish(Plan* plan, Error* error) {
         const CellEntry c = plan->cells[i];
         if (n && compare(plan->cells[n - 1], c) == 0) {
             if (plan->cells[n - 1].material != c.material) return fail(error, "Overlapping modules use different materials", c.module);
+            if (c.module < plan->cells[n - 1].module) plan->cells[n - 1].module = c.module;
             ++plan->duplicates; continue;
         }
         plan->cells[n++] = c;
@@ -242,6 +248,20 @@ inline bool finish(Plan* plan, Error* error) {
         for (int a = 0; a < 3; ++a) { if (c.p[a] < plan->lo[a]) plan->lo[a] = c.p[a]; if (c.p[a] + Cell > plan->hi[a]) plan->hi[a] = c.p[a] + Cell; }
     }
     return true;
+}
+inline int replace_material(Plan* plan, const Manifest& manifest, int source, int target, int module = -1, int category = -1) {
+    if (source < 0 || target < 0 || source >= plan->materialCount || target >= plan->materialCount || module >= manifest.count || category >= 7) return -1;
+    int changed = 0;
+    for (int i = 0; i < plan->count; ++i) {
+        auto& c = plan->cells[i];
+        if (c.module >= manifest.count) return -1;
+        if (c.material == source && (module < 0 || c.module == module) && (category < 0 || manifest.modules[c.module].category == category)) {
+            if (c.material != target) { c.material = (uint8_t)target; ++changed; }
+        }
+    }
+    for (int m = 0; m < plan->materialCount; ++m) plan->materials[m].cells = 0;
+    for (int i = 0; i < plan->count; ++i) ++plan->materials[plan->cells[i].material].cells;
+    return changed;
 }
 // A transaction advances only after a complete matching batch acknowledgement.
 enum class Phase { Ready, Checking, Building, Complete, Stopped };

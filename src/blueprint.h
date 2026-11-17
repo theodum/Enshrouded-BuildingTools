@@ -63,6 +63,7 @@ static bool project_load(const wchar_t* name);
 static bool project_start();
 static uint8_t project_click(CostList*, void*, void*, uint8_t*, const CursorXf&);
 static I3 project_position(int index);
+static bool project_commit_object(int index, void* ctx);
 static void project_committed(int expected, int written);
 static void project_stop(const char* why);
 static bool project_box(int64_t*, int64_t*, float*);
@@ -703,6 +704,7 @@ static uint8_t bp_fill(CostList* list, void* ctx, void* state, uint8_t* pdata, c
 
 // One queued object of the build (commit hook): its spot in the turned blueprint, its turned rotation.
 static bool bp_commit_object(void* ctx, int i) {
+    if (g_projectBatch) return project_commit_object(i, ctx);
     const int k = (int)g_pendObj[i] - 1;
     if (k < 0 || k >= g_bp.h.objects) return false;
     const core::BpObject& o = g_bp.h.obj[k];

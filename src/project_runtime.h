@@ -2,17 +2,46 @@
 // payment, commit and undo paths. No world/save-file writer lives here.
 static bool key_down(int code);
 static constexpr int64_t kProjectFixUnit = (int64_t)1 << 28;
+struct ProjectStateGuard {
+    ProjectStateGuard() { EnterCriticalSection(&g_stateLock); }
+    ~ProjectStateGuard() { LeaveCriticalSection(&g_stateLock); }
+};
 static project::Manifest g_projectManifest;
+static extended::Box g_projectModuleBoxes[project::MaxModules];
+static extended::Object* g_projectObjects = nullptr;
+static int g_projectObjectCount = 0, g_projectObjectsInJob = 0;
+static constexpr int kProjectMaxObjects = project::MaxModules * core::BP_MAX_OBJS;
 static project::Plan g_projectPlan{};
 static project::Job g_projectJob;
+static bool project_object_batch() { return g_projectJob.next >= g_projectPlan.count; }
 static int g_projectRotation = 0, g_projectWaiting = 0;
 static I3 g_projectOrigin;
 static DWORD g_projectDue = 0, g_projectWaitSince = 0;
 static uint32_t g_projectShape = 0;
 static int g_projectGeneration = 0;
 static bool g_projectCreative = false;
+static bool g_projectInspect = false;
+static bool g_projectProblem = false;
+static I3 g_projectProblemAt;
+static const char* g_projectLastProblem = nullptr;
+static DWORD g_projectReturnAt = 0;
+static void project_preview_return() {
+    g_projectRunning = 0; g_projectBatch = false; g_projectWaiting = 0; g_exactArmed = 0; g_exactFire = 0;
+    g_bpRot = g_projectRotation; g_bpWin = BPW_PLACE; g_bpPage = 1; g_bpPlaced = 1;
+    g_bpAnchor = I3{g_projectOrigin.x + ((int64_t)1 << 30), g_projectOrigin.y + ((int64_t)1 << 30), g_projectOrigin.z + ((int64_t)1 << 30)};
+    for (int a = 0; a < 3; ++a) g_bpOff[a] = 0;
+    g_projectReturnAt = GetTickCount() + 200;
+}
+static void project_return_poll(bool focus, bool inGame) {
+    if (!g_projectReturnAt) return;
+    DWORD now = GetTickCount();
+    if (!focus || now - g_projectReturnAt > 3000) { g_projectReturnAt = 0; return; }
+    if ((LONG)(now - g_projectReturnAt) >= 0 && inGame && !(GetAsyncKeyState(VK_LBUTTON) & 0x8000) && !(GetAsyncKeyState(VK_RBUTTON) & 0x8000)) {
+        g_projectReturnAt = 0; g_exactReq = 1;
+    }
+}
 static int g_projectNeedN = 0;
-struct ProjectNeed { uint32_t item; uint64_t count; };
+struct ProjectNeed { uint32_t item; uint64_t count; bool prop; };
 static ProjectNeed g_projectNeed[128];
 
 static bool project_journal(const char* event, const char* detail = "") {
@@ -43,8 +72,12 @@ static bool project_path(wchar_t* out, const wchar_t* leaf) {
     lstrcpyW(out, g_dir); lstrcatW(out, L"BuildingTools-Projects\\"); lstrcatW(out, leaf); return true;
 }
 static bool project_load(const wchar_t* name) {
+    ProjectStateGuard guard;
     if (g_projectRunning) return false;
     g_projectLoaded = false; g_bp.ok = false; g_bpBitsOk = 0;
+    if (g_projectObjects) VirtualFree(g_projectObjects, 0, MEM_RELEASE);
+    g_projectObjectCount = 0;
+    g_projectObjects = (extended::Object*)VirtualAlloc(nullptr, sizeof(extended::Object) * kProjectMaxObjects, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
     if (g_projectPlan.cells) VirtualFree(g_projectPlan.cells, 0, MEM_RELEASE);
     g_projectPlan = project::Plan{};
     wchar_t path[MAX_PATH]; project::Error e;
@@ -56,7 +89,7 @@ static bool project_load(const wchar_t* name) {
     if (!ok) { project_error(e); return false; }
     g_projectPlan.cells = (project::CellEntry*)VirtualAlloc(nullptr, sizeof(project::CellEntry) * project::MaxCells, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
     g_projectPlan.capacity = project::MaxCells;
-    if (!g_projectPlan.cells) { e.message = "Cannot allocate project plan"; project_error(e); return false; }
+    if (!g_projectPlan.cells || !g_projectObjects) { e.message = "Cannot allocate project plan"; project_error(e); return false; }
     // Decode one source at a time: no dense bounding volume or array of 128 blueprints.
     static core::BpHeader h; static uint8_t cells[kBpMaxCells];
     for (int m = 0; m < g_projectManifest.count; ++m) {
@@ -71,6 +104,18 @@ static bool project_load(const wchar_t* name) {
         HeapFree(GetProcessHeap(), 0, data);
         if (!ok) { e.message = "Referenced blueprint is invalid or exceeds 65536 source cells"; project_error(e); return false; }
         if (!project::add(&g_projectPlan, g_projectManifest.modules[m], m, h, cells, &e)) { project_error(e); return false; }
+        const auto& module = g_projectManifest.modules[m];
+        for (int k = 0; k < h.objects; ++k) {
+            if (g_projectObjectCount == kProjectMaxObjects || !extended::transform_object(module, m, h, h.obj[k], &g_projectObjects[g_projectObjectCount])) {
+                e.message = "Invalid object position or quaternion"; project_error(e); return false;
+            }
+            ++g_projectObjectCount;
+        }
+        for (int a = 0; a < 3; ++a) {
+            const int axis = (module.rotation & 1) && a != 1 ? 2 - a : a;
+            g_projectModuleBoxes[m].lo[a] = module.offset[a];
+            g_projectModuleBoxes[m].hi[a] = module.offset[a] + (int)(h.n[axis] * h.step[axis] * 16);
+        }
         LOG(.str("project module ").i(m).str(": ").str(g_projectManifest.modules[m].file).str(" cells so far=").i(g_projectPlan.count));
     }
     if (!project::finish(&g_projectPlan, &e)) { project_error(e); return false; }
@@ -83,7 +128,7 @@ static bool project_load(const wchar_t* name) {
     g_bp.filled = g_projectPlan.count; g_bp.ok = true; g_bpMirror = 0; g_projectLoaded = true; ++g_projectGeneration;
     LOG(.str("project loaded: ").str(g_projectManifest.name).str(" modules=").i(g_projectManifest.count)
         .str(" occupied native cells=").i(g_projectPlan.count).str(" duplicates removed=").i(g_projectPlan.duplicates)
-        .str(" objects omitted=").i(g_projectPlan.objects));
+        .str(" objects loaded=").i(g_projectObjectCount));
     return true;
 }
 static I3 project_origin_now() {
@@ -139,13 +184,18 @@ static void project_stop(const char* why) {
     g_pend.n = 0; // preserve the project marker to suppress a late native commit
     g_bpRot = g_projectRotation;
     Buf b; b.fmt(T(S_PROJECT_STOP), num(g_projectJob.completed).s, why); flash(b.z()); beep(MB_ICONHAND);
+    g_projectLastProblem = why;
+    if (g_projectInspect) project_preview_return();
 }
 static bool project_start() {
     if (!g_projectLoaded || g_projectRunning || remote_session()) return false;
     for (int a = 0; a < 3; ++a) if (g_scStep[a] != 0.5f) { flash(T(S_PROJECT_SHAPE)); return false; }
     if (!g_remove || !g_caveForce || !g_baseAt || !g_projectBaseSys || GetTickCount() - g_projectBaseSeen > 10000) { flash(T(S_PROJECT_UNAVAILABLE)); return false; }
     g_projectOrigin = project_origin_now(); g_projectRotation = g_bpRot;
-    g_projectJob.start(g_projectPlan.count); g_projectWaiting = 0; g_projectNeedN = 0;
+    g_projectProblem = false; g_projectLastProblem = nullptr;
+    g_projectObjectsInJob = g_projectUseObjects ? g_projectObjectCount : 0;
+    if (!g_projectPlan.count && !g_projectObjectsInJob) { flash(T(S_BP_NOTHING)); return false; }
+    g_projectJob.start(g_projectPlan.count + g_projectObjectsInJob); g_projectWaiting = 0; g_projectNeedN = 0;
     g_projectShape = 0; g_projectCreative = creative_on();
     g_projectDue = GetTickCount() + 500; g_projectWaitSince = GetTickCount();
     g_projectRunning = 1;
@@ -153,10 +203,10 @@ static bool project_start() {
     flash(T(S_PROJECT_BEGIN));
     return true;
 }
-static bool project_cost(uint32_t item, uint32_t count) {
+static bool project_cost(uint32_t item, uint32_t count, bool prop = false) {
     int n = 0; while (n < g_projectNeedN && g_projectNeed[n].item != item) ++n;
     if (n == 128) return false;
-    if (n == g_projectNeedN) { g_projectNeed[n] = ProjectNeed{item, 0}; ++g_projectNeedN; }
+    if (n == g_projectNeedN) { g_projectNeed[n] = ProjectNeed{item, 0, prop}; ++g_projectNeedN; }
     g_projectNeed[n].count += count;
     return g_projectNeed[n].count <= 0x7fffffff;
 }
@@ -180,6 +230,19 @@ static bool project_check(void* ctx, void* state, const CursorXf& target, bool c
     static CostEntry entries[256];
     uint8_t* material[core::BP_MAX_MATS] = {};
     if (!bp_item_registry(ctx, state)) { project_stop(T(S_PROJECT_UNAVAILABLE)); return false; }
+    if (project_object_batch()) {
+        if (creative_on() && !g_creativeProps) { project_stop(T(S_EXT_OBJECT_CREATIVE)); return false; }
+        for (int i = 0; i < g_projectJob.batch; ++i) {
+            const auto& o = g_projectObjects[g_projectJob.next - g_projectPlan.count + i];
+            uint8_t* it = g_bpItemById(o.item, g_bpItemReg);
+            if (!prop_item(it) || !readable(it + 0x5d8, 4) || bp_logic_item(it)) { project_stop(T(S_EXT_OBJECT_UNSAFE)); return false; }
+            double pos[3]; float rot[4]; extended::object_world(o, g_projectManifest.anchor, g_projectRotation, g_projectOrigin, pos, rot);
+            I3 center{(int64_t)(pos[0] * core::kFix), (int64_t)(pos[1] * core::kFix), (int64_t)(pos[2] * core::kFix)};
+            if (!project_covered(center)) { project_stop(T(S_PROJECT_COVERAGE)); return false; }
+            if (costs && !project_cost(o.item, 1, true)) { project_stop(T(S_PROJECT_MATERIAL)); return false; }
+        }
+        return true;
+    }
     for (int m = 0; m < g_projectPlan.materialCount; ++m) {
         const auto& bm = g_projectPlan.materials[m];
         uint8_t* it = g_bpItemById(bm.item, g_bpItemReg);
@@ -194,7 +257,7 @@ static bool project_check(void* ctx, void* state, const CursorXf& target, bool c
         const I3 p = project_position(i);
         const double xyz[3] = {(double)p.x / core::kFix, (double)p.y / core::kFix, (double)p.z / core::kFix};
         for (int a = 0; a < 3; ++a) if (xyz[a] < -65536.0 || xyz[a] > 65536.0) { project_stop(T(S_PROJECT_RANGE)); return false; }
-        if (!project_covered(p)) { project_stop(T(S_PROJECT_COVERAGE)); return false; }
+        if (!project_covered(p)) { g_projectProblem = true; g_projectProblemAt = p; project_stop(T(S_PROJECT_COVERAGE)); return false; }
         CursorXf xf = target; xf.pos[0] = p.x + off[0]; xf.pos[1] = p.y + off[1]; xf.pos[2] = p.z + off[2];
         CostList scratch = {entries, 0, 256, nullptr};
         memset(g_remVols, 0, sizeof g_remVols);
@@ -202,6 +265,7 @@ static bool project_check(void* ctx, void* state, const CursorXf& target, bool c
         g_refundN = 0; g_refundList = nullptr;
         for (int m = 0x80; m < 256; ++m) if (g_remVols[m] > 0.f) {
             LOG(.str("project collision at cell ").i(g_projectJob.next + i).str(" module=").i(g_projectPlan.cells[g_projectJob.next + i].module));
+            g_projectProblem = true; g_projectProblemAt = p;
             project_stop(T(S_PROJECT_COLLISION)); return false;
         }
         scratch.count = 0;
@@ -224,16 +288,35 @@ static uint8_t project_click(CostList* list, void* ctx, void* state, uint8_t* pd
         if (g_projectJob.phase == project::Phase::Building && !creative_on()) {
             for (int q = 0; q < g_projectNeedN; ++q) {
                 const int64_t have = stock_of(g_projectNeed[q].item);
+                if (g_projectNeed[q].prop) continue; // native payment is authoritative for props, absent from the block stock cache
                 if (have < 0 || (uint64_t)have < g_projectNeed[q].count) { project_stop(T(S_PROJECT_STOCK)); return 0; }
             }
         }
         project_journal(g_projectJob.phase == project::Phase::Checking ? "CHECK" : "CHECKED");
+        if (g_projectInspect && g_projectJob.phase == project::Phase::Building) {
+            project_journal("INSPECTED"); project_preview_return(); flash(T(S_EXT_CHECK_OK)); return 0;
+        }
         g_projectWaiting = 0; g_projectDue = GetTickCount() + 150;
         return 0; // preflight clicks never return a buildable action to the game
     }
     // A small synthetic header lets bp_fill keep its proven material mapping,
     // native costs and commit queue. Positions come from the immutable sparse plan.
     g_bpRot = 0; g_bpMirror = 0; g_projectBatch = true;
+    if (project_object_batch()) {
+        const uint64_t before = list->count;
+        pend_begin(ctx, target, false, state ? *(uint32_t*)state : 0); g_pend.bp = g_pend.project = true; g_pend.list = list;
+        for (int i = 0; i < g_projectJob.batch; ++i) {
+            const auto& o = g_projectObjects[g_projectJob.next - g_projectPlan.count + i];
+            uint8_t* it = g_bpItemById(o.item, g_bpItemReg); g_pendCost[i] = (uint32_t)list->count;
+            CostEntry* e = list_push(list);
+            if (!e) { list->count = before; project_stop(T(S_PROJECT_NATIVE)); return 0; }
+            const uint32_t one = 1; memcpy(e->b, it + 4, 16); memcpy(e->b + 0x10, &o.item, 4); memcpy(e->b + 0x14, &one, 4);
+            g_pendObj[i] = (uint16_t)(i + 1); g_pendMat[i] = 0xff; memset(g_pendPos[i], 0, 24); ++g_pend.n;
+        }
+        g_pendCost[g_pend.n] = (uint32_t)list->count;
+        if (!project_journal("OBJECT_BATCH_BEGIN")) { list->count = before; project_stop(T(S_PROJECT_JOURNAL)); return 0; }
+        g_pend.tick = GetTickCount(); g_actList = list; g_actShapes = g_pend.n; return 1;
+    }
     g_bp.h.n[0] = g_projectJob.batch; g_bp.h.n[1] = g_bp.h.n[2] = 1;
     g_bp.h.objects = 0; g_bp.filled = g_projectJob.batch;
     for (int a = 0; a < 3; ++a) g_bp.h.step[a] = 0.5f;
@@ -243,6 +326,12 @@ static uint8_t project_click(CostList* list, void* ctx, void* state, uint8_t* pd
     uint8_t result = bp_fill(list, ctx, state, pdata, target);
     if (!result || g_pend.n != g_projectJob.batch) { project_stop(T(S_PROJECT_NATIVE)); return 0; }
     return result; // the game pays and invokes the existing commit hook
+}
+static bool project_commit_object(int index, void* ctx) {
+    if (!project_object_batch()) return false;
+    const auto& o = g_projectObjects[g_projectJob.next - g_projectPlan.count + index];
+    double pos[3]; float rot[4]; extended::object_world(o, g_projectManifest.anchor, g_projectRotation, g_projectOrigin, pos, rot);
+    return bp_place_object(ctx, o.item, pos, rot);
 }
 static void project_committed(int expected, int written) {
     if (!g_projectRunning) return;
@@ -277,6 +366,8 @@ static bool project_poll(bool focus, bool inGame, uint8_t* held) {
     }
     if ((LONG)(now - g_projectDue) < 0 || (GetAsyncKeyState(VK_LBUTTON) & 0x8000) || (GetAsyncKeyState(VK_RBUTTON) & 0x8000)) return false;
     int limit = g_cfg.maxShapes; if (limit > 256) limit = 256; if (limit < 1) limit = 1;
+    if (g_projectJob.next < g_projectPlan.count && limit > g_projectPlan.count - g_projectJob.next) limit = g_projectPlan.count - g_projectJob.next;
+    if (project_object_batch() && limit > 32) limit = 32;
     g_projectJob.prepare(limit); g_projectWaiting = 1; g_projectWaitSince = now;
     g_exactArmed = 1; g_exactFire = 0; g_bpWin = BPW_PLACE;
     Buf b; b.fmt(T(g_projectJob.phase == project::Phase::Checking ? S_PROJECT_CHECKING : S_PROJECT_BUILDING), num(g_projectJob.next).s, num(g_projectJob.total).s); flash(b.z());

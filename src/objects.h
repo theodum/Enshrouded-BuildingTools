@@ -289,7 +289,9 @@ static volatile DWORD g_objStageTid = 0;
 static uint8_t prop_pay_hook(uint8_t* mode, CostList* list, uint8_t consume) {
     g_objStage = 0;
     const int m = obj_mode();
-    if (m == core::OBJ_SINGLE || g_dedicated) return g_payOrig(mode, list, consume);   // consume 0: the game charges nothing (counts x n are harmless)
+    const float* nativePos = readable(mode - 0x2b0 + 0x10, 12) ? (const float*)(mode - 0x2b0 + 0x10) : nullptr;
+    const bool free = g_creativeProps && creative_on() && !obj_remote() && prop_item(g_propItem) && own_click(nativePos);
+    if (m == core::OBJ_SINGLE || g_dedicated) return free ? 1 : g_payOrig(mode, list, consume);
     // the place info (rbp+0x120) is filled before the pay call; mode is rbp+0x3d0 at both calls
     const float* clickPos = readable(mode - 0x2b0 + 0x10, 12) ? (const float*)(mode - 0x2b0 + 0x10) : nullptr;
     if (!own_click(clickPos)) {
@@ -311,7 +313,7 @@ static uint8_t prop_pay_hook(uint8_t* mode, CostList* list, uint8_t consume) {
         for (uint64_t k = 0; k < list->count; k++) *(uint32_t*)(e[k].b + 0x14) *= (uint32_t)n;
         many = { e, list->count, list->count, nullptr };
     }
-    uint8_t r = g_payOrig(mode, many.data ? &many : list, consume);
+    uint8_t r = free ? 1 : g_payOrig(mode, many.data ? &many : list, consume);
     LOG(.str("objects: paying ").i(n).str(" objects (").u(list ? list->count : 0).str(" cost entries) -> ").i(r));
     if (!r) {
         Buf b; b.fmt(T(S_OBJ_NOT_ENOUGH), num(n).s); flash(b.z()); beep(MB_ICONHAND);

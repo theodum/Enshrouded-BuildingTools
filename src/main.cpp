@@ -15,6 +15,7 @@
 #include <windows.h>
 #include "core.h"
 #include "project.h"
+#include "extended_core.h"
 
 using core::CursorXf;
 using core::IntXf;
@@ -22,7 +23,7 @@ using core::Aabb;
 using core::I3;
 
 #define MOD_NAME    "Building Tools"
-#define MOD_VERSION "0.34.0-dev1"
+#define MOD_VERSION "0.34.0-dev2"
 
 // -------------------------------------------------------------- freestanding
 extern "C" {
@@ -1031,6 +1032,8 @@ static void drain_sounds() {
         g_playUiSound(ctx, ref);
     }
 }
+#include "extended_config.h"
+
 // ---- free placement
 // 28bc80(out, sys, query, ray) turns the aim ray into the place cursor transform
 // {int64 pos[3], float rot[4] @0x18, bool valid @0x28}. With free placement on and a
@@ -1247,11 +1250,19 @@ static uint8_t* cursor_xf_hook(uint8_t* out, uint8_t* sys, uint8_t* q, uint8_t* 
     // exact: while Build's click is on its way the ghost must be valid, else the game drops
     // the click (flying, looking at the sky); the click's own position is not used
     const bool exactHold = exact_hold();
-    if (!g_hover && !(exactHold && !valid)) return r;
+    if (!g_hover && !(g_grid.enabled && g_cfg.toolFree && !g_modOff) && !(exactHold && !valid)) return r;
     const int64_t* cam = (const int64_t*)(sys + 0x640);
     const float* cq = (const float*)(sys + 0x658);
     float x = cq[0], y = cq[1], z = cq[2], w = cq[3];
     float f[3] = { 2.f * (x * z + w * y), 2.f * (y * z - w * x), 1.f - 2.f * (x * x + y * y) };
+    if (g_grid.enabled && g_cfg.toolFree && !g_modOff && !exactHold) {
+        const double cm[3] = {cam[0] / core::kFix, cam[1] / core::kFix, cam[2] / core::kFix};
+        const double direction[3] = {f[0], f[1], f[2]}; I3 hit;
+        if (extended::grid_hit(g_grid, cm, direction, &hit)) {
+            memcpy(out, &hit, 24); memcpy(rot, g_lastRot, 16); out[0x28] = 1;
+        } else out[0x28] = 0;
+        return r;
+    }
     if (g_cfg.log && InterlockedCompareExchange(&g_cxLogged, 1, 0) == 0)
         LOG(.str("free placement: cam=(").fix(cam[0]).c(',').fix(cam[1]).c(',').fix(cam[2]).str(") fwd=(")
             .f(f[0]).c(',').f(f[1]).c(',').f(f[2]).str(") sys678=").f(*(float*)(sys + 0x678))
@@ -2086,6 +2097,7 @@ struct StocksCall { uint8_t* ctx; uint8_t onlyShown; };
 static void stocks_hook(void* stocks, void* ctx, uint8_t onlyShown) {
     PROF(PF_STOCKS);
     StocksCall c = { (uint8_t*)ctx, onlyShown };
+    if (g_itemGroups && ctx && readable((uint8_t*)ctx + 0x68, 8)) g_extendedItemGroups = g_itemGroups(*(void**)((uint8_t*)ctx + 0x68));
     TlsSetValue(g_stocksTls, &c);
     PROF_CALL(PF_STOCKS_G, g_stocksOrig(stocks, ctx, onlyShown));
     TlsSetValue(g_stocksTls, nullptr);
@@ -2566,8 +2578,10 @@ static uint8_t place_commit_hook_body(void* ctx, Commit* c, uint32_t shape) {
             if (!obj_rec_available()) us.stop = true;  // without a record its undo would give it back without taking it
             undo_before(us, i);
             if (g_caveForce) *g_caveForce = 0;
-            if (bp_commit_object(ctx, i)) { any = 1; placed++; }
+            const bool wroteObject = bp_commit_object(ctx, i);
+            if (wroteObject) { any = 1; placed++; }
             undo_after(us);
+            if (pd.project && !wroteObject) break;
             continue;
         }
         undo_before(us, i);
@@ -3440,6 +3454,7 @@ static uint8_t connected_remove(CostList* list, void* ctx, void* state, Aabb* bx
 #include "bpobjects.h"
 #include "blueprint.h"
 #include "project_runtime.h"
+#include "extended_catalog.h"
 
 static uint8_t remove_hook_body(void* list, void* ctx, void* state, void* box, void* xfp, void* filter, uint8_t check);
 static uint8_t remove_hook(void* list, void* ctx, void* state, void* box, void* xfp, void* filter, uint8_t check) {
@@ -4177,9 +4192,11 @@ static bool area_box_live(int64_t lo[3], int64_t hi[3]) {
     return true;
 }
 
+#include "extended_scene.h"
 #include "vkdraw.h"
 
 static void update_preview_box() {
+    scene_update();
     int64_t lo[3], hi[3];
     bool live = area_box_live(lo, hi);
     if (live) for (int a = 0; a < 3; a++) g_cellStep[a] = g_bpGhost ? g_bpStepR[a] : g_scStep[a];
@@ -5015,6 +5032,7 @@ static bool ui_button(const char* text, bool enabled = true) {
 
 // Options page: the hotkey settings as rows of the game's options. Changes apply at once.
 static void draw_tool_rows();
+static void draw_extended_tools();
 static bool ui_scroll_begin(uint8_t* st, size_t stSize, float* offset, float width);
 static void draw_tool_settings() {
     alignas(16) static uint8_t st[0x500];
@@ -5085,6 +5103,7 @@ static void draw_tool_rows() {
     tool_toggle(S_OPT_FREE, &g_cfg.toolFree);
     tool_toggle(S_OPT_TOOL_OBJECTS, &g_cfg.toolObjects);
     tool_toggle(S_OPT_TOOL_BP, &g_cfg.toolBlueprint);
+    draw_extended_tools();
     if (ui_option(T(S_OPT_CREATIVE), offOn, 2, g_cfg.creative ? 1 : 0, &v) && set_creative(v != 0))
         flash(T(g_cfg.creative ? S_CREATIVE_ON : S_CREATIVE_OFF));
     if (ui_option(T(S_OPT_GLOBAL_CHESTS), offOn, 2, g_cfg.globalChests ? 1 : 0, &v) && (v != 0) != (g_cfg.globalChests != 0)) {
@@ -5573,6 +5592,7 @@ static void draw_exact_window() {
 
 #include "objects.h"
 #include "blueprint_ui.h"
+#include "extended_ui.h"
 
 static void mod_screen_hook(void*, void*, void*, void*) {
     PROF(PF_MODSCR);
@@ -6334,6 +6354,11 @@ static DWORD WINAPI input_thread(void*) {
         Sleep(15);
         if (!g_active) continue;
         bool focus = game_focused();
+        if (g_projectReturnAt) {
+            EnterCriticalSection(&g_stateLock);
+            project_return_poll(focus, !g_menuOpen && wheel_screen(g_hudScreen));
+            LeaveCriticalSection(&g_stateLock);
+        }
         if (g_projectRunning) {
             const DWORD now = GetTickCount();
             const bool inGame = wheel_screen(g_hudScreen) && now - g_hudScreenTick < 500 && !g_menuOpen;
@@ -6873,7 +6898,9 @@ extern "C" BOOL WINAPI DllMainCRTStartup(HINSTANCE self, DWORD reason, LPVOID) {
     }
     InitializeCriticalSection(&g_logLock);
     InitializeCriticalSection(&g_stateLock);
+    InitializeCriticalSection(&g_sceneLock);
     load_config();
+    extended_load();
     g_logOn = g_cfg.log != 0;
     open_log();
     g_self = (uint8_t*)self;

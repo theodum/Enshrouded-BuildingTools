@@ -358,7 +358,7 @@
     X(S_PROJECT_NONE, "project.none", "No .btproject files in BuildingTools-Projects beside enshrouded.exe.") \
     X(S_PROJECT_HELP, "project.help", "One anchor, one Build confirmation. All cells are checked before building, then checked again per batch. Hold the 0.5 m cube. Escape stops future batches; existing blocks remain. Native undo covers only part of large builds.") \
     X(S_PROJECT_SUMMARY, "project.summary", "{0} modules, {1} native cells, {2} duplicate cells removed") \
-    X(S_PROJECT_OBJECTS, "project.objects", "Objects in these blueprints: {0}. Composite v1 places blocks only; objects are omitted.") \
+    X(S_PROJECT_OBJECTS, "project.objects", "Objects in these blueprints: {0}. The Include objects option controls their placement.") \
     X(S_PROJECT_ANCHOR, "project.anchor", "Anchor at the low corner of the aimed cell: X={0}, Y={1}, Z={2} m") \
     X(S_PROJECT_MATERIAL_ROW, "project.material_row", "{0}: {1} native voxels (exact costs checked before building)") \
     X(S_PROJECT_ERROR, "project.error", "Cannot load project: {0}") \
@@ -379,7 +379,52 @@
     X(S_PROJECT_CANCEL, "project.cancel", "Cancelled by the player") \
     X(S_PROJECT_TIMEOUT, "project.timeout", "No acknowledgement in 10 seconds; automatic retry disabled") \
     X(S_PROJECT_PARTIAL, "project.partial", "A batch was partially written. Inspect the world and log before retrying; no automatic rollback.") \
-    X(S_PROJECT_JOURNAL, "project.journal", "Cannot write the project journal; construction stopped")
+    X(S_PROJECT_JOURNAL, "project.journal", "Cannot write the project journal; construction stopped") \
+    X(S_EXT_TITLE, "extended.title", "Building Tools Extended") \
+    X(S_GRID_ON, "grid.on", "Virtual construction plane") \
+    X(S_GRID_STEP, "grid.step", "Grid increment") \
+    X(S_GRID_HEIGHT, "grid.height", "Plane altitude Y (m)") \
+    X(S_GRID_X, "grid.x", "Grid origin X (m)") \
+    X(S_GRID_Z, "grid.z", "Grid origin Z (m)") \
+    X(S_GRID_AXES, "grid.axes", "Show grid axes") \
+    X(S_GRID_LEVEL, "grid.level", "Reference level") \
+    X(S_GRID_STORE, "grid.store", "Save this level") \
+    X(S_GRID_RECALL, "grid.recall", "Use this level") \
+    X(S_GRID_AIM, "grid.aim", "Set grid origin at the aimed point") \
+    X(S_GRID_HELP, "grid.help", "Aim down or up at the plane. The origin and eight saved altitudes persist between placements and sessions. No blocks are created by the grid.") \
+    X(S_EXT_CREATIVE, "extended.creative", "Creative native objects (with creative building)") \
+    X(S_EXT_OBJECTS, "extended.objects", "Include compatible objects in projects") \
+    X(S_EXT_ZONES, "extended.zones", "Show altar coverage") \
+    X(S_EXT_MODULES, "extended.modules", "Show module volumes") \
+    X(S_EXT_OBJECT_CREATIVE, "extended.object_creative", "Enable Creative native objects, or turn creative building off to pay for objects") \
+    X(S_EXT_OBJECT_UNSAFE, "extended.object_unsafe", "An unknown, special or logic-linked object was refused; omit objects to build only blocks") \
+    X(S_EXT_OBJECT_HELP, "extended.object_help", "Native props keep their models and behavior. Logic-linked doors/windows, wired objects and altars are refused. Object stock is checked by native payment per batch; a payment failure can stop after blocks were built.") \
+    X(S_EXT_CATALOG, "extended.catalog", "Native materials and objects library") \
+    X(S_EXT_CATALOG_HELP, "extended.catalog_help", "IDs and names are read from the game. Pick a material for components/replacement, a native piece for stairs, or a compatible prop to preview/place without owning it in extended creative mode. Logic-linked items are listed for inspection only.") \
+    X(S_EXT_MATERIALS, "extended.materials", "Building materials") \
+    X(S_EXT_PROPS, "extended.props", "Compatible native objects") \
+    X(S_EXT_PIECES, "extended.pieces", "Native building pieces") \
+    X(S_EXT_LINKED, "extended.linked", "Logic-linked objects (read only)") \
+    X(S_EXT_CATEGORY, "extended.category", "Category") \
+    X(S_EXT_REFRESH, "extended.refresh", "Refresh library") \
+    X(S_EXT_PAGE, "extended.page", "Page") \
+    X(S_EXT_SELECTED, "extended.selected", "Native item selected") \
+    X(S_EXT_REPLACE_FROM, "extended.replace_from", "Source material") \
+    X(S_EXT_REPLACE_TO, "extended.replace_to", "Replacement material") \
+    X(S_EXT_USE_CATALOG, "extended.use_catalog", "Use the material selected in the library") \
+    X(S_EXT_ALL, "extended.all", "Whole project") \
+    X(S_EXT_MODULE, "extended.module", "Module") \
+    X(S_EXT_SCOPE, "extended.scope", "Replacement scope") \
+    X(S_EXT_GENERAL, "extended.general", "General") \
+    X(S_EXT_WALL, "extended.wall", "Wall") \
+    X(S_EXT_FLOOR, "extended.floor", "Floor") \
+    X(S_EXT_ROOF, "extended.roof", "Roof") \
+    X(S_EXT_TOWER, "extended.tower", "Tower") \
+    X(S_EXT_STAIRS, "extended.stairs", "Native stairs") \
+    X(S_EXT_REPLACE, "extended.replace", "Apply material replacement to the preview") \
+    X(S_EXT_REPLACED, "extended.replaced", "Material replaced in {0} cells; world unchanged") \
+    X(S_EXT_CHECK, "extended.check", "Check without building") \
+    X(S_EXT_CHECK_OK, "extended.check_ok", "Project checked without world changes. Build will check again.")
 
 enum Str {
 #define BT_STR_ID(id, key, en) id,

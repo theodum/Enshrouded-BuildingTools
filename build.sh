@@ -56,6 +56,8 @@ if [ "$1" = "test" ] || [ "$1" = "package" ]; then
     ./build/test_core ${ENSHROUDED_EXE:+"$ENSHROUDED_EXE"}
     ${HOSTCXX:-c++} -std=c++17 -O1 -DSRC_DIR="\"$(pwd)/tests\"" -o build/test_project tests/test_project.cpp
     ./build/test_project
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_extended tests/test_extended.cpp
+    ./build/test_extended
 fi
 
 if [ "$1" = "package" ]; then
