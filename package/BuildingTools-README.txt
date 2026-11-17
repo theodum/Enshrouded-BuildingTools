@@ -1,4 +1,4 @@
-Enshrouded Building Tools 0.30.0
+Enshrouded Building Tools 0.34.0-dev1
 ================================
 
 Files in the game folder
@@ -7,6 +7,18 @@ Files in the game folder
   BuildingTools.ini     settings, created on first start
   BuildingTools.log     what the mod did (previous session: BuildingTools.prev.log)
   BuildingTools-Languages\   the translations, one text file per language
+  BuildingTools-Projects\    composite manifests and their BTBP modules
+  BuildingTools-Projects.log diagnostic batch journal (created when used)
+
+Building Tools Extended (development build)
+  Blueprint mode -> Place -> Composite projects. Select the 0.5 m cube,
+  load Trois_modules_test, move/turn the whole project, press Build once.
+  The mod checks every cell, then builds progressive batches automatically.
+  Escape stops future batches. Existing blocks stay; large actions have only
+  partial native undo. Composite v1 places blocks only, not native objects.
+  See BuildingToolsExtended-TESTING.md and BuildingToolsExtended-FORMAT.md.
+  Use a local TEST world: in-game composite behavior awaits personal validation.
+  Original author and MIT license: BuildingTools-LICENSE.txt.
 
 Dedicated server
   Copy dinput8.dll (and BuildingTools-Languages) next to enshrouded_server.exe as

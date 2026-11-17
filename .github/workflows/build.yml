@@ -17,6 +17,8 @@ jobs:
           sudo apt-get install -y --no-install-recommends clang lld mingw-w64-x86-64-dev libvulkan-dev zip
       - name: Build, test and package
         run: ./build.sh package
+      - name: Check reproducible example and non-overwrite guarantees
+        run: python3 -m unittest discover -s tests -p test_project_example.py
       - uses: actions/upload-artifact@v4
         with:
           name: EnshroudedBuildingTools

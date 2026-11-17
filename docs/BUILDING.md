@@ -45,6 +45,15 @@ DLL.
 
 ### Tests
 
+The Extended fork also runs `tests/test_project.cpp`: strict manifest parsing,
+bounded input fuzzing, coordinate/rotation tests, mixed grids, duplicate/conflict
+detection, a 70,000-cell plan, batch acknowledgements and the actual packaged
+three-blueprint example. It uses no game data or external test framework.
+See [EXTENDED-TESTING.md](EXTENDED-TESTING.md) for tested Windows/WSL commands,
+sanitizers, installation and the personal in-game acceptance protocol.
+With Python 3, also run `python -m unittest discover -s tests -p test_project_example.py`:
+this checks fixture reproducibility and the example generator's non-overwrite guarantee.
+
 `tests/test_core.cpp` runs on the build machine (host compiler, `HOSTCXX` to override):
 
 - **Planner tests** always run. They cover the area planner, the axis lock, the hollow
@@ -66,6 +75,9 @@ DLL.
 | `src/dinput8.def` | Exports `DirectInput8Create`, forwarded to the real `System32\dinput8.dll` |
 | `package/` | Files shipped in the release zips (`package/shroudforge/`: the Shroudforge package's `mod.json`, `extended.mod.json`, `native-plugin.ini`) |
 | `tests/` | Unit tests |
+| `src/project.h` | Portable composite manifest, integer transforms, sparse plan and job state |
+| `src/project_runtime.h` | Native composite loading, preview, preflight, batch placement and journal |
+| `examples/three-modules/` | Packaged BTBP v1 fixtures and their BTProject manifest |
 | `tools/re/` | Python scripts used to analyse the game executable (see its README) |
 
 ## Releasing

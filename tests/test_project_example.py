@@ -1,0 +1,41 @@
+"""Golden fixture reproducibility and non-overwrite guarantees of the generator."""
+import importlib.util
+from pathlib import Path
+import tempfile
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+spec = importlib.util.spec_from_file_location('make_project_example', ROOT / 'tools/make_project_example.py')
+generator = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(generator)
+
+
+class ExampleTests(unittest.TestCase):
+    def test_reproduces_all_shipped_modules_and_manifest(self):
+        fixtures = ROOT / 'examples/three-modules'
+        material = generator.material_from(fixtures / 'hall.btbp')
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / 'new-example'
+            generator.create(out, material)
+            for file in out.iterdir():
+                self.assertEqual(file.read_bytes(), (fixtures / file.name).read_bytes(), file.name)
+            before = {p.name: p.read_bytes() for p in out.iterdir()}
+            with self.assertRaises(FileExistsError):
+                generator.create(out, material)
+            self.assertEqual(before, {p.name: p.read_bytes() for p in out.iterdir()})
+
+    def test_source_is_read_only_and_invalid_input_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / 'source.btbp'
+            source.write_bytes((ROOT / 'examples/three-modules/hall.btbp').read_bytes())
+            original = source.read_bytes()
+            generator.material_from(source)
+            self.assertEqual(original, source.read_bytes())
+            for data in [b'', b'BTBP', b'wrong magic' * 10, original[:31], original[:8] + bytes(50)]:
+                source.write_bytes(data)
+                with self.assertRaises(ValueError):
+                    generator.material_from(source)
+
+
+if __name__ == '__main__':
+    unittest.main()
