@@ -56,6 +56,18 @@ static volatile LONG g_bpNameEdit = 0;         // the name was clicked: keys typ
 static bool bp_tool() { return g_cfg.toolBlueprint != 0; }
 static bool remote_session();
 
+// Isolated composite adapter, implemented after this file in project_runtime.h.
+static bool g_projectList = false, g_projectLoaded = false;
+static bool g_projectBatch = false;
+static bool project_load(const wchar_t* name);
+static bool project_start();
+static uint8_t project_click(CostList*, void*, void*, uint8_t*, const CursorXf&);
+static I3 project_position(int index);
+static void project_committed(int expected, int written);
+static void project_stop(const char* why);
+static bool project_box(int64_t*, int64_t*, float*);
+static void project_ghost_bits();
+
 static void bp_dir(wchar_t* out) {
     lstrcpyW(out, g_dir); lstrcatW(out, L"BuildingTools-Blueprints\\");
 }
@@ -115,6 +127,7 @@ static I3 bp_anchor_now() {                      // ... moved by the window's of
 }
 // the drawn box of the blueprint being placed (fixed point)
 static bool bp_box(int64_t lo[3], int64_t hi[3], float step[3]) {
+    if (g_projectList) return project_box(lo, hi, step);
     if (!g_bp.ok || g_bpWin != BPW_PLACE || g_bpPage != 1) return false;
     int rn[3]; float rs[3]; bp_dims(g_bpRot, rn, rs);
     I3 mn = g_exactArmed ? g_bpMinArm : bp_min_from(bp_anchor_now());
@@ -128,6 +141,7 @@ static bool bp_box(int64_t lo[3], int64_t hi[3], float step[3]) {
 }
 // the turned cells as bits for the drawn box (UI thread, when the blueprint or the turn changes)
 static void bp_ghost_bits() {
+    if (g_projectList) { project_ghost_bits(); return; }
     static LONG key = -1; static uint32_t keyFile = 0;
     uint32_t f = 0; for (int q = 0; g_bp.path[q]; q++) f = f * 31 + g_bp.path[q];
     const LONG want = g_bpRot | (g_bpMirror << 2);
@@ -173,7 +187,9 @@ static bool bp_load(const wchar_t* name) {
 }
 // The blueprint files, by name, into the window's list.
 static void bp_list_files() {
-    wchar_t p[MAX_PATH]; bp_dir(p); lstrcatW(p, L"*.btbp");
+    wchar_t p[MAX_PATH];
+    if (g_projectList) { lstrcpyW(p, g_dir); lstrcatW(p, L"BuildingTools-Projects\\*.btproject"); }
+    else { bp_dir(p); lstrcatW(p, L"*.btbp"); }
     WIN32_FIND_DATAW fd;
     g_bpFiles = 0;
     HANDLE h = FindFirstFileW(p, &fd);
@@ -194,7 +210,8 @@ static void bp_list_files() {
     for (int q = 0; q < g_bpFiles; q++) {
         bp_utf8(g_bpFile[q], g_bpName[q], sizeof g_bpName[q]);
         int n = lstrlenA(g_bpName[q]);
-        if (n > 5) g_bpName[q][n - 5] = 0;          // ".btbp"
+        const int suffix = g_projectList ? 10 : 5;
+        if (n > suffix) g_bpName[q][n - suffix] = 0;
     }
     if (g_bpSel >= g_bpFiles) g_bpSel = 0;
 }
@@ -564,9 +581,11 @@ static uint8_t bp_fill(CostList* list, void* ctx, void* state, uint8_t* pdata, c
         }
         Buf b; b.fmt(T(S_BP_NO_MATERIAL), names.z()); flash(b.z());
     }
+    if (g_projectBatch && missing) return 0; // no silent material omissions in a composite
     const uint64_t listBefore = list->count;
     pend_begin(ctx, target, false, state ? *(uint32_t*)state : 0);
     g_pend.bp = true;
+    g_pend.project = g_projectBatch;
     const I3 tc = box_centre(box);                       // positions are centres; the dry run takes the cursor
     const int64_t off[3] = { target.pos[0] - tc.x, target.pos[1] - tc.y, target.pos[2] - tc.z };
     CursorXf xf = target;
@@ -581,12 +600,13 @@ static uint8_t bp_fill(CostList* list, void* ctx, void* state, uint8_t* pdata, c
                 const uint8_t mi = g_bp.cell[core::bp_index(n, i, j, k)];
                 if (mi == core::BP_EMPTY || mi >= g_bp.h.nm || mat[mi] < 0) continue;
                 if (g_pend.n >= kMaxPending) continue;
-                I3 p = bp_cell_pos(mn, rs, ri, j, rk);
+                I3 p = g_projectBatch ? project_position(ri) : bp_cell_pos(mn, rs, ri, j, rk);
                 xf.pos[0] = p.x + off[0]; xf.pos[1] = p.y + off[1]; xf.pos[2] = p.z + off[2];
                 g_pendMat[g_pend.n] = mi;
                 g_pendObj[g_pend.n] = 0;
                 const uint64_t before = list->count;
                 if (price_shape(list, ctx, state, item[mi], &xf, false)) priced++;
+                else if (g_projectBatch) { g_pend.n = 0; g_pend.bp = false; list->count = listBefore; return 0; }
                 CostEntry* e = (CostEntry*)list->data;
                 for (uint64_t q = before; q < list->count && logged < 4; q++) {
                     logged++;
@@ -632,7 +652,7 @@ static uint8_t bp_fill(CostList* list, void* ctx, void* state, uint8_t* pdata, c
     // material (bottom layer first), instead of stopping at the first block it cannot (Area
     // mode's rule left 14 of 1185 blocks when one of 7 materials ran short).
     CostList blocks = *list; blocks.count = blockCost;
-    if (!creative_on() && g_cfg.bpPartial && g_pend.n > 1 && stock_known(&blocks) && !affordable(nullptr, list, blockCost)) {
+    if (!g_projectBatch && !creative_on() && g_cfg.bpPartial && g_pend.n > 1 && stock_known(&blocks) && !affordable(nullptr, list, blockCost)) {
         struct Budget { uint32_t item; int64_t left; } bud[64]; int nb = 0;
         CostEntry* e = (CostEntry*)list->data;
         auto slot = [&](uint32_t item) -> Budget* {
@@ -670,7 +690,7 @@ static uint8_t bp_fill(CostList* list, void* ctx, void* state, uint8_t* pdata, c
         if (!keep) { g_pend.bp = false; list->count = listBefore; flash(T(S_BP_NOT_ENOUGH_ANY)); beep(MB_ICONHAND); return 0; }
         g_partialOf = n0;
     }
-    if (!creative_on() && !g_cfg.bpPartial && stock_known(&blocks) && !affordable(nullptr, list, blockCost)) {
+    if (!creative_on() && (g_projectBatch || !g_cfg.bpPartial) && stock_known(&blocks) && !affordable(nullptr, list, blockCost)) {
         LOG(.str("blueprint build: not enough materials, partial build off"));
         g_pend.n = 0; g_pend.bp = false; list->count = listBefore;
         flash(T(S_BP_NOT_ENOUGH)); beep(MB_ICONHAND);
@@ -710,6 +730,7 @@ static bool bp_commit_object(void* ctx, int i) {
 // A left click in Blueprint mode (server world, g_stateLock held): the first one notes the
 // clicked block and opens the window (Save or Place); the click Save / Build sends acts.
 static uint8_t bp_place_click(CostList* list, void* ctx, void* state, uint8_t* pdata, const CursorXf& place, const CursorXf* aim) {
+    if (g_projectRunning) return project_click(list, ctx, state, pdata, place);
     if (g_exactOpen) { LOG(.str("  blueprint window open: click ignored")); return 0; }
     if (g_bpWin && g_exactArmed) {
         const LONG w = g_bpWin;
@@ -730,10 +751,11 @@ static uint8_t bp_place_click(CostList* list, void* ctx, void* state, uint8_t* p
     g_scCursorOff = g_bpSub == BP_SAVE && aim ? 0x338 : 0x300;          // the live aim (place window)
     g_scOff[0] = g_scPos[0].x - t.pos[0]; g_scOff[1] = g_scPos[0].y - t.pos[1]; g_scOff[2] = g_scPos[0].z - t.pos[2];
     set_sc_rot(t.rot);
-    g_bpPlaced = 0; g_bpPage = 0;
+    g_bpPlaced = 0; g_bpPage = 0; g_projectList = false; g_projectLoaded = false;
     for (int a = 0; a < 3; a++) { g_bpOff[a] = 0; g_bpSaveOff[a] = 0; }
     g_bpNameEdit = 0;
     g_bpWin = g_bpSub == BP_SAVE ? BPW_SAVE : BPW_PLACE;
+    if (g_bpWin == BPW_PLACE) bp_list_files();
     if (!g_bpItemReg) bp_item_registry(ctx, state);    // the window's item names
     LOG(.str("blueprint: ").str(g_bpSub == BP_SAVE ? "save" : "place").str(" window, block (")
         .fix(g_scPos[0].x).c(',').fix(g_scPos[0].y).c(',').fix(g_scPos[0].z).c(')'));

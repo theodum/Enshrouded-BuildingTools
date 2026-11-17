@@ -29,6 +29,13 @@ static bool bp_save_confirm() {
 }
 static bool bp_build_confirm() {
     if (!g_exactOpen || g_exactArmed || g_bpWin != BPW_PLACE || g_bpPage != 1 || !g_bp.ok) return false;
+    if (g_projectList) {
+        EnterCriticalSection(&g_stateLock);
+        const bool started = project_start();
+        LeaveCriticalSection(&g_stateLock);
+        if (started) bp_arm();
+        return started;
+    }
     g_bpMinArm = bp_min_from(bp_anchor_now());
     write_full_ini(g_cfg);
     LOG(.str("blueprint: build armed, turn ").i(g_bpRot).str(", low cell (").fix(g_bpMinArm.x).c(',').fix(g_bpMinArm.y).c(',').fix(g_bpMinArm.z).c(')'));
@@ -229,13 +236,16 @@ static void draw_bp_place_window() {
     if (now - s_lastDraw > 500) bp_list_files();     // the window just came up (or back)
     s_lastDraw = now;
     if (g_bpPage == 0) {
-        BpFrame f; bp_frame_begin(f, T(S_BP_LIST_TITLE), "");
-        if (!g_bpFiles) bp_text(T(S_BP_NONE));
+        BpFrame f; bp_frame_begin(f, T(g_projectList ? S_PROJECT_LIST : S_BP_LIST_TITLE), "");
+        if (ui_button(T(g_projectList ? S_PROJECT_CLASSIC : S_PROJECT_LIST))) {
+            g_projectList = !g_projectList; g_projectLoaded = false; g_bpBitsOk = 0; bp_list_files();
+        }
+        if (!g_bpFiles) bp_text(T(g_projectList ? S_PROJECT_NONE : S_BP_NONE));
         for (int q = 0; q < g_bpFiles; q++)
             if (ui_button(g_bpName[q])) {
                 g_bpSel = q;
-                if (bp_load(g_bpFile[q])) { g_bpPage = 1; g_bpPlaced = 0; }
-                else flash(T(S_BP_BAD_FILE));
+                if (g_projectList ? project_load(g_bpFile[q]) : bp_load(g_bpFile[q])) { g_bpPage = 1; g_bpPlaced = 0; }
+                else if (!g_projectList) flash(T(S_BP_BAD_FILE));
             }
         bp_frame_rows_end(f);
         BpRow r; bp_row_begin(r);
@@ -252,7 +262,7 @@ static void draw_bp_place_window() {
     LONG v;
     static const char* const turns[4] = { "0\xC2\xB0", "90\xC2\xB0", "180\xC2\xB0", "270\xC2\xB0" };
     if (ui_option(T(S_BP_ROTATION), turns, 4, g_bpRot & 3, &v)) { g_bpRot = v; LOG(.str("blueprint: turn ").i(v)); }
-    {   const char* const offOn[] = { T(S_OPT_OFF), T(S_OPT_ON) };
+    if (!g_projectList) { const char* const offOn[] = { T(S_OPT_OFF), T(S_OPT_ON) };
         if (ui_option(T(S_BP_MIRROR), offOn, 2, g_bpMirror ? 1 : 0, &v)) { g_bpMirror = v != 0; LOG(.str("blueprint: mirror ").i(v)); } }
     if (g_bpMirror && g_cfg.bpObjects && g_bp.h.objects > 0) {   // each kind of object: turned around or not in the mirror
         bp_text(T(S_BP_MIRROR_OBJS));
@@ -268,7 +278,7 @@ static void draw_bp_place_window() {
             if (ui_option(lbl[q & 63], how, 2, cur, &v)) { bp_mirror_set(item, (int)v); LOG(.str("blueprint: mirror ").x(item).str(v ? " turned" : " as is")); }
         }
     }
-    if (ref_option(T(S_BP_REF), g_cfg.bpPlaceRef, &v)) g_cfg.bpPlaceRef = v;
+    if (!g_projectList && ref_option(T(S_BP_REF), g_cfg.bpPlaceRef, &v)) g_cfg.bpPlaceRef = v;
     {
         BpRow r; bp_row_begin(r);
         if (!g_bpPlaced) { if (ui_button(T(S_BP_PLACE_BTN))) { g_bpAnchor = bp_aim_now(); g_bpPlaced = 1; LOG(.str("blueprint: placed")); } }
@@ -276,6 +286,25 @@ static void draw_bp_place_window() {
         bp_row_end(r);
     }
     bp_offset_rows(S_BP_MOVE, g_bpOff);
+    if (g_projectList) {
+        bp_text(T(S_PROJECT_HELP));
+        Buf summary; summary.fmt(T(S_PROJECT_SUMMARY), num(g_projectManifest.count).s, num(g_projectPlan.count).s, num(g_projectPlan.duplicates).s); bp_text(summary.z());
+        const I3 anchor = project_origin_now();
+        Buf x, y, z, point; x.fix(anchor.x); y.fix(anchor.y); z.fix(anchor.z);
+        point.fmt(T(S_PROJECT_ANCHOR), x.z(), y.z(), z.z()); bp_text(point.z());
+        Buf objects; objects.fmt(T(S_PROJECT_OBJECTS), num(g_projectPlan.objects).s); bp_text(objects.z());
+        for (int m = 0; m < g_projectPlan.materialCount; ++m) {
+            const auto& material = g_projectPlan.materials[m]; Buf label, row;
+            bp_item_label(label, material.item); row.fmt(T(S_PROJECT_MATERIAL_ROW), label.z(), num(material.cells).s); bp_text(row.z());
+        }
+        bool shape = true; for (int a = 0; a < 3; ++a) if (g_scStep[a] != 0.5f) shape = false;
+        if (!shape) bp_text(T(S_PROJECT_SHAPE));
+        bp_frame_rows_end(f); BpRow row; bp_row_begin(row);
+        if (ui_button(T(S_EXACT_BUILD), shape && !g_projectRunning)) bp_build_confirm();
+        if (ui_button(T(S_BP_BACK))) { g_bpPage = 0; g_bpPlaced = 0; }
+        if (ui_button(T(S_EXACT_CANCEL))) g_menuReq = 2;
+        bp_row_end(row); bp_keys(S_EXACT_BUILD); bp_frame_end(f); return;
+    }
     const char* const offOn[] = { T(S_OPT_OFF), T(S_OPT_ON) };
     if (ui_option(T(S_BP_PARTIAL), offOn, 2, g_cfg.bpPartial ? 1 : 0, &v)) g_cfg.bpPartial = v != 0;
     if (g_bp.h.objects > 0) {

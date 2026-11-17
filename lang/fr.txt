@@ -363,3 +363,32 @@ bp.have_unknown = ?
 bp.stock_hint = ? = pas encore connu : ouvrez une fois le choix du matériau
 bp.short = Pas assez de {0} matériaux : seule une partie peut être construite
 bp.objects_later = Les objets sont aussi enregistrés : ce qui s'utilise (portes, coffres, lits, établis), ce qui donne du confort (meubles, lumières) et les échelles.
+
+# Composite projects (English fallback outside French)
+project.list = Projets composites
+project.classic = Blueprints individuels
+project.none = Aucun fichier .btproject dans BuildingTools-Projects à côté de enshrouded.exe.
+project.help = Un ancrage, une validation Construire. Vérification de toutes les cellules avant construction, puis de chaque lot. Tenir le cube de 0,5 m. Échap arrête les prochains lots ; les blocs construits restent. Annulation native limitée pour les grandes constructions.
+project.summary = {0} modules, {1} cellules natives, {2} doublons éliminés
+project.objects = Objets dans les blueprints : {0}. La version composite v1 place uniquement les blocs ; les objets sont omis.
+project.anchor = Ancrage au coin inférieur de la cellule visée : X={0}, Y={1}, Z={2} m
+project.material_row = {0} : {1} voxels natifs (coûts exacts vérifiés avant construction)
+project.error = Chargement du projet impossible : {0}
+project.begin = Projet confirmé : vérification complète avant construction
+project.checking = Vérification du projet : {0}/{1} cellules. Échap pour annuler.
+project.building = Construction du projet : {0}/{1} cellules. Échap arrête les prochains lots.
+project.complete = Projet terminé : {0} cellules écrites
+project.stop = Projet arrêté après {0} cellules confirmées : {1}. Voir BuildingTools-Projects.log.
+project.shape = Sélectionner le cube natif de 0,5 m avant d'ouvrir le projet
+project.unavailable = Validation native indisponible. Ouvrir le sélecteur de matériaux dans une base puis réessayer.
+project.coverage = Une cellule est hors des zones des autels existants
+project.collision = Une cellule cible contient déjà des blocs de construction
+project.material = Matériau inconnu ou coût excessif refusé
+project.stock = Matériaux insuffisants pour le projet entier ou stock inconnu. Ouvrir le sélecteur de matériaux.
+project.range = Une coordonnée dépasse la plage de placement de cette version
+project.native = Le jeu a refusé une cellule ou le calcul du coût du lot a échoué
+project.changed = Changement d'outil, d'écran, de focus, de session ou de mode créatif
+project.cancel = Annulé par le joueur
+project.timeout = Aucun accusé de réception en 10 secondes ; aucun nouvel essai automatique
+project.partial = Un lot a été partiellement écrit. Inspecter le monde et le journal avant de réessayer ; aucun rollback automatique.
+project.journal = Impossible d’écrire le journal du projet ; construction arrêtée

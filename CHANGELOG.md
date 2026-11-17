@@ -3,6 +3,26 @@
 Each `## x.y.z` section is used as the release notes on GitHub and as the file
 changelog on Nexus Mods, so keep it short and written for players.
 
+## 0.34.0-dev1
+
+- **Extended composite projects**: the Blueprint Place window adds Composite projects
+  (`BuildingTools-Projects/*.btproject`). Load multiple unchanged BTBP v1 files,
+  move one anchor, change height, turn the entire plan and confirm Build once.
+- Compatible source grids from 0.5 to 4 m are expanded into native 0.5 m voxels.
+  Up to 128 modules / 1,048,576 expanded occupied cells, with deterministic positions,
+  duplicate elimination and conflicting-material rejection.
+- Before writing, check all target cells against native altar coverage, existing
+  building voxels and native costs. Build in batches of at most 256 cells, checking
+  again each time. Stop on failure, cancellation, focus/tool/session change or timeout;
+  keep a diagnostic journal. Existing partial undo limits still apply; no full rollback.
+- Ship a three-blueprint, 312-cell example, French/English UI and an installation/test
+  protocol. Composite v1 places blocks only; classic blueprint objects remain available.
+  Large previews use the existing bounding-volume fallback.
+- Guard BTBP decoding against 32-bit cell-count overflow, zero-length runs and a torn
+  optional object count; old files without object sections still load.
+- Development build: Windows DLL, unit tests and local executable signature checks
+  pass. **In-game composite behavior awaits personal validation.**
+
 ## 0.33.2
 
 - **Blueprints**: some blueprints built blocks that nothing could remove (hammer, Area

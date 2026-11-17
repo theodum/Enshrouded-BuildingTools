@@ -363,3 +363,32 @@ bp.have_unknown = ?
 bp.stock_hint = ? = non ancora noto: apri una volta la scelta del materiale
 bp.short = Non abbastanza di {0} materiali: si può costruire solo una parte
 bp.objects_later = Si salvano anche gli oggetti: ciò che si usa (porte, bauli, letti, banchi), ciò che dà comfort (mobili, luci) e le scale.
+
+# Composite projects (English fallback outside French)
+project.list = Composite projects
+project.classic = Individual blueprints
+project.none = No .btproject files in BuildingTools-Projects beside enshrouded.exe.
+project.help = One anchor, one Build confirmation. All cells are checked before building, then checked again per batch. Hold the 0.5 m cube. Escape stops future batches; existing blocks remain. Native undo covers only part of large builds.
+project.summary = {0} modules, {1} native cells, {2} duplicate cells removed
+project.objects = Objects in these blueprints: {0}. Composite v1 places blocks only; objects are omitted.
+project.anchor = Anchor at the low corner of the aimed cell: X={0}, Y={1}, Z={2} m
+project.material_row = {0}: {1} native voxels (exact costs checked before building)
+project.error = Cannot load project: {0}
+project.begin = Project confirmed: checking the entire project before building
+project.checking = Checking project: {0}/{1} cells. Escape cancels.
+project.building = Building project: {0}/{1} cells. Escape stops future batches.
+project.complete = Project finished: {0} cells written
+project.stop = Project stopped after {0} confirmed cells: {1}. See BuildingTools-Projects.log.
+project.shape = Select the native 0.5 m cube before opening the project
+project.unavailable = Native validation unavailable. Open the material picker in a base, then retry.
+project.coverage = A cell is outside the existing altar areas
+project.collision = A target cell already contains building blocks
+project.material = An unknown material or excessive cost was refused
+project.stock = Not enough materials for the whole project, or stock unknown. Open the material picker.
+project.range = A coordinate exceeds this version's placement range
+project.native = The game refused a cell or the batch could not be priced
+project.changed = The tool, screen, focus, session or creative setting changed
+project.cancel = Cancelled by the player
+project.timeout = No acknowledgement in 10 seconds; automatic retry disabled
+project.partial = A batch was partially written. Inspect the world and log before retrying; no automatic rollback.
+project.journal = Cannot write the project journal; construction stopped

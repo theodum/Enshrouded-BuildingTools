@@ -14,6 +14,7 @@
 
 #include <windows.h>
 #include "core.h"
+#include "project.h"
 
 using core::CursorXf;
 using core::IntXf;
@@ -21,7 +22,7 @@ using core::Aabb;
 using core::I3;
 
 #define MOD_NAME    "Building Tools"
-#define MOD_VERSION "0.33.2"
+#define MOD_VERSION "0.34.0-dev1"
 
 // -------------------------------------------------------------- freestanding
 extern "C" {
@@ -1762,6 +1763,8 @@ typedef uint8_t* (*ClientStockFn)(uint8_t* out, uint8_t* sys, const float* pos, 
 typedef uint8_t* (*BaseAtFn)(uint8_t* out, uint8_t* sys, const float* pos);
 static ClientStockFn g_clientStockOrig = nullptr;
 static BaseAtFn g_baseAt = nullptr;          // 469060: index of the base whose area holds a point
+static uint8_t* volatile g_projectBaseSys = nullptr;
+static volatile DWORD g_projectBaseSeen = 0;
 struct ClientChests {
     uint8_t* sys;
     int here;        // base the player stood in when the list was built (-1 = none)
@@ -1812,6 +1815,7 @@ static bool point_in_base(uint8_t* sys, int b, float* p) {
 }
 static uint8_t* client_stock_hook(uint8_t* out, uint8_t* sys, const float* pos, uint32_t player) {
     PROF(PF_CSTOCK);
+    if (sys) { g_projectBaseSys = sys; g_projectBaseSeen = GetTickCount(); }
     if (!global_chests_on() || !sys || !pos) return PROF_CALL(PF_CSTOCK_G, g_clientStockOrig(out, sys, pos, player));
     ClientChests* cc = client_chests(sys);
     int nb = cc ? base_count(sys) : 0;
@@ -2266,9 +2270,11 @@ static void log_xf(const char* what, const CursorXf* x) {
 
 // ---- pending action: priced in place_hook, written in place_commit_hook
 static const int kMaxPending = 20000;
+static CRITICAL_SECTION g_stateLock;
+static volatile LONG g_projectRunning = 0;
 static int64_t g_pendPos[kMaxPending][3];
 struct Pending { void* ctx; DWORD tid; DWORD tick; int n; bool replace; LONG style; float rot[4]; uint32_t shape; CostList* list;
-                 bool bp; uint8_t* pdata; };   // bp: a blueprint, each shape with its own material (g_pendMat)
+                 bool bp; uint8_t* pdata; bool project; };   // bp: a blueprint, each shape with its own material (g_pendMat)
 static uint32_t g_pendCost[kMaxPending + 1];     // cost list count before shape i (n = end)
 static uint8_t g_pendMat[kMaxPending];           // blueprint build: the material (blueprint table index) of each queued shape
 static uint16_t g_pendObj[kMaxPending];          // blueprint build: 1 + the object (blueprint table) a queued entry places, 0 = a shape
@@ -2368,6 +2374,7 @@ static Pending g_pend;
 static void pend_begin(void* ctx, const CursorXf& tmpl, bool replace, uint32_t shape) {
     g_pend.ctx = ctx; g_pend.tid = GetCurrentThreadId(); g_pend.tick = GetTickCount();
     g_pend.n = 0; g_pend.replace = replace; g_pend.shape = shape; g_pend.bp = false; g_pend.pdata = nullptr;
+    g_pend.project = false;
     g_pend.style = g_replaceStyle == STYLE_CONNECTED ? STYLE_OVERLAP : g_replaceStyle;   // cave mode
     memset(g_allow, 0, sizeof(g_allow));
     if (g_caveAllow) memset(g_caveAllow, 0, 256);
@@ -2527,13 +2534,28 @@ static bool shrink_to_affordable(uint8_t* trans, CostList* list) {
 
 static uint8_t bp_commit_material(int i);            // blueprint.h
 static bool bp_commit_object(void* ctx, int i);      // blueprint.h
+static void project_committed(int expected, int written); // project_runtime.h
 static bool obj_rec_available();                     // objects.h: PlaceProp can record undo
+static uint8_t place_commit_hook_body(void* ctx, Commit* c, uint32_t shape);
 static uint8_t place_commit_hook(void* ctx, Commit* c, uint32_t shape) {
+    if (!g_pend.project && !g_projectRunning) return place_commit_hook_body(ctx, c, shape);
+    EnterCriticalSection(&g_stateLock);
+    uint8_t result = place_commit_hook_body(ctx, c, shape);
+    LeaveCriticalSection(&g_stateLock);
+    return result;
+}
+static uint8_t place_commit_hook_body(void* ctx, Commit* c, uint32_t shape) {
+    // A cancelled or expired composite action must never fall through to a vanilla
+    // write at the aimed position. Keep its marker until this commit is consumed.
+    if (g_pend.project && g_pend.ctx == ctx && g_pend.tid == GetCurrentThreadId() &&
+        (!g_projectRunning || GetTickCount() - g_pend.tick >= 3000)) {
+        g_pend.n = 0; g_pend.project = false; return 0;
+    }
     bool mine = g_pend.n > 0 && g_pend.ctx == ctx && g_pend.tid == GetCurrentThreadId() &&
                 GetTickCount() - g_pend.tick < 3000;
     if (!mine) return g_placeCommitOrig(ctx, c, shape);
     Pending pd = g_pend;
-    g_pend.n = 0;
+    g_pend.n = 0; g_pend.project = false;
     uint8_t any = 0;
     int placed = 0;
     uint32_t h0 = g_caveHits[0], h1 = g_caveHits[1];
@@ -2553,8 +2575,10 @@ static uint8_t place_commit_hook(void* ctx, Commit* c, uint32_t shape) {
         Commit pc = *c;
         for (int a = 0; a < 3; a++) pc.pos[a] = (float)g_pendPos[i][a] * kInv;
         for (int k = 0; k < 4; k++) pc.rot[k] = pd.rot[k];
-        if (g_placeCommitOrig(ctx, &pc, shape)) { any = 1; placed++; }
+        const bool wrote = g_placeCommitOrig(ctx, &pc, shape) != 0;
+        if (wrote) { any = 1; placed++; }
         undo_after(us);
+        if (pd.project && !wrote) break;
     }
     if (g_caveForce) *g_caveForce = 0;
     undo_end(us);
@@ -2575,6 +2599,7 @@ static uint8_t place_commit_hook(void* ctx, Commit* c, uint32_t shape) {
         if (of > pd.n) b.fmt(T(S_PLACED_PARTIAL), num(placed).s, num(of).s); else b.fmt(T(S_PLACED), num(placed).s);
         if (us.recorded < pd.n) b.str("  |  ").fmt(T(S_UNDO_COVERS), num(us.recorded).s);
         flash(b.z()); }
+    if (pd.project) project_committed(pd.n, placed);
     return any;
 }
 
@@ -2764,7 +2789,6 @@ static int world_of(CostList* list, CursorXf* xf) {
 }
 
 // ---- corner state (server only)
-static CRITICAL_SECTION g_stateLock;
 static LONG g_sc = 0;            // corners set (0..2)
 static I3   g_scPos[3];
 static const char* prof_state() {
@@ -3415,6 +3439,7 @@ static uint8_t connected_remove(CostList* list, void* ctx, void* state, Aabb* bx
 
 #include "bpobjects.h"
 #include "blueprint.h"
+#include "project_runtime.h"
 
 static uint8_t remove_hook_body(void* list, void* ctx, void* state, void* box, void* xfp, void* filter, uint8_t check);
 static uint8_t remove_hook(void* list, void* ctx, void* state, void* box, void* xfp, void* filter, uint8_t check) {
@@ -3428,7 +3453,7 @@ static uint8_t remove_hook_body(void* list, void* ctx, void* state, void* box, v
     if (g_ownRemoveTid == GetCurrentThreadId() || !is_server_ctx(ctx) || !box || !xfp)
         return g_remove((CostList*)list, ctx, state, (Aabb*)box, (IntXf*)xfp, filter, check);
     const bool connected = g_mode == MODE_PREFAB && g_replace && g_replaceStyle == STYLE_CONNECTED;
-    if (g_mode == MODE_BLUEPRINT && bp_tool() && (g_exactOpen || g_exactArmed)) {
+    if (g_mode == MODE_BLUEPRINT && bp_tool() && (g_exactOpen || g_exactArmed || g_projectRunning)) {
         // a right click to look around behind the blueprint window removes nothing
         g_rpend.ctx = ctx; g_rpend.tid = GetCurrentThreadId(); g_rpend.tick = GetTickCount(); g_rpend.n = 0; g_rpend.only = 0;
         g_rpend.suppress = true;
@@ -3606,6 +3631,13 @@ static uint8_t place_hook(CostList* list, void* ctx, void* state, void* pdata, C
     return place_hook_body(list, ctx, state, pdata, xf);
 }
 static uint8_t place_hook_body(CostList* list, void* ctx, void* state, void* pdata, CursorXf* xf) {
+    // A fresh server action supersedes an abandoned, unpaid composite request.
+    // Until that action, its marker suppresses any late commit of the old click.
+    if (g_pend.project && !g_projectRunning && world_of(list, xf) == WORLD_SERVER) {
+        EnterCriticalSection(&g_stateLock);
+        if (!g_projectRunning) { g_pend.project = false; g_pend.n = 0; }
+        LeaveCriticalSection(&g_stateLock);
+    }
     const bool replace = g_replace != 0 && g_mode != MODE_BLUEPRINT && item_kind(state) != ITEM_PIECE;     // pieces place as in the game
     if (g_replace) log_item("click", state);
     const LONG mode = g_mode;
@@ -3615,7 +3647,7 @@ static uint8_t place_hook_body(CostList* list, void* ctx, void* state, void* pda
     const int world = world_of(list, xf);
     if (world == WORLD_UNKNOWN) {
         LOG(.str("click in unrecognised world; running vanilla"));
-        return g_placeOrig(list, ctx, state, pdata, xf);
+        return g_projectRunning ? 0 : g_placeOrig(list, ctx, state, pdata, xf);
     }
     const uint32_t shape = state ? *(uint32_t*)state : 0;
     uint8_t* cc = cursor_component(xf);
@@ -3634,6 +3666,7 @@ static uint8_t place_hook_body(CostList* list, void* ctx, void* state, void* pda
 
     // ---- server world
     EnterCriticalSection(&g_stateLock);
+    if (g_projectRunning && g_projectWaiting != 1) { LeaveCriticalSection(&g_stateLock); return 0; }
     if (InterlockedExchange(&g_cancelReq, 0)) reset_corners();
     if (g_refundList && g_refundList != list) { g_refundN = 0; g_refundList = nullptr; }   // stale
     g_pend.n = 0;
@@ -5361,6 +5394,7 @@ static int* exact_field(int k) { return k == 1 ? &g_cfg.exactW : k == 2 ? &g_cfg
 
 static void exact_cancel(const char* why) {
     EnterCriticalSection(&g_stateLock);
+    if (g_projectRunning) project_stop(T(S_PROJECT_CANCEL));
     g_exactArmed = 0; g_exactFire = 0; g_exactPhase = 0;
     reset_corners();
     const bool bp = g_bpWin != 0;
@@ -6300,6 +6334,23 @@ static DWORD WINAPI input_thread(void*) {
         Sleep(15);
         if (!g_active) continue;
         bool focus = game_focused();
+        if (g_projectRunning) {
+            const DWORD now = GetTickCount();
+            const bool inGame = wheel_screen(g_hudScreen) && now - g_hudScreenTick < 500 && !g_menuOpen;
+            EnterCriticalSection(&g_stateLock);
+            const bool send = project_poll(focus, inGame, building_item());
+            LeaveCriticalSection(&g_stateLock);
+            if (send) {
+                INPUT in[2] = {}; in[0].type = in[1].type = INPUT_MOUSE;
+                in[0].mi.dwFlags = MOUSEEVENTF_LEFTDOWN; in[1].mi.dwFlags = MOUSEEVENTF_LEFTUP;
+                const UINT sent = SendInput(1, &in[0], sizeof(INPUT));
+                Sleep(70); // the existing native click path samples the mouse over frames
+                SendInput(1, &in[1], sizeof(INPUT));
+                if (!sent) { EnterCriticalSection(&g_stateLock); project_stop(T(S_PROJECT_TIMEOUT)); LeaveCriticalSection(&g_stateLock); }
+            }
+            for (bool& p : prev) p = true;
+            continue;
+        }
         bp_type_keys(focus);                     // the blueprint save window's name (only while it is up)
         bp_save_watchdog();                      // a blueprint save whose objects never came
         if (g_radialOpen && (g_modOff || !focus)) radial_close(false);

@@ -351,7 +351,35 @@
     X(S_BP_MAT_UNKNOWN, "bp.have_unknown", "?") \
     X(S_BP_STOCK_HINT, "bp.stock_hint", "? = not known yet: open the material picker once") \
     X(S_BP_SHORT, "bp.short", "Not enough of {0} materials: only part can be built") \
-    X(S_BP_OBJECTS_LATER, "bp.objects_later", "Objects are saved too: what you can use (doors, chests, beds, stations), what gives comfort (furniture, lights) and ladders.")
+    X(S_BP_OBJECTS_LATER, "bp.objects_later", "Objects are saved too: what you can use (doors, chests, beds, stations), what gives comfort (furniture, lights) and ladders.") \
+    /* composite projects */ \
+    X(S_PROJECT_LIST, "project.list", "Composite projects") \
+    X(S_PROJECT_CLASSIC, "project.classic", "Individual blueprints") \
+    X(S_PROJECT_NONE, "project.none", "No .btproject files in BuildingTools-Projects beside enshrouded.exe.") \
+    X(S_PROJECT_HELP, "project.help", "One anchor, one Build confirmation. All cells are checked before building, then checked again per batch. Hold the 0.5 m cube. Escape stops future batches; existing blocks remain. Native undo covers only part of large builds.") \
+    X(S_PROJECT_SUMMARY, "project.summary", "{0} modules, {1} native cells, {2} duplicate cells removed") \
+    X(S_PROJECT_OBJECTS, "project.objects", "Objects in these blueprints: {0}. Composite v1 places blocks only; objects are omitted.") \
+    X(S_PROJECT_ANCHOR, "project.anchor", "Anchor at the low corner of the aimed cell: X={0}, Y={1}, Z={2} m") \
+    X(S_PROJECT_MATERIAL_ROW, "project.material_row", "{0}: {1} native voxels (exact costs checked before building)") \
+    X(S_PROJECT_ERROR, "project.error", "Cannot load project: {0}") \
+    X(S_PROJECT_BEGIN, "project.begin", "Project confirmed: checking the entire project before building") \
+    X(S_PROJECT_CHECKING, "project.checking", "Checking project: {0}/{1} cells. Escape cancels.") \
+    X(S_PROJECT_BUILDING, "project.building", "Building project: {0}/{1} cells. Escape stops future batches.") \
+    X(S_PROJECT_COMPLETE, "project.complete", "Project finished: {0} cells written") \
+    X(S_PROJECT_STOP, "project.stop", "Project stopped after {0} confirmed cells: {1}. See BuildingTools-Projects.log.") \
+    X(S_PROJECT_SHAPE, "project.shape", "Select the native 0.5 m cube before opening the project") \
+    X(S_PROJECT_UNAVAILABLE, "project.unavailable", "Native validation unavailable. Open the material picker in a base, then retry.") \
+    X(S_PROJECT_COVERAGE, "project.coverage", "A cell is outside the existing altar areas") \
+    X(S_PROJECT_COLLISION, "project.collision", "A target cell already contains building blocks") \
+    X(S_PROJECT_MATERIAL, "project.material", "An unknown material or excessive cost was refused") \
+    X(S_PROJECT_STOCK, "project.stock", "Not enough materials for the whole project, or stock unknown. Open the material picker.") \
+    X(S_PROJECT_RANGE, "project.range", "A coordinate exceeds this version's placement range") \
+    X(S_PROJECT_NATIVE, "project.native", "The game refused a cell or the batch could not be priced") \
+    X(S_PROJECT_CHANGED, "project.changed", "The tool, screen, focus, session or creative setting changed") \
+    X(S_PROJECT_CANCEL, "project.cancel", "Cancelled by the player") \
+    X(S_PROJECT_TIMEOUT, "project.timeout", "No acknowledgement in 10 seconds; automatic retry disabled") \
+    X(S_PROJECT_PARTIAL, "project.partial", "A batch was partially written. Inspect the world and log before retrying; no automatic rollback.") \
+    X(S_PROJECT_JOURNAL, "project.journal", "Cannot write the project journal; construction stopped")
 
 enum Str {
 #define BT_STR_ID(id, key, en) id,
