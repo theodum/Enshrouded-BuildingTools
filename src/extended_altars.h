@@ -4,6 +4,7 @@
 static extended::Box g_altarZones[256]; static int g_altarZoneCount = 0;
 static extended::Proposal g_altarProposals[64]; static int g_altarProposalCount = 0;
 static int g_altarScan = -1, g_altarUncovered = 0, g_altarUnassigned = 0, g_altarTemplate = 1;
+static int g_altarTargets = 0;
 static int g_altarDimensions[3] = {}, g_altarGeneration = -1, g_altarRotation = 0;
 static bool g_altarAutoAdd = true;
 static I3 g_altarOrigin;
@@ -42,18 +43,37 @@ static void altar_assist_begin(bool keep = false) {
     for (int a = 0; a < 3; ++a) g_altarDimensions[a] = zone.hi[a] - zone.lo[a];
     if (!keep) g_altarProposalCount = 0;
     g_altarScan = g_altarUncovered = g_altarUnassigned = 0; g_altarAutoAdd = !keep;
+    g_altarTargets = g_projectPlan.count + 9 * (g_projectManifest.pieceCount + (g_projectUseObjects ? g_projectObjectCount : 0));
     g_altarOrigin = project_origin_now(); g_altarRotation = g_bpRot; g_altarGeneration = g_projectGeneration;
+}
+static bool altar_target(int index, const I3& origin, int* low) {
+    const int64_t world[] = {origin.x,origin.y,origin.z};
+    if (index < g_projectPlan.count) {
+        project::cell_low(g_projectPlan.cells[index],g_projectManifest.anchor,g_bpRot,low);
+        for (int a=0;a<3;++a) low[a]+=(int)(world[a]/kProjectFixUnit); return true;
+    }
+    index-=g_projectPlan.count; const int part=index/9,sample=index%9; extended::Box box{};
+    if (part < g_projectManifest.pieceCount) {
+        box=g_projectPieceBoxes[part]; box.hi[1]+=g_projectManifest.pieces[part].clearance;
+        for (int a=0;a<3;++a) { box.lo[a]-=g_projectManifest.anchor[a]; box.hi[a]-=g_projectManifest.anchor[a]; }
+        box=extended::turn_box(box,g_bpRot);
+        for (int a=0;a<3;++a) { box.lo[a]+=(int)(world[a]/kProjectFixUnit); box.hi[a]+=(int)(world[a]/kProjectFixUnit); }
+    } else {
+        const auto& object=g_projectObjects[part-g_projectManifest.pieceCount];
+        double pos[3]; float rotation[4],mn[3],mx[3]; extended::object_world(object,g_projectManifest.anchor,g_bpRot,origin,pos,rotation);
+        uint8_t* item=g_bpItemById ? g_bpItemById(object.item,g_bpItemReg) : nullptr;
+        if (!bp_item_bounds(item,mn,mx) || !extended::object_box(pos,rotation,mn,mx,&box)) return false;
+    }
+    extended::box_sample(box,sample,low); return true;
 }
 static void altar_assist_update() {
     if (g_altarScan < 0 || !g_projectLoaded || !g_projectList || !g_exactOpen || g_bpPage != 1) return;
     I3 origin = project_origin_now();
     if (origin.x != g_altarOrigin.x || origin.y != g_altarOrigin.y || origin.z != g_altarOrigin.z || g_altarRotation != g_bpRot || g_altarGeneration != g_projectGeneration) altar_assist_begin();
     if (g_altarScan < 0) return;
-    int end = g_altarScan + 2048; if (end > g_projectPlan.count) end = g_projectPlan.count;
+    int end = g_altarScan + 256; if (end > g_altarTargets) end = g_altarTargets;
     for (; g_altarScan < end; ++g_altarScan) {
-        int low[3]; project::cell_low(g_projectPlan.cells[g_altarScan], g_projectManifest.anchor, g_bpRot, low);
-        const int64_t world[] = {origin.x, origin.y, origin.z};
-        for (int a = 0; a < 3; ++a) low[a] += (int)(world[a] / kProjectFixUnit);
+        int low[3]; if (!altar_target(g_altarScan,origin,low)) { ++g_altarUnassigned; continue; }
         bool covered = false;
         for (int z = 0; z < g_altarZoneCount && !covered; ++z) covered = extended::contains(g_altarZones[z], low);
         if (covered) continue;

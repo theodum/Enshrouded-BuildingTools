@@ -59,6 +59,10 @@ static bool remote_session();
 // Isolated composite adapter, implemented after this file in project_runtime.h.
 static bool g_projectList = false, g_projectLoaded = false;
 static bool g_projectBatch = false;
+static volatile LONG g_extendedLaunchPage = -1; // Home request, consumed only by the native first click
+static volatile DWORD g_extendedLaunchAt = 0;
+static bool g_extendedLaunchSent = false;
+static int g_projectTab = 0;
 static bool project_load(const wchar_t* name);
 static bool project_start();
 static uint8_t project_click(CostList*, void*, void*, uint8_t*, const CursorXf&);
@@ -68,6 +72,8 @@ static void project_committed(int expected, int written);
 static void project_stop(const char* why);
 static bool project_box(int64_t*, int64_t*, float*);
 static void project_ghost_bits();
+static void project_generated_finish();
+static bool catalog_refresh();
 
 static void bp_dir(wchar_t* out) {
     lstrcpyW(out, g_dir); lstrcatW(out, L"BuildingTools-Blueprints\\");
@@ -756,11 +762,19 @@ static uint8_t bp_place_click(CostList* list, void* ctx, void* state, uint8_t* p
     g_scOff[0] = g_scPos[0].x - t.pos[0]; g_scOff[1] = g_scPos[0].y - t.pos[1]; g_scOff[2] = g_scPos[0].z - t.pos[2];
     set_sc_rot(t.rot);
     g_bpPlaced = 0; g_bpPage = 0; g_projectList = false;
+    const LONG requestedPage = InterlockedExchange(&g_extendedLaunchPage, -1);
+    g_extendedLaunchAt = 0;
+    if (requestedPage >= 0) {
+        g_bpPage = requestedPage; g_projectList = true;
+        if (requestedPage == 1 && g_projectLoaded) project_generated_finish();
+        else if (requestedPage == 1) g_bpPage = 0;
+    }
     for (int a = 0; a < 3; a++) { g_bpOff[a] = 0; g_bpSaveOff[a] = 0; }
     g_bpNameEdit = 0;
     g_bpWin = g_bpSub == BP_SAVE ? BPW_SAVE : BPW_PLACE;
     if (g_bpWin == BPW_PLACE) bp_list_files();
     if (!g_bpItemReg) bp_item_registry(ctx, state);    // the window's item names
+    if (requestedPage == 3) catalog_refresh();
     LOG(.str("blueprint: ").str(g_bpSub == BP_SAVE ? "save" : "place").str(" window, block (")
         .fix(g_scPos[0].x).c(',').fix(g_scPos[0].y).c(',').fix(g_scPos[0].z).c(')'));
     exact_begin(OP_BUILD);

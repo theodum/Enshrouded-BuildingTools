@@ -16,6 +16,7 @@
 #include "core.h"
 #include "project.h"
 #include "extended_core.h"
+#include "native_abi.h"
 
 using core::CursorXf;
 using core::IntXf;
@@ -23,7 +24,7 @@ using core::Aabb;
 using core::I3;
 
 #define MOD_NAME    "Building Tools"
-#define MOD_VERSION "0.34.0-dev2"
+#define MOD_VERSION "0.34.0-dev3"
 
 // -------------------------------------------------------------- freestanding
 extern "C" {
@@ -6365,6 +6366,19 @@ static DWORD WINAPI input_thread(void*) {
         Sleep(15);
         if (!g_active) continue;
         bool focus = game_focused();
+        if (g_extendedLaunchPage >= 0 && !g_projectRunning) {
+            const DWORD now=GetTickCount();
+            if (!focus || g_modOff || g_mode!=MODE_BLUEPRINT || extended::elapsed(now,g_extendedLaunchAt)>3000 || (GetAsyncKeyState(VK_ESCAPE)&0x8000)) {
+                g_extendedLaunchPage=-1; g_extendedLaunchAt=0; flash(T(S_EXT_LAUNCH_HELP));
+            } else if (!g_extendedLaunchSent && extended::elapsed(now,g_extendedLaunchAt)>=0 && !g_menuOpen && !g_exactOpen && wheel_screen(g_hudScreen) && now-g_hudScreenTick<500 && !(GetAsyncKeyState(VK_LBUTTON)&0x8000) && !(GetAsyncKeyState(VK_RBUTTON)&0x8000)) {
+                g_extendedLaunchSent=true;
+                INPUT click={}; click.type=INPUT_MOUSE; click.mi.dwFlags=MOUSEEVENTF_LEFTDOWN; const UINT sent=SendInput(1,&click,sizeof click);
+                Sleep(70); click.mi.dwFlags=MOUSEEVENTF_LEFTUP; SendInput(1,&click,sizeof click);
+                if (!sent) { g_extendedLaunchPage=-1; g_extendedLaunchAt=0; flash(T(S_EXT_LAUNCH_HELP)); }
+            }
+            for (bool& p:prev) p=true;
+            continue;
+        }
         if (g_projectReturnAt) {
             EnterCriticalSection(&g_stateLock);
             project_return_poll(focus, !g_menuOpen && wheel_screen(g_hudScreen));
@@ -6597,8 +6611,15 @@ static DWORD WINAPI init_thread(void*) {
     uint8_t* sc     = find_unique("ServerCheck", SIG_SERVER_CHECK);
     uint8_t* pay    = find_hookable("PayCost", SIG_PAY, 7);
     uint8_t* pcommit = find_hookable("PlaceCommit", SIG_PLACE_COMMIT, 5);
-    g_nativePartsAvailable = pcommit && readable(pcommit + 0x8c, 4) && !memcmp(pcommit + 0x8c, "\x41\x8B\x4F\x1C", 4)
+    auto nt=(const IMAGE_NT_HEADERS64*)(g_base+((const IMAGE_DOS_HEADER*)g_base)->e_lfanew);
+    const uint64_t imageSize=nt->OptionalHeader.SizeOfImage;
+    g_nativeObjectAbi=extended::item_abi((uint64_t)g_base,[&](uint64_t address,uint64_t size)->const uint8_t* {
+        uint64_t offset=address-(uint64_t)g_base;
+        return offset<imageSize && size<=imageSize-offset && readable((void*)address,(size_t)size) ? (const uint8_t*)address : nullptr;
+    });
+    g_nativePartsAvailable = g_nativeObjectAbi && pcommit && readable(pcommit + 0x8c, 4) && !memcmp(pcommit + 0x8c, "\x41\x8B\x4F\x1C", 4)
         && place && readable(place + 0x56, 8) && !memcmp(place + 0x56, "\x44\x0F\xB6\xAE\x54\x04\x00\x00", 8);
+    LOG(.str("Extended native reflection ABI: ").i(g_nativeObjectAbi).str("; piece pricing/commit ABI: ").i(g_nativePartsAvailable));
     uint8_t* rcommit = find_hookable("RemoveCommit", SIG_REMOVE_COMMIT, 5);
     uint8_t* matItem = find_unique("MaterialItem", SIG_MATERIAL_ITEM);
     uint8_t* refundBuild = find_hookable("RefundBuild", SIG_REFUND_BUILD, 7);

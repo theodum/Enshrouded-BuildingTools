@@ -1,0 +1,43 @@
+{
+  "format": "BuildingToolsExtendedProject",
+  "version": 1,
+  "name": "Dev3 - grille virtuelle Y120",
+  "gridSize": 0.5,
+  "anchor": [
+    0,
+    0,
+    0
+  ],
+  "modules": [
+    {
+      "file": "Dev3_Maison_05.btbp",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_05.btbp",
+      "offset": [
+        4,
+        0,
+        1.5
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_05.btbp",
+      "offset": [
+        8,
+        0,
+        0
+      ],
+      "rotation": 180,
+      "category": "wall"
+    }
+  ]
+}

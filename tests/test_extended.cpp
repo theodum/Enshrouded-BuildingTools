@@ -1,14 +1,24 @@
 #include "../src/extended_core.h"
+#include "../src/native_abi.h"
 #include <cmath>
 #include <cstdio>
+#include <random>
+#include <vector>
+#include <cstring>
 static int failures = 0, checks = 0;
 #define CHECK(x) do { ++checks; if (!(x)) { std::printf("FAIL %d: %s\n", __LINE__, #x); ++failures; } } while (0)
 int main() {
     using namespace extended;
     CHECK(elapsed(1000,1200) == -200); CHECK(elapsed(1200,1200) == 0);
     CHECK(elapsed(10,0xfffffff0u) == 26); CHECK(elapsed(5,10) < 0);
+    CHECK(batch_limit(-2)==128 && batch_limit(0)==128 && batch_limit(999)==256 && batch_limit(16)==16);
+    CHECK(adapt_batch(128,51)==64 && adapt_batch(1,999)==1 && adapt_batch(128,50)==128);
+    CHECK(fingerprint_word(1,2)==fingerprint_word(1,2)); CHECK(fingerprint_word(1,2)!=fingerprint_word(1,3));
     CHECK(object_flags_allowed(0)); CHECK(!object_flags_allowed(1u << 0)); CHECK(!object_flags_allowed(1u << 8));
     CHECK(!object_flags_allowed(1u << 19)); CHECK(object_flags_allowed(1u << 19,true)); CHECK(!object_flags_allowed(1u << 20,true));
+    CHECK(!object_flags_allowed(1u<<14)); CHECK(!object_flags_allowed(1u<<15)); CHECK(!object_flags_allowed(1u<<31));
+    CHECK(object_flags_allowed((1u<<2)|(1u<<13))); // empty containers and ordinary fuelled props are not blanket-excluded
+    CHECK(!item_abi(0,[](uint64_t,uint64_t)->const uint8_t* {return nullptr;}));
     Grid grid; grid.enabled = 1; grid.height = 120 * 16;
     const double cam[] = {10.13, 128, -3.13}, ray[] = {0, -1, 0}; core::I3 hit;
     CHECK(grid_hit(grid, cam, ray, &hit)); CHECK(hit.x / core::kFix == 10.0 && hit.y / core::kFix == 120.0 && hit.z / core::kFix == -3.0);
@@ -53,6 +63,33 @@ int main() {
     CHECK(!stair_layout(0,2,8,16,48,steps,160)); CHECK(!stair_layout(0,2,32,0,48,steps,160));
     CHECK(!stair_layout(2,32,32,16,48,steps,10));
     CHECK(!stair_layout(1,1,32,16,48,steps,160)); CHECK(!stair_layout(3,3,32,16,48,steps,160));
+    for (int kind=0;kind<4;++kind) {
+        const int n=stair_layout(kind,4,32,16,48,steps,160);
+        for (int i=0;i<n;++i) for (int r=0;r<4;++r) {
+            const auto turned=turn_stair(steps[i],r);
+            CHECK(turned.rotation==((steps[i].rotation+r)&3)); CHECK(turned.low[1]==steps[i].low[1]);
+            auto cycle=steps[i]; for(int k=0;k<4;++k) cycle=turn_stair(cycle,1);
+            CHECK(cycle.low[0]==steps[i].low[0] && cycle.low[2]==steps[i].low[2] && cycle.rotation==steps[i].rotation);
+            if (steps[i].landing) CHECK(turned.width==(r&1?steps[i].depth:steps[i].width));
+        }
+    }
+    stair_layout(0,2,32,16,48,steps,160); auto east=turn_stair(steps[1],1);
+    CHECK(east.low[0]==-96 && east.low[2]==0 && east.low[1]==16 && east.rotation==1);
+    const double op[]={2,3,4}; const float oq[]={0,0.70710677f,0,0.70710677f}, ol[]={0,0,0}, oh[]={1,2,3}; Box ob{};
+    CHECK(object_box(op,oq,ol,oh,&ob)); CHECK(ob.lo[0]>=31 && ob.hi[0]<=81 && ob.lo[2]>=47 && ob.hi[2]<=65);
+    const float invalidBounds[]={0,0,INFINITY}; CHECK(!object_box(op,oq,ol,invalidBounds,&ob));
+    const Box negative={{-17,-9,-1},{15,23,31}}; int sample[3]; box_sample(negative,0,sample); CHECK(sample[0]==-24 && sample[1]==-16 && sample[2]==-8);
+    Box cycle=negative; for(int i=0;i<4;++i) cycle=turn_box(cycle,1); CHECK(std::memcmp(&cycle,&negative,sizeof cycle)==0);
+    // Differential broad-phase collision test, including negative/non-grid bounds.
+    std::mt19937 rng(42); std::vector<project::CellEntry> sparse;
+    for(int y=-2;y<3;++y) for(int z=-4;z<5;++z) for(int x=-4;x<5;++x) if(rng()%3==0) sparse.push_back({{x*8,y*8,z*8},0,0,0});
+    project::Plan collision{sparse.data(),(int)sparse.size()}; collision.count=(int)sparse.size(); collision.materialCount=1; project::Error error;
+    CHECK(project::finish(&collision,&error));
+    for(int i=0;i<2000;++i) {
+        Box probe{}; for(int a=0;a<3;++a) { probe.lo[a]=(int)(rng()%120)-60; probe.hi[a]=probe.lo[a]+1+(int)(rng()%32); }
+        bool expected=false; for(const auto& cell:sparse) { Box voxel{}; for(int a=0;a<3;++a) { voxel.lo[a]=cell.p[a]; voxel.hi[a]=cell.p[a]+8; } expected=expected||intersects(voxel,probe); }
+        CHECK(plan_intersects(collision,probe)==expected);
+    }
     Component c; c.kind = Wall; c.size[0] = 12; c.size[1] = 8; c.size[2] = 2; c.thickness = 2;
     c.openingCount = 1; c.openings[0] = {4, 0, 4, 5}; CHECK(valid(c));
     CHECK(component_cell(c, 1, 0, 0)); CHECK(!component_cell(c, 5, 2, 0)); CHECK(component_cell(c, 5, 6, 0));

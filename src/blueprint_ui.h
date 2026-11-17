@@ -236,9 +236,11 @@ static void draw_project_materials();
 static void draw_project_altars();
 static void draw_architecture_window();
 static void draw_project_preview_options();
+static void draw_diagnostics_window();
 static void draw_bp_place_window() {
     if (g_bpPage == 3) { draw_catalog_window(); return; }
     if (g_bpPage == 4) { draw_architecture_window(); return; }
+    if (g_bpPage == 5) { draw_diagnostics_window(); return; }
     static DWORD s_lastDraw = 0;
     const DWORD now = GetTickCount();
     if (now - s_lastDraw > 500) bp_list_files();     // the window just came up (or back)
@@ -247,6 +249,7 @@ static void draw_bp_place_window() {
         BpFrame f; bp_frame_begin(f, T(g_projectList ? S_PROJECT_LIST : S_BP_LIST_TITLE), "");
         if (ui_button(T(S_EXT_CATALOG))) { catalog_refresh(); g_bpPage = 3; }
         if (ui_button(T(S_EXT_ARCHITECTURE))) g_bpPage = 4;
+        if (ui_button(T(S_EXT_DIAGNOSTICS))) g_bpPage = 5;
         if (g_projectLoaded && ui_button(T(S_EXT_RESUME))) { ProjectStateGuard guard; project_generated_finish(); }
         if (ui_button(T(g_projectList ? S_PROJECT_CLASSIC : S_PROJECT_LIST))) {
             g_projectList = !g_projectList; g_bpBitsOk = 0; bp_list_files();
@@ -306,12 +309,16 @@ static void draw_bp_place_window() {
         Buf objects; objects.fmt(T(S_PROJECT_OBJECTS), num(g_projectPlan.objects).s); bp_text(objects.z());
         { Buf pieces; pieces.fmt(T(S_EXT_NATIVE_COUNT), num(g_projectManifest.pieceCount).s); bp_text(pieces.z()); }
         const char* objectOptions[] = {T(S_BP_OBJ_LEAVE), T(S_BP_OBJ_BUILD)};
-        if (ui_option(T(S_EXT_OBJECTS), objectOptions, 2, g_projectUseObjects, &v)) { g_projectUseObjects = v; extended_save(); }
+        if (ui_option(T(S_EXT_OBJECTS), objectOptions, 2, g_projectUseObjects, &v)) { g_projectUseObjects = v; g_projectNeedN=0; g_projectLastProblem=nullptr; ++g_projectGeneration; extended_save(); }
         if (g_projectUseObjects && g_projectObjectCount) bp_text(T(S_EXT_OBJECT_HELP));
         if (g_projectLastProblem) bp_text(g_projectLastProblem);
-        draw_project_materials();
-        draw_project_altars();
-        draw_project_preview_options();
+        const char* tabs[] = {T(S_EXT_OVERVIEW),T(S_EXT_PREVIEW),T(S_EXT_MATERIALS),T(S_EXT_ALTARS)};
+        if (ui_option(T(S_EXT_SECTION),tabs,4,g_projectTab,&v)) g_projectTab=v;
+        if (g_projectTab==1) draw_project_preview_options();
+        if (g_projectTab==2) draw_project_materials();
+        if (g_projectTab==3) draw_project_altars();
+        if (g_projectManifest.pieceCount || (g_projectUseObjects && g_projectObjectCount)) bp_text(T(g_experimentalNative ? S_EXT_EXPERIMENT_HELP : S_EXT_NATIVE_DISABLED));
+        if (ui_button(T(S_EXT_DIAGNOSTICS))) g_bpPage=5;
         if (ui_button(T(S_EXT_ARCHITECTURE))) g_bpPage = 4;
         if (ui_button(T(S_EXT_CATALOG))) { catalog_refresh(); g_bpPage = 3; }
         if (ui_button(T(S_EXT_EXPORT))) {

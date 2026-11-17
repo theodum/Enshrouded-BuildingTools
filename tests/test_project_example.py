@@ -8,9 +8,24 @@ ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('make_project_example', ROOT / 'tools/make_project_example.py')
 generator = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(generator)
+import sys
+sys.path.insert(0,str(ROOT/'tools'))
+import make_dev3_examples as dev3
 
 
 class ExampleTests(unittest.TestCase):
+    def test_dev3_fixtures_are_reproducible_and_non_overwriting(self):
+        material=generator.material_from(ROOT/'examples/three-modules/hall.btbp')
+        with tempfile.TemporaryDirectory() as tmp:
+            out=Path(tmp)/'dev3'
+            dev3.create(out,material)
+            self.assertEqual(len(list(out.iterdir())),11)
+            for file in out.iterdir():
+                self.assertEqual(file.read_bytes(),(ROOT/'examples/dev3'/file.name).read_bytes(),file.name)
+            before={p.name:p.read_bytes() for p in out.iterdir()}
+            with self.assertRaises(FileExistsError): dev3.create(out,material)
+            self.assertEqual(before,{p.name:p.read_bytes() for p in out.iterdir()})
+
     def test_reproduces_all_shipped_modules_and_manifest(self):
         fixtures = ROOT / 'examples/three-modules'
         material = generator.material_from(fixtures / 'hall.btbp')

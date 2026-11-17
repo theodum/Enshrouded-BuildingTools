@@ -18,7 +18,13 @@ inline bool safe_file(const char* s) {
         const unsigned char c = (unsigned char)s[n];
         if (c < 32 || c == '/' || c == '\\' || c == ':' || c == '*' || c == '?' || c == '"' || c == '<' || c == '>' || c == '|') return false;
     }
-    return n > 5 && s[0] != '.' && equal(s + n - 5, ".btbp");
+    if (n<=5 || s[0]=='.' || !equal(s+n-5,".btbp")) return false;
+    char stem[8]={}; int length=0;
+    for (;s[length] && s[length]!='.' && length<7;++length) stem[length]=s[length]>='a' && s[length]<='z' ? s[length]-'a'+'A' : s[length];
+    while(length && stem[length-1]==' ') stem[--length]=0;
+    if (equal(stem,"CON") || equal(stem,"PRN") || equal(stem,"AUX") || equal(stem,"NUL")) return false;
+    if (length==4 && stem[3]>='0' && stem[3]<='9' && ((stem[0]=='C' && stem[1]=='O' && stem[2]=='M') || (stem[0]=='L' && stem[1]=='P' && stem[2]=='T'))) return false;
+    return true;
 }
 
 // Strict, bounded JSON reader. Unknown/repeated fields and trailing data fail closed.
@@ -286,13 +292,14 @@ inline bool finish(Plan* plan, Error* error) {
         const CellEntry c = plan->cells[i];
         if (n && compare(plan->cells[n - 1], c) == 0) {
             if (plan->cells[n - 1].material != c.material) return fail(error, "Overlapping modules use different materials", c.module);
-            if (c.module < plan->cells[n - 1].module) plan->cells[n - 1].module = c.module;
+            if (c.module < plan->cells[n - 1].module) plan->cells[n - 1] = c;
             ++plan->duplicates; continue;
         }
         plan->cells[n++] = c;
     }
     plan->count = n;
     for (int a = 0; a < 3; ++a) { plan->lo[a] = plan->cells[0].p[a]; plan->hi[a] = plan->lo[a] + Cell; }
+    for (int m = 0; m < plan->materialCount; ++m) plan->materials[m].cells = 0;
     for (int i = 0; i < n; ++i) {
         const CellEntry& c = plan->cells[i]; ++plan->materials[c.material].cells;
         for (int a = 0; a < 3; ++a) { if (c.p[a] < plan->lo[a]) plan->lo[a] = c.p[a]; if (c.p[a] + Cell > plan->hi[a]) plan->hi[a] = c.p[a] + Cell; }
@@ -318,8 +325,11 @@ inline int replace_material(Plan* plan, const Manifest& manifest, int source, in
 enum class Phase { Ready, Checking, Building, Complete, Stopped };
 struct Job {
     Phase phase = Phase::Ready; int total = 0, next = 0, batch = 0, completed = 0;
-    void start(int cells) { total = cells; next = completed = batch = 0; phase = Phase::Checking; }
-    int prepare(int limit) { batch = total - next; if (batch > limit) batch = limit; return batch; }
+    void start(int cells) { total = cells > 0 ? cells : 0; next = completed = batch = 0; phase = cells > 0 ? Phase::Checking : Phase::Stopped; }
+    int prepare(int limit) {
+        if ((phase != Phase::Checking && phase != Phase::Building) || limit <= 0 || next >= total) return batch = 0;
+        batch = total - next; if (batch > limit) batch = limit; return batch;
+    }
     bool checked(int count) {
         if (phase != Phase::Checking || count != batch || batch <= 0) { phase = Phase::Stopped; return false; }
         next += count; batch = 0;

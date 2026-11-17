@@ -9,7 +9,9 @@ static bool catalog_refresh() {
     if (!reg || !g_iterBegin || !g_iterNext || !g_bpItemReg || !g_bpItemById || !readable(reg, 0x48)) return false;
     uint64_t end = *(uint64_t*)(reg + 0x10); int guard = 0;
     for (uint64_t at = g_iterBegin(reg + 8); at != end && guard++ < 200000; at = g_iterNext(reg + 8, at)) {
-        uint8_t* group = (*(uint8_t***)(reg + 0x40))[at]; if (!group || !readable(group, 16)) continue;
+        auto groups = *(uint8_t***)(reg + 0x40);
+        if (!groups || at > 2000000 || !readable(groups + at,sizeof(void*))) return false;
+        uint8_t* group = groups[at]; if (!group || !readable(group, 16)) continue;
         const int32_t offset = *(int32_t*)(group + 8); const uint32_t n = *(uint32_t*)(group + 12);
         if (!offset || n > 20000) continue;
         const uint32_t* ids = (const uint32_t*)(group + 8 + offset); if (!readable(ids, (size_t)n * 4)) continue;

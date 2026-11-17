@@ -1,6 +1,7 @@
 // Component authoring modifies the in-memory preview only. Engine writes still
 // go through the common project's complete preflight and native batch path.
 static uint32_t g_componentFrameMaterial = 0;
+static int g_stairModelTurn = 0;
 // Preserve the previous draft on any failed generation, including failed
 // landings, allocation errors and intersecting materials. No world rollback.
 struct ArchitectureEdit {
@@ -98,18 +99,19 @@ static bool architecture_stairs(int kind, int flights, const int* offset, int ba
     project::NativePiece templatePiece{}; templatePiece.item = g_catalogPiece;
     if (!project_piece_item(templatePiece) || !bp_block_item(mat) || !g_bounds || g_projectRunning) return false;
     CursorXf zero{}; zero.rot[3] = 1; zero.scale = 1;
-    const float identity[] = {0,0,0,1}; core::bp_turn_rot(baseRotation, identity, zero.rot);
+    const float identity[] = {0,0,0,1}; core::bp_turn_rot(g_stairModelTurn,identity,zero.rot);
     Aabb box{}; shape_bounds(item, &zero, &box);
     const int width = (int)((box.mx[0] - box.mn[0]) * 16 + 0.5f), height = riseOverride ? riseOverride : (int)((box.mx[1] - box.mn[1]) * 16 + 0.5f), run = (int)((box.mx[2] - box.mn[2]) * 16 + 0.5f);
     static extended::StairStep steps[160]; const int n = extended::stair_layout(kind, flights, width, height, run, steps, 160);
     if (!n) return false;
+    for (int i = 0; i < n; ++i) steps[i] = extended::turn_stair(steps[i],baseRotation);
     ArchitectureEdit edit; if (!edit.before) return false;
     if (!append || !g_projectLoaded) { if (!project_generated_begin("Native stairs")) return false; g_projectManifest.count = 0; }
     int oldCount = g_projectManifest.pieceCount;
     if (oldCount + n > project::MaxPieces) return false;
     // Native flights first. Platforms are authoring voxels, never substitute steps.
     for (int i = 0; i < n; ++i) if (!steps[i].landing) {
-        auto& piece = g_projectManifest.pieces[g_projectManifest.pieceCount++]; piece = project::NativePiece{}; piece.item = g_catalogPiece; piece.material = g_catalogMaterial; piece.rotation = (baseRotation + steps[i].rotation) & 3; piece.clearance = 32;
+        auto& piece = g_projectManifest.pieces[g_projectManifest.pieceCount++]; piece = project::NativePiece{}; piece.item = g_catalogPiece; piece.material = g_catalogMaterial; piece.rotation = (steps[i].rotation + g_stairModelTurn) & 3; piece.clearance = 32;
         CursorXf pose{}; pose.scale = 1; core::bp_turn_rot(piece.rotation, identity, pose.rot); Aabb bounds{}; shape_bounds(item, &pose, &bounds);
         for (int a = 0; a < 3; ++a) piece.offset[a] = offset[a] + steps[i].low[a] - extended::snap(bounds.mn[a] * 16, 1);
     }
@@ -138,4 +140,21 @@ static bool architecture_stairs(int kind, int flights, const int* offset, int ba
         for (int a = 0; a < 3; ++a) { g_projectModuleBoxes[0].lo[a] = g_projectPlan.lo[a]; g_projectModuleBoxes[0].hi[a] = g_projectPlan.hi[a]; }
     }
     project_piece_bounds(); project_generated_finish(); edit.committed = true; return true;
+}
+static bool architecture_native_example(int rotation) {
+    ProjectStateGuard guard; if (g_projectRunning) return false;
+    project::NativePiece selected{}; selected.item=g_catalogPiece; uint8_t* item=project_piece_item(selected); if (!item || !g_catalogMaterial) return false;
+    CursorXf pose{}; pose.scale=1; const float identity[]={0,0,0,1}; core::bp_turn_rot(g_stairModelTurn,identity,pose.rot);
+    Aabb box{}; shape_bounds(item,&pose,&box);
+    for (int a=0;a<3;++a) if (!extended::finite(box.mn[a]) || !extended::finite(box.mx[a]) || box.mx[a]<=box.mn[a]) return false;
+    const int width=(int)((box.mx[0]-box.mn[0])*16+0.5f), rise=(int)((box.mx[1]-box.mn[1])*16+0.5f), run=(int)((box.mx[2]-box.mn[2])*16+0.5f);
+    if (width%8 || rise%8 || run%8 || width<16 || rise<8 || run<8) return false;
+    ArchitectureEdit edit; if (!edit.before) return false;
+    int flights=(64+rise-1)/rise; if (flights<2) flights=2;
+    extended::Component floor; floor.kind=extended::Floor; floor.size[0]=(width+64)/8; floor.size[1]=1; floor.size[2]=(flights*run+64)/8; floor.thickness=1;
+    int low[]={-32,-8,-32}; if (!architecture_component(floor,low,0,false,g_catalogMaterial)) return false;
+    low[1]=flights*rise-8; if (!architecture_component(floor,low,0,true,g_catalogMaterial)) return false;
+    const int origin[]={0,0,0}; if (!architecture_stairs(0,flights,origin,0,0,true,true)) return false;
+    copy_text(g_projectManifest.name,"Native stairs - two levels",sizeof g_projectManifest.name); g_bpRot=rotation;
+    project_generated_finish(); edit.committed=true; return true;
 }

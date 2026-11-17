@@ -25,10 +25,42 @@ inline bool grid_hit(const Grid& g, const double* camera, const double* directio
     return true;
 }
 struct Box { int lo[3], hi[3]; };
+inline Box turn_box(const Box& box, int rotation) {
+    Box out{};
+    for (int c = 0; c < 8; ++c) {
+        int p[3], t[3]; for (int a = 0; a < 3; ++a) p[a] = (c >> a) & 1 ? box.hi[a] : box.lo[a];
+        project::turn(rotation,p,t);
+        for (int a = 0; a < 3; ++a) { if (!c || t[a] < out.lo[a]) out.lo[a] = t[a]; if (!c || t[a] > out.hi[a]) out.hi[a] = t[a]; }
+    }
+    return out;
+}
+inline void box_sample(const Box& box, int sample, int* low) {
+    for (int a = 0; a < 3; ++a) {
+        const int value = sample == 8 ? box.lo[a] + (box.hi[a] - box.lo[a]) / 2 : (sample >> a) & 1 ? box.hi[a] - 1 : box.lo[a];
+        low[a] = value >= 0 ? value / 8 * 8 : -((-value + 7) / 8 * 8);
+    }
+}
+inline int batch_limit(int requested) { return requested < 1 ? 128 : requested > 256 ? 256 : requested; }
+inline int adapt_batch(int limit, uint32_t milliseconds) { return milliseconds > 50 && limit > 1 ? (limit+1)/2 : limit; }
+inline uint64_t fingerprint_word(uint64_t hash, uint64_t value) {
+    for (int k = 0; k < 8; ++k) { hash ^= value & 255; hash *= 1099511628211ull; value >>= 8; } return hash;
+}
 inline bool intersects(const Box& first, const Box& second, int headroom = 0) {
     for (int a = 0; a < 3; ++a)
         if ((int64_t)first.hi[a] + (a == 1 ? headroom : 0) <= second.lo[a] || first.lo[a] >= second.hi[a]) return false;
     return true;
+}
+// Sorted Y/Z/X plan: one binary search per intersecting Y/Z row, not a full
+// million-cell scan for every native piece. Callers bound the probe volume.
+inline bool plan_intersects(const project::Plan& plan, const Box& box) {
+    for (int a=0;a<3;++a) if (box.hi[a]<=box.lo[a]) return false;
+    int low[3]; for (int a = 0; a < 3; ++a) low[a] = box.lo[a] >= 0 ? box.lo[a] / 8 * 8 : -((-box.lo[a]+7)/8*8);
+    for (int y = low[1]; y < box.hi[1]; y += 8) for (int z = low[2]; z < box.hi[2]; z += 8) {
+        project::CellEntry key{{low[0],y,z},0,0,0}; int begin = 0, end = plan.count;
+        while (begin < end) { int mid = begin + (end-begin)/2; if (project::compare(plan.cells[mid],key) < 0) begin = mid+1; else end = mid; }
+        if (begin < plan.count) { const auto& c = plan.cells[begin]; if (c.p[1] == y && c.p[2] == z && c.p[0] < box.hi[0]) return true; }
+    }
+    return false;
 }
 inline bool contains(const Box& box, const int* low, int size = project::Cell) {
     for (int a = 0; a < 3; ++a) if (low[a] < box.lo[a] || low[a] + size > box.hi[a]) return false;
@@ -50,10 +82,22 @@ struct Object {
     uint32_t item; double p[3]; float rotation[4]; uint16_t module;
 };
 inline bool finite(double v) { return v >= -65536.0 && v <= 65536.0; }
+inline bool object_box(const double* position, const float* rotation, const float* low, const float* high, Box* out) {
+    const double x=rotation[0],y=rotation[1],z=rotation[2],w=rotation[3];
+    for (int c = 0; c < 8; ++c) {
+        double p[3]; for (int a = 0; a < 3; ++a) { if (!finite(low[a]) || !finite(high[a]) || high[a] < low[a]) return false; p[a] = (c>>a)&1 ? high[a] : low[a]; }
+        const double q[] = {position[0]+(1-2*(y*y+z*z))*p[0]+2*(x*y-w*z)*p[1]+2*(x*z+w*y)*p[2], position[1]+2*(x*y+w*z)*p[0]+(1-2*(x*x+z*z))*p[1]+2*(y*z-w*x)*p[2], position[2]+2*(x*z-w*y)*p[0]+2*(y*z+w*x)*p[1]+(1-2*(x*x+y*y))*p[2]};
+        for (int a = 0; a < 3; ++a) {
+            if (!finite(q[a])) return false; double v=q[a]*16; int lo=(int)v,hi=(int)v; if (lo>v) --lo; if (hi<v) ++hi;
+            if (!c || lo<out->lo[a]) out->lo[a]=lo; if (!c || hi>out->hi[a]) out->hi[a]=hi;
+        }
+    }
+    return true;
+}
 // ItemFlag values read from the checked executable's keen::ItemFlag reflection.
 inline bool object_flags_allowed(uint32_t flags, bool nativePropContext = false) {
-    constexpr uint32_t special = (1u << 0) | (1u << 1) | (1u << 8) | (1u << 10) | (1u << 20);
-    return !(flags & (special | (nativePropContext ? 0u : 1u << 19)));
+    constexpr uint32_t special = (1u << 0) | (1u << 1) | (1u << 3) | (15u << 4) | (1u << 8) | (1u << 10) | (1u << 11) | (3u << 14) | (1u << 20);
+    return !(flags & (special | (nativePropContext ? 0u : 1u << 19))) && !(flags & ~((1u<<22)-1));
 }
 inline bool transform_object(const project::Module& m, int module, const core::BpHeader& h, const core::BpObject& source, Object* out) {
     float p[3];
@@ -132,6 +176,16 @@ inline bool component_cell(const Component& c, int x, int y, int z) {
     return false;
 }
 struct StairStep { int low[3], rotation; int width, depth; bool landing; };
+inline StairStep turn_stair(const StairStep& step, int rotation) {
+    const int width = !step.landing && (step.rotation & 1) ? step.depth : step.width;
+    const int depth = !step.landing && (step.rotation & 1) ? step.width : step.depth;
+    Box bounds = {{step.low[0],step.low[1],step.low[2]}, {step.low[0]+width,step.low[1]+8,step.low[2]+depth}};
+    bounds = turn_box(bounds,rotation); StairStep out = step;
+    for (int a = 0; a < 3; ++a) out.low[a] = bounds.lo[a];
+    out.rotation = (step.rotation + rotation) & 3;
+    if (step.landing) { out.width = bounds.hi[0]-bounds.lo[0]; out.depth = bounds.hi[2]-bounds.lo[2]; }
+    return out;
+}
 inline int stair_layout(int kind, int flights, int width, int rise, int run, StairStep* out, int capacity) {
     if (kind < 0 || kind > 3 || flights < 1 || flights > 32 || width < 16 || width % 16 || rise < 8 || rise % 8 || run < 8 || run % 8) return 0;
     if ((kind == 1 && flights < 2) || (kind == 3 && flights < 4)) return 0;

@@ -1,0 +1,83 @@
+{
+  "format": "BuildingToolsExtendedProject",
+  "version": 1,
+  "name": "Dev3 - trois niveaux et trémies",
+  "gridSize": 0.5,
+  "anchor": [
+    0,
+    0,
+    0
+  ],
+  "modules": [
+    {
+      "file": "Dev3_Plancher_tremie.btbp",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Murs_niveau.btbp",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Plancher_tremie.btbp",
+      "offset": [
+        0,
+        4,
+        0
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Murs_niveau.btbp",
+      "offset": [
+        0,
+        4,
+        0
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Plancher_tremie.btbp",
+      "offset": [
+        0,
+        8,
+        0
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Murs_niveau.btbp",
+      "offset": [
+        0,
+        8,
+        0
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Toiture.btbp",
+      "offset": [
+        -1,
+        12,
+        -1
+      ],
+      "rotation": 0,
+      "category": "roof"
+    }
+  ]
+}

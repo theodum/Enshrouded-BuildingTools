@@ -11,11 +11,54 @@ static bool extended_number(const char* label, int* value, int step, int low, in
     LONG out; if (!n || !ui_option(label, names, n, selected, &out)) return normalized;
     *value = values[out]; return true;
 }
+static void extended_open(int page, int tab = 0) {
+    ProjectStateGuard guard;
+    if (g_projectRunning || remote_session() || !building_now(1000)) { flash(T(S_EXT_LAUNCH_HELP)); return; }
+    g_cfg.toolBlueprint = 1; tools_apply(); set_mode(MODE_BLUEPRINT); g_bpSub = BP_PLACE;
+    g_exactArmed = 0; g_exactFire = 0; g_bpWin = BPW_NONE; g_projectTab = tab;
+    g_extendedLaunchPage = page; g_extendedLaunchAt = GetTickCount()+200; g_extendedLaunchSent = false;
+    g_menuReq = 2; write_full_ini(g_cfg);
+}
+static void draw_diagnostic_rows() {
+    altar_snapshot();
+    auto status = [&](Str label, const char* value) { Buf row; row.fmt(T(S_EXT_DIAG_ROW),T(label),value); bp_text(row.z()); };
+    status(S_EXT_ABI,T(g_nativePartsAvailable ? S_EXT_AVAILABLE : S_EXT_UNAVAILABLE));
+    status(S_EXT_REGISTRY,T(g_bpItemReg && g_bpItemById ? S_EXT_AVAILABLE : S_EXT_UNAVAILABLE));
+    Buf zones; zones.i(g_altarZoneCount); status(S_EXT_BASES,zones.z());
+    bp_text(T(S_EXT_DIAG_HELP));
+    if (g_projectOperation) {
+        Buf id,row; id.x(g_projectOperation); row.fmt(T(S_EXT_OPERATION),id.z(),num(g_projectJob.completed).s,num(g_projectJob.total).s); bp_text(row.z());
+        Buf timing; timing.fmt(T(S_EXT_CHECK_MS),num(g_projectWorstCheck).s,num(g_projectActiveLimit).s); bp_text(timing.z());
+        if (ui_button(T(S_EXT_REPORT), !g_projectRunning)) {
+            char name[128]; if (project_report(name,sizeof name)) { Buf msg; msg.fmt(T(S_EXT_REPORTED),name); flash(msg.z()); } else flash(T(S_EXT_REPORT_FAIL));
+        }
+    }
+    bp_text(T(S_EXT_RECOVERY_HELP));
+    const char* yesNo[] = {T(S_OPT_OFF),T(S_OPT_ON)}; LONG value; bool changed = false;
+    if (ui_option(T(S_EXT_TRACE),yesNo,2,g_nativeObjectTrace,&value)) { g_nativeObjectTrace=value; changed=true; }
+    int batch; if (ui_int(T(S_EXT_BATCH),g_projectBatchLimit,16,256,16,&batch)) { g_projectBatchLimit=batch; changed=true; }
+    if (changed) extended_save();
+}
+static void draw_diagnostics_window() {
+    BpFrame f; bp_frame_begin(f,T(S_EXT_DIAGNOSTICS),T(S_EXT_EXPERIMENT_HELP)); draw_diagnostic_rows();
+    bp_frame_rows_end(f); BpRow row; bp_row_begin(row);
+    if (ui_button(T(S_BP_BACK))) g_bpPage=0; if (ui_button(T(S_EXACT_CANCEL))) g_menuReq=2;
+    bp_row_end(row); bp_keys(S_COUNT); bp_frame_end(f);
+}
 static void draw_extended_tools() {
     ui_text(T(S_EXT_TITLE), STYLE_BODY);
     const char* yesNo[] = {T(S_OPT_OFF), T(S_OPT_ON)}; LONG value; bool changed = false;
-    if (ui_option(T(S_GRID_ON), yesNo, 2, g_grid.enabled, &value)) { g_grid.enabled = value; changed = true; }
-    if (g_grid.enabled) {
+    static int section=0;
+    const char* sections[] = {T(S_PROJECT_LIST),T(S_GRID_ON),T(S_EXT_PREVIEW),T(S_EXT_MATERIALS),T(S_OPT_CREATIVE),T(S_EXT_PROPS),T(S_EXT_ALTARS),T(S_EXT_DIAGNOSTICS)};
+    if (ui_option(T(S_EXT_SECTION),sections,8,section,&value)) section=value;
+    if (section==0) {
+        if (ui_button(T(S_EXT_OPEN_PROJECTS))) extended_open(0);
+        if (ui_button(T(S_EXT_ARCHITECTURE))) extended_open(4);
+        bp_text(T(S_EXT_LAUNCH_HELP));
+    }
+    if (section==1 && ui_option(T(S_GRID_ON), yesNo, 2, g_grid.enabled, &value)) { g_grid.enabled = value; changed = true; }
+    if (section==1 && g_grid.enabled) {
+        tool_toggle(S_OPT_FREE,&g_cfg.toolFree);
         const char* steps[] = {"0.5 m", "1 m"};
         if (ui_option(T(S_GRID_STEP), steps, 2, g_grid.spacing == 16, &value)) { g_grid.spacing = value ? 16 : 8; changed = true; }
         changed |= extended_number(T(S_GRID_HEIGHT), &g_grid.height, g_grid.spacing, -project::MaxCoord, project::MaxCoord);
@@ -27,7 +70,7 @@ static void draw_extended_tools() {
         changed |= extended_number(T(S_GRID_Z), &g_grid.z, g_grid.spacing, -project::MaxCoord, project::MaxCoord);
         if (ui_option(T(S_GRID_AXES), yesNo, 2, g_grid.axes, &value)) { g_grid.axes = value; changed = true; }
         static const char* levels[] = {"1", "2", "3", "4", "5", "6", "7", "8"};
-        if (ui_option(T(S_GRID_LEVEL), levels, 8, g_gridLevel, &value)) g_gridLevel = value;
+        if (ui_option(T(S_GRID_LEVEL), levels, 8, g_gridLevel, &value)) { g_gridLevel=value; changed=true; }
         if (ui_button(T(S_GRID_STORE))) { g_gridLevels[g_gridLevel] = g_grid.height; changed = true; }
         if (ui_button(T(S_GRID_RECALL))) { g_grid.height = g_gridLevels[g_gridLevel]; changed = true; }
         if (ui_button(T(S_GRID_AIM))) {
@@ -38,11 +81,28 @@ static void draw_extended_tools() {
         }
         bp_text(T(S_GRID_HELP));
     }
-    if (ui_option(T(S_EXT_CREATIVE), yesNo, 2, g_creativeProps, &value)) { g_creativeProps = value; changed = true; }
-    if (ui_option(T(S_EXT_OBJECTS), yesNo, 2, g_projectUseObjects, &value)) { g_projectUseObjects = value; changed = true; }
-    if (ui_option(T(S_EXT_ZONES), yesNo, 2, g_showAltars, &value)) g_showAltars = value;
-    if (ui_option(T(S_EXT_MODULES), yesNo, 2, g_showModules, &value)) g_showModules = value;
-    if (ui_option(T(S_EXT_OBJECT_PREVIEW), yesNo, 2, g_showObjects, &value)) g_showObjects = value;
+    if (section==2) {
+        if (ui_option(T(S_EXT_MODULES),yesNo,2,g_showModules,&value)) { g_showModules=value; changed=true; }
+        if (ui_option(T(S_EXT_OBJECT_PREVIEW),yesNo,2,g_showObjects,&value)) { g_showObjects=value; changed=true; }
+        if (ui_button(T(S_EXT_OPEN_PREVIEW))) extended_open(1,1);
+    }
+    if (section==3) {
+        if (ui_button(T(S_EXT_CATALOG))) { catalog_refresh(); extended_open(3); }
+        if (ui_button(T(S_EXT_REPLACE))) extended_open(1,2);
+    }
+    if (section==4 || section==5) {
+        if (ui_option(T(S_EXT_CREATIVE),yesNo,2,g_creativeProps,&value)) { g_creativeProps=value; changed=true; }
+        if (ui_option(T(S_EXT_EXPERIMENTAL),yesNo,2,g_experimentalNative,&value)) { g_experimentalNative=value; changed=true; }
+        if (ui_option(T(S_EXT_OBJECTS),yesNo,2,g_projectUseObjects,&value)) { g_projectUseObjects=value; changed=true; }
+        bp_text(T(S_EXT_EXPERIMENT_HELP));
+        if (ui_button(T(S_EXT_CATALOG))) { catalog_refresh(); extended_open(3); }
+        if (ui_button(T(S_EXT_ARCHITECTURE))) extended_open(4);
+    }
+    if (section==6) {
+        if (ui_option(T(S_EXT_ZONES),yesNo,2,g_showAltars,&value)) { g_showAltars=value; changed=true; }
+        if (ui_button(T(S_EXT_PROPOSE))) extended_open(1,3);
+    }
+    if (section==7) draw_diagnostic_rows();
     if (changed) extended_save();
 }
 static void draw_catalog_window() {
@@ -51,6 +111,8 @@ static void draw_catalog_window() {
     BpFrame frame; bp_frame_begin(frame, T(S_EXT_CATALOG), T(S_EXT_CATALOG_HELP));
     const char* kinds[] = {T(S_EXT_MATERIALS), T(S_EXT_PROPS), T(S_EXT_PIECES), T(S_EXT_LINKED)}; LONG value;
     if (ui_option(T(S_EXT_CATEGORY), kinds, 4, kind, &value)) { kind = value; page = 0; }
+    if (kind==3) bp_text(T(S_EXT_LINKED_HELP));
+    if (kind==1 || kind==2) bp_text(T(S_EXT_EXPERIMENT_HELP));
     if (kind == 1) {
         const char* yesNo[] = {T(S_OPT_OFF),T(S_OPT_ON)};
         if (ui_option(T(S_EXT_APPEND), yesNo, 2, append, &value)) append = value;
@@ -83,7 +145,6 @@ static void draw_catalog_window() {
 static void draw_project_materials() {
     static int source = 0, target = 0, scope = 0, module = 1, category = 0;
     LONG value;
-    if (!g_projectPlan.materialCount) return;
     if (g_projectNeedN) {
         bp_text(T(S_EXT_QUOTE));
         for (int i = 0; i < g_projectNeedN; ++i) {
@@ -94,6 +155,7 @@ static void draw_project_materials() {
             row.fmt(T(S_EXT_COST_ROW), label.z(), num(need.count).s, count.z()); bp_text(row.z());
         }
     }
+    if (!g_projectPlan.materialCount) return;
     static char labels[64][96]; const char* names[64];
     for (int m = 0; m < g_projectPlan.materialCount; ++m) { Buf b; bp_item_label(b, g_projectPlan.materials[m].item); copy_text(labels[m], b.z(), sizeof labels[m]); names[m] = labels[m]; }
     if (source >= g_projectPlan.materialCount) source = 0; if (target >= g_projectPlan.materialCount) target = 0;
@@ -130,8 +192,9 @@ static void draw_project_altars() {
     if (g_altarZoneCount && ui_int(T(S_EXT_ZONE_TEMPLATE), g_altarTemplate, 1, g_altarZoneCount, 1, &selected)) g_altarTemplate = selected;
     if (ui_button(T(S_EXT_PROPOSE))) { ProjectStateGuard guard; altar_assist_begin(); }
     if (g_altarScan >= 0) {
-        Buf status; status.fmt(T(S_EXT_COVERAGE), num(g_altarUncovered).s, num(g_altarScan).s, num(g_projectPlan.count).s, num(g_altarProposalCount).s); bp_text(status.z());
+        Buf status; status.fmt(T(S_EXT_COVERAGE), num(g_altarUncovered).s, num(g_altarScan).s, num(g_altarTargets).s, num(g_altarProposalCount).s); bp_text(status.z());
         bp_text(T(S_EXT_ALTAR_HELP));
+        bp_text(T(S_EXT_ALTAR_SAMPLES));
         if (g_altarUnassigned) { Buf b; b.fmt(T(S_EXT_UNASSIGNED), num(g_altarUnassigned).s); bp_text(b.z()); }
         if (g_altarProposalCount) {
             static int proposal = 1; if (proposal > g_altarProposalCount) proposal = 1;
@@ -195,6 +258,7 @@ static void draw_architecture_window() {
             }
         }
     } else {
+        if (ui_option(T(S_EXT_STAIR_MODEL),turns,4,g_stairModelTurn,&value)) g_stairModelTurn=value;
         const char* kinds[] = {T(S_EXT_STRAIGHT),T(S_EXT_TURNING),T(S_EXT_IMPERIAL),T(S_EXT_SPIRAL)};
         if (ui_option(T(S_EXT_LAYOUT), kinds, 4, stairKind, &value)) stairKind = value;
         int minimum = stairKind == 3 ? 4 : stairKind == 1 ? 2 : 1; if (flights < minimum) flights = minimum;
@@ -205,7 +269,7 @@ static void draw_architecture_window() {
             Buf b; bp_item_label(b, g_catalogPiece); bp_text(b.z());
             project::NativePiece piece{}; piece.item = g_catalogPiece; uint8_t* item = project_piece_item(piece);
             if (item) {
-                CursorXf pose{}; pose.scale = 1; const float identity[] = {0,0,0,1}; core::bp_turn_rot(rotation, identity, pose.rot);
+                CursorXf pose{}; pose.scale = 1; const float identity[] = {0,0,0,1}; core::bp_turn_rot(rotation+g_stairModelTurn, identity, pose.rot);
                 Aabb bounds{}; shape_bounds(item, &pose, &bounds); Buf x,y,z,dimensions;
                 x.f(bounds.mx[0]-bounds.mn[0],3); y.f(bounds.mx[1]-bounds.mn[1],3); z.f(bounds.mx[2]-bounds.mn[2],3);
                 dimensions.fmt(T(S_EXT_NATIVE_DIMS),x.z(),y.z(),z.z()); bp_text(dimensions.z());
@@ -230,6 +294,9 @@ static void draw_architecture_window() {
         if (!ok) flash(T(S_EXT_GENERATE_FAIL));
     }
     if (ui_button(T(S_EXT_CATALOG))) { catalog_refresh(); g_bpPage = 3; }
+    if (ui_button(T(S_EXT_NATIVE_EXAMPLE))) {
+        if (!architecture_native_example(rotation)) flash(T(S_EXT_GENERATE_FAIL));
+    }
     if (ui_button(T(S_BP_BACK))) g_bpPage = 0;
     if (ui_button(T(S_EXACT_CANCEL))) g_menuReq = 2;
     bp_row_end(row); bp_keys(S_COUNT); bp_frame_end(f);
@@ -246,6 +313,6 @@ static void draw_project_preview_options() {
         int out; if (ui_int(T(S_EXT_MODULE), selected, 1, g_projectManifest.count, 1, &out)) selected = out;
         if (ui_option(T(S_EXT_VISIBLE), yesNo, 2, g_projectModuleVisible[selected - 1], &value)) { g_projectModuleVisible[selected - 1] = value; changed = true; }
     }
-    if (changed) { ++g_projectGeneration; g_bpBitsOk = 0; }
+    if (changed) { ++g_projectGeneration; g_bpBitsOk = 0; extended_save(); }
     bp_text(T(S_EXT_VISUAL_ONLY));
 }

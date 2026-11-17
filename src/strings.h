@@ -399,7 +399,7 @@
     X(S_EXT_MODULES, "extended.modules", "Show module volumes") \
     X(S_EXT_OBJECT_CREATIVE, "extended.object_creative", "Enable Creative native objects, or turn creative building off to pay for objects") \
     X(S_EXT_OBJECT_UNSAFE, "extended.object_unsafe", "An unknown, special or logic-linked object was refused; omit objects to build only blocks") \
-    X(S_EXT_OBJECT_HELP, "extended.object_help", "Native props keep their models and behavior. Logic-linked doors/windows, wired objects and altars are refused. Object stock is checked by native payment per batch; a payment failure can stop after blocks were built.") \
+    X(S_EXT_OBJECT_HELP, "extended.object_help", "Compatible props use the original creation procedure; their behavior still needs in-game testing. Logic-linked doors/windows, wired objects and altars are refused. Native payment checks object stock per batch; failure can stop after blocks were built.") \
     X(S_EXT_CATALOG, "extended.catalog", "Native materials and objects library") \
     X(S_EXT_CATALOG_HELP, "extended.catalog_help", "IDs and names are read from the game. Pick a material for components/replacement, a native piece for stairs, or a compatible prop to preview/place without owning it in extended creative mode. Logic-linked items are listed for inspection only.") \
     X(S_EXT_MATERIALS, "extended.materials", "Building materials") \
@@ -429,7 +429,7 @@
     X(S_EXT_ALTARS, "extended.altars", "Altar coverage assistance") \
     X(S_EXT_ZONE_TEMPLATE, "extended.zone_template", "Observed coverage zone used as template") \
     X(S_EXT_PROPOSE, "extended.propose", "Analyze coverage and suggest altar positions") \
-    X(S_EXT_COVERAGE, "extended.coverage", "Uncovered cells: {0}. Checked {1}/{2}. Suggested areas: {3}.") \
+    X(S_EXT_COVERAGE, "extended.coverage", "Uncovered samples: {0}. Checked {1}/{2}. Suggested areas: {3}.") \
     X(S_EXT_ALTAR_HELP, "extended.altar_help", "Gold: existing areas. Green: theoretical proposals using the observed area's dimensions. Positions are editable. Altar limits, upgrades, terrain suitability and permission still need checking in the game; no altar is placed automatically.") \
     X(S_EXT_PROPOSAL, "extended.proposal", "Suggested altar") \
     X(S_EXT_UNASSIGNED, "extended.unassigned", "Cells still outside the proposed areas: {0} (maximum 64 proposals)") \
@@ -460,7 +460,7 @@
     X(S_EXT_FLIGHTS, "extended.flights", "Native sections per flight") \
     X(S_EXT_RISE, "extended.rise", "Rise per native section (m; 0 = measured bounds)") \
     X(S_EXT_RESERVE, "extended.reserve", "Cut preview floor openings and 2 m headroom") \
-    X(S_EXT_NATIVE_STAIR_HELP, "extended.native_stair_help", "Select the actual native stair piece in the library. Its measured width and depth drive the layout; choose rotation so its climb faces +Z. Straight, turning and imperial flights use that real geometry. The spiral is square. Rise and walkability must be checked in-game. No cube steps are generated.") \
+    X(S_EXT_NATIVE_STAIR_HELP, "extended.native_stair_help", "Select a real stair piece in the library. Model orientation must make its climb face +Z; project rotation then turns the entire layout and landings. Measured bounds drive the layout. Spiral is square. Set the actual rise and test walkability in-game. No cube steps are generated.") \
     X(S_EXT_GENERATE, "extended.generate", "Generate into the project preview") \
     X(S_EXT_GENERATE_FAIL, "extended.generate_fail", "Generation refused: check dimensions, openings, material, native piece, overlaps and size limits") \
     X(S_EXT_PIECE_OVERLAP, "extended.piece_overlap", "A native piece overlaps planned blocks; reserve the floor opening or adjust its offset") \
@@ -481,7 +481,38 @@
     X(S_EXT_JOB_BUILD, "extended.job_build", "Building placements: {0}/{1}. Escape stops future batches.") \
     X(S_EXT_JOB_DONE, "extended.job_done", "Project finished: {0} placements completed") \
     X(S_EXT_JOB_STOP, "extended.job_stop", "Project stopped after {0} completed placements: {1}. See BuildingTools-Projects.log.") \
-    X(S_EXT_NATIVE_DIMS, "extended.native_dims", "Measured native bounds X/Y/Z: {0} / {1} / {2} m")
+    X(S_EXT_NATIVE_DIMS, "extended.native_dims", "Measured native bounds X/Y/Z: {0} / {1} / {2} m") \
+    X(S_EXT_SECTION, "extended.section", "Extended section") \
+    X(S_EXT_PREVIEW, "extended.preview", "Preview") \
+    X(S_EXT_DIAGNOSTICS, "extended.diagnostics", "Diagnostics") \
+    X(S_EXT_OVERVIEW, "extended.overview", "Overview") \
+    X(S_EXT_OPEN_PROJECTS, "extended.open_projects", "Open composite projects") \
+    X(S_EXT_OPEN_PREVIEW, "extended.open_preview", "Open the draft preview") \
+    X(S_EXT_LAUNCH_HELP, "extended.launch_help", "Hold the construction hammer. This opens the native placement window without building; select the 0.5 m cube for composite construction.") \
+    X(S_EXT_EXPERIMENTAL, "extended.experimental", "Experimental native placement (test world)") \
+    X(S_EXT_NATIVE_DISABLED, "extended.native_disabled", "Automatic native objects/pieces are disabled. Enable Experimental native placement in Home > Options > Construction creative/native objects after reading the limits. Block-only projects remain available.") \
+    X(S_EXT_EXPERIMENT_HELP, "extended.experiment_help", "Native objects and stairs are unvalidated in-game. Special/progression/logic-linked composite objects are refused; entity collisions and full rollback are unavailable. Use a test world.") \
+    X(S_EXT_LINKED_HELP, "extended.linked_help", "Read-only category: special, progression or logic-linked objects require creation events unavailable to the composite context. Place them with the original game tool.") \
+    X(S_EXT_BATCH, "extended.batch", "Maximum voxels per batch") \
+    X(S_EXT_PIECE_BUDGET, "extended.piece_budget", "Native bounds exceed the safe probe budget (4096 voxels including headroom). Use a smaller native piece or place it manually.") \
+    X(S_EXT_TRACE, "extended.trace", "Trace native manual object events (read only)") \
+    X(S_EXT_ABI, "extended.abi", "Native piece ABI") \
+    X(S_EXT_REGISTRY, "extended.registry", "Item registry") \
+    X(S_EXT_BASES, "extended.bases", "Observed altar zones") \
+    X(S_EXT_AVAILABLE, "extended.available", "Available") \
+    X(S_EXT_UNAVAILABLE, "extended.unavailable", "Unavailable or not observed") \
+    X(S_EXT_DIAG_ROW, "extended.diag_row", "{0}: {1}") \
+    X(S_EXT_DIAG_HELP, "extended.diag_help", "Binary checks confirm instruction patterns, not in-game behavior. Open the hammer material selector once to observe the current registry and altar zones. Logs: BuildingTools.log and BuildingTools-Projects.log.") \
+    X(S_EXT_OPERATION, "extended.operation", "Operation {0}; acknowledged placements {1}/{2}") \
+    X(S_EXT_REPORT, "extended.report", "Save operation diagnostic report") \
+    X(S_EXT_REPORTED, "extended.reported", "Diagnostic report saved in BuildingTools-Projects: {0}") \
+    X(S_EXT_REPORT_FAIL, "extended.report_fail", "No finished/stopped operation to report, or file creation failed. See BuildingTools.log.") \
+    X(S_EXT_RECOVERY_HELP, "extended.recovery_help", "Stopping preserves accepted batches. The report identifies the operation and acknowledged prefix; it does not authorize automatic removal or replay. Native undo is partial.") \
+    X(S_EXT_ALTAR_SAMPLES, "extended.altar_samples", "Blocks are checked individually. Native parts use bounds corners and centre as estimates; construction repeats the authoritative native coverage checks.") \
+    X(S_EXT_STAIR_MODEL, "extended.stair_model", "Native model orientation (climb toward +Z)") \
+    X(S_EXT_NATIVE_EXAMPLE, "extended.native_example", "Prepare a native stair example between two levels") \
+    X(S_EXT_OBJECT_BUDGET, "extended.object_budget", "Object bounds exceed 512 probe voxels. Use a smaller compatible object or the original manual placement tool.") \
+    X(S_EXT_CHECK_MS, "extended.check_ms", "Slowest check (ms); current batch ceiling: {0}; {1}")
 
 enum Str {
 #define BT_STR_ID(id, key, en) id,

@@ -309,7 +309,7 @@ static BpEventBuf g_bpEvBuf = { g_bpEvData, sizeof g_bpEvData, 0, 0 };
 alignas(16) static uint8_t g_bpEvWriter[0x200];
 static bool bp_logic_item(const uint8_t* it) { return (*(const uint32_t*)(it + 0x5d8) & 0x80000) != 0; }
 static bool extended_prop_item(const uint8_t* it, bool nativeContext = false) {
-    return prop_item(it) && readable(it + 0x5d8, 4) && extended::object_flags_allowed(*(const uint32_t*)(it + 0x5d8), nativeContext);
+    return g_nativeObjectAbi && prop_item(it) && readable(it + 0x5d8, 4) && extended::object_flags_allowed(*(const uint32_t*)(it + 0x5d8), nativeContext);
 }
 static bool bp_logic_object(void*, const uint8_t*) { return false; }   // placed with the mod's writer (bp_place_object)
 // An item's local bounds as the prop system gives them to PlaceProp (494210: float4 min, float4 max).

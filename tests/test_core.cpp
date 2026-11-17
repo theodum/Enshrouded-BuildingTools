@@ -1,6 +1,7 @@
 // Linux unit tests: run the mod's signature scanner against the real game
 // executable (mapped at its virtual layout) and exercise the fill planner.
 #include "../src/core.h"
+#include "../src/native_abi.h"
 #include "../src/strings.h"
 #include <cstdio>
 #include <cstring>
@@ -75,6 +76,11 @@ static void binary_checks(const char* exe) {
         CHECK(n == 1 && (uint32_t)(hits[0] - &img[0]) == rva, m);
     }
     // the hook steals 10 bytes: mov [rsp+18],rsi ; mov [rsp+20],rdi
+    const uint64_t imageBase=*(const uint64_t*)&file[pe+24+24];
+    auto readImage=[&](uint64_t address,uint64_t size)->const uint8_t* { uint64_t offset=address-imageBase; return offset<img.size() && size<=img.size()-offset ? img.data()+offset : nullptr; };
+    CHECK(extended::item_abi(imageBase,readImage),"Extended: reflected ItemInfo, EquipmentSetup and every ItemFlag match");
+    img[0x1918790+0x40]^=1; CHECK(!extended::item_abi(imageBase,readImage),"Extended: changed ItemInfo ABI disables native placement"); img[0x1918790+0x40]^=1;
+    img[0x1989f80+0x48]^=1; CHECK(!extended::item_abi(imageBase,readImage),"Extended: changed native flag enum disables native placement"); img[0x1989f80+0x48]^=1;
     const uint8_t stolen[10] = {0x48,0x89,0x74,0x24,0x18,0x48,0x89,0x7C,0x24,0x20};
     CHECK(!memcmp(&img[0x491a10], stolen, 10), "hook prologue is two position-independent movs");
     const uint8_t payStolen[7] = {0x40,0x55,0x56,0x48,0x83,0xEC,0x78};

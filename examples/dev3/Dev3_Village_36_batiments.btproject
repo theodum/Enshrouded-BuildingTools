@@ -1,0 +1,973 @@
+{
+  "format": "BuildingToolsExtendedProject",
+  "version": 1,
+  "name": "Dev3 - 36 bâtiments et 60 passages",
+  "gridSize": 0.5,
+  "anchor": [
+    0,
+    0,
+    0
+  ],
+  "modules": [
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        8,
+        0.5,
+        3
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        3,
+        0.5,
+        8
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        12,
+        0,
+        0
+      ],
+      "rotation": 90,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        20,
+        0.5,
+        3
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        15,
+        0.5,
+        8
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        24,
+        0,
+        0
+      ],
+      "rotation": 180,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        32,
+        0.5,
+        3
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        27,
+        0.5,
+        8
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        36,
+        0,
+        0
+      ],
+      "rotation": 270,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        44,
+        0.5,
+        3
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        39,
+        0.5,
+        8
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        48,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        56,
+        0.5,
+        3
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        51,
+        0.5,
+        8
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        60,
+        0,
+        0
+      ],
+      "rotation": 90,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        63,
+        0.5,
+        8
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        0,
+        0,
+        12
+      ],
+      "rotation": 90,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        8,
+        0.5,
+        15
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        3,
+        0.5,
+        20
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        12,
+        0,
+        12
+      ],
+      "rotation": 180,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        20,
+        0.5,
+        15
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        15,
+        0.5,
+        20
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        24,
+        0,
+        12
+      ],
+      "rotation": 270,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        32,
+        0.5,
+        15
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        27,
+        0.5,
+        20
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        36,
+        0,
+        12
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        44,
+        0.5,
+        15
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        39,
+        0.5,
+        20
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        48,
+        0,
+        12
+      ],
+      "rotation": 90,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        56,
+        0.5,
+        15
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        51,
+        0.5,
+        20
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        60,
+        0,
+        12
+      ],
+      "rotation": 180,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        63,
+        0.5,
+        20
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        0,
+        0,
+        24
+      ],
+      "rotation": 180,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        8,
+        0.5,
+        27
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        3,
+        0.5,
+        32
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        12,
+        0,
+        24
+      ],
+      "rotation": 270,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        20,
+        0.5,
+        27
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        15,
+        0.5,
+        32
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        24,
+        0,
+        24
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        32,
+        0.5,
+        27
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        27,
+        0.5,
+        32
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        36,
+        0,
+        24
+      ],
+      "rotation": 90,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        44,
+        0.5,
+        27
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        39,
+        0.5,
+        32
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        48,
+        0,
+        24
+      ],
+      "rotation": 180,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        56,
+        0.5,
+        27
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        51,
+        0.5,
+        32
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        60,
+        0,
+        24
+      ],
+      "rotation": 270,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        63,
+        0.5,
+        32
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        0,
+        0,
+        36
+      ],
+      "rotation": 270,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        8,
+        0.5,
+        39
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        3,
+        0.5,
+        44
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        12,
+        0,
+        36
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        20,
+        0.5,
+        39
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        15,
+        0.5,
+        44
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        24,
+        0,
+        36
+      ],
+      "rotation": 90,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        32,
+        0.5,
+        39
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        27,
+        0.5,
+        44
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        36,
+        0,
+        36
+      ],
+      "rotation": 180,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        44,
+        0.5,
+        39
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        39,
+        0.5,
+        44
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        48,
+        0,
+        36
+      ],
+      "rotation": 270,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        56,
+        0.5,
+        39
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        51,
+        0.5,
+        44
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        60,
+        0,
+        36
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        63,
+        0.5,
+        44
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        0,
+        0,
+        48
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        8,
+        0.5,
+        51
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        3,
+        0.5,
+        56
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        12,
+        0,
+        48
+      ],
+      "rotation": 90,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        20,
+        0.5,
+        51
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        15,
+        0.5,
+        56
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        24,
+        0,
+        48
+      ],
+      "rotation": 180,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        32,
+        0.5,
+        51
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        27,
+        0.5,
+        56
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        36,
+        0,
+        48
+      ],
+      "rotation": 270,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        44,
+        0.5,
+        51
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        39,
+        0.5,
+        56
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        48,
+        0,
+        48
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        56,
+        0.5,
+        51
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        51,
+        0.5,
+        56
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        60,
+        0,
+        48
+      ],
+      "rotation": 90,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        63,
+        0.5,
+        56
+      ],
+      "rotation": 90,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        0,
+        0,
+        60
+      ],
+      "rotation": 90,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        8,
+        0.5,
+        63
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        12,
+        0,
+        60
+      ],
+      "rotation": 180,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        20,
+        0.5,
+        63
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        24,
+        0,
+        60
+      ],
+      "rotation": 270,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        32,
+        0.5,
+        63
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        36,
+        0,
+        60
+      ],
+      "rotation": 0,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        44,
+        0.5,
+        63
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        48,
+        0,
+        60
+      ],
+      "rotation": 90,
+      "category": "wall"
+    },
+    {
+      "file": "Dev3_Passage_large.btbp",
+      "offset": [
+        56,
+        0.5,
+        63
+      ],
+      "rotation": 0,
+      "category": "floor"
+    },
+    {
+      "file": "Dev3_Maison_10.btbp",
+      "offset": [
+        60,
+        0,
+        60
+      ],
+      "rotation": 180,
+      "category": "wall"
+    }
+  ]
+}

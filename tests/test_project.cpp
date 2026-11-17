@@ -23,6 +23,8 @@ static core::BpHeader header(int x, int y, int z, float step = 0.5f) {
 }
 int main() {
     using namespace project;
+    CHECK(!safe_file("CON.btbp") && !safe_file("nul.extra.btbp") && !safe_file("Com1.btbp") && !safe_file("LPT9.btbp") && !safe_file("AUX .btbp"));
+    CHECK(safe_file("Chateau_1.btbp") && safe_file("COMPOSITE.btbp"));
     CHECK(parse(valid)); CHECK(manifest.count == 3); CHECK(manifest.modules[1].offset[0] == -48); CHECK(manifest.modules[1].rotation == 1);
     CHECK(parse(replace(valid, "Citadelle", "Citadelle \\u00e9 \\ud83c\\udff0")));
     CHECK(std::strstr(manifest.name, "\xc3\xa9") != nullptr);
@@ -82,6 +84,15 @@ int main() {
     Plan duplicates{cells, 256}; m.rotation = 0; h = header(2, 1, 3);
     CHECK(add(&duplicates, m, 0, h, filled, &e)); CHECK(add(&duplicates, m, 1, h, filled, &e));
     CHECK(finish(&duplicates, &e)); CHECK(duplicates.count == 6 && duplicates.duplicates == 6);
+    CHECK(finish(&duplicates,&e)); CHECK(duplicates.materials[0].cells==6);
+    Plan owner{cells,256}; m.category=2; CHECK(add(&owner,m,1,h,filled,&e)); m.category=1; CHECK(add(&owner,m,0,h,filled,&e));
+    CHECK(finish(&owner,&e)); for(int i=0;i<owner.count;++i) CHECK(owner.cells[i].module==0 && owner.cells[i].category==1); m.category=0;
+    std::vector<CellEntry> refined(512); const uint8_t one[]={0};
+    for(float step : {0.5f,1.f,2.f,4.f}) for(int rotation=0;rotation<4;++rotation) {
+        Plan test{refined.data(),512}; auto source=header(1,1,1,step); Module part{}; part.rotation=rotation; part.offset[0]=-16; part.offset[1]=32; part.offset[2]=64;
+        CHECK(add(&test,part,0,source,one,&e)); CHECK(finish(&test,&e)); int side=(int)(step*2); CHECK(test.count==side*side*side);
+        for(int a=0;a<3;++a) CHECK(test.hi[a]-test.lo[a]==(int)(step*16));
+    }
     Plan conflict{cells, 256}; CHECK(add(&conflict, m, 0, h, filled, &e)); h.m[0].item++;
     CHECK(add(&conflict, m, 1, h, filled, &e)); CHECK(!finish(&conflict, &e));
     Plan capped{cells, 5}; CHECK(!add(&capped, m, 0, h, filled, &e));
@@ -120,6 +131,10 @@ int main() {
     CHECK(calls == 273 && job.next == 0 && job.phase == Phase::Building);
     while (job.phase == Phase::Building) { int n = job.prepare(257); CHECK(job.committed(n)); }
     CHECK(job.completed == 70000 && job.phase == Phase::Complete);
+    CHECK(job.prepare(10)==0); job.start(0); CHECK(job.phase==Phase::Stopped && job.prepare(1)==0);
+    job.start(4); CHECK(job.prepare(0)==0 && job.next==0); CHECK(job.prepare(2)==2); CHECK(!job.checked(1) && job.completed==0 && job.next==0);
+    job.start(4); CHECK(job.prepare(4)==4 && job.checked(4)); CHECK(job.prepare(2)==2 && job.committed(2));
+    job.phase=Phase::Stopped; CHECK(job.prepare(2)==0 && job.completed==2 && !job.committed(2));
     job.start(3); CHECK(job.prepare(2) == 2); CHECK(!job.checked(1)); CHECK(job.phase == Phase::Stopped && job.next == 0);
     job.start(3); job.prepare(3); CHECK(job.checked(3)); job.prepare(3); CHECK(!job.committed(2)); CHECK(job.completed == 0);
     // Load the actual packaged manifest and all three BTBP files through the same
@@ -163,6 +178,32 @@ int main() {
             for (int a = 0; a < 3; ++a) { if (!corner || out[a] < expectedLow[a]) expectedLow[a] = out[a]; if (!corner || out[a] > expectedHigh[a]) expectedHigh[a] = out[a]; }
         }
         CHECK(std::memcmp(low, expectedLow, sizeof low) == 0); CHECK(std::memcmp(high, expectedHigh, sizeof high) == 0);
+    }
+    // Installable dev3 campaign fixtures, using the actual BTBP decoder/planner.
+    const char* campaign[]={"Dev3_Trois_batiments_relies.btproject","Dev3_Batiment_etages.btproject","Dev3_Grille_vide_Y120.btproject","Dev3_Village_36_batiments.btproject"};
+    const int expectedCells[]={800,1444,528,75648};
+    const int expectedModules[]={5,7,3,96};
+    for(int fixture=0;fixture<4;++fixture) {
+        const std::string folder=std::string(SRC_DIR)+"/../examples/dev3/";
+        std::ifstream input(folder+campaign[fixture],std::ios::binary); std::string data((std::istreambuf_iterator<char>(input)),{});
+        CHECK(parse(data)); CHECK(manifest.count==expectedModules[fixture]);
+        std::vector<CellEntry> storage(100000); Plan loaded{storage.data(),(int)storage.size()};
+        for(int i=0;i<manifest.count;++i) {
+            std::ifstream src(folder+manifest.modules[i].file,std::ios::binary); std::vector<uint8_t> bytes((std::istreambuf_iterator<char>(src)),{}),decodedCells(65536); core::BpHeader source{};
+            bool ok=core::bp_decode(bytes.data(),(int)bytes.size(),&source,decodedCells.data(),65536); CHECK(ok);
+            if(ok) CHECK(add(&loaded,manifest.modules[i],i,source,decodedCells.data(),&e));
+        }
+        CHECK(finish(&loaded,&e)); CHECK(loaded.count==expectedCells[fixture]);
+        for(int r=0;r<4;++r) {
+            for(int index : {0,loaded.count/2,loaded.count-1}) {
+                int low[3];cell_low(loaded.cells[index],manifest.anchor,r,low);const auto placed=position(loaded.cells[index],manifest.anchor,r,core::I3{});
+                CHECK(placed.x==(int64_t)(low[0]+4)*((int64_t)1<<28)); CHECK(placed.y==(int64_t)(low[1]+4)*((int64_t)1<<28));
+            }
+        }
+        if(fixture==0) { // passage floors touch both houses with the same top altitude
+            auto occupied=[&](int x,int y,int z) { CellEntry key{{x,y,z},0,0,0}; return std::binary_search(storage.begin(),storage.begin()+loaded.count,key,[](const CellEntry& a,const CellEntry& b){return compare(a,b)<0;}); };
+            for(int x=0;x<40;++x) CHECK(occupied(x*8,0,24));
+        }
     }
     // Bounded parser fuzz, including arbitrary embedded NUL and high bytes.
     for (int n = 0; n < 3000; ++n) {

@@ -58,6 +58,8 @@ if [ "$1" = "test" ] || [ "$1" = "package" ]; then
     ./build/test_project
     ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_extended tests/test_extended.cpp
     ./build/test_extended
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_extended_config tests/test_extended_config.cpp
+    ./build/test_extended_config
     ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_project_export tests/test_project_export.cpp
     ./build/test_project_export
 fi
