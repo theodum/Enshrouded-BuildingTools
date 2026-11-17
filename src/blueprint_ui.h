@@ -3,6 +3,9 @@
 // button hides it. Included by main.cpp after the exact window.
 
 // Save / Build: arm the mod; the input thread sends the click once the window is down.
+static void extended_save_ui() {
+    if (!extended_save()) { flash(T(S_EXT_CONFIG_FAIL)); LOG(.str("Extended config: profile write failed; current settings remain in memory")); }
+}
 static void bp_arm() {
     EnterCriticalSection(&g_stateLock);
     g_exactPhase = 0;
@@ -309,7 +312,7 @@ static void draw_bp_place_window() {
         Buf objects; objects.fmt(T(S_PROJECT_OBJECTS), num(g_projectPlan.objects).s); bp_text(objects.z());
         { Buf pieces; pieces.fmt(T(S_EXT_NATIVE_COUNT), num(g_projectManifest.pieceCount).s); bp_text(pieces.z()); }
         const char* objectOptions[] = {T(S_BP_OBJ_LEAVE), T(S_BP_OBJ_BUILD)};
-        if (ui_option(T(S_EXT_OBJECTS), objectOptions, 2, g_projectUseObjects, &v)) { g_projectUseObjects = v; g_projectNeedN=0; g_projectLastProblem=nullptr; ++g_projectGeneration; extended_save(); }
+        if (ui_option(T(S_EXT_OBJECTS), objectOptions, 2, g_projectUseObjects, &v)) { g_projectUseObjects = v; g_projectNeedN=0; g_projectLastProblem=nullptr; ++g_projectGeneration; extended_save_ui(); }
         if (g_projectUseObjects && g_projectObjectCount) bp_text(T(S_EXT_OBJECT_HELP));
         if (g_projectLastProblem) bp_text(g_projectLastProblem);
         const char* tabs[] = {T(S_EXT_OVERVIEW),T(S_EXT_PREVIEW),T(S_EXT_MATERIALS),T(S_EXT_ALTARS)};

@@ -37,13 +37,15 @@ static void extended_load() {
     g_projectSliceY=extended::snap(g_projectSliceY,8); g_projectSliceHeight=extended::snap(g_projectSliceHeight,8);
     for (int i = 0; i < extended::Levels; ++i) { wchar_t key[] = L"Level0"; key[5] += i; int v = extended_read(key, i * 320); if (v >= -project::MaxCoord && v <= project::MaxCoord && v % 8 == 0) g_gridLevels[i] = v; }
 }
-static void extended_save() {
+static bool extended_save() {
     wchar_t path[MAX_PATH]; extended_ini_path(path);
-    auto write = [&](const wchar_t* key, int value) { Buf b; b.i(value); wchar_t number[32]; for (int i = 0; i <= b.n; ++i) number[i] = (wchar_t)b.z()[i]; WritePrivateProfileStringW(L"Extended", key, number, path); };
+    bool saved=true;
+    auto write = [&](const wchar_t* key, int value) { Buf b; b.i(value); wchar_t number[32]; for (int i = 0; i <= b.n; ++i) number[i] = (wchar_t)b.z()[i]; if (!WritePrivateProfileStringW(L"Extended", key, number, path)) saved=false; };
     write(L"Grid", g_grid.enabled); write(L"Height16", g_grid.height); write(L"OriginX16", g_grid.x); write(L"OriginZ16", g_grid.z); write(L"GridStep16", g_grid.spacing); write(L"GridRadius", g_grid.extent); write(L"Axes", g_grid.axes);
     write(L"CreativeObjects", g_creativeProps); write(L"ProjectObjects", g_projectUseObjects);
     write(L"ExperimentalNativePlacement", g_experimentalNative); write(L"ProjectBatchCells", g_projectBatchLimit);
     write(L"ShowAltars", g_showAltars); write(L"ShowModules", g_showModules); write(L"ShowObjects", g_showObjects); write(L"NativeObjectTrace", g_nativeObjectTrace);
     write(L"SelectedLevel",g_gridLevel); write(L"PreviewSlice",g_projectSlice); write(L"SliceY16",g_projectSliceY); write(L"SliceHeight16",g_projectSliceHeight);
     for (int i = 0; i < extended::Levels; ++i) { wchar_t key[] = L"Level0"; key[5] += i; write(key, g_gridLevels[i]); }
+    return saved;
 }

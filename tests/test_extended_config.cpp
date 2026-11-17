@@ -10,6 +10,7 @@
 static wchar_t g_dir[MAX_PATH]=L"test-only/";
 static std::map<std::wstring,int> profile;
 static std::map<std::wstring,int> otherSection;
+static bool writable=true;
 static wchar_t* lstrcpynW(wchar_t* out,const wchar_t* in,int n) { std::wcsncpy(out,in,n-1);out[n-1]=0;return out; }
 static wchar_t* lstrcatW(wchar_t* out,const wchar_t* in) { return std::wcscat(out,in); }
 static unsigned GetPrivateProfileIntW(const wchar_t* section,const wchar_t* key,int fallback,const wchar_t*) {
@@ -17,6 +18,7 @@ static unsigned GetPrivateProfileIntW(const wchar_t* section,const wchar_t* key,
     auto it=store.find(key);return (unsigned)(it==store.end()?fallback:it->second);
 }
 static bool WritePrivateProfileStringW(const wchar_t* section,const wchar_t* key,const wchar_t* value,const wchar_t*) {
+    if (!writable) return false;
     auto& store=std::wstring(section)==L"Extended" ? profile : otherSection;store[key]=(int)std::wcstol(value,nullptr,10);return true;
 }
 struct Buf { char s[80]{};int n=0;Buf& i(int value){n=std::snprintf(s,sizeof s,"%d",value);return *this;}const char* z(){return s;} };
@@ -36,12 +38,13 @@ int main(){
     g_grid.enabled=1;g_grid.height=-64;g_grid.x=-128;g_grid.z=256;g_grid.spacing=16;g_gridLevel=3;g_gridLevels[3]=2048;
     g_experimentalNative=1;g_creativeProps=1;g_nativeObjectTrace=1;g_showAltars=0;g_showObjects=0;g_showModules=0;
     g_projectBatchLimit=32;g_projectSlice=1;g_projectSliceY=-32;g_projectSliceHeight=128;
-    extended_save();g_grid={};g_gridLevels[3]=0;g_projectSliceHeight=8;extended_load();
+    CHECK(extended_save());g_grid={};g_gridLevels[3]=0;g_projectSliceHeight=8;extended_load();
     CHECK(g_grid.enabled && g_grid.height==-64 && g_grid.x==-128 && g_grid.z==256 && g_grid.spacing==16);
     CHECK(g_gridLevel==3 && g_gridLevels[3]==2048 && g_projectBatchLimit==32);
     CHECK(g_experimentalNative && g_creativeProps && g_nativeObjectTrace);
     CHECK(!g_showAltars && !g_showObjects && !g_showModules);
     CHECK(g_projectSlice && g_projectSliceY==-32 && g_projectSliceHeight==128);
     CHECK(profile[L"ForeignExtensionKey"]==52 && otherSection[L"OriginalKeyBinding"]==123);
+    const auto before=profile; writable=false;g_grid.height=32;CHECK(!extended_save());CHECK(profile==before);writable=true;
     std::printf("config: %d checks, %d failures\n",checks,failures);return failures!=0;
 }

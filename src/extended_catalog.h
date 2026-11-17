@@ -54,18 +54,26 @@ static bool catalog_object(uint32_t id, const int* offset = nullptr, int rotatio
     ProjectStateGuard guard;
     uint8_t* item = g_bpItemById ? g_bpItemById(id, g_bpItemReg) : nullptr;
     if (!extended_prop_item(item)) return false;
+    double local[3]; for(int a=0;a<3;++a) local[a]=(offset ? offset[a] : 0)/16.0;
+    float rotationQ[4],mn[3],mx[3]; const float identity[]={0,0,0,1}; core::bp_turn_rot(rotation,identity,rotationQ);
+    extended::Box bounds{};
+    if (!bp_item_bounds(item,mn,mx) || !extended::object_box(local,rotationQ,mn,mx,&bounds)) { LOG(.str("catalogue: invalid native object bounds item=").x(id)); return false; }
     bool add = append && g_projectLoaded;
     if (!add && !project_generated_begin(bp_item_name(id) ? bp_item_name(id) : "Native object")) return false;
     if (g_projectObjectCount == kProjectMaxObjects) return false;
     auto& object = g_projectObjects[g_projectObjectCount++]; object = extended::Object{}; object.item = id;
-    const float identity[] = {0,0,0,1}; core::bp_turn_rot(rotation, identity, object.rotation);
+    memcpy(object.rotation,rotationQ,sizeof rotationQ);
+    if (!g_projectManifest.count) { g_projectManifest.count=1; memset(&g_projectManifest.modules[0],0,sizeof g_projectManifest.modules[0]); g_projectManifest.modules[0].category=extended::Furniture; }
     object.module = (uint16_t)(module >= 0 && module < g_projectManifest.count ? module : 0);
     g_projectPlan.objects = g_projectObjectCount; g_projectUseObjects = 1; g_projectNeedN = 0;
     for (int a = 0; a < 3; ++a) {
-        int p = offset ? offset[a] : 0; object.p[a] = p / 16.0;
-        if (!add || p < g_projectPlan.lo[a]) g_projectPlan.lo[a] = p;
-        if (!add || p + 8 > g_projectPlan.hi[a]) g_projectPlan.hi[a] = p + 8;
-        if (!add) { g_projectModuleBoxes[0].lo[a] = p; g_projectModuleBoxes[0].hi[a] = p + 8; }
+        object.p[a]=local[a];
+        int low=bounds.lo[a]>=0 ? bounds.lo[a]/8*8 : -((-bounds.lo[a]+7)/8*8), high=bounds.hi[a]>=0 ? (bounds.hi[a]+7)/8*8 : -((-bounds.hi[a])/8*8);
+        if (high<=low) high=low+8;
+        if (!add || low<g_projectPlan.lo[a]) g_projectPlan.lo[a]=low;
+        if (!add || high>g_projectPlan.hi[a]) g_projectPlan.hi[a]=high;
+        auto& box=g_projectModuleBoxes[object.module];
+        if (!add || low<box.lo[a]) box.lo[a]=low; if (!add || high>box.hi[a]) box.hi[a]=high;
     }
     project_generated_finish(); return true;
 }

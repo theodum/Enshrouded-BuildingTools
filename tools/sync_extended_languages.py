@@ -102,6 +102,8 @@ FRENCH = {
     'extended.native_example': 'Préparer un exemple d’escalier natif entre deux niveaux',
     'extended.object_budget': 'Objet trop grand : plus de 512 voxels de contrôle. Choisir un objet compatible plus petit ou utiliser le placement manuel original.',
     'extended.check_ms': 'Contrôle le plus lent (ms) ; limite actuelle par lot : {0} ; {1}',
+    'extended.object_bounds_fail': 'Objet natif non préparé : incompatibilité, registre ou dimensions indisponibles, ou limite du projet atteinte. Aucun objet placé. Voir Diagnostics et BuildingTools.log.',
+    'extended.config_fail': 'Réglages Extended non enregistrés. Les valeurs restent actives pour cette session ; vérifier l’accès en écriture à BuildingTools-Extended.ini. Voir BuildingTools.log.',
 }
 
 

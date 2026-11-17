@@ -528,3 +528,5 @@ extended.stair_model = Native model orientation (climb toward +Z)
 extended.native_example = Prepare a native stair example between two levels
 extended.object_budget = Object bounds exceed 512 probe voxels. Use a smaller compatible object or the original manual placement tool.
 extended.check_ms = Slowest check (ms); current batch ceiling: {0}; {1}
+extended.object_bounds_fail = Native object could not be prepared: incompatible item, unavailable registry/bounds or project limit reached. No object was placed. See Diagnostics and BuildingTools.log.
+extended.config_fail = Extended settings could not be saved. Current values work for this session; check write access to BuildingTools-Extended.ini. See BuildingTools.log.

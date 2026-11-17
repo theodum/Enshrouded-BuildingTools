@@ -37,7 +37,7 @@ static void draw_diagnostic_rows() {
     const char* yesNo[] = {T(S_OPT_OFF),T(S_OPT_ON)}; LONG value; bool changed = false;
     if (ui_option(T(S_EXT_TRACE),yesNo,2,g_nativeObjectTrace,&value)) { g_nativeObjectTrace=value; changed=true; }
     int batch; if (ui_int(T(S_EXT_BATCH),g_projectBatchLimit,16,256,16,&batch)) { g_projectBatchLimit=batch; changed=true; }
-    if (changed) extended_save();
+    if (changed) extended_save_ui();
 }
 static void draw_diagnostics_window() {
     BpFrame f; bp_frame_begin(f,T(S_EXT_DIAGNOSTICS),T(S_EXT_EXPERIMENT_HELP)); draw_diagnostic_rows();
@@ -103,7 +103,7 @@ static void draw_extended_tools() {
         if (ui_button(T(S_EXT_PROPOSE))) extended_open(1,3);
     }
     if (section==7) draw_diagnostic_rows();
-    if (changed) extended_save();
+    if (changed) extended_save_ui();
 }
 static void draw_catalog_window() {
     static int kind = 0, page = 0;
@@ -134,7 +134,7 @@ static void draw_catalog_window() {
         if (ui_button(label.z(), kind != 3)) {
             if (kind == 0) { g_catalogMaterial = g_catalog[i].item; flash(T(S_EXT_SELECTED)); }
             if (kind == 2) { g_catalogPiece = g_catalog[i].item; flash(T(S_EXT_SELECTED)); }
-            if (kind == 1 && catalog_object(g_catalog[i].item, offset, rotation, append != 0, module - 1)) break;
+            if (kind==1) { if (catalog_object(g_catalog[i].item,offset,rotation,append!=0,module-1)) break; flash(T(S_EXT_OBJECT_BOUNDS_FAIL)); }
         }
     }
     bp_frame_rows_end(frame); BpRow row; bp_row_begin(row);
@@ -313,6 +313,6 @@ static void draw_project_preview_options() {
         int out; if (ui_int(T(S_EXT_MODULE), selected, 1, g_projectManifest.count, 1, &out)) selected = out;
         if (ui_option(T(S_EXT_VISIBLE), yesNo, 2, g_projectModuleVisible[selected - 1], &value)) { g_projectModuleVisible[selected - 1] = value; changed = true; }
     }
-    if (changed) { ++g_projectGeneration; g_bpBitsOk = 0; extended_save(); }
+    if (changed) { ++g_projectGeneration; g_bpBitsOk = 0; extended_save_ui(); }
     bp_text(T(S_EXT_VISUAL_ONLY));
 }

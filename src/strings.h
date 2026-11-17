@@ -512,7 +512,9 @@
     X(S_EXT_STAIR_MODEL, "extended.stair_model", "Native model orientation (climb toward +Z)") \
     X(S_EXT_NATIVE_EXAMPLE, "extended.native_example", "Prepare a native stair example between two levels") \
     X(S_EXT_OBJECT_BUDGET, "extended.object_budget", "Object bounds exceed 512 probe voxels. Use a smaller compatible object or the original manual placement tool.") \
-    X(S_EXT_CHECK_MS, "extended.check_ms", "Slowest check (ms); current batch ceiling: {0}; {1}")
+    X(S_EXT_CHECK_MS, "extended.check_ms", "Slowest check (ms); current batch ceiling: {0}; {1}") \
+    X(S_EXT_OBJECT_BOUNDS_FAIL, "extended.object_bounds_fail", "Native object could not be prepared: incompatible item, unavailable registry/bounds or project limit reached. No object was placed. See Diagnostics and BuildingTools.log.") \
+    X(S_EXT_CONFIG_FAIL, "extended.config_fail", "Extended settings could not be saved. Current values work for this session; check write access to BuildingTools-Extended.ini. See BuildingTools.log.")
 
 enum Str {
 #define BT_STR_ID(id, key, en) id,
