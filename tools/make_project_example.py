@@ -62,7 +62,7 @@ def create(output, material):
         ],
     }
     (output / 'Trois_modules_test.btproject').write_text(
-        json.dumps(manifest, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+        json.dumps(manifest, indent=2, ensure_ascii=False) + '\n', encoding='utf-8', newline='\n')
 
 
 def main():

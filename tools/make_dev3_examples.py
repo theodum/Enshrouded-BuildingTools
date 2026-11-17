@@ -16,7 +16,7 @@ def create(output, material):
     def manifest(file, title, modules):
         value = dict(format='BuildingToolsExtendedProject', version=1, name=title,
                      gridSize=0.5, anchor=[0, 0, 0], modules=modules)
-        (output / file).write_text(json.dumps(value, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
+        (output / file).write_text(json.dumps(value, indent=2, ensure_ascii=False)+'\n', encoding='utf-8', newline='\n')
     def module(file, offset, rotation=0, category='general'):
         return dict(file=file, offset=offset, rotation=rotation, category=category)
     def house(x, y, z):

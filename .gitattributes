@@ -1,4 +1,6 @@
 *.sh text eol=lf
 *.S text eol=lf
+*.btproject text eol=lf
+*.btbp binary
 # Existing translation blobs are CRLF in the repository; preserve their bytes.
 lang/*.txt -text whitespace=cr-at-eol
