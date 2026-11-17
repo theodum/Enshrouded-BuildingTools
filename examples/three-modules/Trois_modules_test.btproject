@@ -1,0 +1,40 @@
+{
+  "format": "BuildingToolsExtendedProject",
+  "version": 1,
+  "name": "Trois modules - test",
+  "gridSize": 0.5,
+  "anchor": [
+    0,
+    0,
+    0
+  ],
+  "modules": [
+    {
+      "file": "hall.btbp",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "rotation": 0
+    },
+    {
+      "file": "tower.btbp",
+      "offset": [
+        8,
+        1,
+        0
+      ],
+      "rotation": 90
+    },
+    {
+      "file": "bridge.btbp",
+      "offset": [
+        2,
+        2,
+        5
+      ],
+      "rotation": 270
+    }
+  ]
+}

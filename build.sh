@@ -54,6 +54,8 @@ VERSION=$(sed -n 's/^#define MOD_VERSION "\(.*\)"/\1/p' src/main.cpp)
 if [ "$1" = "test" ] || [ "$1" = "package" ]; then
     ${HOSTCXX:-c++} -std=c++17 -O1 -DSRC_DIR="\"$(pwd)/tests\"" -o build/test_core tests/test_core.cpp
     ./build/test_core ${ENSHROUDED_EXE:+"$ENSHROUDED_EXE"}
+    ${HOSTCXX:-c++} -std=c++17 -O1 -DSRC_DIR="\"$(pwd)/tests\"" -o build/test_project tests/test_project.cpp
+    ./build/test_project
 fi
 
 if [ "$1" = "package" ]; then

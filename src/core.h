@@ -1041,8 +1041,9 @@ inline bool bp_decode(const uint8_t* d, int size, BpHeader* h, uint8_t* cells, l
     h->nm = nm;
     for (int k = 0; k < nm; k++) { uint8_t pad[3]; rd(&h->m[k].item, 4); rd(&h->m[k].mat, 1); rd(pad, 3); rd(&h->m[k].cells, 4); rd(&h->m[k].items, 4); }
     for (int a = 0; a < 3; a++) if (h->n[a] < 1 || !(h->step[a] > 0.05f && h->step[a] < 100.f)) return false;
-    const long total = (long)h->n[0] * h->n[1] * h->n[2];
-    if (total > maxCells) return false;
+    const int64_t total64 = (int64_t)h->n[0] * h->n[1] * h->n[2];
+    if (total64 > maxCells || total64 > 0x7fffffff) return false;
+    const long total = (long)total64;
     if (!need(4)) return false;
     uint32_t runs; rd(&runs, 4);
     long q = 0;
@@ -1050,11 +1051,12 @@ inline bool bp_decode(const uint8_t* d, int size, BpHeader* h, uint8_t* cells, l
         if (!need(4)) return false;
         uint16_t len; uint8_t m, pad; rd(&len, 2); rd(&m, 1); rd(&pad, 1);
         if (m != BP_EMPTY && m >= nm) return false;
-        if (q + len > total) return false;
+        if (!len || q + len > total) return false;
         for (int z = 0; z < len; z++) cells[q++] = m;
     }
     if (q != total) return false;
     h->objects = 0;
+    if (at != size && !need(4)) return false;
     if (need(4)) {
         uint32_t no; rd(&no, 4);
         if (no > (uint32_t)BP_MAX_OBJS || !need((int)no * 32)) return false;
