@@ -12,6 +12,13 @@ inline int snap(double value, int step) {
     double n = value / step;
     return (int)(n < 0 ? n - 0.5 : n + 0.5) * step;
 }
+// Cardinal quaternion rotations can put an exact grid boundary a few float ULPs
+// outside it. Canonicalize only within 0.0001 sixteenths (= 6.25 micrometres).
+// Genuine protrusions remain conservative; no 0.5 m voxel tolerance is added.
+inline double native_bound16(float metres) {
+    const double v=(double)metres*16;const int nearest=snap(v,1);
+    const double delta=v-nearest;return delta>=-0.0001 && delta<=0.0001 ? nearest : v;
+}
 inline bool grid_hit(const Grid& g, const double* camera, const double* direction, core::I3* out) {
     if (!g.enabled || (g.spacing != 8 && g.spacing != 16) || !(direction[1] < -0.0001 || direction[1] > 0.0001)) return false;
     double t = (g.height / 16.0 - camera[1]) / direction[1];

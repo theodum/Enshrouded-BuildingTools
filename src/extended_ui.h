@@ -19,6 +19,27 @@ static void extended_open(int page, int tab = 0) {
     g_extendedLaunchPage = page; g_extendedLaunchAt = GetTickCount()+200; g_extendedLaunchSent = false;
     g_menuReq = 2; write_full_ini(g_cfg);
 }
+static void draw_project_summary_diagnostics() {
+    if(!g_projectLoaded)return;
+    Buf x,y,z,row;const int ax=g_bpRot&1?2:0,az=g_bpRot&1?0:2;
+    x.f((g_projectPlan.hi[ax]-g_projectPlan.lo[ax])/16.0);y.f((g_projectPlan.hi[1]-g_projectPlan.lo[1])/16.0);z.f((g_projectPlan.hi[az]-g_projectPlan.lo[az])/16.0);
+    row.fmt(T(S_EXT_PROJECT_DIMS),x.z(),y.z(),z.z());bp_text(row.z());
+    const bool current=g_projectValidation.current(project_diagnostic_context());
+    if(!current)bp_text(T(S_EXT_VALIDATION_NONE));
+    else if(g_projectValidation.state==diagnostics::State::Checking){Buf progress;progress.fmt(T(S_EXT_VALIDATION_PROGRESS),num(g_projectValidation.checked).s,num(g_projectValidation.total).s);bp_text(progress.z());}
+    else bp_text(T(g_projectValidation.state==diagnostics::State::Passed?S_EXT_VALIDATION_PASSED:S_EXT_VALIDATION_FAILED));
+    if(g_projectManifest.pieceCount || (g_projectUseObjects && g_projectObjectCount)) {
+        if(!g_bpItemById || !g_bpItemReg)bp_text(T(S_EXT_NATIVE_UNOBSERVED));
+        else {
+            int missing=0;uint32_t first=0;
+            auto absent=[&](uint32_t id){++missing;if(!first)first=id;};
+            for(int i=0;i<g_projectManifest.pieceCount;++i){const auto& p=g_projectManifest.pieces[i];if(!project_piece_item(p))absent(p.item);
+                if(p.material && !bp_block_item(g_bpItemById(p.material,g_bpItemReg)))absent(p.material);}
+            if(g_projectUseObjects)for(int i=0;i<g_projectObjectCount;++i)if(!extended_prop_item(g_bpItemById(g_projectObjects[i].item,g_bpItemReg)))absent(g_projectObjects[i].item);
+            Buf info,id;id.x(first);info.fmt(T(S_EXT_NATIVE_ISSUES),num(missing).s,missing?id.z():"-");bp_text(info.z());
+        }
+    }
+}
 static void draw_diagnostic_rows() {
     altar_snapshot();
     auto status = [&](Str label, const char* value) { Buf row; row.fmt(T(S_EXT_DIAG_ROW),T(label),value); bp_text(row.z()); };
@@ -26,6 +47,7 @@ static void draw_diagnostic_rows() {
     status(S_EXT_REGISTRY,T(g_bpItemReg && g_bpItemById ? S_EXT_AVAILABLE : S_EXT_UNAVAILABLE));
     Buf zones; zones.i(g_altarZoneCount); status(S_EXT_BASES,zones.z());
     bp_text(T(S_EXT_DIAG_HELP));
+    draw_project_summary_diagnostics();
     if (g_projectOperation) {
         Buf id,row; id.x(g_projectOperation); row.fmt(T(S_EXT_OPERATION),id.z(),num(g_projectJob.completed).s,num(g_projectJob.total).s); bp_text(row.z());
         Buf timing; timing.fmt(T(S_EXT_CHECK_MS),num(g_projectWorstCheck).s,num(g_projectActiveLimit).s); bp_text(timing.z());
@@ -145,8 +167,9 @@ static void draw_catalog_window() {
 static void draw_project_materials() {
     static int source = 0, target = 0, scope = 0, module = 1, category = 0;
     LONG value;
-    if (g_projectNeedN) {
-        bp_text(T(S_EXT_QUOTE));
+    if (g_projectNeedN && !g_projectValidation.current(project_diagnostic_context()))bp_text(T(S_EXT_QUOTE_STALE));
+    if (g_projectNeedN && g_projectValidation.current(project_diagnostic_context())) {
+        bp_text(T(g_projectValidation.fullQuote ? S_EXT_QUOTE : S_EXT_QUOTE_PARTIAL));
         for (int i = 0; i < g_projectNeedN; ++i) {
             const auto& need = g_projectNeed[i]; Buf label, count, row;
             bp_item_label(label, need.item);
@@ -187,9 +210,16 @@ static void draw_project_materials() {
     }
 }
 static void draw_project_altars() {
+    altar_snapshot();
     ui_text(T(S_EXT_ALTARS), STYLE_BODY);
     int selected;
     if (g_altarZoneCount && ui_int(T(S_EXT_ZONE_TEMPLATE), g_altarTemplate, 1, g_altarZoneCount, 1, &selected)) g_altarTemplate = selected;
+    if(g_altarZoneCount){
+        if(g_altarTemplate<1 || g_altarTemplate>g_altarZoneCount)g_altarTemplate=1;
+        const auto& zone=g_altarZones[g_altarTemplate-1];Buf low,high,box;
+        for(int a=0;a<3;++a){if(a){low.c(',');high.c(',');}low.f(zone.lo[a]/16.0);high.f(zone.hi[a]/16.0);}
+        box.fmt(T(S_EXT_ALTAR_BOUNDS),num(g_altarTemplate).s,low.z(),high.z());bp_text(box.z());
+    }
     if (ui_button(T(S_EXT_PROPOSE))) { ProjectStateGuard guard; altar_assist_begin(); }
     if (g_altarScan >= 0) {
         Buf status; status.fmt(T(S_EXT_COVERAGE), num(g_altarUncovered).s, num(g_altarScan).s, num(g_altarTargets).s, num(g_altarProposalCount).s); bp_text(status.z());
@@ -276,6 +306,7 @@ static void draw_architecture_window() {
             }
         }
         bp_text(T(S_EXT_NATIVE_STAIR_HELP));
+        if(ui_button(T(S_EXT_DEMO_STOREYS))) architecture_storeys(rotation,rise);
     }
     bp_frame_rows_end(f); BpRow row; bp_row_begin(row);
     if (ui_button(T(S_EXT_GENERATE))) {

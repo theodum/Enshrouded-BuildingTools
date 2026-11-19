@@ -2,9 +2,10 @@
 
 A development fork of the Enshrouded Construction Hammer mod. The original tools
 include local and dedicated-server building; Extended composite projects require
-a locally hosted world. This build has not been validated in the game.
+a locally hosted world. The user validated the dev5 block composites described
+below; the new dev6 native stair demonstration still requires in-game testing.
 
-This fork's **Building Tools Extended 0.34.0-dev5** adds native composite projects:
+This fork's **Building Tools Extended 0.34.0-dev6** adds native composite projects:
 one anchor, relative module rotations, one Build confirmation, preflight and progressive
 batches. Start with the included three-module example. See the
 [installation and in-game test protocol](docs/EXTENDED-TESTING.md),
@@ -32,7 +33,19 @@ Dev5 shares the guarded classic material resolver, fixes the shipped examples'
 unverified material ID and distinguishes material conflicts from native cost limits.
 Install the updated example BTBPs as well as the DLL. See the
 [material diagnosis and retest](docs/DEV5-MATERIALS-FIX.md) and
-[current validation report](docs/DEV5-VALIDATION.md). Game validation remains pending.
+[dev5 delivery report](docs/DEV5-VALIDATION.md). The user's subsequent dev5 test
+confirmed 312-cell construction, linked buildings/passages, material resolution
+and altar limits in those scenarios.
+
+Dev6 adds a parametric three-storey demonstration using the stair/material selected
+in the real game registry, explicit calibrated rise, landings and reserved shafts.
+It also adds dimensions, context-bound validation/quote status, native availability,
+spatial errors and richer operation reports. Interactive doors remain excluded;
+door bays are provided. See the [technical audit](docs/DEV6-AUDIT.md),
+[prioritized roadmap](docs/ARCHITECTURE-ROADMAP.md),
+[stair calibration and in-game protocol](docs/DEV6-MULTISTOREY.md) and
+[current validation report](docs/DEV6-VALIDATION.md). No real dev6 stair placement
+or walkability has been claimed.
 
 - **Replace**: repaint existing blocks with your current material, as a full shape,
   only where the shape overlaps existing blocks, or **connected** (fill bucket: every

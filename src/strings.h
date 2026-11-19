@@ -539,7 +539,27 @@
     X(S_EXT_COST_EXCESSIVE, "extended.cost_excessive", "Excessive native cost; execution refused.") \
     X(S_EXT_COST_ITEMS, "extended.cost_items", "Too many different cost items; execution refused.") \
     X(S_EXT_COST_LIST, "extended.cost_list", "Invalid native cost list; execution refused.") \
-    X(S_EXT_COST_VALUES, "extended.cost_values", "Cost item {0}, rejected value {1}, limit {2}. See BuildingTools.log.")
+    X(S_EXT_COST_VALUES, "extended.cost_values", "Cost item {0}, rejected value {1}, limit {2}. See BuildingTools.log.") \
+    X(S_EXT_DEMO_STOREYS, "extended.demo_storeys", "Prepare the three-storey building with native stairs") \
+    X(S_EXT_DEMO_SELECT, "extended.demo_select", "Select a real stair piece and a building material in the native library first.") \
+    X(S_EXT_DEMO_RISE, "extended.demo_rise", "Set the actual rise of one tested stair flight (at least 0.5 m, in 0.5 m steps). Zero is an estimate and cannot prepare this test.") \
+    X(S_EXT_DEMO_ABI, "extended.demo_abi", "Native stair bounds or ABI unavailable; the previous draft was kept.") \
+    X(S_EXT_DEMO_BOUNDS, "extended.demo_bounds", "This model's bounds do not fit the demo grid. Use a stair with dimensions in 0.5 m steps; the previous draft was kept.") \
+    X(S_EXT_DEMO_CLEARANCE, "extended.demo_clearance", "The measured stair volumes or their 2 m clearance intersect the building. The previous draft was kept.") \
+    X(S_EXT_DEMO_BUDGET, "extended.demo_budget", "The selected stair would exceed the demo size, cell or native-part budgets. The previous draft was kept.") \
+    X(S_EXT_DEMO_READY, "extended.demo_ready", "Three-storey draft ready: floors, landings, reserved openings, walls and roof. Door bays contain no interactive doors. Check, export and test stair walkability in-game.") \
+    X(S_EXT_PROJECT_DIMS, "extended.project_dims", "Total dimensions after rotation: X={0}, Y={1}, Z={2} m (occupied/native bounds).") \
+    X(S_EXT_VALIDATION_NONE, "extended.validation_none", "No validation recorded for this draft, position and mode. Use Check without building.") \
+    X(S_EXT_VALIDATION_PROGRESS, "extended.validation_progress", "Preflight in progress: {0}/{1} placements; the quote is partial.") \
+    X(S_EXT_VALIDATION_PASSED, "extended.validation_passed", "Last full preflight passed at this position. The world may have changed; Build checks again.") \
+    X(S_EXT_VALIDATION_FAILED, "extended.validation_failed", "Last operation refused or interrupted. Read its reason and check again before building.") \
+    X(S_EXT_NATIVE_UNOBSERVED, "extended.native_unobserved", "Native item registry not observed; availability is unknown.") \
+    X(S_EXT_NATIVE_ISSUES, "extended.native_issues", "Unavailable or refused native references: {0}. First ID: {1}. Availability does not prove placement or interaction.") \
+    X(S_EXT_QUOTE_PARTIAL, "extended.quote_partial", "Partial native costs; the entire project has not been validated. These are not a complete quote.") \
+    X(S_EXT_QUOTE_STALE, "extended.quote_stale", "The project, position or mode changed after pricing. Recheck to obtain a current quote.") \
+    X(S_EXT_ALTAR_BOUNDS, "extended.altar_bounds", "Observed altar zone {0}: low ({1}), high ({2}) m. Native coverage checks remain authoritative.") \
+    X(S_EXT_SPATIAL_DETAIL, "extended.spatial_detail", "Position ({0}) m; {1}. See BuildingTools.log.") \
+    X(S_EXT_NATIVE_MISSING, "extended.native_missing", "Native piece {0}, ID {1}, material {2}: {3}.")
 
 enum Str {
 #define BT_STR_ID(id, key, en) id,

@@ -1,13 +1,15 @@
-# Building Tools Extended 0.34.0-dev5 — installation et recette
+# Building Tools Extended 0.34.0-dev6 — installation et recette
 
 Version de développement du fork, basée sur Building Tools 0.33.2.
 La compilation et les tests automatisés ne remplacent pas votre test dans le jeu.
-**Le placement composite en jeu reste à valider personnellement.**
+Les petits composites, matériaux et limites d'autels ont été validés par
+l'utilisateur avec dev5. Les nouvelles fonctions dev6 et les cas non cités
+demandent encore une validation personnelle.
 
 ## Installation manuelle
 
 Fermer le jeu. Utiliser l'archive locale
-`dist/EnshroudedBuildingTools-0.34.0-dev5.zip`, ou l'archive Shroudforge si ce
+`dist/EnshroudedBuildingTools-0.34.0-dev6.zip`, ou l'archive Shroudforge si ce
 chargeur est déjà utilisé. Les deux archives contiennent la même DLL.
 
 1. Conserver une copie de votre DLL de mod précédente si vous souhaitez revenir
@@ -18,7 +20,7 @@ chargeur est déjà utilisé. Les deux archives contiennent la même DLL.
 3. Avec Shroudforge, extraire l'archive correspondante : la DLL est dans
    `mods/building-tools/BuildingTools.dll`. Conserver une seule copie de Building
    Tools chargée. Les projets restent à côté de l'exécutable du jeu.
-4. Démarrer un **monde local de test** et vérifier la bannière 0.34.0-dev5 et
+4. Démarrer un **monde local de test** et vérifier la bannière 0.34.0-dev6 et
    `BuildingTools.log`. Aucun test ci-dessous ne doit utiliser votre monde principal.
 
 Le développement n'installe rien dans le jeu. Aucun fichier `.ksd`, sauvegarde
@@ -26,7 +28,10 @@ Steam ou monde existant n'est modifié par les scripts de compilation et de test
 Avant tout essai de construction, conserver hors du répertoire du jeu une copie
 de votre monde de test, jeu arrêté ; la DLL ne réalise pas de sauvegarde automatique.
 
-**Retest prioritaire de dev5 :** suivre [DEV5-MATERIALS-FIX.md](DEV5-MATERIALS-FIX.md).
+**Retest prioritaire de dev6 :** suivre [DEV6-MULTISTOREY.md](DEV6-MULTISTOREY.md) :
+non-régression dev5, calibration d'une volée, génération, export/rechargement et
+parcours des trois niveaux. L'audit est dans [DEV6-AUDIT.md](DEV6-AUDIT.md).
+Le diagnostic historique de matériaux est dans [DEV5-MATERIALS-FIX.md](DEV5-MATERIALS-FIX.md).
 Installer aussi les BTBP d'exemple corrigés : changer seulement la DLL conserve
 leurs anciens identifiants invalides. Les actions dev4 ont démarré en jeu ; leur
 protocole reste dans [DEV4-ACTIONS-FIX.md](DEV4-ACTIONS-FIX.md).
@@ -43,7 +48,7 @@ dossier de plugin. Une ligne « second copy » dans le journal indique un doublo
 
 ## Campagne personnelle dev3 : douze étapes
 
-Cette campagne reste applicable à dev5, après le retest des matériaux. Le premier
+Cette campagne reste applicable à dev6, après le protocole ciblé. Le premier
 journal réel de dev3 confirme le chargement/UI/Vulkan et les projets chargés,
 pas le placement : aucune opération composite n'y avait démarré.
 

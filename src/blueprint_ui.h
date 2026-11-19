@@ -250,6 +250,7 @@ static void draw_project_altars();
 static void draw_architecture_window();
 static void draw_project_preview_options();
 static void draw_diagnostics_window();
+static void draw_project_summary_diagnostics();
 static void draw_bp_place_window() {
     if (g_bpPage == 3) { draw_catalog_window(); return; }
     if (g_bpPage == 4) { draw_architecture_window(); return; }
@@ -268,6 +269,7 @@ static void draw_bp_place_window() {
             g_projectList = !g_projectList; g_bpBitsOk = 0; bp_list_files();
         }
         if (!g_bpFiles) bp_text(T(g_projectList ? S_PROJECT_NONE : S_BP_NONE));
+        if(g_projectList && g_projectLastProblem)bp_text(g_projectLastProblem);
         for (int q = 0; q < g_bpFiles; q++)
             if (ui_button(g_bpName[q])) {
                 g_bpSel = q;
@@ -316,6 +318,7 @@ static void draw_bp_place_window() {
     if (g_projectList) {
         bp_text(T(S_PROJECT_HELP));
         Buf summary; summary.fmt(T(S_PROJECT_SUMMARY), num(g_projectManifest.count).s, num(g_projectPlan.count).s, num(g_projectPlan.duplicates).s); bp_text(summary.z());
+        draw_project_summary_diagnostics();
         const I3 anchor = project_origin_now();
         Buf x, y, z, point; x.fix(anchor.x); y.fix(anchor.y); z.fix(anchor.z);
         point.fmt(T(S_PROJECT_ANCHOR), x.z(), y.z(), z.z()); bp_text(point.z());
@@ -341,6 +344,7 @@ static void draw_bp_place_window() {
         }
         for (int m = 0; m < g_projectPlan.materialCount; ++m) {
             const auto& material = g_projectPlan.materials[m]; Buf label, row;
+            if(!material.cells)continue;
             bp_item_label(label, material.item); row.fmt(T(S_PROJECT_MATERIAL_ROW), label.z(), num(material.cells).s); bp_text(row.z());
         }
         bool shape = true; for (int a = 0; a < 3; ++a) if (g_scStep[a] != 0.5f) shape = false;

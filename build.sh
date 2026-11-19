@@ -61,6 +61,8 @@ if [ "$1" = "test" ] || [ "$1" = "package" ]; then
     ./build/test_project_actions
     ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_materials tests/test_materials.cpp
     ./build/test_materials
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_storeys tests/test_storeys.cpp
+    ./build/test_storeys
     ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_extended tests/test_extended.cpp
     ./build/test_extended
     ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_extended_config tests/test_extended_config.cpp
@@ -90,8 +92,12 @@ if [ "$1" = "package" ]; then
             -e 's/](DEV3-VALIDATION.md)/](BuildingToolsExtended-BASELINE-DEV3.md)/g' \
             -e 's/](DEV4-VALIDATION.md)/](BuildingToolsExtended-BASELINE-DEV4.md)/g' \
             -e 's/](DEV4-ACTIONS-FIX.md)/](BuildingToolsExtended-ACTIONS-FIX.md)/g' \
-            -e 's/](DEV5-VALIDATION.md)/](BuildingToolsExtended-VALIDATION.md)/g' \
-            -e 's/](DEV5-MATERIALS-FIX.md)/](BuildingToolsExtended-MATERIALS-FIX.md)/g' "$1" > "build/pkg/BuildingToolsExtended-$2.md"
+            -e 's/](DEV5-VALIDATION.md)/](BuildingToolsExtended-BASELINE-DEV5.md)/g' \
+            -e 's/](DEV5-MATERIALS-FIX.md)/](BuildingToolsExtended-MATERIALS-FIX.md)/g' \
+            -e 's/](DEV6-AUDIT.md)/](BuildingToolsExtended-TECHNICAL-AUDIT.md)/g' \
+            -e 's/](ARCHITECTURE-ROADMAP.md)/](BuildingToolsExtended-ROADMAP.md)/g' \
+            -e 's/](DEV6-MULTISTOREY.md)/](BuildingToolsExtended-MULTISTOREY.md)/g' \
+            -e 's/](DEV6-VALIDATION.md)/](BuildingToolsExtended-VALIDATION.md)/g' "$1" > "build/pkg/BuildingToolsExtended-$2.md"
     }
     package_doc docs/EXTENDED-TESTING.md TESTING
     package_doc docs/BTPROJECT.md FORMAT
@@ -101,8 +107,12 @@ if [ "$1" = "package" ]; then
     package_doc docs/DEV3-VALIDATION.md BASELINE-DEV3
     package_doc docs/DEV4-VALIDATION.md BASELINE-DEV4
     package_doc docs/DEV4-ACTIONS-FIX.md ACTIONS-FIX
-    package_doc docs/DEV5-VALIDATION.md VALIDATION
+    package_doc docs/DEV5-VALIDATION.md BASELINE-DEV5
     package_doc docs/DEV5-MATERIALS-FIX.md MATERIALS-FIX
+    package_doc docs/DEV6-AUDIT.md TECHNICAL-AUDIT
+    package_doc docs/ARCHITECTURE-ROADMAP.md ROADMAP
+    package_doc docs/DEV6-MULTISTOREY.md MULTISTOREY
+    package_doc docs/DEV6-VALIDATION.md VALIDATION
     cp CHANGELOG.md build/pkg/BuildingToolsExtended-CHANGELOG.md
     ZIP="dist/EnshroudedBuildingTools-$VERSION.zip"
     rm -f "$ZIP"

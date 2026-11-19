@@ -159,3 +159,4 @@ static bool architecture_native_example(int rotation) {
     copy_text(g_projectManifest.name,"Native stairs - two levels",sizeof g_projectManifest.name); g_bpRot=rotation;
     project_generated_finish(); edit.committed=true; return true;
 }
+#include "architecture_storeys.h"

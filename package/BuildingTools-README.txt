@@ -1,4 +1,4 @@
-Enshrouded Building Tools 0.34.0-dev5
+Enshrouded Building Tools 0.34.0-dev6
 ================================
 
 Files in the game folder
@@ -44,8 +44,17 @@ Building Tools Extended (development build)
   now matches the real native block observed in the user's log. Personal BTBPs
   remain untouched. Material conflicts and cost limits have separate diagnostics,
   including in Creative Building. See BuildingToolsExtended-MATERIALS-FIX.md and
-  BuildingToolsExtended-VALIDATION.md. Actual dev5 placement awaits your test.
-  Use a local TEST world: in-game composite behavior awaits personal validation.
+  BuildingToolsExtended-BASELINE-DEV5.md. The user's dev5 test confirmed the
+  312-cell project, linked buildings/passages, materials and altar limits.
+  Dev6: choose a real stair and material, calibrate its rise/orientation, then
+  Architecture > Native stairs > Prepare the three-storey building. This creates
+  an in-memory project; export it to obtain BTBP/btproject files with your IDs.
+  Three floors, landings, reserved shafts, walls and roof are included. Door bays
+  have no interactive doors. Native placement remains experimental and opt-in.
+  See BuildingToolsExtended-MULTISTOREY.md for the complete in-game protocol,
+  BuildingToolsExtended-TECHNICAL-AUDIT.md and BuildingToolsExtended-ROADMAP.md
+  for scope, evidence and priorities, and BuildingToolsExtended-VALIDATION.md.
+  Use a local TEST world: the dev6 native stairs and diagnostics await your test.
   Original author and MIT license: BuildingTools-LICENSE.txt.
 
 Dedicated server

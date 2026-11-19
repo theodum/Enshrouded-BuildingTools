@@ -1,8 +1,10 @@
-# État de Building Tools Extended 0.34.0-dev5
+# État de Building Tools Extended 0.34.0-dev6
 
 Les fonctionnalités ci-dessous sont du code dans la DLL Windows. « Implémenté »
 ne signifie pas « validé dans Enshrouded » : aucun monde n'a été chargé par l'agent.
-La recette personnelle reste nécessaire, en commençant par les trois modules.
+Le retour utilisateur de dev5 confirme les trois modules (312 cellules), les
+bâtiments reliés/passages, l'alignement, les matériaux et les limites d'autels
+dans les scénarios joués. La recette dev6 reste nécessaire pour les nouveaux cas.
 
 Le premier test utilisateur de dev3 confirme le chargement de la DLL, l'interface,
 Vulkan et les manifests ; les actions ne démarraient pas. Dev4 corrige les refus
@@ -14,7 +16,12 @@ métadonnées des exemples et unifie la résolution avec les blueprints individu
 en conservant la protection contre les matériaux ambigus et les limites natives.
 Voir [DEV5-MATERIALS-FIX.md](DEV5-MATERIALS-FIX.md) et
 [DEV5-VALIDATION.md](DEV5-VALIDATION.md).
-**Le placement réel avec dev5 reste à valider par l'utilisateur.**
+Le retour dev5 décrit ci-dessus complète ce bilan historique. Les escaliers,
+objets et le paiement normal ne sont pas validés par ce retour.
+Dev6 ajoute une fabrique de projet multiétages native et des diagnostics plus
+complets ; **leur validation dans Enshrouded reste à faire**. Voir
+[DEV6-AUDIT.md](DEV6-AUDIT.md), [ARCHITECTURE-ROADMAP.md](ARCHITECTURE-ROADMAP.md),
+[DEV6-MULTISTOREY.md](DEV6-MULTISTOREY.md) et [DEV6-VALIDATION.md](DEV6-VALIDATION.md).
 
 Dev3 est préparée pour cette campagne, sans installation automatique. Les objets
 et pièces natifs automatiques sont **expérimentaux et désactivés par défaut**.
@@ -51,6 +58,8 @@ L'audit et les résultats sont dans [DEV3-AUDIT.md](DEV3-AUDIT.md) et
 | Garde ABI native | ItemInfo, EquipmentSetup et les 22 drapeaux réfléchis contrôlés ; changement = placement natif désactivé |
 | Lots/diagnostic | 128 voxels par défaut, réduction après contrôle lent ; 1 pièce ou 4 objets par lot ; ID/empreinte/rapport de l'opération |
 | Campagne d'exemples | Trois bâtiments reliés, trois niveaux, grille dans le vide et village de 75 648 cellules ; exemple natif généré depuis le vrai registre |
+| Démonstration dev6 | Fabrique paramétrique de trois niveaux, 16 modules, vraies volées natives, paliers, trémies, embrasures et toiture ; exportable, praticabilité à tester |
+| Diagnostics dev6 | Dimensions après rotation, validation/devis par contexte, IDs indisponibles, erreurs spatiales et instantané détaillé d'opération ; tests automatisés, recette UI en attente |
 
 ## Limites qui empêchent de déclarer toute la mission terminée
 

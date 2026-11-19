@@ -3,6 +3,24 @@
 Each `## x.y.z` section is used as the release notes on GitHub and as the file
 changelog on Nexus Mods, so keep it short and written for players.
 
+## 0.34.0-dev6
+
+- Record the user's dev5 validation of the 312-cell composite, linked buildings
+  and passages, material resolution and altar limits, with explicit scope.
+- Add a parametric three-storey test project bound to the selected real stair
+  and material: floors, landings, shafts with 2 m clearance, walls, door bays,
+  windows and roof. Calibrate the actual rise first; export/reload as ordinary
+  BTBP/project files. Interactive doors remain excluded; native placement is opt-in.
+- Show rotated dimensions, validation/quote status tied to position and mode,
+  unavailable native references, observed altar bounds and actionable spatial
+  errors. Reports retain operation-specific palette, costs and zones.
+- Canonicalize microscopic floating boundary error for native part bounds;
+  preserve conservative checks for real protrusions. Add transaction, geometry,
+  rotation, export/reload and diagnostic regression tests.
+- Include a technical audit, prioritized architecture roadmap and focused game
+  protocol. Dev6 stair walkability, interaction, payment and persistence remain
+  subject to real in-game testing.
+
 ## 0.34.0-dev5
 
 - **Composite materials**: share the guarded classic resolver and search from the

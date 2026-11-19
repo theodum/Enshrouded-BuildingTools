@@ -46,6 +46,10 @@ static void altar_assist_begin(bool keep = false) {
     g_altarTargets = g_projectPlan.count + 9 * (g_projectManifest.pieceCount + (g_projectUseObjects ? g_projectObjectCount : 0));
     g_altarOrigin = project_origin_now(); g_altarRotation = g_bpRot; g_altarGeneration = g_projectGeneration;
 }
+static int project_observed_zones(extended::Box* out,int capacity) {
+    altar_snapshot();const int count=g_altarZoneCount<capacity ? g_altarZoneCount : capacity;
+    for(int i=0;i<count;++i)out[i]=g_altarZones[i];return count;
+}
 static bool altar_target(int index, const I3& origin, int* low) {
     const int64_t world[] = {origin.x,origin.y,origin.z};
     if (index < g_projectPlan.count) {
