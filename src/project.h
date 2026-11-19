@@ -5,11 +5,13 @@
 
 namespace project {
 constexpr int MaxModules = 128, MaxCells = 1048576, MaxBytes = 524288, MaxPieces = 2048;
+constexpr int MaxSpaces = 512, MaxSpaceColumns = 65536;
 constexpr int Unit = 16, Cell = 8; // integer sixteenths of a metre; native 0.5 m voxels
 constexpr int MaxCoord = 1048576;
 struct Module { char file[192]; int offset[3]; int rotation; int category; };
 struct NativePiece { uint32_t item; int offset[3]; int rotation; uint32_t material; int clearance; };
-struct Manifest { char name[192]; int grid; int anchor[3]; int count; Module modules[MaxModules]; int pieceCount; NativePiece pieces[MaxPieces]; };
+struct Space { int lo[3],hi[3]; }; // reserved air above a complete voxel walking surface
+struct Manifest { char name[192]; int grid; int anchor[3]; int count; Module modules[MaxModules]; int pieceCount; NativePiece pieces[MaxPieces]; int spaceCount; Space spaces[MaxSpaces]; };
 struct Error { const char* message = nullptr; int at = 0; int module = -1; };
 inline bool equal(const char* a, const char* b) { while (*a && *a == *b) { ++a; ++b; } return *a == *b; }
 inline bool safe_file(const char* s) {
@@ -154,9 +156,22 @@ struct Reader {
         } while (take(','));
         return want('}') && ((seen & 3) == 3 || fail("Native piece needs item and offset"));
     }
+    bool space_box(Space* box) {
+        if(!want('{'))return false;unsigned seen=0;
+        do {char key[32];if(!string(key,sizeof key)||!want(':'))return false;
+            if(equal(key,"low")){if(!field(&seen,1)||!vector(box->lo))return false;}
+            else if(equal(key,"high")){if(!field(&seen,2)||!vector(box->hi))return false;}
+            else return fail("Unknown reserved-space field");
+        }while(take(','));
+        if(!want('}') || seen!=3)return fail("Reserved space needs low and high");
+        for(int a=0;a<3;++a)if(box->lo[a]%Cell || box->hi[a]%Cell || box->hi[a]<=box->lo[a])return fail("Reserved space must be positive and align to 0.5 m");
+        if(box->hi[1]-box->lo[1]<32 || box->hi[1]-box->lo[1]>128)return fail("Reserved headroom must be 2 to 8 m");
+        if((int64_t)(box->hi[0]-box->lo[0])*(box->hi[2]-box->lo[2])/64>4096)return fail("Reserved surface too large");
+        return true;
+    }
 };
 inline bool decode(const char* data, int size, Manifest* out, Error* error) {
-    *error = Error{}; out->count = out->pieceCount = 0; out->grid = Unit; out->name[0] = 0;
+    *error = Error{}; out->count = out->pieceCount = out->spaceCount = 0; out->grid = Unit; out->name[0] = 0;
     for (int a = 0; a < 3; ++a) out->anchor[a] = 0;
     Reader r{data, size, 0, error}; unsigned seen = 0;
     if (!data || size < 2 || size > MaxBytes) return r.fail("Manifest size out of range");
@@ -193,6 +208,15 @@ inline bool decode(const char* data, int size, Manifest* out, Error* error) {
                 if (!r.piece(&out->pieces[out->pieceCount++])) return false;
             } while (r.take(','));
             if (!r.want(']')) return false;
+        } else if(equal(key,"spaces")) {
+            if(!r.field(&seen,128)||!r.want('['))return false;
+            if(r.take(']'))continue;
+            int64_t columns=0;
+            do {if(out->spaceCount==MaxSpaces)return r.fail("Too many reserved spaces");
+                auto& box=out->spaces[out->spaceCount++];if(!r.space_box(&box))return false;
+                columns+=(int64_t)(box.hi[0]-box.lo[0])*(box.hi[2]-box.lo[2])/64;
+                if(columns>MaxSpaceColumns)return r.fail("Reserved-space budget exceeded");
+            }while(r.take(','));if(!r.want(']'))return false;
         } else return r.fail("Unknown project field");
     } while (r.take(','));
     if (!r.want('}')) return false;

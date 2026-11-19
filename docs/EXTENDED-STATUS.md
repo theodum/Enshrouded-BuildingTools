@@ -1,4 +1,4 @@
-# État de Building Tools Extended 0.34.0-dev6
+# État de Building Tools Extended 0.34.0-dev7
 
 Les fonctionnalités ci-dessous sont du code dans la DLL Windows. « Implémenté »
 ne signifie pas « validé dans Enshrouded » : aucun monde n'a été chargé par l'agent.
@@ -22,6 +22,13 @@ Dev6 ajoute une fabrique de projet multiétages native et des diagnostics plus
 complets ; **leur validation dans Enshrouded reste à faire**. Voir
 [DEV6-AUDIT.md](DEV6-AUDIT.md), [ARCHITECTURE-ROADMAP.md](ARCHITECTURE-ROADMAP.md),
 [DEV6-MULTISTOREY.md](DEV6-MULTISTOREY.md) et [DEV6-VALIDATION.md](DEV6-VALIDATION.md).
+
+Dev7 ajoute une alternative **entièrement en voxels**, ses soutiens et ses
+dégagements persistants, avec un exemple de trois niveaux sans pièces natives.
+Seuls les cubes de 0,5 m sont utilisés ; une montée plus fine est refusée et
+la franchissabilité reste à tester. Voir [DEV7-VOXEL-STAIRS.md](DEV7-VOXEL-STAIRS.md)
+et [DEV7-VALIDATION.md](DEV7-VALIDATION.md). Les portes interactives et les variantes
+inclinées/demi-blocs ne sont pas ajoutées par cette livraison.
 
 Dev3 est préparée pour cette campagne, sans installation automatique. Les objets
 et pièces natifs automatiques sont **expérimentaux et désactivés par défaut**.

@@ -16,7 +16,8 @@ DOCS={'EXTENDED-TESTING.md':'TESTING','BTPROJECT.md':'FORMAT','EXTENDED-STATUS.m
       'DEV4-VALIDATION.md':'BASELINE-DEV4','DEV4-ACTIONS-FIX.md':'ACTIONS-FIX',
       'DEV5-VALIDATION.md':'BASELINE-DEV5','DEV5-MATERIALS-FIX.md':'MATERIALS-FIX',
       'DEV6-AUDIT.md':'TECHNICAL-AUDIT','ARCHITECTURE-ROADMAP.md':'ROADMAP',
-      'DEV6-MULTISTOREY.md':'MULTISTOREY','DEV6-VALIDATION.md':'VALIDATION'}
+      'DEV6-MULTISTOREY.md':'MULTISTOREY','DEV6-VALIDATION.md':'BASELINE-DEV6',
+      'DEV7-VOXEL-STAIRS.md':'VOXEL-STAIRS','DEV7-VALIDATION.md':'VALIDATION'}
 
 
 def packaged_doc(source):
@@ -60,8 +61,8 @@ def verify():
     version=re.search(r'^#define MOD_VERSION "([0-9A-Za-z.-]+)"', (ROOT/'src/main.cpp').read_text(encoding='utf-8'),re.M).group(1)
     dll=(ROOT/'build/dinput8.dll').read_bytes()
     imports=check_pe(dll)
-    fixtures=[p for folder in ('three-modules','dev3') for p in (ROOT/'examples'/folder).iterdir() if p.suffix in ('.btbp','.btproject')]
-    assert len(fixtures)==15 and len({p.name for p in fixtures})==15
+    fixtures=[p for folder in ('three-modules','dev3','dev7') for p in (ROOT/'examples'/folder).iterdir() if p.suffix in ('.btbp','.btproject')]
+    assert len(fixtures)==74 and len({p.name for p in fixtures})==74
     languages=list((ROOT/'lang').glob('*.txt'));assert len(languages)==15
     common={'BuildingTools-LICENSE.txt':(ROOT/'LICENSE').read_bytes(),
             'BuildingTools-Extended.ini.example':(ROOT/'package/BuildingTools-Extended.ini.example').read_bytes(),

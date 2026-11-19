@@ -63,6 +63,10 @@ if [ "$1" = "test" ] || [ "$1" = "package" ]; then
     ./build/test_materials
     ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_storeys tests/test_storeys.cpp
     ./build/test_storeys
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_voxel_stairs tests/test_voxel_stairs.cpp
+    ./build/test_voxel_stairs
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/make_voxel_example tools/make_voxel_example.cpp
+    ./build/make_voxel_example --material-from examples/three-modules/hall.btbp --verify examples/dev7
     ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_extended tests/test_extended.cpp
     ./build/test_extended
     ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_extended_config tests/test_extended_config.cpp
@@ -82,6 +86,7 @@ if [ "$1" = "package" ]; then
     mkdir -p build/pkg/BuildingTools-Projects
     cp examples/three-modules/*.btbp examples/three-modules/*.btproject build/pkg/BuildingTools-Projects/
     cp examples/dev3/*.btbp examples/dev3/*.btproject build/pkg/BuildingTools-Projects/
+    cp examples/dev7/*.btbp examples/dev7/*.btproject build/pkg/BuildingTools-Projects/
     cp package/BuildingTools-Extended.ini.example build/pkg/
     package_doc() {
         sed -e 's/](EXTENDED-TESTING.md)/](BuildingToolsExtended-TESTING.md)/g' \
@@ -97,7 +102,9 @@ if [ "$1" = "package" ]; then
             -e 's/](DEV6-AUDIT.md)/](BuildingToolsExtended-TECHNICAL-AUDIT.md)/g' \
             -e 's/](ARCHITECTURE-ROADMAP.md)/](BuildingToolsExtended-ROADMAP.md)/g' \
             -e 's/](DEV6-MULTISTOREY.md)/](BuildingToolsExtended-MULTISTOREY.md)/g' \
-            -e 's/](DEV6-VALIDATION.md)/](BuildingToolsExtended-VALIDATION.md)/g' "$1" > "build/pkg/BuildingToolsExtended-$2.md"
+            -e 's/](DEV6-VALIDATION.md)/](BuildingToolsExtended-BASELINE-DEV6.md)/g' \
+            -e 's/](DEV7-VOXEL-STAIRS.md)/](BuildingToolsExtended-VOXEL-STAIRS.md)/g' \
+            -e 's/](DEV7-VALIDATION.md)/](BuildingToolsExtended-VALIDATION.md)/g' "$1" > "build/pkg/BuildingToolsExtended-$2.md"
     }
     package_doc docs/EXTENDED-TESTING.md TESTING
     package_doc docs/BTPROJECT.md FORMAT
@@ -112,7 +119,9 @@ if [ "$1" = "package" ]; then
     package_doc docs/DEV6-AUDIT.md TECHNICAL-AUDIT
     package_doc docs/ARCHITECTURE-ROADMAP.md ROADMAP
     package_doc docs/DEV6-MULTISTOREY.md MULTISTOREY
-    package_doc docs/DEV6-VALIDATION.md VALIDATION
+    package_doc docs/DEV6-VALIDATION.md BASELINE-DEV6
+    package_doc docs/DEV7-VOXEL-STAIRS.md VOXEL-STAIRS
+    package_doc docs/DEV7-VALIDATION.md VALIDATION
     cp CHANGELOG.md build/pkg/BuildingToolsExtended-CHANGELOG.md
     ZIP="dist/EnshroudedBuildingTools-$VERSION.zip"
     rm -f "$ZIP"

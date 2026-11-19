@@ -3,6 +3,21 @@
 Each `## x.y.z` section is used as the release notes on GitHub and as the file
 changelog on Nexus Mods, so keep it short and written for players.
 
+## 0.34.0-dev7
+
+- Add voxel stairs: straight, L, U and monumental layouts, total height/risers,
+  width, tread depth, landings, solid or side-wall supports, rotation and append.
+  Use the selected real building material and ordinary composite validation.
+- Keep rise tied to actual backend capability: full 0.5 m cubes only. Refuse
+  incompatible height/riser combinations; no claim that a step is walkable.
+- Persist reserved headroom in an optional manifest field, validate walking
+  surfaces and internal obstructions, and check world blocks/coverage before
+  construction and per batch. Older projects and BTBP encoding stay supported;
+  projects with headroom metadata require dev7 or newer.
+- Ship an 8,068-cell three-level voxel example, 22 headroom volumes and zero
+  experimental native pieces. Add geometry, parameter, transaction, parser,
+  collision, export/reload and reproducibility tests plus an in-game protocol.
+
 ## 0.34.0-dev6
 
 - Record the user's dev5 validation of the 312-cell composite, linked buildings

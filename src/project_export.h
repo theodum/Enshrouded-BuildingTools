@@ -1,8 +1,10 @@
 // Export into NEW BTBP files; publish the manifest last by atomic rename.
 // Sparse plans are partitioned into 16 m tiles, never a giant dense blueprint.
+#include "project_spaces.h"
 static bool project_export(char* result, int capacity) {
     ProjectStateGuard guard;
     if (!g_projectLoaded || g_projectRunning) return false;
+    if(spaces::validate(g_projectPlan,g_projectManifest)!=spaces::Issue::None)return false;
     struct Tile { int low[3]; uint16_t module; uint8_t category; };
     static Tile tiles[project::MaxModules]; int tileCount = 0;
     auto tile_low = [](int value) { return value >= 0 ? value / 256 * 256 : -((-value + 255) / 256 * 256); };
@@ -85,7 +87,13 @@ static bool project_export(char* result, int capacity) {
         if (piece.clearance) row.str(",\"clearance\":").f(piece.clearance / 16.0, 4);
         row.c('}'); write(row);
     }
-    Buf last; last.str("\n  ]\n}\n"); write(last); if (!FlushFileBuffers(file)) ok = false; CloseHandle(file);
+    Buf last;last.str("\n  ]");
+    if(g_projectManifest.spaceCount){last.str(",\n  \"spaces\":[\n");write(last);
+        for(int i=0;i<g_projectManifest.spaceCount;++i){const auto& s=g_projectManifest.spaces[i];Buf row;if(i)row.str(",\n");row.str("    {\"low\":[");
+            for(int a=0;a<3;++a){if(a)row.c(',');row.f(s.lo[a]/16.0,4);}row.str("],\"high\":[");for(int a=0;a<3;++a){if(a)row.c(',');row.f(s.hi[a]/16.0,4);}row.str("]}");write(row);}
+        Buf end;end.str("\n  ]\n}\n");write(end);
+    }else{last.str("\n}\n");write(last);}
+    if (!FlushFileBuffers(file)) ok = false; CloseHandle(file);
     if (!ok || !MoveFileExW(tempPath, finalPath, MOVEFILE_WRITE_THROUGH)) return false;
     copy_text(result, finalName, capacity); LOG(.str("project exported: ").str(finalName).str(" modules=").i(files).str(" native pieces=").i(g_projectManifest.pieceCount)); return true;
 }

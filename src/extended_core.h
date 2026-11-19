@@ -130,8 +130,8 @@ inline int category(const char* text) {
     return -1;
 }
 struct Opening { int x, y, width, height; };
-// All component sizes are native 0.5 m voxels. Stair geometry is deliberately
-// excluded: stairs are placed as native prefab items by the runtime adapter.
+// All component sizes are native 0.5 m voxels. Native stair prefabs and the
+// separate voxel_stairs.h generator do not use this simple Component shape.
 struct Component {
     int kind = Wall, size[3] = {12, 8, 1}, thickness = 1, roofShape = core::ROOF_GABLE;
     Opening openings[16] = {}; int openingCount = 0;

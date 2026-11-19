@@ -62,11 +62,12 @@ static int g_projectRunCells = 0, g_projectRunPieces = 0, g_projectRunObjects = 
 static char g_projectRunName[192] = {};
 static bool g_projectRunInspect = false;
 static const char* g_projectRunError = nullptr;
+static char g_projectRunErrorText[1024]={};
 static DWORD g_projectWorstCheck = 0;
 static int g_projectActiveLimit = 128;
 static diagnostics::Validation g_projectValidation;
 struct ProjectRunDiagnostics {
-    int modules=0,materials=0,costs=0,zones=0;bool fullQuote=false;
+    int modules=0,materials=0,costs=0,zones=0,spaces=0;bool fullQuote=false;
     int dimensions[3]{};core::BpMat palette[core::BP_MAX_MATS]{};
     ProjectNeed needs[materials::MaxNeeds]{};extended::Box altarZones[256]{};
 };
@@ -74,6 +75,8 @@ static ProjectRunDiagnostics g_projectRunDiagnostics;
 static char g_projectPieceError[512] = {},g_projectSpatialError[1024] = {},g_projectLoadError[1024] = {};
 static int project_observed_zones(extended::Box*,int);
 static void project_log_summary(const char*);
+static bool project_validate_spaces();
+static char g_projectSpaceError[1024]={};
 static void project_snapshot_costs() {
     auto& d=g_projectRunDiagnostics;d.costs=g_projectNeedN;d.fullQuote=g_projectValidation.fullQuote;
     for(int i=0;i<d.costs;++i)d.needs[i]=g_projectNeed[i];
@@ -94,6 +97,8 @@ static uint64_t project_fingerprint() {
         for (int a = 0; a < 3; ++a) { uint64_t bits; memcpy(&bits,&o.p[a],8); word(bits); }
         for (int a = 0; a < 4; ++a) { uint32_t bits; memcpy(&bits,&o.rotation[a],4); word(bits); }
     }
+    if(g_projectManifest.spaceCount){word(0x5350414345ull);word(g_projectManifest.spaceCount);
+        for(int i=0;i<g_projectManifest.spaceCount;++i)for(int a=0;a<3;++a){word(g_projectManifest.spaces[i].lo[a]);word(g_projectManifest.spaces[i].hi[a]);}}
     return hash;
 }
 
@@ -145,6 +150,7 @@ static bool project_report(char* name, int capacity) {
     Buf dimensions;dimensions.str("Modules: ").i(d.modules).str("\r\nRotated dimensions (m): ");
     for(int a=0;a<3;++a){if(a)dimensions.c('x');dimensions.f(d.dimensions[a]/16.0);}
     dimensions.str("\r\nValidation checked/total: ").i(g_projectValidation.checked).c('/').i(g_projectValidation.total)
+        .str("\r\nReserved voxel surfaces: ").i(d.spaces)
         .str("\r\nQuote: ").str(d.fullQuote ? "FULL PREFLIGHT (historical; Build rechecks)" : "PARTIAL / UNAVAILABLE").str("\r\n");write(dimensions);
     for(int m=0;m<d.materials;++m)if(d.palette[m].cells){Buf row;row.str("Material slot=").i(m).str(" item=").x(d.palette[m].item).str(" byte=").x(d.palette[m].mat).str(" cells=").u(d.palette[m].cells).str("\r\n");write(row);}
     for(int i=0;i<d.costs;++i){Buf row;row.str("Native cost item=").x(d.needs[i].item).str(" count=").u(d.needs[i].count).str(" prop=").i(d.needs[i].prop).str("\r\n");write(row);}
@@ -216,6 +222,7 @@ static bool project_load(const wchar_t* name) {
         }
     }
     if (!project_piece_bounds()) { e.message = g_projectPieceError[0] ? g_projectPieceError : "Unknown native piece or invalid native bounds"; project_error(e); return false; }
+    if(!project_validate_spaces()){e.message=g_projectSpaceError;project_error(e);return false;}
     memset(&g_bp.h, 0, sizeof g_bp.h);
     for (int a = 0; a < 3; ++a) {
         g_bp.h.step[a] = 0.5f; g_bp.h.n[a] = (g_projectPlan.hi[a] - g_projectPlan.lo[a]) / project::Cell;
@@ -302,7 +309,7 @@ static void project_stop(const char* why) {
     g_bpRot = g_projectRotation;
     Buf b; b.fmt(T(S_EXT_JOB_STOP), num(g_projectJob.completed).s, why); flash(b.z()); beep(MB_ICONHAND);
     g_projectLastProblem = why;
-    g_projectRunError = why;
+    copy_text(g_projectRunErrorText,why,sizeof g_projectRunErrorText);g_projectRunError=g_projectRunErrorText;
     if (returnPreview) project_preview_return();
 }
 static project::ActionContext project_action_context() {
@@ -370,6 +377,7 @@ static project::ActionIssue project_start(project::Action action) {
     g_projectValidation.begin(project_diagnostic_context(),g_projectJob.total);
     auto& diagnostic=g_projectRunDiagnostics;diagnostic=ProjectRunDiagnostics{};
     diagnostic.modules=g_projectManifest.count;diagnostic.materials=g_projectPlan.materialCount;
+    diagnostic.spaces=g_projectManifest.spaceCount;
     for(int a=0;a<3;++a){const int axis=(g_bpRot&1) && a!=1 ? 2-a : a;diagnostic.dimensions[a]=g_projectPlan.hi[axis]-g_projectPlan.lo[axis];}
     for(int m=0;m<diagnostic.materials;++m)diagnostic.palette[m]=g_projectPlan.materials[m];
     diagnostic.zones=project_observed_zones(diagnostic.altarZones,256);
@@ -445,6 +453,7 @@ static bool project_spatial_stop(Str key,const I3& point,int cell=-1,int module=
     copy_text(g_projectSpatialError,reason.z(),sizeof g_projectSpatialError);
     g_projectProblem=true;g_projectProblemAt=point;project_stop(g_projectSpatialError);return false;
 }
+#include "project_space_runtime.h"
 // The engine's base_at handles the actual altar boxes and sub-boxes. Test every
 // corner inside each 0.5 m voxel, in 3D; never infer coverage from a 2D footprint.
 static bool project_covered(const I3& p) {
@@ -573,6 +582,7 @@ static bool project_check(void* ctx, void* state, uint8_t* pdata, const CursorXf
     static CostEntry entries[256];
     uint8_t* material[core::BP_MAX_MATS] = {};
     if (!bp_item_registry(ctx, state)) { project_stop(T(S_PROJECT_UNAVAILABLE)); return false; }
+    if(costs && !g_projectJob.next && !project_validate_spaces()){project_stop(g_projectSpaceError);return false;}
     if (project_piece_batch()) return project_check_pieces(ctx, state, target, costs);
     if (project_object_batch()) {
         if (creative_on() && !g_creativeProps) { project_stop(T(S_EXT_OBJECT_CREATIVE)); return false; }
@@ -644,6 +654,15 @@ static bool project_check(void* ctx, void* state, uint8_t* pdata, const CursorXf
             return project_spatial_stop(S_PROJECT_COLLISION,p,g_projectJob.next+i,g_projectPlan.cells[g_projectJob.next+i].module);
         }
         scratch.count = 0;
+        const auto& source=g_projectPlan.cells[g_projectJob.next+i];
+        if(!spaces::visit(source,g_projectManifest,g_projectRotation,g_projectOrigin,[&](const I3& air){
+            if(!project_covered(air))return project_spatial_stop(S_PROJECT_COVERAGE,air,g_projectJob.next+i,source.module);
+            CursorXf probe=target;probe.pos[0]=air.x+off[0];probe.pos[1]=air.y+off[1];probe.pos[2]=air.z+off[2];
+            static CostEntry airEntries[256];CostList airCost{airEntries,0,256,nullptr};memset(g_remVols,0,sizeof g_remVols);
+            price_removal(&airCost,ctx,state,&probe);g_refundN=0;g_refundList=nullptr;
+            for(int m=0x80;m<256;++m)if(g_remVols[m]>0)return project_spatial_stop(S_EXT_VOXEL_AIR,air,g_projectJob.next+i,source.module);
+            return true;
+        }))return false;
         const int mi = g_projectPlan.cells[g_projectJob.next + i].material;
         if (!g_placeOrig(&scratch, ctx, state, material[mi], &xf)) { project_stop(T(S_PROJECT_NATIVE)); return false; }
         auto mc = project_material_context(mi, g_projectJob.next + i); mc.native = *(uint32_t*)material[mi];

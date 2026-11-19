@@ -5,6 +5,12 @@ Référence : audit du socle dev5 et préparation dev6,
 résultat moteur non observé n'est promis. Les tâches après P0 ne sont pas
 implémentées par cette mission.
 
+Ajout dev7 : une voie d'escaliers voxels, des dégagements persistants et un exemple
+de trois niveaux sont préparés. La recette [DEV7-VOXEL-STAIRS.md](DEV7-VOXEL-STAIRS.md)
+permet de tester une alternative sans pièces natives expérimentales. Elle ne
+certifie pas qu'une contremarche de 0,5 m est franchissable sans saut. Les profils
+inclinés/demi-blocs et le graphe architectural général restent des étapes futures.
+
 ## Architecture proposée
 
 ```mermaid

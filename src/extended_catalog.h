@@ -58,6 +58,7 @@ static bool catalog_object(uint32_t id, const int* offset = nullptr, int rotatio
     float rotationQ[4],mn[3],mx[3]; const float identity[]={0,0,0,1}; core::bp_turn_rot(rotation,identity,rotationQ);
     extended::Box bounds{};
     if (!bp_item_bounds(item,mn,mx) || !extended::object_box(local,rotationQ,mn,mx,&bounds)) { LOG(.str("catalogue: invalid native object bounds item=").x(id)); return false; }
+    if(append && g_projectLoaded)for(int i=0;i<g_projectManifest.spaceCount;++i)if(extended::intersects(bounds,spaces::box(g_projectManifest.spaces[i]))){flash(T(S_EXT_VOXEL_OBSTRUCTED));return false;}
     bool add = append && g_projectLoaded;
     if (!add && !project_generated_begin(bp_item_name(id) ? bp_item_name(id) : "Native object")) return false;
     if (g_projectObjectCount == kProjectMaxObjects) return false;

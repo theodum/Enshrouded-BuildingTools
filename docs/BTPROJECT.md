@@ -4,6 +4,26 @@ Manifeste JSON UTF-8 sans BOM. Les anciens `.btbp` ne changent pas de format.
 Tous les fichiers référencés sont des `.btbp` placés dans le même répertoire
 `BuildingTools-Projects`, à côté de `enshrouded.exe`.
 
+Depuis dev7, un champ optionnel `spaces` conserve les dégagements des escaliers
+voxels. Les anciens projets sans ce champ restent compatibles avec dev7. Les
+anciennes DLL au lecteur strict refusent les nouveaux fichiers qui le contiennent.
+Ne pas retirer ce champ pour contourner un contrôle de passage.
+
+```json
+"spaces": [
+  {"low": [0, 0.5, 0], "high": [2, 2.5, 1]}
+]
+```
+
+Les bornes sont locales au projet, avant rotation globale, en mètres et sur la
+grille de 0,5 m. Le volume est semi-ouvert. Sa hauteur libre doit être comprise
+entre 2 et 8 m, son empreinte au plus 4 096 colonnes de 0,5 m. Limites : 512
+volumes et 65 536 colonnes cumulées. Le volume doit être libre dans le plan et
+chaque colonne doit avoir un voxel de passage immédiatement dessous. Le moteur
+vérifie ensuite l'air du monde par cette surface, sans créer ni facturer l'air.
+L'export conserve ces données ; il omet le champ si aucun espace n'est réservé.
+Voir [DEV7-VOXEL-STAIRS.md](DEV7-VOXEL-STAIRS.md).
+
 ```json
 {
   "format": "BuildingToolsExtendedProject",

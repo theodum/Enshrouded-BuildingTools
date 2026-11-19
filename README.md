@@ -5,7 +5,7 @@ include local and dedicated-server building; Extended composite projects require
 a locally hosted world. The user validated the dev5 block composites described
 below; the new dev6 native stair demonstration still requires in-game testing.
 
-This fork's **Building Tools Extended 0.34.0-dev6** adds native composite projects:
+This fork's **Building Tools Extended 0.34.0-dev7** adds native composite projects:
 one anchor, relative module rotations, one Build confirmation, preflight and progressive
 batches. Start with the included three-module example. See the
 [installation and in-game test protocol](docs/EXTENDED-TESTING.md),
@@ -46,6 +46,13 @@ door bays are provided. See the [technical audit](docs/DEV6-AUDIT.md),
 [stair calibration and in-game protocol](docs/DEV6-MULTISTOREY.md) and
 [current validation report](docs/DEV6-VALIDATION.md). No real dev6 stair placement
 or walkability has been claimed.
+
+Dev7 adds voxel stairs (straight, L, U and monumental), configurable risers and
+treads, supported landings and persisted headroom checks. The included three-level
+voxel building needs no experimental native pieces. The current backend uses
+full 0.5 m cubes: unsupported smaller rises are refused, and walkability requires
+an actual game test. See the [voxel stair guide and protocol](docs/DEV7-VOXEL-STAIRS.md)
+and [dev7 validation report](docs/DEV7-VALIDATION.md).
 
 - **Replace**: repaint existing blocks with your current material, as a full shape,
   only where the shape overlaps existing blocks, or **connected** (fill bucket: every

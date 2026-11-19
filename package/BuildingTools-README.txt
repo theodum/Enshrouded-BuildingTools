@@ -1,4 +1,4 @@
-Enshrouded Building Tools 0.34.0-dev6
+Enshrouded Building Tools 0.34.0-dev7
 ================================
 
 Files in the game folder
@@ -54,7 +54,15 @@ Building Tools Extended (development build)
   See BuildingToolsExtended-MULTISTOREY.md for the complete in-game protocol,
   BuildingToolsExtended-TECHNICAL-AUDIT.md and BuildingToolsExtended-ROADMAP.md
   for scope, evidence and priorities, and BuildingToolsExtended-VALIDATION.md.
-  Use a local TEST world: the dev6 native stairs and diagnostics await your test.
+  Dev7: Architecture > Voxel stairs adds straight/L/U/monumental layouts,
+  configurable risers/treads, supported landings and saved headroom checks.
+  The current backend uses full 0.5 m cubes. Unsupported smaller rises are
+  refused; step walkability is not assumed. Load the included
+  Dev7_Batiment_trois_niveaux_voxels project: 8,068 cells, zero native pieces,
+  no experimental native opt-in required. See BuildingToolsExtended-VOXEL-STAIRS.md.
+  Old projects remain readable; exported projects with reserved spaces need dev7.
+  See BuildingToolsExtended-VALIDATION.md for automated results and game limits.
+  Use a local TEST world: the dev7 voxel stairs and native stairs await your test.
   Original author and MIT license: BuildingTools-LICENSE.txt.
 
 Dedicated server

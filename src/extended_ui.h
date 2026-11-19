@@ -24,6 +24,7 @@ static void draw_project_summary_diagnostics() {
     Buf x,y,z,row;const int ax=g_bpRot&1?2:0,az=g_bpRot&1?0:2;
     x.f((g_projectPlan.hi[ax]-g_projectPlan.lo[ax])/16.0);y.f((g_projectPlan.hi[1]-g_projectPlan.lo[1])/16.0);z.f((g_projectPlan.hi[az]-g_projectPlan.lo[az])/16.0);
     row.fmt(T(S_EXT_PROJECT_DIMS),x.z(),y.z(),z.z());bp_text(row.z());
+    if(g_projectManifest.spaceCount){Buf info;info.fmt(T(S_EXT_VOXEL_SPACE_COUNT),num(g_projectManifest.spaceCount).s);bp_text(info.z());}
     const bool current=g_projectValidation.current(project_diagnostic_context());
     if(!current)bp_text(T(S_EXT_VALIDATION_NONE));
     else if(g_projectValidation.state==diagnostics::State::Checking){Buf progress;progress.fmt(T(S_EXT_VALIDATION_PROGRESS),num(g_projectValidation.checked).s,num(g_projectValidation.total).s);bp_text(progress.z());}
@@ -248,8 +249,9 @@ static void draw_architecture_window() {
     static int stairKind = 0, flights = 2, rise = 0, reserve = 1;
     static uint32_t structureMaterial = 0;
     BpFrame f; bp_frame_begin(f, T(S_EXT_ARCHITECTURE), T(S_EXT_ARCH_HELP)); LONG value;
-    const char* types[] = {T(S_EXT_WALL),T(S_EXT_FLOOR),T(S_EXT_ROOF),T(S_EXT_TOWER),T(S_EXT_STAIRS)};
-    if (ui_option(T(S_EXT_CATEGORY), types, 5, type, &value)) type = value;
+    static voxel::Spec voxelSpec;
+    const char* types[] = {T(S_EXT_WALL),T(S_EXT_FLOOR),T(S_EXT_ROOF),T(S_EXT_TOWER),T(S_EXT_STAIRS),T(S_EXT_VOXEL_STAIRS)};
+    if (ui_option(T(S_EXT_CATEGORY), types, 6, type, &value)) type = value;
     const char* yesNo[] = {T(S_OPT_OFF),T(S_OPT_ON)};
     if (ui_option(T(S_EXT_APPEND), yesNo, 2, append, &value)) append = value;
     const char* turns[] = {"0", "90", "180", "270"};
@@ -261,7 +263,7 @@ static void draw_architecture_window() {
         if (ui_button(T(S_EXT_STRUCTURE_MAT))) structureMaterial = g_catalogMaterial;
         if (ui_button(T(S_EXT_FRAME_MAT))) g_componentFrameMaterial = g_catalogMaterial;
     }
-    if (type != 4) {
+    if (type < 4) {
         const Str dimensions[] = {S_EXT_WIDTH, S_EXT_HEIGHT, S_EXT_DEPTH};
         for (int a = 0; a < 3; ++a) extended_number(T(dimensions[a]), &size[a], 8, 8, 2048);
         extended_number(T(S_EXT_THICKNESS), &thickness, 8, 8, 64);
@@ -287,7 +289,7 @@ static void draw_architecture_window() {
                 for (int i = 0; i < 4; ++i) extended_number(T(fields[i]), &floorData[i], 8, i < 2 ? 0 : 8, 2048);
             }
         }
-    } else {
+    } else if(type==4) {
         if (ui_option(T(S_EXT_STAIR_MODEL),turns,4,g_stairModelTurn,&value)) g_stairModelTurn=value;
         const char* kinds[] = {T(S_EXT_STRAIGHT),T(S_EXT_TURNING),T(S_EXT_IMPERIAL),T(S_EXT_SPIRAL)};
         if (ui_option(T(S_EXT_LAYOUT), kinds, 4, stairKind, &value)) stairKind = value;
@@ -307,11 +309,27 @@ static void draw_architecture_window() {
         }
         bp_text(T(S_EXT_NATIVE_STAIR_HELP));
         if(ui_button(T(S_EXT_DEMO_STOREYS))) architecture_storeys(rotation,rise);
+    } else {
+        const char* layouts[]={T(S_EXT_STRAIGHT),T(S_EXT_VOXEL_L),T(S_EXT_VOXEL_U),T(S_EXT_VOXEL_MONUMENTAL)};
+        if(ui_option(T(S_EXT_LAYOUT),layouts,4,voxelSpec.kind,&value))voxelSpec.kind=value;
+        extended_number(T(S_EXT_HEIGHT),&voxelSpec.height,8,8,512);
+        extended_number(T(S_EXT_WIDTH),&voxelSpec.width,8,16,256);
+        extended_number(T(S_EXT_VOXEL_TREAD),&voxelSpec.tread,8,8,128);
+        int out;if(ui_int(T(S_EXT_VOXEL_STEPS),voxelSpec.steps,1,64,1,&out))voxelSpec.steps=out;
+        extended_number(T(S_EXT_VOXEL_LANDING),&voxelSpec.landing,8,8,512);
+        extended_number(T(S_EXT_VOXEL_HEADROOM),&voxelSpec.headroom,8,32,128);
+        const char* supports[]={T(S_EXT_VOXEL_SOLID),T(S_EXT_VOXEL_WALLS)};
+        if(ui_option(T(S_EXT_VOXEL_SUPPORT),supports,2,voxelSpec.support,&value))voxelSpec.support=value;
+        Buf measured,row;measured.f(voxelSpec.height/(16.0*voxelSpec.steps),3);row.fmt(T(S_EXT_VOXEL_STEP_RISE),measured.z());bp_text(row.z());
+        bp_text(T(S_EXT_VOXEL_HELP));
+        if(ui_button(T(S_EXT_VOXEL_DEMO)))architecture_voxels(voxelSpec,offset,rotation,false,true);
+        if(g_projectLastProblem)bp_text(g_projectLastProblem);
     }
     bp_frame_rows_end(f); BpRow row; bp_row_begin(row);
     if (ui_button(T(S_EXT_GENERATE))) {
         bool ok;
-        if (type == 4) ok = architecture_stairs(stairKind, flights, offset, rotation, rise, append != 0, reserve != 0);
+        if(type==5)ok=architecture_voxels(voxelSpec,offset,rotation,append!=0);
+        else if (type == 4) ok = architecture_stairs(stairKind, flights, offset, rotation, rise, append != 0, reserve != 0);
         else {
             extended::Component c; c.kind = type + extended::Wall;
             for (int a = 0; a < 3; ++a) c.size[a] = size[a] / 8;
@@ -322,7 +340,7 @@ static void draw_architecture_window() {
             if (floorHole && type == 3) { c.floorHoleCount = 1; c.floorHoles[0] = {floorData[0]/8,floorData[1]/8,floorData[2]/8,floorData[3]/8}; }
             ok = architecture_component(c, offset, rotation, append != 0, structureMaterial);
         }
-        if (!ok) flash(T(S_EXT_GENERATE_FAIL));
+        if (!ok && type!=5) flash(T(S_EXT_GENERATE_FAIL));
     }
     if (ui_button(T(S_EXT_CATALOG))) { catalog_refresh(); g_bpPage = 3; }
     if (ui_button(T(S_EXT_NATIVE_EXAMPLE))) {

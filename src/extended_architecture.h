@@ -90,7 +90,8 @@ static bool architecture_component(const extended::Component& component, const i
         g_projectModuleBoxes[module].lo[a] = offset[a]; g_projectModuleBoxes[module].hi[a] = offset[a] + component.size[source] * 8;
     }
     g_projectNeedN = 0; g_projectProblem = false; g_projectLastProblem = nullptr;
-    project_piece_bounds(); project_generated_finish(); edit.committed = true; return true;
+    if(!project_piece_bounds() || !project_validate_spaces())return false;
+    project_generated_finish(); edit.committed = true; return true;
 }
 static bool architecture_stairs(int kind, int flights, const int* offset, int baseRotation, int riseOverride, bool append, bool reserve) {
     ProjectStateGuard guard;
@@ -140,7 +141,8 @@ static bool architecture_stairs(int kind, int flights, const int* offset, int ba
         g_projectManifest.count = 1; memset(&g_projectManifest.modules[0], 0, sizeof g_projectManifest.modules[0]); g_projectManifest.modules[0].category = extended::Stairs;
         for (int a = 0; a < 3; ++a) { g_projectModuleBoxes[0].lo[a] = g_projectPlan.lo[a]; g_projectModuleBoxes[0].hi[a] = g_projectPlan.hi[a]; }
     }
-    project_piece_bounds(); project_generated_finish(); edit.committed = true; return true;
+    if(!project_piece_bounds() || !project_validate_spaces())return false;
+    project_generated_finish(); edit.committed = true; return true;
 }
 static bool architecture_native_example(int rotation) {
     ProjectStateGuard guard; if (g_projectRunning) return false;
@@ -160,3 +162,4 @@ static bool architecture_native_example(int rotation) {
     project_generated_finish(); edit.committed=true; return true;
 }
 #include "architecture_storeys.h"
+#include "architecture_voxels.h"
