@@ -530,7 +530,16 @@
     X(S_EXT_ACTION_CLOSE_TIMEOUT, "extended.action_close_timeout", "The native placement window did not return to the game within 5 seconds. Operation stopped before sending another click. See BuildingTools.log.") \
     X(S_EXT_ACTION_WINDOW_CHANGED, "extended.action_window_changed", "The active game screen changed unexpectedly. Composite execution was stopped; no further batch was sent.") \
     X(S_EXT_ACTION_FOCUS, "extended.action_focus", "The game lost focus. Composite execution was stopped; no further batch was sent.") \
-    X(S_EXT_ACTION_CREATIVE, "extended.action_creative", "Creative building changed during the operation. Execution stopped to keep pricing consistent.")
+    X(S_EXT_ACTION_CREATIVE, "extended.action_creative", "Creative building changed during the operation. Execution stopped to keep pricing consistent.") \
+    X(S_EXT_MATERIAL_UNKNOWN, "extended.material_unknown", "Unknown building material: no verified native block. Select a real replacement in Materials.") \
+    X(S_EXT_MATERIAL_MISMATCH, "extended.material_mismatch", "Material IDs conflict: the saved byte now refunds a different item. Select an explicit replacement in Materials.") \
+    X(S_EXT_MATERIAL_CONTEXT, "extended.material_context", "Module {0} ({1}), saved item {2}.") \
+    X(S_EXT_MATERIAL_IDS, "extended.material_ids", "Native block {0}, refund item {1}, cost {2}. See BuildingTools.log.") \
+    X(S_EXT_COST_ITEM, "extended.cost_item", "Unknown native cost item; execution refused.") \
+    X(S_EXT_COST_EXCESSIVE, "extended.cost_excessive", "Excessive native cost; execution refused.") \
+    X(S_EXT_COST_ITEMS, "extended.cost_items", "Too many different cost items; execution refused.") \
+    X(S_EXT_COST_LIST, "extended.cost_list", "Invalid native cost list; execution refused.") \
+    X(S_EXT_COST_VALUES, "extended.cost_values", "Cost item {0}, rejected value {1}, limit {2}. See BuildingTools.log.")
 
 enum Str {
 #define BT_STR_ID(id, key, en) id,

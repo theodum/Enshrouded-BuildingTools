@@ -478,42 +478,8 @@ static uint8_t* bp_find_item(uint8_t* pdata, uint32_t id, uint8_t mat) {
     if (found && g_bpItemN < 128) g_bpItemCache[g_bpItemN++] = BpItem{ id, mat, found };
     return found;
 }
-// The building block item of a material byte (issue #61). Blueprints store the item the game's
-// refund builder gives for each material; for some block materials that is not the block but a
-// plain item (the #61 file: material 0xbf, item 0x57f0f395, kind 0, material byte 0). The build
-// then needs a block item of that material: a read-only scan of the item data for a small
-// building shape whose material byte is `mat`, and the item registry must return that same
-// definition for its id (so only a real item counts, never stray data). Cached per material.
-struct BpMatItem { uint8_t mat; uint8_t* p; };
-static BpMatItem g_bpMatItem[64]; static int g_bpMatItemN = 0;
-static uint8_t* bp_block_of_material(uint8_t* anchor, uint8_t mat) {
-    if (mat < 0x80 || !anchor || !g_bpItemById || !g_bpItemReg) return nullptr;
-    for (int q = 0; q < g_bpMatItemN; q++) if (g_bpMatItem[q].mat == mat) return g_bpMatItem[q].p;
-    MEMORY_BASIC_INFORMATION mi;
-    if (!VirtualQuery(anchor, &mi, sizeof mi)) return nullptr;
-    uint8_t* base = (uint8_t*)mi.AllocationBase;
-    uint8_t* found = nullptr; uint64_t scanned = 0; int tried = 0;
-    const DWORD t0 = GetTickCount();
-    for (uint8_t* r = base; !found && VirtualQuery(r, &mi, sizeof mi) && mi.AllocationBase == base; r = (uint8_t*)mi.BaseAddress + mi.RegionSize) {
-        const DWORD okProt = PAGE_READONLY | PAGE_READWRITE | PAGE_WRITECOPY | PAGE_EXECUTE_READ | PAGE_EXECUTE_READWRITE;
-        if (mi.State != MEM_COMMIT || !(mi.Protect & okProt) || (mi.Protect & (PAGE_GUARD | PAGE_NOACCESS))) continue;
-        uint8_t* lo = (uint8_t*)mi.BaseAddress; uint8_t* hi = lo + mi.RegionSize;
-        if (hi - lo < 0x4b8) continue;
-        scanned += mi.RegionSize;
-        for (uint8_t* c = lo + (((uintptr_t)anchor - (uintptr_t)lo) & 7); c + 0x4b8 <= hi; c += 8) {
-            if (c[0x454] != mat || !c[0x440] || !*(const uint32_t*)c) continue;      // as item_kind: small building shape
-            if (!(*(const uint64_t*)(c + 0x458) | *(const uint64_t*)(c + 0x460))) continue;
-            if (*(const uint64_t*)(c + 0x468) | *(const uint64_t*)(c + 0x470)) continue;
-            if (++tried > 4096) break;
-            if (g_bpItemById(*(const uint32_t*)c, g_bpItemReg) == c) { found = c; break; }
-        }
-        if (scanned > (512ull << 20) || tried > 4096) break;      // never more than 512 MB
-    }
-    LOG(.str("  blueprint: block item of material ").x(mat).str(found ? ": " : ": none").x(found ? *(uint32_t*)found : 0)
-        .str(" (scanned ").u(scanned >> 20).str(" MB, ").i(tried).str(" candidates, ").u(GetTickCount() - t0).str(" ms)"));
-    if (g_bpMatItemN < 64) g_bpMatItem[g_bpMatItemN++] = BpMatItem{ mat, found };
-    return found;
-}
+#include "blueprint_material_scan.h"
+#include "blueprint_material.h"
 static uint8_t g_bpMatByte[core::BP_MAX_MATS];   // the build's material byte per blueprint material (commit: cave force)
 static uint8_t bp_commit_material(int i) {       // main.cpp's commit hook, per queued shape
     uint8_t mi = g_pendMat[i];
@@ -546,25 +512,12 @@ static uint8_t bp_fill(CostList* list, void* ctx, void* state, uint8_t* pdata, c
         item[q] = nullptr; g_bpMatByte[q] = 0; mat[q] = -1;
         if (g_projectBatch && !bm.cells) continue;
         if (bm.item && reg) {
-            uint8_t* it = g_bpItemById(bm.item, g_bpItemReg);                  // as the game looks items up
-            if (bp_block_item(it)) item[q] = it;
-            else {
-                if (it) LOG(.str("  blueprint: item ").x(bm.item).str(" is not a building block (kind ").i(item_kind(it))
-                            .str(" material ").x(readable(it, 0x458) ? it[0x454] : 0).str(") ")
-                            .str(bp_item_name_cached(bm.item) ? bp_item_name_cached(bm.item) : ""));
-                else LOG(.str("  blueprint: item ").x(bm.item).str(" not in the item registry"));
-                // a file that saved a material's refund item (0.33.1 and older, issue #61): the
-                // saved material byte, built only when a real building block item has it and the
-                // game still refunds the saved item for it (nothing yet in a new world is fine);
-                // never a material no block item has (game-internal, unremovable)
-                uint8_t* blk = bp_block_of_material(pdata, bm.mat);
-                CostEntry e;
-                const bool sameMat = blk && (!bp_entry(ctx, bm.mat, &e) || *(uint32_t*)(e.b + 0x10) == bm.item);
-                if (sameMat) {
-                    item[q] = blk;
-                    LOG(.str("  blueprint: material ").x(bm.mat).str(" built with block item ").x(*(uint32_t*)blk));
-                } else LOG(.str("  blueprint: material ").x(bm.mat).str(blk ? " now refunds another item" : " has no building block").str(", left out"));
-            }
+            const auto resolution = bp_resolve_material(ctx, pdata, bm);
+            item[q] = resolution.item;
+            LOG(.str("blueprint material RESOLVE slot=").i(q).str(" saved_item=").x(bm.item).str(" saved_byte=").x(bm.mat)
+                .str(" block_item=").x(resolution.candidate).str(" native_byte=").x(resolution.nativeByte)
+                .str(" refund_known=").i(resolution.refundKnown).str(" refund_item=").x(resolution.refund)
+                .str(" lookup_found=").i(resolution.lookupFound).str(" route=").str(materials::name(resolution.route)).str(" issue=").str(materials::name(resolution.issue)));
         } else if (bm.item) {
             item[q] = bp_find_item(pdata, bm.item, bm.mat);                     // the saved material byte
             if (!item[q]) item[q] = bp_find_item(pdata, bm.item, 0);           // the game renumbered it

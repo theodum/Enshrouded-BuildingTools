@@ -3,6 +3,21 @@
 Each `## x.y.z` section is used as the release notes on GitHub and as the file
 changelog on Nexus Mods, so keep it short and written for players.
 
+## 0.34.0-dev5
+
+- **Composite materials**: share the guarded classic resolver and search from the
+  held material, with revalidated positive caches. Legacy refund IDs still require
+  native proof; conflicting IDs cannot silently select a different material.
+- Correct the material ID in the ten shipped example BTBPs using the real block
+  confirmed by the user's dev4 registry log. Geometry is unchanged. Install the
+  updated examples alongside the DLL; personal blueprints are never rewritten.
+- Show separate material, identity-conflict, unknown cost item, excessive cost,
+  cost-item-count and native-list errors. Log module, file, material bytes, saved,
+  native and refund IDs, plus exact rejected quantities and limits.
+- Retain the cost limits in Creative Building and recheck native lists during
+  execution. Add regression coverage of the actual resolver/scanner and pricing
+  adapter. Real game behaviour still requires the user's dev5 test.
+
 ## 0.34.0-dev4
 
 - **Composite actions**: Build and Check now always receive the click and explain

@@ -1,4 +1,4 @@
-Enshrouded Building Tools 0.34.0-dev4
+Enshrouded Building Tools 0.34.0-dev5
 ================================
 
 Files in the game folder
@@ -39,7 +39,12 @@ Building Tools Extended (development build)
   Select the actual 0.5 m HAMMER CUBE, then reopen the placement window. This does
   not restrict source blueprint grids. Refresh altar zones/stock through the
   native selector if requested. See BuildingToolsExtended-ACTIONS-FIX.md for the
-  short retest and expected log sequence. Actual dev4 execution awaits your test.
+  short retest and expected log sequence. The dev4 user test confirmed commands.
+  Dev5: install the updated BuildingTools-Projects BTBPs too: their material ID
+  now matches the real native block observed in the user's log. Personal BTBPs
+  remain untouched. Material conflicts and cost limits have separate diagnostics,
+  including in Creative Building. See BuildingToolsExtended-MATERIALS-FIX.md and
+  BuildingToolsExtended-VALIDATION.md. Actual dev5 placement awaits your test.
   Use a local TEST world: in-game composite behavior awaits personal validation.
   Original author and MIT license: BuildingTools-LICENSE.txt.
 

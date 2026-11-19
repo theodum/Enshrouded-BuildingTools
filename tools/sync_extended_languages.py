@@ -120,6 +120,15 @@ FRENCH = {
     'extended.action_window_changed': 'L’écran actif a changé de façon inattendue. Exécution composite arrêtée ; aucun nouveau lot envoyé.',
     'extended.action_focus': 'Le jeu a perdu le focus. Exécution composite arrêtée ; aucun nouveau lot envoyé.',
     'extended.action_creative': 'Le mode créatif a changé pendant l’opération. Exécution arrêtée pour conserver des coûts cohérents.',
+    'extended.material_unknown': 'Matériau de construction inconnu : aucun bloc natif confirmé. Choisir un remplacement réel dans Matériaux.',
+    'extended.material_mismatch': 'Identifiants de matériau incompatibles : l’octet sauvegardé rembourse un autre item. Choisir explicitement un remplacement dans Matériaux.',
+    'extended.material_context': 'Module {0} ({1}), item sauvegardé {2}.',
+    'extended.material_ids': 'Bloc natif {0}, item remboursé {1}, coût {2}. Voir BuildingTools.log.',
+    'extended.cost_item': 'Item de coût natif inconnu ; exécution refusée.',
+    'extended.cost_excessive': 'Coût natif excessif ; exécution refusée.',
+    'extended.cost_items': 'Trop d’items de coût différents ; exécution refusée.',
+    'extended.cost_list': 'Liste de coûts native invalide ; exécution refusée.',
+    'extended.cost_values': 'Item de coût {0}, valeur refusée {1}, limite {2}. Voir BuildingTools.log.',
 }
 
 

@@ -14,11 +14,16 @@ source de 1 m, les deux autres une grille de 0,5 m. Avec la limite interne de
 Le hall a un sol et un mur arrière ; la tour est un petit pilier de repérage,
 et le pont une plateforme en hauteur. Ce sont des témoins d'alignement simples.
 
-Matériau : item `0x25a43c2f`, octet sauvegardé `0x9d`, **lus sans modification**
-dans le blueprint existant `Tour_BTBP_Source_Officiel_V4.btbp` du dossier local
-BuildingTools-Blueprints. Aucun identifiant inventé et aucun fichier personnel
-recopié. Le mod doit encore confirmer cet item dans le registre du jeu lors du
-test ; aucun nom de matériau n'est supposé.
+Matériau des exemples à partir de dev5 : bloc natif `0x7ad0559c`, octet `0x9d`.
+Ce couple a été confirmé par le registre du jeu dans `BuildingTools.log` du
+19 novembre 2026, à 09:52:53.717. Aucun nom de matériau n'est supposé.
+
+Les anciens exemples utilisaient `0x25a43c2f` / `0x9d`, copiés d'un BTBP local.
+Cette provenance ne prouvait pas que l'item était un bloc natif valide : c'était
+une erreur dans les métadonnées livrées. Dev5 change seulement les quatre octets
+de l'ID de matériau dans les dix BTBP d'exemple ; géométrie et coûts enregistrés
+restent identiques. Aucun blueprint personnel n'est modifié. Le registre et les
+coûts natifs seront encore vérifiés au placement ; le test en jeu reste nécessaire.
 
 Les fixtures sont reproductibles avec :
 

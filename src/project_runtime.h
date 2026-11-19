@@ -53,8 +53,10 @@ static extended::Box g_projectPieceBoxes[project::MaxPieces];
 static bool project_check_pieces(void*, void*, const CursorXf&, bool);
 static uint8_t project_queue_pieces(CostList*, void*, void*, uint8_t*, const CursorXf&);
 static bool project_piece_bounds();
-struct ProjectNeed { uint32_t item; uint64_t count; bool prop; };
-static ProjectNeed g_projectNeed[128];
+using ProjectNeed = materials::Need;
+static ProjectNeed g_projectNeed[materials::MaxNeeds], g_projectBuildNeed[materials::MaxNeeds];
+static int g_projectBuildNeedN = 0;
+static char g_projectMaterialError[1024] = {};
 static uint64_t g_projectOperation = 0, g_projectFingerprint = 0;
 static int g_projectRunCells = 0, g_projectRunPieces = 0, g_projectRunObjects = 0;
 static char g_projectRunName[192] = {};
@@ -346,13 +348,49 @@ static void project_window_closed(bool gameScreen,const char* why) {
     LOG(.str("project window CLOSED op=").x(g_projectOperation).str(" gameScreen=").i(gameScreen).str(" armed=").i(g_exactArmed).str(" reason=").str(why));
     if(!g_projectLaunch.window_closed(gameScreen))project_stop(T(S_EXT_ACTION_WINDOW_CHANGED));
 }
-static bool project_cost(uint32_t item, uint32_t count, bool prop = false) {
-    int n = 0; while (n < g_projectNeedN && g_projectNeed[n].item != item) ++n;
-    if (n == 128) return false;
-    if (n == g_projectNeedN) { g_projectNeed[n] = ProjectNeed{item, 0, prop}; ++g_projectNeedN; }
-    g_projectNeed[n].count += count;
-    return g_projectNeed[n].count <= 0x7fffffff;
+struct ProjectMaterialContext {
+    int module = -1, slot = -1, cell = -1, piece = -1;
+    uint32_t saved = 0, native = 0;
+    uint8_t byte = 0;
+};
+static const char* project_material_file(const ProjectMaterialContext& c) {
+    return c.module >= 0 && c.module < g_projectManifest.count && g_projectManifest.modules[c.module].file[0]
+        ? g_projectManifest.modules[c.module].file : "(generated/native)";
 }
+static ProjectMaterialContext project_material_context(int slot, int cell = -1) {
+    ProjectMaterialContext c; c.slot = slot;
+    if (cell < 0) for (int i = 0; i < g_projectPlan.count; ++i) if (g_projectPlan.cells[i].material == slot) { cell = i; break; }
+    c.cell = cell;
+    if (cell >= 0) c.module = g_projectPlan.cells[cell].module;
+    if (slot >= 0) { c.saved = g_projectPlan.materials[slot].item; c.byte = g_projectPlan.materials[slot].mat; }
+    return c;
+}
+static void project_material_context_log(const ProjectMaterialContext& c) {
+    const char* name = bp_item_name_cached(c.saved);
+    LOG(.str("project material CONTEXT op=").x(g_projectOperation).str(" module=").i(c.module).str(" file=").str(project_material_file(c))
+        .str(" slot=").i(c.slot).str(" cell=").i(c.cell).str(" piece=").i(c.piece).str(" saved_item=").x(c.saved).str(" saved_byte=").x(c.byte)
+        .str(" native_item=").x(c.native).str(" cached_name=").str(name ? name : "(not cached)"));
+}
+static bool project_material_stop(Str key, const ProjectMaterialContext& c, Buf& detail) {
+    project_material_context_log(c);
+    Buf reason, module, id;
+    module.i(c.module >= 0 ? c.module + 1 : 0); id.x(c.saved);
+    reason.str(T(key)).c(' ').fmt(T(S_EXT_MATERIAL_CONTEXT), module.z(), project_material_file(c), id.z()).c(' ').str(detail.z());
+    copy_text(g_projectMaterialError, reason.z(), sizeof g_projectMaterialError);
+    project_stop(g_projectMaterialError); return false;
+}
+static bool project_cost_result(const materials::CostResult& r, const ProjectMaterialContext& c) {
+    if (r.issue == materials::CostIssue::None) return true;
+    LOG(.str("project cost REJECT op=").x(g_projectOperation).str(" issue=").str(materials::name(r.issue)).str(" cost_item=").x(r.item)
+        .str(" previous=").u(r.previous).str(" requested=").u(r.requested).str(" attempted=").u(r.attempted).str(" limit=").u(r.limit)
+        .str(" creative=").i(creative_on()));
+    Str key = r.issue == materials::CostIssue::UnknownItem ? S_EXT_COST_ITEM : r.issue == materials::CostIssue::TooManyItems ? S_EXT_COST_ITEMS
+        : r.issue == materials::CostIssue::InvalidList ? S_EXT_COST_LIST : S_EXT_COST_EXCESSIVE;
+    Buf detail, id, attempted, limit; id.x(r.item); attempted.u(r.attempted); limit.u(r.limit);
+    detail.fmt(T(S_EXT_COST_VALUES), id.z(), attempted.z(), limit.z());
+    return project_material_stop(key, c, detail);
+}
+#include "project_material_cost.h"
 // The engine's base_at handles the actual altar boxes and sub-boxes. Test every
 // corner inside each 0.5 m voxel, in 3D; never infer coverage from a 2D footprint.
 static bool project_covered(const I3& p) {
@@ -413,7 +451,11 @@ static bool project_check_pieces(void* ctx, void* state, const CursorXf& target,
         const int index = g_projectJob.next - g_projectPlan.count + i;
         const auto& piece = g_projectManifest.pieces[index]; uint8_t* item = project_piece_item(piece);
         uint8_t* material = piece.material && g_bpItemById ? g_bpItemById(piece.material, g_bpItemReg) : g_projectSourceMaterial;
-        if (!item || !bp_block_item(material)) { project_stop(T(S_PROJECT_MATERIAL)); return false; }
+        ProjectMaterialContext mc; mc.piece = index; mc.saved = piece.material; mc.native = bp_block_item(material) ? *(uint32_t*)material : 0;
+        if (!item || !bp_block_item(material)) {
+            Buf detail; detail.str("piece_item=").x(piece.item).str(" cost=not_computed");
+            return project_material_stop(S_EXT_MATERIAL_UNKNOWN, mc, detail);
+        }
         CursorXf xf = project_piece_transform(piece); Aabb box{}; shape_bounds(item, &xf, &box);
         int low[3], high[3]; int64_t cells = 1;
         for (int a = 0; a < 3; ++a) {
@@ -442,7 +484,7 @@ static bool project_check_pieces(void* ctx, void* state, const CursorXf& target,
         }
         CostList price{entries, 0, 256, nullptr};
         if (!g_placeOrig(&price, ctx, item, material, &xf)) { project_stop(T(S_PROJECT_NATIVE)); return false; }
-        if (costs) for (uint64_t q = 0; q < price.count; ++q) if (!project_cost(*(uint32_t*)(entries[q].b + 0x10), *(uint32_t*)(entries[q].b + 0x14))) { project_stop(T(S_PROJECT_MATERIAL)); return false; }
+        if (!project_native_cost(price, entries, mc, costs)) return false;
     }
     return true;
 }
@@ -459,7 +501,8 @@ static uint8_t project_queue_pieces(CostList* list, void* ctx, void* state, uint
     g_projectPublishedBatch=true;
     return 1;
 }
-static bool project_check(void* ctx, void* state, const CursorXf& target, bool costs) {
+static bool project_check(void* ctx, void* state, uint8_t* pdata, const CursorXf& target, bool costs) {
+    g_projectBuildNeedN = 0;
     Aabb box; shape_bounds(state, &target, &box);
     for (int a = 0; a < 3; ++a) if (box.mx[a] - box.mn[a] != 0.5f) { project_stop(T(S_PROJECT_SHAPE)); return false; }
     const I3 tc = box_centre(box);
@@ -499,20 +542,28 @@ static bool project_check(void* ctx, void* state, const CursorXf& target, bool c
                 CostList scratch{entries,0,256,nullptr}; memset(g_remVols,0,sizeof g_remVols); price_removal(&scratch,ctx,state,&probe); g_refundN=0; g_refundList=nullptr;
                 for (int m=0x80;m<256;++m) if (g_remVols[m]>0) { g_projectProblem=true; g_projectProblemAt=p; project_stop(T(S_PROJECT_COLLISION)); return false; }
             }
-            if (costs && !project_cost(o.item, 1, true)) { project_stop(T(S_PROJECT_MATERIAL)); return false; }
+            ProjectMaterialContext mc; mc.module = o.module; mc.saved = mc.native = o.item;
+            if (!project_cost(o.item, 1, mc, costs, true)) return false;
         }
         return true;
     }
     for (int m = 0; m < g_projectPlan.materialCount; ++m) {
         const auto& bm = g_projectPlan.materials[m];
         if (!bm.cells) continue;
-        uint8_t* it = g_bpItemById(bm.item, g_bpItemReg);
-        if (!bp_block_item(it)) { // same legacy #61 guard as classic blueprints
-            uint8_t* blk = bp_block_of_material((uint8_t*)state, bm.mat); CostEntry refund;
-            if (blk && (!bp_entry(ctx, bm.mat, &refund) || *(uint32_t*)(refund.b + 0x10) == bm.item)) it = blk;
+        const auto r = bp_resolve_material(ctx, pdata, bm);
+        if (!g_projectJob.next || !r.item) {
+            const auto mc = project_material_context(m);
+            project_material_context_log(mc);
+            LOG(.str("project material RESOLVE op=").x(g_projectOperation).str(" slot=").i(m).str(" saved_item=").x(r.saved).str(" saved_byte=").x(r.savedByte)
+                .str(" block_item=").x(r.candidate).str(" native_byte=").x(r.nativeByte).str(" refund_known=").i(r.refundKnown).str(" refund_item=").x(r.refund)
+                .str(" lookup_found=").i(r.lookupFound).str(" route=").str(materials::name(r.route)).str(" issue=").str(materials::name(r.issue)).str(" anchor=held_material cost=not_computed"));
         }
-        if (!bp_block_item(it)) { project_stop(T(S_PROJECT_MATERIAL)); return false; }
-        material[m] = it;
+        if (!r.item) {
+            Buf detail, block, refund; block.x(r.candidate); refund.x(r.refund);
+            detail.fmt(T(S_EXT_MATERIAL_IDS), block.z(), r.refundKnown ? refund.z() : "?", "not_computed");
+            return project_material_stop(r.issue == materials::Issue::RefundMismatch ? S_EXT_MATERIAL_MISMATCH : S_EXT_MATERIAL_UNKNOWN, project_material_context(m), detail);
+        }
+        material[m] = r.item;
     }
     for (int i = 0; i < g_projectJob.batch; ++i) {
         const I3 p = project_position(i);
@@ -532,8 +583,8 @@ static bool project_check(void* ctx, void* state, const CursorXf& target, bool c
         scratch.count = 0;
         const int mi = g_projectPlan.cells[g_projectJob.next + i].material;
         if (!g_placeOrig(&scratch, ctx, state, material[mi], &xf)) { project_stop(T(S_PROJECT_NATIVE)); return false; }
-        if (costs) for (uint64_t q = 0; q < scratch.count; ++q)
-            if (!project_cost(*(uint32_t*)(entries[q].b + 0x10), *(uint32_t*)(entries[q].b + 0x14))) { project_stop(T(S_PROJECT_MATERIAL)); return false; }
+        auto mc = project_material_context(mi, g_projectJob.next + i); mc.native = *(uint32_t*)material[mi];
+        if (!project_native_cost(scratch, entries, mc, costs)) return false;
     }
     return true;
 }
@@ -546,13 +597,16 @@ static uint8_t project_click(CostList* list, void* ctx, void* state, uint8_t* pd
     if (!g_projectShape || !state || *(uint32_t*)state != g_projectShape || remote_session() || creative_on() != g_projectCreative) { project_stop(T(S_PROJECT_CHANGED)); return 0; }
     const bool checking = g_projectJob.phase == project::Phase::Checking;
     if(checking && !g_projectJob.next)LOG(.str("project validation START op=").x(g_projectOperation).str(" inspect=").i(g_projectInspect));
-    const DWORD checkAt=GetTickCount(); const bool valid=project_check(ctx,state,target,checking);
+    const DWORD checkAt=GetTickCount(); const bool valid=project_check(ctx,state,pdata,target,checking);
     const DWORD checkMs=GetTickCount()-checkAt;
     if (checkMs>g_projectWorstCheck) g_projectWorstCheck=checkMs;
     g_projectActiveLimit=extended::adapt_batch(g_projectActiveLimit,checkMs);
     if (!valid) return 0;
     if (checking) {
         if(!g_projectJob.checked(g_projectJob.batch)){project_stop(T(S_PROJECT_PARTIAL));return 0;}
+        if (g_projectJob.phase == project::Phase::Building) for (int q = 0; q < g_projectNeedN; ++q)
+            LOG(.str("project cost TOTAL item=").x(g_projectNeed[q].item).str(" count=").u(g_projectNeed[q].count).str(" limit=").u(materials::MaxCost)
+                .str(" prop=").i(g_projectNeed[q].prop).str(" creative=").i(creative_on()));
         if (g_projectJob.phase == project::Phase::Building && !creative_on()) {
             for (int q = 0; q < g_projectNeedN; ++q) {
                 const int64_t have = stock_of(g_projectNeed[q].item);

@@ -2,6 +2,7 @@
 import importlib.util
 from pathlib import Path
 import tempfile
+import struct
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -14,6 +15,15 @@ import make_dev3_examples as dev3
 
 
 class ExampleTests(unittest.TestCase):
+    def test_shipped_material_is_the_registered_block_seen_in_dev4_log(self):
+        files = [p for folder in ('three-modules', 'dev3') for p in (ROOT/'examples'/folder).glob('*.btbp')]
+        self.assertEqual(len(files), 10)
+        for path in files:
+            data = path.read_bytes()
+            self.assertEqual(struct.unpack_from('<H', data, 30)[0], 1, path.name)
+            self.assertEqual(struct.unpack_from('<I', data, 32)[0], 0x7ad0559c, path.name)
+            self.assertEqual(data[36], 0x9d, path.name)
+
     def test_dev3_fixtures_are_reproducible_and_non_overwriting(self):
         material=generator.material_from(ROOT/'examples/three-modules/hall.btbp')
         with tempfile.TemporaryDirectory() as tmp:

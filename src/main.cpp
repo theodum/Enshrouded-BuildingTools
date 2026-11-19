@@ -16,6 +16,7 @@
 #include "core.h"
 #include "project.h"
 #include "project_actions.h"
+#include "materials.h"
 #include "extended_core.h"
 #include "native_abi.h"
 
@@ -25,7 +26,7 @@ using core::Aabb;
 using core::I3;
 
 #define MOD_NAME    "Building Tools"
-#define MOD_VERSION "0.34.0-dev4"
+#define MOD_VERSION "0.34.0-dev5"
 
 // -------------------------------------------------------------- freestanding
 extern "C" {

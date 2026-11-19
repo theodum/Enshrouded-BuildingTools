@@ -1,4 +1,4 @@
-# Building Tools Extended 0.34.0-dev4 — installation et recette
+# Building Tools Extended 0.34.0-dev5 — installation et recette
 
 Version de développement du fork, basée sur Building Tools 0.33.2.
 La compilation et les tests automatisés ne remplacent pas votre test dans le jeu.
@@ -7,18 +7,18 @@ La compilation et les tests automatisés ne remplacent pas votre test dans le je
 ## Installation manuelle
 
 Fermer le jeu. Utiliser l'archive locale
-`dist/EnshroudedBuildingTools-0.34.0-dev4.zip`, ou l'archive Shroudforge si ce
+`dist/EnshroudedBuildingTools-0.34.0-dev5.zip`, ou l'archive Shroudforge si ce
 chargeur est déjà utilisé. Les deux archives contiennent la même DLL.
 
 1. Conserver une copie de votre DLL de mod précédente si vous souhaitez revenir
    à la version d'origine. Ne pas écraser les fichiers d'un autre chargeur.
 2. Extraire l'archive standard à côté de `enshrouded.exe`. Elle contient
    `dinput8.dll`, la licence MIT, les langues, la documentation et le dossier
-   `BuildingTools-Projects` avec les trois fichiers `.btbp` et leur manifeste.
+   `BuildingTools-Projects` avec dix fichiers `.btbp` et cinq manifestes.
 3. Avec Shroudforge, extraire l'archive correspondante : la DLL est dans
    `mods/building-tools/BuildingTools.dll`. Conserver une seule copie de Building
    Tools chargée. Les projets restent à côté de l'exécutable du jeu.
-4. Démarrer un **monde local de test** et vérifier la bannière 0.34.0-dev4 et
+4. Démarrer un **monde local de test** et vérifier la bannière 0.34.0-dev5 et
    `BuildingTools.log`. Aucun test ci-dessous ne doit utiliser votre monde principal.
 
 Le développement n'installe rien dans le jeu. Aucun fichier `.ksd`, sauvegarde
@@ -26,8 +26,11 @@ Steam ou monde existant n'est modifié par les scripts de compilation et de test
 Avant tout essai de construction, conserver hors du répertoire du jeu une copie
 de votre monde de test, jeu arrêté ; la DLL ne réalise pas de sauvegarde automatique.
 
-**Retest prioritaire de dev4 :** suivre [DEV4-ACTIONS-FIX.md](DEV4-ACTIONS-FIX.md)
-avant la campagne ci-dessous. Le cube **tenu dans le marteau** doit faire 0,5 m :
+**Retest prioritaire de dev5 :** suivre [DEV5-MATERIALS-FIX.md](DEV5-MATERIALS-FIX.md).
+Installer aussi les BTBP d'exemple corrigés : changer seulement la DLL conserve
+leurs anciens identifiants invalides. Les actions dev4 ont démarré en jeu ; leur
+protocole reste dans [DEV4-ACTIONS-FIX.md](DEV4-ACTIONS-FIX.md).
+Le cube **tenu dans le marteau** doit faire 0,5 m :
 cela n'interdit pas les sources BTBP à 1/2/4 m. Une mauvaise forme doit maintenant
 produire une raison et un log, en conservant la fenêtre ouverte.
 
@@ -40,7 +43,7 @@ dossier de plugin. Une ligne « second copy » dans le journal indique un doublo
 
 ## Campagne personnelle dev3 : douze étapes
 
-Cette campagne reste applicable à dev4, après le retest des boutons. Le premier
+Cette campagne reste applicable à dev5, après le retest des matériaux. Le premier
 journal réel de dev3 confirme le chargement/UI/Vulkan et les projets chargés,
 pas le placement : aucune opération composite n'y avait démarré.
 
