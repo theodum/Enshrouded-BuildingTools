@@ -1,0 +1,18 @@
+{
+  "masonry": {
+    "blueprint": "../examples/three-modules/hall.btbp",
+    "name": "Bloc de pierre des Anciens — substitution du Bloc de château"
+  },
+  "trim": {
+    "blueprint": "../examples/three-modules/hall.btbp",
+    "name": "Bloc de pierre des Anciens — substitution de la pierre raffinée"
+  },
+  "roof": {
+    "blueprint": "../examples/three-modules/hall.btbp",
+    "name": "Bloc de pierre des Anciens — substitution de toiture"
+  },
+  "throne": {
+    "blueprint": "../examples/three-modules/hall.btbp",
+    "name": "Bloc de pierre des Anciens — substitution de l’obsidienne"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "masonry": {
+    "pair": [
+      2060473756,
+      157
+    ],
+    "name": "Bloc de pierre des Anciens",
+    "status": "explicit-substitution",
+    "source": "dev5 registered fixture; dev7 local log"
+  },
+  "trim": {
+    "pair": [
+      2060473756,
+      157
+    ],
+    "name": "Bloc de pierre des Anciens",
+    "status": "explicit-substitution",
+    "source": "dev5 registered fixture; dev7 local log"
+  },
+  "roof": {
+    "pair": [
+      2060473756,
+      157
+    ],
+    "name": "Bloc de pierre des Anciens",
+    "status": "explicit-substitution",
+    "source": "dev5 registered fixture; dev7 local log"
+  },
+  "throne": {
+    "pair": [
+      2060473756,
+      157
+    ],
+    "name": "Bloc de pierre des Anciens",
+    "status": "explicit-substitution",
+    "source": "dev5 registered fixture; dev7 local log"
+  }
+}

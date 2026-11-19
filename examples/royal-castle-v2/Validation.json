@@ -1,0 +1,188 @@
+{
+  "result": "PASS",
+  "revision": 2,
+  "cells": 156888,
+  "stairs": 27,
+  "stairKinds": {
+    "monumental": 1,
+    "L": 2,
+    "U": 24
+  },
+  "reservedSpaces": 431,
+  "reservedColumns": 7986,
+  "roomsAndDestinations": 62,
+  "reachableRoomsAndDestinations": 62,
+  "features": 142,
+  "protectedRoomAisles": 32,
+  "surfaceGraphNodes": 46918,
+  "entryComponentNodes": 46918,
+  "wideFootprintMeters": [
+    1.5,
+    1.5
+  ],
+  "wideFloorNodes": 34426,
+  "wideFloorComponents": 54,
+  "connectedWideFloorComponents": 52,
+  "smallUnlinkedWidePatches": [
+    {
+      "nodes": 8,
+      "low": [
+        -19,
+        0,
+        25
+      ],
+      "high": [
+        -15,
+        1,
+        27
+      ]
+    },
+    {
+      "nodes": 8,
+      "low": [
+        13,
+        0,
+        25
+      ],
+      "high": [
+        17,
+        1,
+        27
+      ]
+    }
+  ],
+  "isolatedFloorSurfaces": 0,
+  "componentVoxelOverlaps": 0,
+  "intersectingStairBodies": 0,
+  "clippedStairSupportCells": 0,
+  "boundsMeters": [
+    [
+      -38.5,
+      -0.5,
+      -34.5
+    ],
+    [
+      38.5,
+      32.0,
+      37.5
+    ]
+  ],
+  "dimensionsMeters": [
+    77.0,
+    32.5,
+    72.0
+  ],
+  "requiredClearanceBoundsMeters": [
+    [
+      -38.5,
+      -0.5,
+      -34.5
+    ],
+    [
+      38.5,
+      33.5,
+      37.5
+    ]
+  ],
+  "minimumValidationVolumeMeters": [
+    77.0,
+    34.0,
+    72.0
+  ],
+  "nominalMainFloorSurfacesMeters": [
+    0,
+    5,
+    10
+  ],
+  "headroomMeters": 3,
+  "stairHeadroomMeters": 3.5,
+  "stairClearWidthMeters": 2.5,
+  "monumentalCentralWidthMeters": 5,
+  "landingDepthMeters": 3,
+  "towerDiameterMeters": 16,
+  "mainAisleWidthMeters": 3,
+  "geometricGraphMaximumRiseMeters": 0.5,
+  "occupiedGroundAreaM2": 3880.0,
+  "nativePieces": 0,
+  "objects": 0,
+  "roleCells": {
+    "masonry": 124198,
+    "trim": 15862,
+    "throne": 444,
+    "roof": 16384
+  },
+  "gameplayTested": false,
+  "smoothStairTraversalCertified": false,
+  "altarCoverage": "UNKNOWN — native in-game validation required",
+  "palette": {
+    "masonry": {
+      "pair": [
+        2060473756,
+        157
+      ],
+      "name": "Bloc de pierre des Anciens",
+      "status": "explicit-substitution",
+      "source": "dev5 registered fixture; dev7 local log"
+    },
+    "trim": {
+      "pair": [
+        2060473756,
+        157
+      ],
+      "name": "Bloc de pierre des Anciens",
+      "status": "explicit-substitution",
+      "source": "dev5 registered fixture; dev7 local log"
+    },
+    "roof": {
+      "pair": [
+        2060473756,
+        157
+      ],
+      "name": "Bloc de pierre des Anciens",
+      "status": "explicit-substitution",
+      "source": "dev5 registered fixture; dev7 local log"
+    },
+    "throne": {
+      "pair": [
+        2060473756,
+        157
+      ],
+      "name": "Bloc de pierre des Anciens",
+      "status": "explicit-substitution",
+      "source": "dev5 registered fixture; dev7 local log"
+    }
+  },
+  "productionReader": {
+    "result": "PASS",
+    "cells": 156888,
+    "modules": 30,
+    "spaces": 431,
+    "materials": 1,
+    "duplicates": 0,
+    "nativePieces": 0,
+    "objects": 0,
+    "batches128": 1226,
+    "boundsMeters": [
+      [
+        -38.5,
+        -0.5,
+        -34.5
+      ],
+      [
+        38.5,
+        32,
+        37.5
+      ]
+    ],
+    "rotations": 4,
+    "batchSizes": [
+      1,
+      32,
+      128,
+      256
+    ],
+    "interruptionStateMachine": "PASS",
+    "gameplayTested": false
+  },
+  "modules": 30
+}

@@ -1,0 +1,145 @@
+{
+  "result": "PASS",
+  "cells": 57817,
+  "stairs": 25,
+  "stairKinds": {
+    "monumental": 1,
+    "L": 2,
+    "U": 22
+  },
+  "reservedSpaces": 346,
+  "reservedColumns": 2268,
+  "roomsAndDestinations": 61,
+  "reachableRoomsAndDestinations": 61,
+  "surfaceGraphNodes": 14749,
+  "entryComponentNodes": 14749,
+  "isolatedFloorSurfaces": 0,
+  "contradictoryOverlaps": 0,
+  "intentionalMaterialUnions": 3262,
+  "omittedSupportInfillCells": 1530,
+  "boundsMeters": [
+    [
+      -22.5,
+      -0.5,
+      -20.0
+    ],
+    [
+      22.5,
+      24.5,
+      22.5
+    ]
+  ],
+  "dimensionsMeters": [
+    45.0,
+    25.0,
+    42.5
+  ],
+  "requiredClearanceBoundsMeters": [
+    [
+      -22.5,
+      -0.5,
+      -20.0
+    ],
+    [
+      22.5,
+      25.0,
+      22.5
+    ]
+  ],
+  "minimumValidationVolumeMeters": [
+    45.0,
+    25.5,
+    42.5
+  ],
+  "occupiedGroundAreaM2": 1384.0,
+  "nominalMainFloorSurfacesMeters": [
+    0,
+    4.5,
+    9
+  ],
+  "geometricGraphMaximumRiseMeters": 0.5,
+  "headroomMeters": 2,
+  "stairHeadroomMeters": 2.5,
+  "gameplayTested": false,
+  "smoothStairTraversalCertified": false,
+  "altarCoverage": "UNKNOWN — native in-game validation required",
+  "nativePieces": 0,
+  "objects": 0,
+  "roleCells": {
+    "masonry": 46474,
+    "trim": 5532,
+    "roof": 5661,
+    "throne": 150
+  },
+  "productionReader": {
+    "result": "PASS",
+    "cells": 57817,
+    "modules": 75,
+    "spaces": 346,
+    "materials": 1,
+    "duplicates": 0,
+    "nativePieces": 0,
+    "objects": 0,
+    "batches128": 452,
+    "boundsMeters": [
+      [
+        -22.5,
+        -0.5,
+        -20
+      ],
+      [
+        22.5,
+        24.5,
+        22.5
+      ]
+    ],
+    "rotations": 4,
+    "batchSizes": [
+      1,
+      32,
+      128,
+      256
+    ],
+    "interruptionStateMachine": "PASS",
+    "gameplayTested": false
+  },
+  "modules": 75,
+  "palette": {
+    "masonry": {
+      "pair": [
+        2060473756,
+        157
+      ],
+      "name": "Bloc de pierre des Anciens",
+      "status": "explicit-substitution",
+      "source": "dev5 registered fixture; dev7 local log"
+    },
+    "trim": {
+      "pair": [
+        2060473756,
+        157
+      ],
+      "name": "Bloc de pierre des Anciens",
+      "status": "explicit-substitution",
+      "source": "dev5 registered fixture; dev7 local log"
+    },
+    "roof": {
+      "pair": [
+        2060473756,
+        157
+      ],
+      "name": "Bloc de pierre des Anciens",
+      "status": "explicit-substitution",
+      "source": "dev5 registered fixture; dev7 local log"
+    },
+    "throne": {
+      "pair": [
+        2060473756,
+        157
+      ],
+      "name": "Bloc de pierre des Anciens",
+      "status": "explicit-substitution",
+      "source": "dev5 registered fixture; dev7 local log"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+﻿Numero;Piece;Sol_m;Surface_nominale_m2;Surface_libre_3m_m2;Acces_controle_1_5m;Elements_constructibles;Programme
+1;Parvis royal;0.0;162.0;143.0;PASS;;
+2;Grand hall impérial;0.0;560.0;453.5;PASS;Base arcade hall -12/-21/0 | Pilier arcade hall -12/-21/0 | Chapiteau arcade hall -12/-21/0 | Base arcade hall -12/-6/0 | Pilier arcade hall -12/-6/0 | Chapiteau arcade hall -12/-6/0 | Base arcade hall 12/-21/0 | Pilier arcade hall 12/-21/0 | Chapiteau arcade hall 12/-21/0 | Base arcade hall 12/-6/0 | Pilier arcade hall 12/-6/0 | Chapiteau arcade hall 12/-6/0;Escalier monumental, deux arcades latérales
+3;Réception et antichambre;0.0;392.0;350.5;PASS;;Accueil, banquettes et niches
+4;Cour des arcades;0.0;302.0;290.0;PASS;;
+5;Galerie impériale ouest;5.0;120.0;93.75;PASS;Base arcade hall -12/-21/5 | Pilier arcade hall -12/-21/5 | Chapiteau arcade hall -12/-21/5 | Base arcade hall -12/-6/5 | Pilier arcade hall -12/-6/5 | Chapiteau arcade hall -12/-6/5;
+6;Galerie impériale est;5.0;120.0;93.75;PASS;Base arcade hall 12/-21/5 | Pilier arcade hall 12/-21/5 | Chapiteau arcade hall 12/-21/5 | Base arcade hall 12/-6/5 | Pilier arcade hall 12/-6/5 | Chapiteau arcade hall 12/-6/5;
+7;Grande salle du trône;5.0;392.0;283.5;PASS;Base trône -10/-1 | Colonne trône -10/-1 | Chapiteau trône -10/-1 | Base trône -10/5 | Colonne trône -10/5 | Chapiteau trône -10/5 | Base trône 10/-1 | Colonne trône 10/-1 | Chapiteau trône 10/-1 | Base trône 10/5 | Colonne trône 10/5 | Chapiteau trône 10/5 | Premier degré estrade | Deuxième degré estrade | Plateau de l’estrade | Siège du trône | Dossier du trône | Accoudoir du trône -1.5 | Accoudoir du trône 1;Axe de 6 m, colonnes, estrade et trône
+8;Estrade royale;6.5;14.0;9.5;PASS;Siège du trône | Dossier du trône | Accoudoir du trône -1.5 | Accoudoir du trône 1;Deux accès latéraux et trois degrés larges
+9;Grande bibliothèque des archives;10.0;560.0;497.0;PASS;Rayon archives -12.5/-22/10.5 | Rayon archives -12.5/-22/12 | Rayon archives -12.5/-22/13.5 | Rayon archives 11.5/-22/10.5 | Rayon archives 11.5/-22/12 | Rayon archives 11.5/-22/13.5 | Rayon archives -12.5/-17/10.5 | Rayon archives -12.5/-17/12 | Rayon archives -12.5/-17/13.5 | Rayon archives 11.5/-17/10.5 | Rayon archives 11.5/-17/12 | Rayon archives 11.5/-17/13.5 | Rayon archives -12.5/-12/10.5 | Rayon archives -12.5/-12/12 | Rayon archives -12.5/-12/13.5 | Rayon archives 11.5/-12/10.5 | Rayon archives 11.5/-12/12 | Rayon archives 11.5/-12/13.5 | Rayon archives -12.5/-7/10.5 | Rayon archives -12.5/-7/12 | Rayon archives -12.5/-7/13.5 | Rayon archives 11.5/-7/10.5 | Rayon archives 11.5/-7/12 | Rayon archives 11.5/-7/13.5;Rayonnages latéraux, tables et allées transversales
+10;Appartement royal ouest;10.0;189.0;156.75;PASS;Alcôve royale -1 | Cabinet royal -1;Alcôve privée, penderies et cabinet
+11;Appartement royal est;10.0;189.0;156.75;PASS;Alcôve royale 1 | Cabinet royal 1;Alcôve privée, penderies et cabinet
+12;Salle des gardes;0.0;152.0;130.0;PASS;Banquette/présentoir mural -1/0/-22 | Banquette/présentoir mural -1/0/-14 | Râtelier des gardes;
+13;Salle des banquets;0.0;152.0;116.75;PASS;Banquette/présentoir mural -1/0/10 | Banquette/présentoir mural -1/0/18 | Table des banquets;
+14;Grand vestibule escalier -1/0;0.0;224.0;181.25;PASS;;
+15;Salle des armes;0.0;152.0;130.0;PASS;Banquette/présentoir mural 1/0/-22 | Banquette/présentoir mural 1/0/-14 | Présentoir de la salle des armes;
+16;Cuisine et offices;0.0;152.0;120.75;PASS;Banquette/présentoir mural 1/0/10 | Banquette/présentoir mural 1/0/18 | Four architectural des offices;
+17;Grand vestibule escalier 1/0;0.0;224.0;169.75;PASS;;
+18;Salon noble;5.0;152.0;124.0;PASS;Banquette/présentoir mural -1/5/-22 | Banquette/présentoir mural -1/5/-14 | Table basse du salon -1;
+19;Salle du conseil;5.0;152.0;116.75;PASS;Banquette/présentoir mural -1/5/10 | Banquette/présentoir mural -1/5/18 | Table du conseil;
+20;Grand vestibule escalier -1/5;5.0;224.0;177.75;PASS;;
+21;Salon des hôtes;5.0;152.0;124.0;PASS;Banquette/présentoir mural 1/5/-22 | Banquette/présentoir mural 1/5/-14 | Table basse du salon 1;
+22;Galerie des portraits;5.0;152.0;125.75;PASS;Banquette/présentoir mural 1/5/10 | Banquette/présentoir mural 1/5/18;
+23;Grand vestibule escalier 1/5;5.0;224.0;166.75;PASS;;
+24;Chambre des hôtes ouest;10.0;152.0;121.0;PASS;Banquette/présentoir mural -1/10/-22 | Banquette/présentoir mural -1/10/-14 | Alcôve des hôtes -1;
+25;Bibliothèque de lecture;10.0;152.0;125.75;PASS;Banquette/présentoir mural -1/10/10 | Banquette/présentoir mural -1/10/18 | Rayonnage lecture 10/10.5 | Rayonnage lecture 10/12 | Rayonnage lecture 10/13.5 | Rayonnage lecture 18/10.5 | Rayonnage lecture 18/12 | Rayonnage lecture 18/13.5;
+26;Grand vestibule escalier -1/10;10.0;224.0;180.0;PASS;;
+27;Chambre des hôtes est;10.0;152.0;121.0;PASS;Banquette/présentoir mural 1/10/-22 | Banquette/présentoir mural 1/10/-14 | Alcôve des hôtes 1;
+28;Salle des trophées;10.0;152.0;116.75;PASS;Banquette/présentoir mural 1/10/10 | Banquette/présentoir mural 1/10/18 | Socle de trophée 20/10.5 | Socle de trophée 24/10.5 | Socle de trophée 20/20 | Socle de trophée 24/20;
+29;Grand vestibule escalier 1/10;10.0;224.0;168.5;PASS;;
+30;Tour SO — salle 0 m;0.0;199.0;122.75;PASS;Banquette de tour SO/0;Salle de garde
+31;Tour SO — salle 5 m;5.0;199.0;119.75;PASS;Banquette de tour SO/5;Salle de guet
+32;Tour SO — salle 10 m;10.0;199.0;119.75;PASS;Banquette de tour SO/10;Cabinet de tour
+33;Tour SO — salle 15 m;15.0;199.0;119.75;PASS;Banquette de tour SO/15;Salon de lecture
+34;Tour SO — salle 20 m;20.0;199.0;135.75;PASS;;Terrasse de couronnement
+35;Tour SE — salle 0 m;0.0;199.0;122.75;PASS;Banquette de tour SE/0;Salle de garde
+36;Tour SE — salle 5 m;5.0;199.0;119.75;PASS;Banquette de tour SE/5;Salle de guet
+37;Tour SE — salle 10 m;10.0;199.0;119.75;PASS;Banquette de tour SE/10;Cabinet de tour
+38;Tour SE — salle 15 m;15.0;199.0;119.75;PASS;Banquette de tour SE/15;Salon de lecture
+39;Tour SE — salle 20 m;20.0;199.0;135.75;PASS;;Terrasse de couronnement
+40;Tour NO — salle 0 m;0.0;199.0;122.75;PASS;Banquette de tour NO/0;Salle de garde
+41;Tour NO — salle 5 m;5.0;199.0;119.75;PASS;Banquette de tour NO/5;Salle de guet
+42;Tour NO — salle 10 m;10.0;199.0;119.75;PASS;Banquette de tour NO/10;Cabinet de tour
+43;Tour NO — salle 15 m;15.0;199.0;119.75;PASS;Banquette de tour NO/15;Salon de lecture
+44;Tour NO — salle 20 m;20.0;199.0;152.0;PASS;;Terrasse de couronnement
+45;Tour NE — salle 0 m;0.0;199.0;122.75;PASS;Banquette de tour NE/0;Salle de garde
+46;Tour NE — salle 5 m;5.0;199.0;119.75;PASS;Banquette de tour NE/5;Salle de guet
+47;Tour NE — salle 10 m;10.0;199.0;119.75;PASS;Banquette de tour NE/10;Cabinet de tour
+48;Tour NE — salle 15 m;15.0;199.0;119.75;PASS;Banquette de tour NE/15;Salon de lecture
+49;Tour NE — salle 20 m;20.0;199.0;152.0;PASS;;Terrasse de couronnement
+50;Donjon — chambre 0 m;0.0;324.0;220.0;PASS;Banquette du donjon 0/22 | Banquette du donjon 0/31;
+51;Donjon — chambre 5 m;5.0;324.0;213.0;PASS;Banquette du donjon 5/22 | Banquette du donjon 5/31;
+52;Donjon — chambre 10 m;10.0;324.0;217.0;PASS;Banquette du donjon 10/22 | Banquette du donjon 10/31;
+53;Donjon — chambre 15 m;15.0;324.0;217.0;PASS;Banquette du donjon 15/22 | Banquette du donjon 15/31;
+54;Donjon — chambre 20 m;20.0;324.0;213.0;PASS;Banquette du donjon 20/22 | Banquette du donjon 20/31;
+55;Donjon — chambre 25 m;25.0;324.0;213.0;PASS;Banquette du donjon 25/22 | Banquette du donjon 25/31;
+56;Donjon — chambre 30 m;30.0;324.0;262.0;PASS;;
+57;Terrasse arrière 10 m;10.0;330.0;266.5;PASS;Banquette/présentoir mural -1/10/18 | Banquette/présentoir mural 1/10/18 | Rayonnage lecture 18/10.5 | Rayonnage lecture 18/12 | Rayonnage lecture 18/13.5 | Socle de trophée 20/20 | Socle de trophée 24/20;
+58;Terrasse arrière 15 m;15.0;330.0;281.0;PASS;;
+59;Chemin de ronde -1;15.0;240.0;197.75;PASS;;
+60;Chemin de ronde 1;15.0;240.0;197.75;PASS;;
+61;Loggia royale 5 m;5.0;60.0;40.0;PASS;;
+62;Loggia royale 10 m;10.0;60.0;49.5;PASS;;

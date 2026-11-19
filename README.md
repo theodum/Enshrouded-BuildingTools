@@ -54,6 +54,22 @@ full 0.5 m cubes: unsupported smaller rises are refused, and walkability require
 an actual game test. See the [voxel stair guide and protocol](docs/DEV7-VOXEL-STAIRS.md)
 and [dev7 validation report](docs/DEV7-VALIDATION.md).
 
+The user has since confirmed the dev7 multistorey voxel demonstration in game.
+The first complete [royal castle](docs/ROYAL-CASTLE.md) is now provided as a single
+composite project in `examples/royal-castle`, with its import archive in
+`dist/Forteresse_Royale_Demo-dev7.zip`. It uses the existing dev7 DLL: a compact
+central hall, two wings, four octagonal towers, courtyard, keep, 25 stairs and
+automatically checked room/floor connections. Architectural reports, placement
+instructions, actual voxel sections and exterior/interior views accompany it.
+Unverified noble materials have explicit, configurable substitutions.
+
+Following the user's V1 game test (successful exterior, cramped interiors), the
+[spacious V2 castle](docs/ROYAL-CASTLE-V2.md) enlarges towers to 16 m, widens
+flights and landings, separates stair cages from rooms and checks circulation
+with a 1.5 × 1.5 m footprint. Room-by-room inventories and strict component
+overlap checks accompany `Forteresse_Royale_Spacieuse_V2.btproject`. V1 is kept
+for comparison. V2 itself still needs an in-game traversal test.
+
 - **Replace**: repaint existing blocks with your current material, as a full shape,
   only where the shape overlaps existing blocks, or **connected** (fill bucket: every
   touching block of the clicked material, up to a limit; roofs also diagonally). Old material is refunded, with the game's item pop-up.

@@ -4,3 +4,6 @@
 *.btbp binary
 # Existing translation blobs are CRLF in the repository; preserve their bytes.
 lang/*.txt -text whitespace=cr-at-eol
+# Generated castle deliverables have SHA-256 inventories; preserve exact bytes.
+examples/royal-castle/** -text whitespace=cr-at-eol
+examples/royal-castle-v2/** -text whitespace=cr-at-eol

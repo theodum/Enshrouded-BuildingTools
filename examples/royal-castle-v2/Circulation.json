@@ -1,0 +1,8261 @@
+{
+  "rooms": [
+    {
+      "name": "Parvis royal",
+      "seed": [
+        0,
+        0,
+        -62
+      ],
+      "kind": "entry",
+      "programme": "",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 143.0,
+      "nominalAreaM2": 162.0,
+      "features": []
+    },
+    {
+      "name": "Grand hall impérial",
+      "seed": [
+        0,
+        0,
+        -42
+      ],
+      "kind": "room",
+      "programme": "Escalier monumental, deux arcades latérales",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 453.5,
+      "nominalAreaM2": 560.0,
+      "features": [
+        "Base arcade hall -12/-21/0",
+        "Pilier arcade hall -12/-21/0",
+        "Chapiteau arcade hall -12/-21/0",
+        "Base arcade hall -12/-6/0",
+        "Pilier arcade hall -12/-6/0",
+        "Chapiteau arcade hall -12/-6/0",
+        "Base arcade hall 12/-21/0",
+        "Pilier arcade hall 12/-21/0",
+        "Chapiteau arcade hall 12/-21/0",
+        "Base arcade hall 12/-6/0",
+        "Pilier arcade hall 12/-6/0",
+        "Chapiteau arcade hall 12/-6/0"
+      ]
+    },
+    {
+      "name": "Réception et antichambre",
+      "seed": [
+        0,
+        0,
+        0
+      ],
+      "kind": "room",
+      "programme": "Accueil, banquettes et niches",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 350.5,
+      "nominalAreaM2": 392.0,
+      "features": []
+    },
+    {
+      "name": "Cour des arcades",
+      "seed": [
+        22,
+        0,
+        26
+      ],
+      "kind": "court",
+      "programme": "",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 290.0,
+      "nominalAreaM2": 302.0,
+      "features": []
+    },
+    {
+      "name": "Galerie impériale ouest",
+      "seed": [
+        -22,
+        10,
+        -34
+      ],
+      "kind": "gallery",
+      "programme": "",
+      "level": 10,
+      "wideFloorComponent": 3,
+      "clearFloorAreaM2": 93.75,
+      "nominalAreaM2": 120.0,
+      "features": [
+        "Base arcade hall -12/-21/5",
+        "Pilier arcade hall -12/-21/5",
+        "Chapiteau arcade hall -12/-21/5",
+        "Base arcade hall -12/-6/5",
+        "Pilier arcade hall -12/-6/5",
+        "Chapiteau arcade hall -12/-6/5"
+      ]
+    },
+    {
+      "name": "Galerie impériale est",
+      "seed": [
+        22,
+        10,
+        -34
+      ],
+      "kind": "gallery",
+      "programme": "",
+      "level": 10,
+      "wideFloorComponent": 3,
+      "clearFloorAreaM2": 93.75,
+      "nominalAreaM2": 120.0,
+      "features": [
+        "Base arcade hall 12/-21/5",
+        "Pilier arcade hall 12/-21/5",
+        "Chapiteau arcade hall 12/-21/5",
+        "Base arcade hall 12/-6/5",
+        "Pilier arcade hall 12/-6/5",
+        "Chapiteau arcade hall 12/-6/5"
+      ]
+    },
+    {
+      "name": "Grande salle du trône",
+      "seed": [
+        0,
+        10,
+        0
+      ],
+      "kind": "room",
+      "programme": "Axe de 6 m, colonnes, estrade et trône",
+      "level": 10,
+      "wideFloorComponent": 3,
+      "clearFloorAreaM2": 283.5,
+      "nominalAreaM2": 392.0,
+      "features": [
+        "Base trône -10/-1",
+        "Colonne trône -10/-1",
+        "Chapiteau trône -10/-1",
+        "Base trône -10/5",
+        "Colonne trône -10/5",
+        "Chapiteau trône -10/5",
+        "Base trône 10/-1",
+        "Colonne trône 10/-1",
+        "Chapiteau trône 10/-1",
+        "Base trône 10/5",
+        "Colonne trône 10/5",
+        "Chapiteau trône 10/5",
+        "Premier degré estrade",
+        "Deuxième degré estrade",
+        "Plateau de l’estrade",
+        "Siège du trône",
+        "Dossier du trône",
+        "Accoudoir du trône -1.5",
+        "Accoudoir du trône 1"
+      ]
+    },
+    {
+      "name": "Estrade royale",
+      "seed": [
+        5,
+        13,
+        15
+      ],
+      "kind": "dais",
+      "programme": "Deux accès latéraux et trois degrés larges",
+      "level": 13,
+      "wideFloorComponent": 36,
+      "clearFloorAreaM2": 9.5,
+      "nominalAreaM2": 14.0,
+      "features": [
+        "Siège du trône",
+        "Dossier du trône",
+        "Accoudoir du trône -1.5",
+        "Accoudoir du trône 1"
+      ]
+    },
+    {
+      "name": "Grande bibliothèque des archives",
+      "seed": [
+        0,
+        20,
+        -32
+      ],
+      "kind": "room",
+      "programme": "Rayonnages latéraux, tables et allées transversales",
+      "level": 20,
+      "wideFloorComponent": 5,
+      "clearFloorAreaM2": 497.0,
+      "nominalAreaM2": 560.0,
+      "features": [
+        "Rayon archives -12.5/-22/10.5",
+        "Rayon archives -12.5/-22/12",
+        "Rayon archives -12.5/-22/13.5",
+        "Rayon archives 11.5/-22/10.5",
+        "Rayon archives 11.5/-22/12",
+        "Rayon archives 11.5/-22/13.5",
+        "Rayon archives -12.5/-17/10.5",
+        "Rayon archives -12.5/-17/12",
+        "Rayon archives -12.5/-17/13.5",
+        "Rayon archives 11.5/-17/10.5",
+        "Rayon archives 11.5/-17/12",
+        "Rayon archives 11.5/-17/13.5",
+        "Rayon archives -12.5/-12/10.5",
+        "Rayon archives -12.5/-12/12",
+        "Rayon archives -12.5/-12/13.5",
+        "Rayon archives 11.5/-12/10.5",
+        "Rayon archives 11.5/-12/12",
+        "Rayon archives 11.5/-12/13.5",
+        "Rayon archives -12.5/-7/10.5",
+        "Rayon archives -12.5/-7/12",
+        "Rayon archives -12.5/-7/13.5",
+        "Rayon archives 11.5/-7/10.5",
+        "Rayon archives 11.5/-7/12",
+        "Rayon archives 11.5/-7/13.5"
+      ]
+    },
+    {
+      "name": "Appartement royal ouest",
+      "seed": [
+        -12,
+        20,
+        2
+      ],
+      "kind": "room",
+      "programme": "Alcôve privée, penderies et cabinet",
+      "level": 20,
+      "wideFloorComponent": 5,
+      "clearFloorAreaM2": 156.75,
+      "nominalAreaM2": 189.0,
+      "features": [
+        "Alcôve royale -1",
+        "Cabinet royal -1"
+      ]
+    },
+    {
+      "name": "Appartement royal est",
+      "seed": [
+        12,
+        20,
+        2
+      ],
+      "kind": "room",
+      "programme": "Alcôve privée, penderies et cabinet",
+      "level": 20,
+      "wideFloorComponent": 5,
+      "clearFloorAreaM2": 156.75,
+      "nominalAreaM2": 189.0,
+      "features": [
+        "Alcôve royale 1",
+        "Cabinet royal 1"
+      ]
+    },
+    {
+      "name": "Salle des gardes",
+      "seed": [
+        -45,
+        0,
+        -32
+      ],
+      "kind": "room",
+      "programme": "",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 130.0,
+      "nominalAreaM2": 152.0,
+      "features": [
+        "Banquette/présentoir mural -1/0/-22",
+        "Banquette/présentoir mural -1/0/-14",
+        "Râtelier des gardes"
+      ]
+    },
+    {
+      "name": "Salle des banquets",
+      "seed": [
+        -45,
+        0,
+        32
+      ],
+      "kind": "room",
+      "programme": "",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 116.75,
+      "nominalAreaM2": 152.0,
+      "features": [
+        "Banquette/présentoir mural -1/0/10",
+        "Banquette/présentoir mural -1/0/18",
+        "Table des banquets"
+      ]
+    },
+    {
+      "name": "Grand vestibule escalier -1/0",
+      "seed": [
+        -32,
+        0,
+        11
+      ],
+      "kind": "stairhall",
+      "programme": "",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 181.25,
+      "nominalAreaM2": 224.0,
+      "features": []
+    },
+    {
+      "name": "Salle des armes",
+      "seed": [
+        45,
+        0,
+        -32
+      ],
+      "kind": "room",
+      "programme": "",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 130.0,
+      "nominalAreaM2": 152.0,
+      "features": [
+        "Banquette/présentoir mural 1/0/-22",
+        "Banquette/présentoir mural 1/0/-14",
+        "Présentoir de la salle des armes"
+      ]
+    },
+    {
+      "name": "Cuisine et offices",
+      "seed": [
+        45,
+        0,
+        32
+      ],
+      "kind": "room",
+      "programme": "",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 120.75,
+      "nominalAreaM2": 152.0,
+      "features": [
+        "Banquette/présentoir mural 1/0/10",
+        "Banquette/présentoir mural 1/0/18",
+        "Four architectural des offices"
+      ]
+    },
+    {
+      "name": "Grand vestibule escalier 1/0",
+      "seed": [
+        32,
+        0,
+        11
+      ],
+      "kind": "stairhall",
+      "programme": "",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 169.75,
+      "nominalAreaM2": 224.0,
+      "features": []
+    },
+    {
+      "name": "Salon noble",
+      "seed": [
+        -45,
+        10,
+        -32
+      ],
+      "kind": "room",
+      "programme": "",
+      "level": 10,
+      "wideFloorComponent": 3,
+      "clearFloorAreaM2": 124.0,
+      "nominalAreaM2": 152.0,
+      "features": [
+        "Banquette/présentoir mural -1/5/-22",
+        "Banquette/présentoir mural -1/5/-14",
+        "Table basse du salon -1"
+      ]
+    },
+    {
+      "name": "Salle du conseil",
+      "seed": [
+        -45,
+        10,
+        32
+      ],
+      "kind": "room",
+      "programme": "",
+      "level": 10,
+      "wideFloorComponent": 3,
+      "clearFloorAreaM2": 116.75,
+      "nominalAreaM2": 152.0,
+      "features": [
+        "Banquette/présentoir mural -1/5/10",
+        "Banquette/présentoir mural -1/5/18",
+        "Table du conseil"
+      ]
+    },
+    {
+      "name": "Grand vestibule escalier -1/5",
+      "seed": [
+        -32,
+        10,
+        11
+      ],
+      "kind": "stairhall",
+      "programme": "",
+      "level": 10,
+      "wideFloorComponent": 3,
+      "clearFloorAreaM2": 177.75,
+      "nominalAreaM2": 224.0,
+      "features": []
+    },
+    {
+      "name": "Salon des hôtes",
+      "seed": [
+        45,
+        10,
+        -32
+      ],
+      "kind": "room",
+      "programme": "",
+      "level": 10,
+      "wideFloorComponent": 3,
+      "clearFloorAreaM2": 124.0,
+      "nominalAreaM2": 152.0,
+      "features": [
+        "Banquette/présentoir mural 1/5/-22",
+        "Banquette/présentoir mural 1/5/-14",
+        "Table basse du salon 1"
+      ]
+    },
+    {
+      "name": "Galerie des portraits",
+      "seed": [
+        45,
+        10,
+        32
+      ],
+      "kind": "room",
+      "programme": "",
+      "level": 10,
+      "wideFloorComponent": 3,
+      "clearFloorAreaM2": 125.75,
+      "nominalAreaM2": 152.0,
+      "features": [
+        "Banquette/présentoir mural 1/5/10",
+        "Banquette/présentoir mural 1/5/18"
+      ]
+    },
+    {
+      "name": "Grand vestibule escalier 1/5",
+      "seed": [
+        32,
+        10,
+        11
+      ],
+      "kind": "stairhall",
+      "programme": "",
+      "level": 10,
+      "wideFloorComponent": 3,
+      "clearFloorAreaM2": 166.75,
+      "nominalAreaM2": 224.0,
+      "features": []
+    },
+    {
+      "name": "Chambre des hôtes ouest",
+      "seed": [
+        -45,
+        20,
+        -32
+      ],
+      "kind": "room",
+      "programme": "",
+      "level": 20,
+      "wideFloorComponent": 5,
+      "clearFloorAreaM2": 121.0,
+      "nominalAreaM2": 152.0,
+      "features": [
+        "Banquette/présentoir mural -1/10/-22",
+        "Banquette/présentoir mural -1/10/-14",
+        "Alcôve des hôtes -1"
+      ]
+    },
+    {
+      "name": "Bibliothèque de lecture",
+      "seed": [
+        -45,
+        20,
+        32
+      ],
+      "kind": "room",
+      "programme": "",
+      "level": 20,
+      "wideFloorComponent": 5,
+      "clearFloorAreaM2": 125.75,
+      "nominalAreaM2": 152.0,
+      "features": [
+        "Banquette/présentoir mural -1/10/10",
+        "Banquette/présentoir mural -1/10/18",
+        "Rayonnage lecture 10/10.5",
+        "Rayonnage lecture 10/12",
+        "Rayonnage lecture 10/13.5",
+        "Rayonnage lecture 18/10.5",
+        "Rayonnage lecture 18/12",
+        "Rayonnage lecture 18/13.5"
+      ]
+    },
+    {
+      "name": "Grand vestibule escalier -1/10",
+      "seed": [
+        -32,
+        20,
+        11
+      ],
+      "kind": "stairhall",
+      "programme": "",
+      "level": 20,
+      "wideFloorComponent": 5,
+      "clearFloorAreaM2": 180.0,
+      "nominalAreaM2": 224.0,
+      "features": []
+    },
+    {
+      "name": "Chambre des hôtes est",
+      "seed": [
+        45,
+        20,
+        -32
+      ],
+      "kind": "room",
+      "programme": "",
+      "level": 20,
+      "wideFloorComponent": 5,
+      "clearFloorAreaM2": 121.0,
+      "nominalAreaM2": 152.0,
+      "features": [
+        "Banquette/présentoir mural 1/10/-22",
+        "Banquette/présentoir mural 1/10/-14",
+        "Alcôve des hôtes 1"
+      ]
+    },
+    {
+      "name": "Salle des trophées",
+      "seed": [
+        45,
+        20,
+        32
+      ],
+      "kind": "room",
+      "programme": "",
+      "level": 20,
+      "wideFloorComponent": 5,
+      "clearFloorAreaM2": 116.75,
+      "nominalAreaM2": 152.0,
+      "features": [
+        "Banquette/présentoir mural 1/10/10",
+        "Banquette/présentoir mural 1/10/18",
+        "Socle de trophée 20/10.5",
+        "Socle de trophée 24/10.5",
+        "Socle de trophée 20/20",
+        "Socle de trophée 24/20"
+      ]
+    },
+    {
+      "name": "Grand vestibule escalier 1/10",
+      "seed": [
+        32,
+        20,
+        11
+      ],
+      "kind": "stairhall",
+      "programme": "",
+      "level": 20,
+      "wideFloorComponent": 5,
+      "clearFloorAreaM2": 168.5,
+      "nominalAreaM2": 224.0,
+      "features": []
+    },
+    {
+      "name": "Tour SO — salle 0 m",
+      "seed": [
+        -51,
+        0,
+        -61
+      ],
+      "kind": "tower",
+      "programme": "Salle de garde",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 122.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour SO/0"
+      ]
+    },
+    {
+      "name": "Tour SO — salle 5 m",
+      "seed": [
+        -51,
+        10,
+        -61
+      ],
+      "kind": "tower",
+      "programme": "Salle de guet",
+      "level": 10,
+      "wideFloorComponent": 2,
+      "clearFloorAreaM2": 119.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour SO/5"
+      ]
+    },
+    {
+      "name": "Tour SO — salle 10 m",
+      "seed": [
+        -51,
+        20,
+        -61
+      ],
+      "kind": "tower",
+      "programme": "Cabinet de tour",
+      "level": 20,
+      "wideFloorComponent": 4,
+      "clearFloorAreaM2": 119.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour SO/10"
+      ]
+    },
+    {
+      "name": "Tour SO — salle 15 m",
+      "seed": [
+        -51,
+        30,
+        -61
+      ],
+      "kind": "tower",
+      "programme": "Salon de lecture",
+      "level": 30,
+      "wideFloorComponent": 6,
+      "clearFloorAreaM2": 119.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour SO/15"
+      ]
+    },
+    {
+      "name": "Tour SO — salle 20 m",
+      "seed": [
+        -51,
+        40,
+        -61
+      ],
+      "kind": "tower",
+      "programme": "Terrasse de couronnement",
+      "level": 40,
+      "wideFloorComponent": 8,
+      "clearFloorAreaM2": 135.75,
+      "nominalAreaM2": 199.0,
+      "features": []
+    },
+    {
+      "name": "Tour SE — salle 0 m",
+      "seed": [
+        51,
+        0,
+        -61
+      ],
+      "kind": "tower",
+      "programme": "Salle de garde",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 122.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour SE/0"
+      ]
+    },
+    {
+      "name": "Tour SE — salle 5 m",
+      "seed": [
+        51,
+        10,
+        -61
+      ],
+      "kind": "tower",
+      "programme": "Salle de guet",
+      "level": 10,
+      "wideFloorComponent": 40,
+      "clearFloorAreaM2": 119.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour SE/5"
+      ]
+    },
+    {
+      "name": "Tour SE — salle 10 m",
+      "seed": [
+        51,
+        20,
+        -61
+      ],
+      "kind": "tower",
+      "programme": "Cabinet de tour",
+      "level": 20,
+      "wideFloorComponent": 41,
+      "clearFloorAreaM2": 119.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour SE/10"
+      ]
+    },
+    {
+      "name": "Tour SE — salle 15 m",
+      "seed": [
+        51,
+        30,
+        -61
+      ],
+      "kind": "tower",
+      "programme": "Salon de lecture",
+      "level": 30,
+      "wideFloorComponent": 43,
+      "clearFloorAreaM2": 119.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour SE/15"
+      ]
+    },
+    {
+      "name": "Tour SE — salle 20 m",
+      "seed": [
+        51,
+        40,
+        -61
+      ],
+      "kind": "tower",
+      "programme": "Terrasse de couronnement",
+      "level": 40,
+      "wideFloorComponent": 45,
+      "clearFloorAreaM2": 135.75,
+      "nominalAreaM2": 199.0,
+      "features": []
+    },
+    {
+      "name": "Tour NO — salle 0 m",
+      "seed": [
+        -51,
+        0,
+        61
+      ],
+      "kind": "tower",
+      "programme": "Salle de garde",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 122.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour NO/0"
+      ]
+    },
+    {
+      "name": "Tour NO — salle 5 m",
+      "seed": [
+        -51,
+        10,
+        61
+      ],
+      "kind": "tower",
+      "programme": "Salle de guet",
+      "level": 10,
+      "wideFloorComponent": 3,
+      "clearFloorAreaM2": 119.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour NO/5"
+      ]
+    },
+    {
+      "name": "Tour NO — salle 10 m",
+      "seed": [
+        -51,
+        20,
+        61
+      ],
+      "kind": "tower",
+      "programme": "Cabinet de tour",
+      "level": 20,
+      "wideFloorComponent": 5,
+      "clearFloorAreaM2": 119.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour NO/10"
+      ]
+    },
+    {
+      "name": "Tour NO — salle 15 m",
+      "seed": [
+        -51,
+        30,
+        61
+      ],
+      "kind": "tower",
+      "programme": "Salon de lecture",
+      "level": 30,
+      "wideFloorComponent": 7,
+      "clearFloorAreaM2": 119.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour NO/15"
+      ]
+    },
+    {
+      "name": "Tour NO — salle 20 m",
+      "seed": [
+        -51,
+        40,
+        61
+      ],
+      "kind": "tower",
+      "programme": "Terrasse de couronnement",
+      "level": 40,
+      "wideFloorComponent": 0,
+      "clearFloorAreaM2": 152.0,
+      "nominalAreaM2": 199.0,
+      "features": []
+    },
+    {
+      "name": "Tour NE — salle 0 m",
+      "seed": [
+        51,
+        0,
+        61
+      ],
+      "kind": "tower",
+      "programme": "Salle de garde",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 122.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour NE/0"
+      ]
+    },
+    {
+      "name": "Tour NE — salle 5 m",
+      "seed": [
+        51,
+        10,
+        61
+      ],
+      "kind": "tower",
+      "programme": "Salle de guet",
+      "level": 10,
+      "wideFloorComponent": 3,
+      "clearFloorAreaM2": 119.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour NE/5"
+      ]
+    },
+    {
+      "name": "Tour NE — salle 10 m",
+      "seed": [
+        51,
+        20,
+        61
+      ],
+      "kind": "tower",
+      "programme": "Cabinet de tour",
+      "level": 20,
+      "wideFloorComponent": 5,
+      "clearFloorAreaM2": 119.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour NE/10"
+      ]
+    },
+    {
+      "name": "Tour NE — salle 15 m",
+      "seed": [
+        51,
+        30,
+        61
+      ],
+      "kind": "tower",
+      "programme": "Salon de lecture",
+      "level": 30,
+      "wideFloorComponent": 44,
+      "clearFloorAreaM2": 119.75,
+      "nominalAreaM2": 199.0,
+      "features": [
+        "Banquette de tour NE/15"
+      ]
+    },
+    {
+      "name": "Tour NE — salle 20 m",
+      "seed": [
+        51,
+        40,
+        61
+      ],
+      "kind": "tower",
+      "programme": "Terrasse de couronnement",
+      "level": 40,
+      "wideFloorComponent": 42,
+      "clearFloorAreaM2": 152.0,
+      "nominalAreaM2": 199.0,
+      "features": []
+    },
+    {
+      "name": "Donjon — chambre 0 m",
+      "seed": [
+        10,
+        0,
+        54
+      ],
+      "kind": "keep",
+      "programme": "",
+      "level": 0,
+      "wideFloorComponent": 1,
+      "clearFloorAreaM2": 220.0,
+      "nominalAreaM2": 324.0,
+      "features": [
+        "Banquette du donjon 0/22",
+        "Banquette du donjon 0/31"
+      ]
+    },
+    {
+      "name": "Donjon — chambre 5 m",
+      "seed": [
+        10,
+        10,
+        54
+      ],
+      "kind": "keep",
+      "programme": "",
+      "level": 10,
+      "wideFloorComponent": 23,
+      "clearFloorAreaM2": 213.0,
+      "nominalAreaM2": 324.0,
+      "features": [
+        "Banquette du donjon 5/22",
+        "Banquette du donjon 5/31"
+      ]
+    },
+    {
+      "name": "Donjon — chambre 10 m",
+      "seed": [
+        10,
+        20,
+        54
+      ],
+      "kind": "keep",
+      "programme": "",
+      "level": 20,
+      "wideFloorComponent": 20,
+      "clearFloorAreaM2": 217.0,
+      "nominalAreaM2": 324.0,
+      "features": [
+        "Banquette du donjon 10/22",
+        "Banquette du donjon 10/31"
+      ]
+    },
+    {
+      "name": "Donjon — chambre 15 m",
+      "seed": [
+        10,
+        30,
+        54
+      ],
+      "kind": "keep",
+      "programme": "",
+      "level": 30,
+      "wideFloorComponent": 19,
+      "clearFloorAreaM2": 217.0,
+      "nominalAreaM2": 324.0,
+      "features": [
+        "Banquette du donjon 15/22",
+        "Banquette du donjon 15/31"
+      ]
+    },
+    {
+      "name": "Donjon — chambre 20 m",
+      "seed": [
+        10,
+        40,
+        54
+      ],
+      "kind": "keep",
+      "programme": "",
+      "level": 40,
+      "wideFloorComponent": 24,
+      "clearFloorAreaM2": 213.0,
+      "nominalAreaM2": 324.0,
+      "features": [
+        "Banquette du donjon 20/22",
+        "Banquette du donjon 20/31"
+      ]
+    },
+    {
+      "name": "Donjon — chambre 25 m",
+      "seed": [
+        10,
+        50,
+        54
+      ],
+      "kind": "keep",
+      "programme": "",
+      "level": 50,
+      "wideFloorComponent": 25,
+      "clearFloorAreaM2": 213.0,
+      "nominalAreaM2": 324.0,
+      "features": [
+        "Banquette du donjon 25/22",
+        "Banquette du donjon 25/31"
+      ]
+    },
+    {
+      "name": "Donjon — chambre 30 m",
+      "seed": [
+        10,
+        60,
+        54
+      ],
+      "kind": "keep",
+      "programme": "",
+      "level": 60,
+      "wideFloorComponent": 22,
+      "clearFloorAreaM2": 262.0,
+      "nominalAreaM2": 324.0,
+      "features": []
+    },
+    {
+      "name": "Terrasse arrière 10 m",
+      "seed": [
+        -24,
+        20,
+        42
+      ],
+      "kind": "terrace",
+      "programme": "",
+      "level": 20,
+      "wideFloorComponent": 20,
+      "clearFloorAreaM2": 266.5,
+      "nominalAreaM2": 330.0,
+      "features": [
+        "Banquette/présentoir mural -1/10/18",
+        "Banquette/présentoir mural 1/10/18",
+        "Rayonnage lecture 18/10.5",
+        "Rayonnage lecture 18/12",
+        "Rayonnage lecture 18/13.5",
+        "Socle de trophée 20/20",
+        "Socle de trophée 24/20"
+      ]
+    },
+    {
+      "name": "Terrasse arrière 15 m",
+      "seed": [
+        -24,
+        30,
+        42
+      ],
+      "kind": "terrace",
+      "programme": "",
+      "level": 30,
+      "wideFloorComponent": 19,
+      "clearFloorAreaM2": 281.0,
+      "nominalAreaM2": 330.0,
+      "features": []
+    },
+    {
+      "name": "Chemin de ronde -1",
+      "seed": [
+        -32,
+        30,
+        26
+      ],
+      "kind": "roofwalk",
+      "programme": "",
+      "level": 30,
+      "wideFloorComponent": 19,
+      "clearFloorAreaM2": 197.75,
+      "nominalAreaM2": 240.0,
+      "features": []
+    },
+    {
+      "name": "Chemin de ronde 1",
+      "seed": [
+        32,
+        30,
+        26
+      ],
+      "kind": "roofwalk",
+      "programme": "",
+      "level": 30,
+      "wideFloorComponent": 19,
+      "clearFloorAreaM2": 197.75,
+      "nominalAreaM2": 240.0,
+      "features": []
+    },
+    {
+      "name": "Loggia royale 5 m",
+      "seed": [
+        0,
+        10,
+        -52
+      ],
+      "kind": "balcony",
+      "programme": "",
+      "level": 10,
+      "wideFloorComponent": 3,
+      "clearFloorAreaM2": 40.0,
+      "nominalAreaM2": 60.0,
+      "features": []
+    },
+    {
+      "name": "Loggia royale 10 m",
+      "seed": [
+        0,
+        20,
+        -52
+      ],
+      "kind": "balcony",
+      "programme": "",
+      "level": 20,
+      "wideFloorComponent": 5,
+      "clearFloorAreaM2": 49.5,
+      "nominalAreaM2": 60.0,
+      "features": []
+    }
+  ],
+  "stairs": [
+    {
+      "name": "Escalier impérial",
+      "kind": "monumental",
+      "origin": [
+        -5,
+        0,
+        -32
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -5,
+            -1,
+            -38
+          ],
+          "high": [
+            5,
+            0,
+            -32
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -5,
+            0,
+            -32
+          ],
+          "high": [
+            5,
+            1,
+            -31
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -5,
+            0,
+            -31
+          ],
+          "high": [
+            5,
+            2,
+            -30
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -5,
+            0,
+            -30
+          ],
+          "high": [
+            5,
+            3,
+            -29
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -5,
+            0,
+            -29
+          ],
+          "high": [
+            5,
+            4,
+            -28
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -5,
+            0,
+            -28
+          ],
+          "high": [
+            5,
+            5,
+            -27
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -10,
+            0,
+            -27
+          ],
+          "high": [
+            10,
+            5,
+            -21
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -11,
+            0,
+            -27
+          ],
+          "high": [
+            -10,
+            6,
+            -22
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            10,
+            0,
+            -27
+          ],
+          "high": [
+            11,
+            6,
+            -22
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -12,
+            0,
+            -27
+          ],
+          "high": [
+            -11,
+            7,
+            -22
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            11,
+            0,
+            -27
+          ],
+          "high": [
+            12,
+            7,
+            -22
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -13,
+            0,
+            -27
+          ],
+          "high": [
+            -12,
+            8,
+            -22
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            12,
+            0,
+            -27
+          ],
+          "high": [
+            13,
+            8,
+            -22
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -14,
+            0,
+            -27
+          ],
+          "high": [
+            -13,
+            9,
+            -22
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            13,
+            0,
+            -27
+          ],
+          "high": [
+            14,
+            9,
+            -22
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -15,
+            0,
+            -27
+          ],
+          "high": [
+            -14,
+            10,
+            -22
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            14,
+            0,
+            -27
+          ],
+          "high": [
+            15,
+            10,
+            -22
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -21,
+            0,
+            -27
+          ],
+          "high": [
+            -15,
+            10,
+            -22
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            15,
+            0,
+            -27
+          ],
+          "high": [
+            21,
+            10,
+            -22
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 610,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Escalier ouest L 0",
+      "kind": "L",
+      "origin": [
+        -52,
+        0,
+        -4
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -52,
+            -1,
+            -10
+          ],
+          "high": [
+            -47,
+            0,
+            -4
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -52,
+            0,
+            -4
+          ],
+          "high": [
+            -47,
+            1,
+            -3
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -52,
+            0,
+            -3
+          ],
+          "high": [
+            -47,
+            2,
+            -2
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -52,
+            0,
+            -2
+          ],
+          "high": [
+            -47,
+            3,
+            -1
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -52,
+            0,
+            -1
+          ],
+          "high": [
+            -47,
+            4,
+            0
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -52,
+            0,
+            0
+          ],
+          "high": [
+            -47,
+            5,
+            1
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -52,
+            0,
+            1
+          ],
+          "high": [
+            -46,
+            5,
+            6
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -46,
+            0,
+            1
+          ],
+          "high": [
+            -45,
+            6,
+            6
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -45,
+            0,
+            1
+          ],
+          "high": [
+            -44,
+            7,
+            6
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -44,
+            0,
+            1
+          ],
+          "high": [
+            -43,
+            8,
+            6
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -43,
+            0,
+            1
+          ],
+          "high": [
+            -42,
+            9,
+            6
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -42,
+            0,
+            1
+          ],
+          "high": [
+            -41,
+            10,
+            6
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -41,
+            0,
+            1
+          ],
+          "high": [
+            -35,
+            10,
+            6
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 245,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Escalier est U 0",
+      "kind": "U",
+      "origin": [
+        37,
+        0,
+        -4
+      ],
+      "surfaces": [
+        {
+          "low": [
+            37,
+            -1,
+            -10
+          ],
+          "high": [
+            42,
+            0,
+            -4
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            37,
+            0,
+            -4
+          ],
+          "high": [
+            42,
+            1,
+            -3
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            37,
+            0,
+            -3
+          ],
+          "high": [
+            42,
+            2,
+            -2
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            37,
+            0,
+            -2
+          ],
+          "high": [
+            42,
+            3,
+            -1
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            37,
+            0,
+            -1
+          ],
+          "high": [
+            42,
+            4,
+            0
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            37,
+            0,
+            0
+          ],
+          "high": [
+            42,
+            5,
+            1
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            37,
+            0,
+            1
+          ],
+          "high": [
+            48,
+            5,
+            7
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            43,
+            0,
+            0
+          ],
+          "high": [
+            48,
+            6,
+            1
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            43,
+            0,
+            -1
+          ],
+          "high": [
+            48,
+            7,
+            0
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            43,
+            0,
+            -2
+          ],
+          "high": [
+            48,
+            8,
+            -1
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            43,
+            0,
+            -3
+          ],
+          "high": [
+            48,
+            9,
+            -2
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            43,
+            0,
+            -4
+          ],
+          "high": [
+            48,
+            10,
+            -3
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            43,
+            0,
+            -10
+          ],
+          "high": [
+            48,
+            10,
+            -4
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Escalier ouest L 5",
+      "kind": "L",
+      "origin": [
+        -52,
+        10,
+        -4
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -52,
+            9,
+            -10
+          ],
+          "high": [
+            -47,
+            10,
+            -4
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -52,
+            10,
+            -4
+          ],
+          "high": [
+            -47,
+            11,
+            -3
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -52,
+            10,
+            -3
+          ],
+          "high": [
+            -47,
+            12,
+            -2
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -52,
+            10,
+            -2
+          ],
+          "high": [
+            -47,
+            13,
+            -1
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -52,
+            10,
+            -1
+          ],
+          "high": [
+            -47,
+            14,
+            0
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -52,
+            10,
+            0
+          ],
+          "high": [
+            -47,
+            15,
+            1
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -52,
+            10,
+            1
+          ],
+          "high": [
+            -46,
+            15,
+            6
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -46,
+            10,
+            1
+          ],
+          "high": [
+            -45,
+            16,
+            6
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -45,
+            10,
+            1
+          ],
+          "high": [
+            -44,
+            17,
+            6
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -44,
+            10,
+            1
+          ],
+          "high": [
+            -43,
+            18,
+            6
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -43,
+            10,
+            1
+          ],
+          "high": [
+            -42,
+            19,
+            6
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -42,
+            10,
+            1
+          ],
+          "high": [
+            -41,
+            20,
+            6
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -41,
+            10,
+            1
+          ],
+          "high": [
+            -35,
+            20,
+            6
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 245,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Escalier est U 5",
+      "kind": "U",
+      "origin": [
+        37,
+        10,
+        -4
+      ],
+      "surfaces": [
+        {
+          "low": [
+            37,
+            9,
+            -10
+          ],
+          "high": [
+            42,
+            10,
+            -4
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            37,
+            10,
+            -4
+          ],
+          "high": [
+            42,
+            11,
+            -3
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            37,
+            10,
+            -3
+          ],
+          "high": [
+            42,
+            12,
+            -2
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            37,
+            10,
+            -2
+          ],
+          "high": [
+            42,
+            13,
+            -1
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            37,
+            10,
+            -1
+          ],
+          "high": [
+            42,
+            14,
+            0
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            37,
+            10,
+            0
+          ],
+          "high": [
+            42,
+            15,
+            1
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            37,
+            10,
+            1
+          ],
+          "high": [
+            48,
+            15,
+            7
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            43,
+            10,
+            0
+          ],
+          "high": [
+            48,
+            16,
+            1
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            43,
+            10,
+            -1
+          ],
+          "high": [
+            48,
+            17,
+            0
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            43,
+            10,
+            -2
+          ],
+          "high": [
+            48,
+            18,
+            -1
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            43,
+            10,
+            -3
+          ],
+          "high": [
+            48,
+            19,
+            -2
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            43,
+            10,
+            -4
+          ],
+          "high": [
+            48,
+            20,
+            -3
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            43,
+            10,
+            -10
+          ],
+          "high": [
+            48,
+            20,
+            -4
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour SO U 0",
+      "kind": "U",
+      "origin": [
+        -68,
+        0,
+        -55
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -68,
+            -1,
+            -61
+          ],
+          "high": [
+            -63,
+            0,
+            -55
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -68,
+            0,
+            -55
+          ],
+          "high": [
+            -63,
+            1,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            0,
+            -54
+          ],
+          "high": [
+            -63,
+            2,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            0,
+            -53
+          ],
+          "high": [
+            -63,
+            3,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            0,
+            -52
+          ],
+          "high": [
+            -63,
+            4,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            0,
+            -51
+          ],
+          "high": [
+            -63,
+            5,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            0,
+            -50
+          ],
+          "high": [
+            -57,
+            5,
+            -44
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -62,
+            0,
+            -51
+          ],
+          "high": [
+            -57,
+            6,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            0,
+            -52
+          ],
+          "high": [
+            -57,
+            7,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            0,
+            -53
+          ],
+          "high": [
+            -57,
+            8,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            0,
+            -54
+          ],
+          "high": [
+            -57,
+            9,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            0,
+            -55
+          ],
+          "high": [
+            -57,
+            10,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            0,
+            -61
+          ],
+          "high": [
+            -57,
+            10,
+            -55
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour SO U 5",
+      "kind": "U",
+      "origin": [
+        -68,
+        10,
+        -55
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -68,
+            9,
+            -61
+          ],
+          "high": [
+            -63,
+            10,
+            -55
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -68,
+            10,
+            -55
+          ],
+          "high": [
+            -63,
+            11,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            10,
+            -54
+          ],
+          "high": [
+            -63,
+            12,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            10,
+            -53
+          ],
+          "high": [
+            -63,
+            13,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            10,
+            -52
+          ],
+          "high": [
+            -63,
+            14,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            10,
+            -51
+          ],
+          "high": [
+            -63,
+            15,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            10,
+            -50
+          ],
+          "high": [
+            -57,
+            15,
+            -44
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -62,
+            10,
+            -51
+          ],
+          "high": [
+            -57,
+            16,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            10,
+            -52
+          ],
+          "high": [
+            -57,
+            17,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            10,
+            -53
+          ],
+          "high": [
+            -57,
+            18,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            10,
+            -54
+          ],
+          "high": [
+            -57,
+            19,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            10,
+            -55
+          ],
+          "high": [
+            -57,
+            20,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            10,
+            -61
+          ],
+          "high": [
+            -57,
+            20,
+            -55
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour SO U 10",
+      "kind": "U",
+      "origin": [
+        -68,
+        20,
+        -55
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -68,
+            19,
+            -61
+          ],
+          "high": [
+            -63,
+            20,
+            -55
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -68,
+            20,
+            -55
+          ],
+          "high": [
+            -63,
+            21,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            20,
+            -54
+          ],
+          "high": [
+            -63,
+            22,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            20,
+            -53
+          ],
+          "high": [
+            -63,
+            23,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            20,
+            -52
+          ],
+          "high": [
+            -63,
+            24,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            20,
+            -51
+          ],
+          "high": [
+            -63,
+            25,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            20,
+            -50
+          ],
+          "high": [
+            -57,
+            25,
+            -44
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -62,
+            20,
+            -51
+          ],
+          "high": [
+            -57,
+            26,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            20,
+            -52
+          ],
+          "high": [
+            -57,
+            27,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            20,
+            -53
+          ],
+          "high": [
+            -57,
+            28,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            20,
+            -54
+          ],
+          "high": [
+            -57,
+            29,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            20,
+            -55
+          ],
+          "high": [
+            -57,
+            30,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            20,
+            -61
+          ],
+          "high": [
+            -57,
+            30,
+            -55
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour SO U 15",
+      "kind": "U",
+      "origin": [
+        -68,
+        30,
+        -55
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -68,
+            29,
+            -61
+          ],
+          "high": [
+            -63,
+            30,
+            -55
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -68,
+            30,
+            -55
+          ],
+          "high": [
+            -63,
+            31,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            30,
+            -54
+          ],
+          "high": [
+            -63,
+            32,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            30,
+            -53
+          ],
+          "high": [
+            -63,
+            33,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            30,
+            -52
+          ],
+          "high": [
+            -63,
+            34,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            30,
+            -51
+          ],
+          "high": [
+            -63,
+            35,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            30,
+            -50
+          ],
+          "high": [
+            -57,
+            35,
+            -44
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -62,
+            30,
+            -51
+          ],
+          "high": [
+            -57,
+            36,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            30,
+            -52
+          ],
+          "high": [
+            -57,
+            37,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            30,
+            -53
+          ],
+          "high": [
+            -57,
+            38,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            30,
+            -54
+          ],
+          "high": [
+            -57,
+            39,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            30,
+            -55
+          ],
+          "high": [
+            -57,
+            40,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            30,
+            -61
+          ],
+          "high": [
+            -57,
+            40,
+            -55
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour SE U 0",
+      "kind": "U",
+      "origin": [
+        57,
+        0,
+        -55
+      ],
+      "surfaces": [
+        {
+          "low": [
+            57,
+            -1,
+            -61
+          ],
+          "high": [
+            62,
+            0,
+            -55
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            57,
+            0,
+            -55
+          ],
+          "high": [
+            62,
+            1,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            0,
+            -54
+          ],
+          "high": [
+            62,
+            2,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            0,
+            -53
+          ],
+          "high": [
+            62,
+            3,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            0,
+            -52
+          ],
+          "high": [
+            62,
+            4,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            0,
+            -51
+          ],
+          "high": [
+            62,
+            5,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            0,
+            -50
+          ],
+          "high": [
+            68,
+            5,
+            -44
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            63,
+            0,
+            -51
+          ],
+          "high": [
+            68,
+            6,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            0,
+            -52
+          ],
+          "high": [
+            68,
+            7,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            0,
+            -53
+          ],
+          "high": [
+            68,
+            8,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            0,
+            -54
+          ],
+          "high": [
+            68,
+            9,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            0,
+            -55
+          ],
+          "high": [
+            68,
+            10,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            0,
+            -61
+          ],
+          "high": [
+            68,
+            10,
+            -55
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour SE U 5",
+      "kind": "U",
+      "origin": [
+        57,
+        10,
+        -55
+      ],
+      "surfaces": [
+        {
+          "low": [
+            57,
+            9,
+            -61
+          ],
+          "high": [
+            62,
+            10,
+            -55
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            57,
+            10,
+            -55
+          ],
+          "high": [
+            62,
+            11,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            10,
+            -54
+          ],
+          "high": [
+            62,
+            12,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            10,
+            -53
+          ],
+          "high": [
+            62,
+            13,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            10,
+            -52
+          ],
+          "high": [
+            62,
+            14,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            10,
+            -51
+          ],
+          "high": [
+            62,
+            15,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            10,
+            -50
+          ],
+          "high": [
+            68,
+            15,
+            -44
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            63,
+            10,
+            -51
+          ],
+          "high": [
+            68,
+            16,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            10,
+            -52
+          ],
+          "high": [
+            68,
+            17,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            10,
+            -53
+          ],
+          "high": [
+            68,
+            18,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            10,
+            -54
+          ],
+          "high": [
+            68,
+            19,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            10,
+            -55
+          ],
+          "high": [
+            68,
+            20,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            10,
+            -61
+          ],
+          "high": [
+            68,
+            20,
+            -55
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour SE U 10",
+      "kind": "U",
+      "origin": [
+        57,
+        20,
+        -55
+      ],
+      "surfaces": [
+        {
+          "low": [
+            57,
+            19,
+            -61
+          ],
+          "high": [
+            62,
+            20,
+            -55
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            57,
+            20,
+            -55
+          ],
+          "high": [
+            62,
+            21,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            20,
+            -54
+          ],
+          "high": [
+            62,
+            22,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            20,
+            -53
+          ],
+          "high": [
+            62,
+            23,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            20,
+            -52
+          ],
+          "high": [
+            62,
+            24,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            20,
+            -51
+          ],
+          "high": [
+            62,
+            25,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            20,
+            -50
+          ],
+          "high": [
+            68,
+            25,
+            -44
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            63,
+            20,
+            -51
+          ],
+          "high": [
+            68,
+            26,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            20,
+            -52
+          ],
+          "high": [
+            68,
+            27,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            20,
+            -53
+          ],
+          "high": [
+            68,
+            28,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            20,
+            -54
+          ],
+          "high": [
+            68,
+            29,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            20,
+            -55
+          ],
+          "high": [
+            68,
+            30,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            20,
+            -61
+          ],
+          "high": [
+            68,
+            30,
+            -55
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour SE U 15",
+      "kind": "U",
+      "origin": [
+        57,
+        30,
+        -55
+      ],
+      "surfaces": [
+        {
+          "low": [
+            57,
+            29,
+            -61
+          ],
+          "high": [
+            62,
+            30,
+            -55
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            57,
+            30,
+            -55
+          ],
+          "high": [
+            62,
+            31,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            30,
+            -54
+          ],
+          "high": [
+            62,
+            32,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            30,
+            -53
+          ],
+          "high": [
+            62,
+            33,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            30,
+            -52
+          ],
+          "high": [
+            62,
+            34,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            30,
+            -51
+          ],
+          "high": [
+            62,
+            35,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            30,
+            -50
+          ],
+          "high": [
+            68,
+            35,
+            -44
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            63,
+            30,
+            -51
+          ],
+          "high": [
+            68,
+            36,
+            -50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            30,
+            -52
+          ],
+          "high": [
+            68,
+            37,
+            -51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            30,
+            -53
+          ],
+          "high": [
+            68,
+            38,
+            -52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            30,
+            -54
+          ],
+          "high": [
+            68,
+            39,
+            -53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            30,
+            -55
+          ],
+          "high": [
+            68,
+            40,
+            -54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            30,
+            -61
+          ],
+          "high": [
+            68,
+            40,
+            -55
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour NO U 0",
+      "kind": "U",
+      "origin": [
+        -68,
+        0,
+        49
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -68,
+            -1,
+            43
+          ],
+          "high": [
+            -63,
+            0,
+            49
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -68,
+            0,
+            49
+          ],
+          "high": [
+            -63,
+            1,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            0,
+            50
+          ],
+          "high": [
+            -63,
+            2,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            0,
+            51
+          ],
+          "high": [
+            -63,
+            3,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            0,
+            52
+          ],
+          "high": [
+            -63,
+            4,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            0,
+            53
+          ],
+          "high": [
+            -63,
+            5,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            0,
+            54
+          ],
+          "high": [
+            -57,
+            5,
+            60
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -62,
+            0,
+            53
+          ],
+          "high": [
+            -57,
+            6,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            0,
+            52
+          ],
+          "high": [
+            -57,
+            7,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            0,
+            51
+          ],
+          "high": [
+            -57,
+            8,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            0,
+            50
+          ],
+          "high": [
+            -57,
+            9,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            0,
+            49
+          ],
+          "high": [
+            -57,
+            10,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            0,
+            43
+          ],
+          "high": [
+            -57,
+            10,
+            49
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour NO U 5",
+      "kind": "U",
+      "origin": [
+        -68,
+        10,
+        49
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -68,
+            9,
+            43
+          ],
+          "high": [
+            -63,
+            10,
+            49
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -68,
+            10,
+            49
+          ],
+          "high": [
+            -63,
+            11,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            10,
+            50
+          ],
+          "high": [
+            -63,
+            12,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            10,
+            51
+          ],
+          "high": [
+            -63,
+            13,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            10,
+            52
+          ],
+          "high": [
+            -63,
+            14,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            10,
+            53
+          ],
+          "high": [
+            -63,
+            15,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            10,
+            54
+          ],
+          "high": [
+            -57,
+            15,
+            60
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -62,
+            10,
+            53
+          ],
+          "high": [
+            -57,
+            16,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            10,
+            52
+          ],
+          "high": [
+            -57,
+            17,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            10,
+            51
+          ],
+          "high": [
+            -57,
+            18,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            10,
+            50
+          ],
+          "high": [
+            -57,
+            19,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            10,
+            49
+          ],
+          "high": [
+            -57,
+            20,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            10,
+            43
+          ],
+          "high": [
+            -57,
+            20,
+            49
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour NO U 10",
+      "kind": "U",
+      "origin": [
+        -68,
+        20,
+        49
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -68,
+            19,
+            43
+          ],
+          "high": [
+            -63,
+            20,
+            49
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -68,
+            20,
+            49
+          ],
+          "high": [
+            -63,
+            21,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            20,
+            50
+          ],
+          "high": [
+            -63,
+            22,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            20,
+            51
+          ],
+          "high": [
+            -63,
+            23,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            20,
+            52
+          ],
+          "high": [
+            -63,
+            24,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            20,
+            53
+          ],
+          "high": [
+            -63,
+            25,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            20,
+            54
+          ],
+          "high": [
+            -57,
+            25,
+            60
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -62,
+            20,
+            53
+          ],
+          "high": [
+            -57,
+            26,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            20,
+            52
+          ],
+          "high": [
+            -57,
+            27,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            20,
+            51
+          ],
+          "high": [
+            -57,
+            28,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            20,
+            50
+          ],
+          "high": [
+            -57,
+            29,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            20,
+            49
+          ],
+          "high": [
+            -57,
+            30,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            20,
+            43
+          ],
+          "high": [
+            -57,
+            30,
+            49
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour NO U 15",
+      "kind": "U",
+      "origin": [
+        -68,
+        30,
+        49
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -68,
+            29,
+            43
+          ],
+          "high": [
+            -63,
+            30,
+            49
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -68,
+            30,
+            49
+          ],
+          "high": [
+            -63,
+            31,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            30,
+            50
+          ],
+          "high": [
+            -63,
+            32,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            30,
+            51
+          ],
+          "high": [
+            -63,
+            33,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            30,
+            52
+          ],
+          "high": [
+            -63,
+            34,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            30,
+            53
+          ],
+          "high": [
+            -63,
+            35,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -68,
+            30,
+            54
+          ],
+          "high": [
+            -57,
+            35,
+            60
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -62,
+            30,
+            53
+          ],
+          "high": [
+            -57,
+            36,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            30,
+            52
+          ],
+          "high": [
+            -57,
+            37,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            30,
+            51
+          ],
+          "high": [
+            -57,
+            38,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            30,
+            50
+          ],
+          "high": [
+            -57,
+            39,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            30,
+            49
+          ],
+          "high": [
+            -57,
+            40,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -62,
+            30,
+            43
+          ],
+          "high": [
+            -57,
+            40,
+            49
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour NE U 0",
+      "kind": "U",
+      "origin": [
+        57,
+        0,
+        49
+      ],
+      "surfaces": [
+        {
+          "low": [
+            57,
+            -1,
+            43
+          ],
+          "high": [
+            62,
+            0,
+            49
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            57,
+            0,
+            49
+          ],
+          "high": [
+            62,
+            1,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            0,
+            50
+          ],
+          "high": [
+            62,
+            2,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            0,
+            51
+          ],
+          "high": [
+            62,
+            3,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            0,
+            52
+          ],
+          "high": [
+            62,
+            4,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            0,
+            53
+          ],
+          "high": [
+            62,
+            5,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            0,
+            54
+          ],
+          "high": [
+            68,
+            5,
+            60
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            63,
+            0,
+            53
+          ],
+          "high": [
+            68,
+            6,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            0,
+            52
+          ],
+          "high": [
+            68,
+            7,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            0,
+            51
+          ],
+          "high": [
+            68,
+            8,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            0,
+            50
+          ],
+          "high": [
+            68,
+            9,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            0,
+            49
+          ],
+          "high": [
+            68,
+            10,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            0,
+            43
+          ],
+          "high": [
+            68,
+            10,
+            49
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour NE U 5",
+      "kind": "U",
+      "origin": [
+        57,
+        10,
+        49
+      ],
+      "surfaces": [
+        {
+          "low": [
+            57,
+            9,
+            43
+          ],
+          "high": [
+            62,
+            10,
+            49
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            57,
+            10,
+            49
+          ],
+          "high": [
+            62,
+            11,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            10,
+            50
+          ],
+          "high": [
+            62,
+            12,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            10,
+            51
+          ],
+          "high": [
+            62,
+            13,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            10,
+            52
+          ],
+          "high": [
+            62,
+            14,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            10,
+            53
+          ],
+          "high": [
+            62,
+            15,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            10,
+            54
+          ],
+          "high": [
+            68,
+            15,
+            60
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            63,
+            10,
+            53
+          ],
+          "high": [
+            68,
+            16,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            10,
+            52
+          ],
+          "high": [
+            68,
+            17,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            10,
+            51
+          ],
+          "high": [
+            68,
+            18,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            10,
+            50
+          ],
+          "high": [
+            68,
+            19,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            10,
+            49
+          ],
+          "high": [
+            68,
+            20,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            10,
+            43
+          ],
+          "high": [
+            68,
+            20,
+            49
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour NE U 10",
+      "kind": "U",
+      "origin": [
+        57,
+        20,
+        49
+      ],
+      "surfaces": [
+        {
+          "low": [
+            57,
+            19,
+            43
+          ],
+          "high": [
+            62,
+            20,
+            49
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            57,
+            20,
+            49
+          ],
+          "high": [
+            62,
+            21,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            20,
+            50
+          ],
+          "high": [
+            62,
+            22,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            20,
+            51
+          ],
+          "high": [
+            62,
+            23,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            20,
+            52
+          ],
+          "high": [
+            62,
+            24,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            20,
+            53
+          ],
+          "high": [
+            62,
+            25,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            20,
+            54
+          ],
+          "high": [
+            68,
+            25,
+            60
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            63,
+            20,
+            53
+          ],
+          "high": [
+            68,
+            26,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            20,
+            52
+          ],
+          "high": [
+            68,
+            27,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            20,
+            51
+          ],
+          "high": [
+            68,
+            28,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            20,
+            50
+          ],
+          "high": [
+            68,
+            29,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            20,
+            49
+          ],
+          "high": [
+            68,
+            30,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            20,
+            43
+          ],
+          "high": [
+            68,
+            30,
+            49
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Tour NE U 15",
+      "kind": "U",
+      "origin": [
+        57,
+        30,
+        49
+      ],
+      "surfaces": [
+        {
+          "low": [
+            57,
+            29,
+            43
+          ],
+          "high": [
+            62,
+            30,
+            49
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            57,
+            30,
+            49
+          ],
+          "high": [
+            62,
+            31,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            30,
+            50
+          ],
+          "high": [
+            62,
+            32,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            30,
+            51
+          ],
+          "high": [
+            62,
+            33,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            30,
+            52
+          ],
+          "high": [
+            62,
+            34,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            30,
+            53
+          ],
+          "high": [
+            62,
+            35,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            57,
+            30,
+            54
+          ],
+          "high": [
+            68,
+            35,
+            60
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            63,
+            30,
+            53
+          ],
+          "high": [
+            68,
+            36,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            30,
+            52
+          ],
+          "high": [
+            68,
+            37,
+            53
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            30,
+            51
+          ],
+          "high": [
+            68,
+            38,
+            52
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            30,
+            50
+          ],
+          "high": [
+            68,
+            39,
+            51
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            30,
+            49
+          ],
+          "high": [
+            68,
+            40,
+            50
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            63,
+            30,
+            43
+          ],
+          "high": [
+            68,
+            40,
+            49
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Donjon U 0",
+      "kind": "U",
+      "origin": [
+        -7,
+        0,
+        53
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -7,
+            -1,
+            47
+          ],
+          "high": [
+            -2,
+            0,
+            53
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -7,
+            0,
+            53
+          ],
+          "high": [
+            -2,
+            1,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            0,
+            54
+          ],
+          "high": [
+            -2,
+            2,
+            55
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            0,
+            55
+          ],
+          "high": [
+            -2,
+            3,
+            56
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            0,
+            56
+          ],
+          "high": [
+            -2,
+            4,
+            57
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            0,
+            57
+          ],
+          "high": [
+            -2,
+            5,
+            58
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            0,
+            58
+          ],
+          "high": [
+            4,
+            5,
+            64
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -1,
+            0,
+            57
+          ],
+          "high": [
+            4,
+            6,
+            58
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            0,
+            56
+          ],
+          "high": [
+            4,
+            7,
+            57
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            0,
+            55
+          ],
+          "high": [
+            4,
+            8,
+            56
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            0,
+            54
+          ],
+          "high": [
+            4,
+            9,
+            55
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            0,
+            53
+          ],
+          "high": [
+            4,
+            10,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            0,
+            47
+          ],
+          "high": [
+            4,
+            10,
+            53
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Donjon U 5",
+      "kind": "U",
+      "origin": [
+        -7,
+        10,
+        53
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -7,
+            9,
+            47
+          ],
+          "high": [
+            -2,
+            10,
+            53
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -7,
+            10,
+            53
+          ],
+          "high": [
+            -2,
+            11,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            10,
+            54
+          ],
+          "high": [
+            -2,
+            12,
+            55
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            10,
+            55
+          ],
+          "high": [
+            -2,
+            13,
+            56
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            10,
+            56
+          ],
+          "high": [
+            -2,
+            14,
+            57
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            10,
+            57
+          ],
+          "high": [
+            -2,
+            15,
+            58
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            10,
+            58
+          ],
+          "high": [
+            4,
+            15,
+            64
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -1,
+            10,
+            57
+          ],
+          "high": [
+            4,
+            16,
+            58
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            10,
+            56
+          ],
+          "high": [
+            4,
+            17,
+            57
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            10,
+            55
+          ],
+          "high": [
+            4,
+            18,
+            56
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            10,
+            54
+          ],
+          "high": [
+            4,
+            19,
+            55
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            10,
+            53
+          ],
+          "high": [
+            4,
+            20,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            10,
+            47
+          ],
+          "high": [
+            4,
+            20,
+            53
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Donjon U 10",
+      "kind": "U",
+      "origin": [
+        -7,
+        20,
+        53
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -7,
+            19,
+            47
+          ],
+          "high": [
+            -2,
+            20,
+            53
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -7,
+            20,
+            53
+          ],
+          "high": [
+            -2,
+            21,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            20,
+            54
+          ],
+          "high": [
+            -2,
+            22,
+            55
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            20,
+            55
+          ],
+          "high": [
+            -2,
+            23,
+            56
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            20,
+            56
+          ],
+          "high": [
+            -2,
+            24,
+            57
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            20,
+            57
+          ],
+          "high": [
+            -2,
+            25,
+            58
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            20,
+            58
+          ],
+          "high": [
+            4,
+            25,
+            64
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -1,
+            20,
+            57
+          ],
+          "high": [
+            4,
+            26,
+            58
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            20,
+            56
+          ],
+          "high": [
+            4,
+            27,
+            57
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            20,
+            55
+          ],
+          "high": [
+            4,
+            28,
+            56
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            20,
+            54
+          ],
+          "high": [
+            4,
+            29,
+            55
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            20,
+            53
+          ],
+          "high": [
+            4,
+            30,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            20,
+            47
+          ],
+          "high": [
+            4,
+            30,
+            53
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Donjon U 15",
+      "kind": "U",
+      "origin": [
+        -7,
+        30,
+        53
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -7,
+            29,
+            47
+          ],
+          "high": [
+            -2,
+            30,
+            53
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -7,
+            30,
+            53
+          ],
+          "high": [
+            -2,
+            31,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            30,
+            54
+          ],
+          "high": [
+            -2,
+            32,
+            55
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            30,
+            55
+          ],
+          "high": [
+            -2,
+            33,
+            56
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            30,
+            56
+          ],
+          "high": [
+            -2,
+            34,
+            57
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            30,
+            57
+          ],
+          "high": [
+            -2,
+            35,
+            58
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            30,
+            58
+          ],
+          "high": [
+            4,
+            35,
+            64
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -1,
+            30,
+            57
+          ],
+          "high": [
+            4,
+            36,
+            58
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            30,
+            56
+          ],
+          "high": [
+            4,
+            37,
+            57
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            30,
+            55
+          ],
+          "high": [
+            4,
+            38,
+            56
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            30,
+            54
+          ],
+          "high": [
+            4,
+            39,
+            55
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            30,
+            53
+          ],
+          "high": [
+            4,
+            40,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            30,
+            47
+          ],
+          "high": [
+            4,
+            40,
+            53
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Donjon U 20",
+      "kind": "U",
+      "origin": [
+        -7,
+        40,
+        53
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -7,
+            39,
+            47
+          ],
+          "high": [
+            -2,
+            40,
+            53
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -7,
+            40,
+            53
+          ],
+          "high": [
+            -2,
+            41,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            40,
+            54
+          ],
+          "high": [
+            -2,
+            42,
+            55
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            40,
+            55
+          ],
+          "high": [
+            -2,
+            43,
+            56
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            40,
+            56
+          ],
+          "high": [
+            -2,
+            44,
+            57
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            40,
+            57
+          ],
+          "high": [
+            -2,
+            45,
+            58
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            40,
+            58
+          ],
+          "high": [
+            4,
+            45,
+            64
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -1,
+            40,
+            57
+          ],
+          "high": [
+            4,
+            46,
+            58
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            40,
+            56
+          ],
+          "high": [
+            4,
+            47,
+            57
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            40,
+            55
+          ],
+          "high": [
+            4,
+            48,
+            56
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            40,
+            54
+          ],
+          "high": [
+            4,
+            49,
+            55
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            40,
+            53
+          ],
+          "high": [
+            4,
+            50,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            40,
+            47
+          ],
+          "high": [
+            4,
+            50,
+            53
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    },
+    {
+      "name": "Donjon U 25",
+      "kind": "U",
+      "origin": [
+        -7,
+        50,
+        53
+      ],
+      "surfaces": [
+        {
+          "low": [
+            -7,
+            49,
+            47
+          ],
+          "high": [
+            -2,
+            50,
+            53
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -7,
+            50,
+            53
+          ],
+          "high": [
+            -2,
+            51,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            50,
+            54
+          ],
+          "high": [
+            -2,
+            52,
+            55
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            50,
+            55
+          ],
+          "high": [
+            -2,
+            53,
+            56
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            50,
+            56
+          ],
+          "high": [
+            -2,
+            54,
+            57
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            50,
+            57
+          ],
+          "high": [
+            -2,
+            55,
+            58
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -7,
+            50,
+            58
+          ],
+          "high": [
+            4,
+            55,
+            64
+          ],
+          "landing": true
+        },
+        {
+          "low": [
+            -1,
+            50,
+            57
+          ],
+          "high": [
+            4,
+            56,
+            58
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            50,
+            56
+          ],
+          "high": [
+            4,
+            57,
+            57
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            50,
+            55
+          ],
+          "high": [
+            4,
+            58,
+            56
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            50,
+            54
+          ],
+          "high": [
+            4,
+            59,
+            55
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            50,
+            53
+          ],
+          "high": [
+            4,
+            60,
+            54
+          ],
+          "landing": false
+        },
+        {
+          "low": [
+            -1,
+            50,
+            47
+          ],
+          "high": [
+            4,
+            60,
+            53
+          ],
+          "landing": true
+        }
+      ],
+      "physicalCellCount": 317,
+      "clearWidthMeters": 2.5,
+      "landingDepthMeters": 3,
+      "headroomMeters": 3.5
+    }
+  ],
+  "features": [
+    {
+      "name": "Base arcade hall -12/-21/0",
+      "room": "",
+      "low": [
+        -26,
+        0,
+        -44
+      ],
+      "high": [
+        -22,
+        1,
+        -40
+      ]
+    },
+    {
+      "name": "Pilier arcade hall -12/-21/0",
+      "room": "",
+      "low": [
+        -25,
+        1,
+        -43
+      ],
+      "high": [
+        -23,
+        8,
+        -41
+      ]
+    },
+    {
+      "name": "Chapiteau arcade hall -12/-21/0",
+      "room": "",
+      "low": [
+        -26,
+        8,
+        -44
+      ],
+      "high": [
+        -22,
+        9,
+        -40
+      ]
+    },
+    {
+      "name": "Base arcade hall -12/-6/0",
+      "room": "",
+      "low": [
+        -26,
+        0,
+        -14
+      ],
+      "high": [
+        -22,
+        1,
+        -10
+      ]
+    },
+    {
+      "name": "Pilier arcade hall -12/-6/0",
+      "room": "",
+      "low": [
+        -25,
+        1,
+        -13
+      ],
+      "high": [
+        -23,
+        8,
+        -11
+      ]
+    },
+    {
+      "name": "Chapiteau arcade hall -12/-6/0",
+      "room": "",
+      "low": [
+        -26,
+        8,
+        -14
+      ],
+      "high": [
+        -22,
+        9,
+        -10
+      ]
+    },
+    {
+      "name": "Base arcade hall 12/-21/0",
+      "room": "",
+      "low": [
+        22,
+        0,
+        -44
+      ],
+      "high": [
+        26,
+        1,
+        -40
+      ]
+    },
+    {
+      "name": "Pilier arcade hall 12/-21/0",
+      "room": "",
+      "low": [
+        23,
+        1,
+        -43
+      ],
+      "high": [
+        25,
+        8,
+        -41
+      ]
+    },
+    {
+      "name": "Chapiteau arcade hall 12/-21/0",
+      "room": "",
+      "low": [
+        22,
+        8,
+        -44
+      ],
+      "high": [
+        26,
+        9,
+        -40
+      ]
+    },
+    {
+      "name": "Base arcade hall 12/-6/0",
+      "room": "",
+      "low": [
+        22,
+        0,
+        -14
+      ],
+      "high": [
+        26,
+        1,
+        -10
+      ]
+    },
+    {
+      "name": "Pilier arcade hall 12/-6/0",
+      "room": "",
+      "low": [
+        23,
+        1,
+        -13
+      ],
+      "high": [
+        25,
+        8,
+        -11
+      ]
+    },
+    {
+      "name": "Chapiteau arcade hall 12/-6/0",
+      "room": "",
+      "low": [
+        22,
+        8,
+        -14
+      ],
+      "high": [
+        26,
+        9,
+        -10
+      ]
+    },
+    {
+      "name": "Base arcade hall -12/-21/5",
+      "room": "",
+      "low": [
+        -26,
+        10,
+        -44
+      ],
+      "high": [
+        -22,
+        11,
+        -40
+      ]
+    },
+    {
+      "name": "Pilier arcade hall -12/-21/5",
+      "room": "",
+      "low": [
+        -25,
+        11,
+        -43
+      ],
+      "high": [
+        -23,
+        18,
+        -41
+      ]
+    },
+    {
+      "name": "Chapiteau arcade hall -12/-21/5",
+      "room": "",
+      "low": [
+        -26,
+        18,
+        -44
+      ],
+      "high": [
+        -22,
+        19,
+        -40
+      ]
+    },
+    {
+      "name": "Base arcade hall -12/-6/5",
+      "room": "",
+      "low": [
+        -26,
+        10,
+        -14
+      ],
+      "high": [
+        -22,
+        11,
+        -10
+      ]
+    },
+    {
+      "name": "Pilier arcade hall -12/-6/5",
+      "room": "",
+      "low": [
+        -25,
+        11,
+        -13
+      ],
+      "high": [
+        -23,
+        18,
+        -11
+      ]
+    },
+    {
+      "name": "Chapiteau arcade hall -12/-6/5",
+      "room": "",
+      "low": [
+        -26,
+        18,
+        -14
+      ],
+      "high": [
+        -22,
+        19,
+        -10
+      ]
+    },
+    {
+      "name": "Base arcade hall 12/-21/5",
+      "room": "",
+      "low": [
+        22,
+        10,
+        -44
+      ],
+      "high": [
+        26,
+        11,
+        -40
+      ]
+    },
+    {
+      "name": "Pilier arcade hall 12/-21/5",
+      "room": "",
+      "low": [
+        23,
+        11,
+        -43
+      ],
+      "high": [
+        25,
+        18,
+        -41
+      ]
+    },
+    {
+      "name": "Chapiteau arcade hall 12/-21/5",
+      "room": "",
+      "low": [
+        22,
+        18,
+        -44
+      ],
+      "high": [
+        26,
+        19,
+        -40
+      ]
+    },
+    {
+      "name": "Base arcade hall 12/-6/5",
+      "room": "",
+      "low": [
+        22,
+        10,
+        -14
+      ],
+      "high": [
+        26,
+        11,
+        -10
+      ]
+    },
+    {
+      "name": "Pilier arcade hall 12/-6/5",
+      "room": "",
+      "low": [
+        23,
+        11,
+        -13
+      ],
+      "high": [
+        25,
+        18,
+        -11
+      ]
+    },
+    {
+      "name": "Chapiteau arcade hall 12/-6/5",
+      "room": "",
+      "low": [
+        22,
+        18,
+        -14
+      ],
+      "high": [
+        26,
+        19,
+        -10
+      ]
+    },
+    {
+      "name": "Base trône -10/-1",
+      "room": "Grande salle du trône",
+      "low": [
+        -22,
+        10,
+        -4
+      ],
+      "high": [
+        -18,
+        11,
+        0
+      ]
+    },
+    {
+      "name": "Colonne trône -10/-1",
+      "room": "Grande salle du trône",
+      "low": [
+        -21,
+        11,
+        -3
+      ],
+      "high": [
+        -19,
+        18,
+        -1
+      ]
+    },
+    {
+      "name": "Chapiteau trône -10/-1",
+      "room": "Grande salle du trône",
+      "low": [
+        -22,
+        18,
+        -4
+      ],
+      "high": [
+        -18,
+        19,
+        0
+      ]
+    },
+    {
+      "name": "Base trône -10/5",
+      "room": "Grande salle du trône",
+      "low": [
+        -22,
+        10,
+        8
+      ],
+      "high": [
+        -18,
+        11,
+        12
+      ]
+    },
+    {
+      "name": "Colonne trône -10/5",
+      "room": "Grande salle du trône",
+      "low": [
+        -21,
+        11,
+        9
+      ],
+      "high": [
+        -19,
+        18,
+        11
+      ]
+    },
+    {
+      "name": "Chapiteau trône -10/5",
+      "room": "Grande salle du trône",
+      "low": [
+        -22,
+        18,
+        8
+      ],
+      "high": [
+        -18,
+        19,
+        12
+      ]
+    },
+    {
+      "name": "Base trône 10/-1",
+      "room": "Grande salle du trône",
+      "low": [
+        18,
+        10,
+        -4
+      ],
+      "high": [
+        22,
+        11,
+        0
+      ]
+    },
+    {
+      "name": "Colonne trône 10/-1",
+      "room": "Grande salle du trône",
+      "low": [
+        19,
+        11,
+        -3
+      ],
+      "high": [
+        21,
+        18,
+        -1
+      ]
+    },
+    {
+      "name": "Chapiteau trône 10/-1",
+      "room": "Grande salle du trône",
+      "low": [
+        18,
+        18,
+        -4
+      ],
+      "high": [
+        22,
+        19,
+        0
+      ]
+    },
+    {
+      "name": "Base trône 10/5",
+      "room": "Grande salle du trône",
+      "low": [
+        18,
+        10,
+        8
+      ],
+      "high": [
+        22,
+        11,
+        12
+      ]
+    },
+    {
+      "name": "Colonne trône 10/5",
+      "room": "Grande salle du trône",
+      "low": [
+        19,
+        11,
+        9
+      ],
+      "high": [
+        21,
+        18,
+        11
+      ]
+    },
+    {
+      "name": "Chapiteau trône 10/5",
+      "room": "Grande salle du trône",
+      "low": [
+        18,
+        18,
+        8
+      ],
+      "high": [
+        22,
+        19,
+        12
+      ]
+    },
+    {
+      "name": "Premier degré estrade",
+      "room": "Grande salle du trône",
+      "low": [
+        -9,
+        10,
+        8
+      ],
+      "high": [
+        9,
+        11,
+        18
+      ]
+    },
+    {
+      "name": "Deuxième degré estrade",
+      "room": "Grande salle du trône",
+      "low": [
+        -8,
+        11,
+        11
+      ],
+      "high": [
+        8,
+        12,
+        18
+      ]
+    },
+    {
+      "name": "Plateau de l’estrade",
+      "room": "Grande salle du trône",
+      "low": [
+        -7,
+        12,
+        14
+      ],
+      "high": [
+        7,
+        13,
+        18
+      ]
+    },
+    {
+      "name": "Siège du trône",
+      "room": "Grande salle du trône",
+      "low": [
+        -2,
+        13,
+        15
+      ],
+      "high": [
+        2,
+        14,
+        18
+      ]
+    },
+    {
+      "name": "Dossier du trône",
+      "room": "Grande salle du trône",
+      "low": [
+        -2,
+        14,
+        17
+      ],
+      "high": [
+        2,
+        17,
+        18
+      ]
+    },
+    {
+      "name": "Accoudoir du trône -1.5",
+      "room": "Grande salle du trône",
+      "low": [
+        -3,
+        13,
+        15
+      ],
+      "high": [
+        -2,
+        15,
+        18
+      ]
+    },
+    {
+      "name": "Accoudoir du trône 1",
+      "room": "Grande salle du trône",
+      "low": [
+        2,
+        13,
+        15
+      ],
+      "high": [
+        3,
+        15,
+        18
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural -1/0/-22",
+      "room": "",
+      "low": [
+        -54,
+        0,
+        -44
+      ],
+      "high": [
+        -52,
+        1,
+        -36
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural -1/0/-14",
+      "room": "",
+      "low": [
+        -54,
+        0,
+        -28
+      ],
+      "high": [
+        -52,
+        1,
+        -20
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural -1/0/10",
+      "room": "",
+      "low": [
+        -54,
+        0,
+        20
+      ],
+      "high": [
+        -52,
+        1,
+        28
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural -1/0/18",
+      "room": "",
+      "low": [
+        -54,
+        0,
+        36
+      ],
+      "high": [
+        -52,
+        1,
+        44
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural 1/0/-22",
+      "room": "",
+      "low": [
+        52,
+        0,
+        -44
+      ],
+      "high": [
+        54,
+        1,
+        -36
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural 1/0/-14",
+      "room": "",
+      "low": [
+        52,
+        0,
+        -28
+      ],
+      "high": [
+        54,
+        1,
+        -20
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural 1/0/10",
+      "room": "",
+      "low": [
+        52,
+        0,
+        20
+      ],
+      "high": [
+        54,
+        1,
+        28
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural 1/0/18",
+      "room": "",
+      "low": [
+        52,
+        0,
+        36
+      ],
+      "high": [
+        54,
+        1,
+        44
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural -1/5/-22",
+      "room": "",
+      "low": [
+        -54,
+        10,
+        -44
+      ],
+      "high": [
+        -52,
+        11,
+        -36
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural -1/5/-14",
+      "room": "",
+      "low": [
+        -54,
+        10,
+        -28
+      ],
+      "high": [
+        -52,
+        11,
+        -20
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural -1/5/10",
+      "room": "",
+      "low": [
+        -54,
+        10,
+        20
+      ],
+      "high": [
+        -52,
+        11,
+        28
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural -1/5/18",
+      "room": "",
+      "low": [
+        -54,
+        10,
+        36
+      ],
+      "high": [
+        -52,
+        11,
+        44
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural 1/5/-22",
+      "room": "",
+      "low": [
+        52,
+        10,
+        -44
+      ],
+      "high": [
+        54,
+        11,
+        -36
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural 1/5/-14",
+      "room": "",
+      "low": [
+        52,
+        10,
+        -28
+      ],
+      "high": [
+        54,
+        11,
+        -20
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural 1/5/10",
+      "room": "",
+      "low": [
+        52,
+        10,
+        20
+      ],
+      "high": [
+        54,
+        11,
+        28
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural 1/5/18",
+      "room": "",
+      "low": [
+        52,
+        10,
+        36
+      ],
+      "high": [
+        54,
+        11,
+        44
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural -1/10/-22",
+      "room": "",
+      "low": [
+        -54,
+        20,
+        -44
+      ],
+      "high": [
+        -52,
+        21,
+        -36
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural -1/10/-14",
+      "room": "",
+      "low": [
+        -54,
+        20,
+        -28
+      ],
+      "high": [
+        -52,
+        21,
+        -20
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural -1/10/10",
+      "room": "",
+      "low": [
+        -54,
+        20,
+        20
+      ],
+      "high": [
+        -52,
+        21,
+        28
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural -1/10/18",
+      "room": "",
+      "low": [
+        -54,
+        20,
+        36
+      ],
+      "high": [
+        -52,
+        21,
+        44
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural 1/10/-22",
+      "room": "",
+      "low": [
+        52,
+        20,
+        -44
+      ],
+      "high": [
+        54,
+        21,
+        -36
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural 1/10/-14",
+      "room": "",
+      "low": [
+        52,
+        20,
+        -28
+      ],
+      "high": [
+        54,
+        21,
+        -20
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural 1/10/10",
+      "room": "",
+      "low": [
+        52,
+        20,
+        20
+      ],
+      "high": [
+        54,
+        21,
+        28
+      ]
+    },
+    {
+      "name": "Banquette/présentoir mural 1/10/18",
+      "room": "",
+      "low": [
+        52,
+        20,
+        36
+      ],
+      "high": [
+        54,
+        21,
+        44
+      ]
+    },
+    {
+      "name": "Table des banquets",
+      "room": "Salle des banquets",
+      "low": [
+        -49,
+        0,
+        37
+      ],
+      "high": [
+        -43,
+        2,
+        43
+      ]
+    },
+    {
+      "name": "Table du conseil",
+      "room": "Salle du conseil",
+      "low": [
+        -49,
+        10,
+        37
+      ],
+      "high": [
+        -43,
+        12,
+        43
+      ]
+    },
+    {
+      "name": "Rayon archives -12.5/-22/10.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        -25,
+        21,
+        -44
+      ],
+      "high": [
+        -23,
+        22,
+        -38
+      ]
+    },
+    {
+      "name": "Rayon archives -12.5/-22/12",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        -25,
+        24,
+        -44
+      ],
+      "high": [
+        -23,
+        25,
+        -38
+      ]
+    },
+    {
+      "name": "Rayon archives -12.5/-22/13.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        -25,
+        27,
+        -44
+      ],
+      "high": [
+        -23,
+        28,
+        -38
+      ]
+    },
+    {
+      "name": "Rayon archives 11.5/-22/10.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        23,
+        21,
+        -44
+      ],
+      "high": [
+        25,
+        22,
+        -38
+      ]
+    },
+    {
+      "name": "Rayon archives 11.5/-22/12",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        23,
+        24,
+        -44
+      ],
+      "high": [
+        25,
+        25,
+        -38
+      ]
+    },
+    {
+      "name": "Rayon archives 11.5/-22/13.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        23,
+        27,
+        -44
+      ],
+      "high": [
+        25,
+        28,
+        -38
+      ]
+    },
+    {
+      "name": "Rayon archives -12.5/-17/10.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        -25,
+        21,
+        -34
+      ],
+      "high": [
+        -23,
+        22,
+        -28
+      ]
+    },
+    {
+      "name": "Rayon archives -12.5/-17/12",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        -25,
+        24,
+        -34
+      ],
+      "high": [
+        -23,
+        25,
+        -28
+      ]
+    },
+    {
+      "name": "Rayon archives -12.5/-17/13.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        -25,
+        27,
+        -34
+      ],
+      "high": [
+        -23,
+        28,
+        -28
+      ]
+    },
+    {
+      "name": "Rayon archives 11.5/-17/10.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        23,
+        21,
+        -34
+      ],
+      "high": [
+        25,
+        22,
+        -28
+      ]
+    },
+    {
+      "name": "Rayon archives 11.5/-17/12",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        23,
+        24,
+        -34
+      ],
+      "high": [
+        25,
+        25,
+        -28
+      ]
+    },
+    {
+      "name": "Rayon archives 11.5/-17/13.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        23,
+        27,
+        -34
+      ],
+      "high": [
+        25,
+        28,
+        -28
+      ]
+    },
+    {
+      "name": "Rayon archives -12.5/-12/10.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        -25,
+        21,
+        -24
+      ],
+      "high": [
+        -23,
+        22,
+        -18
+      ]
+    },
+    {
+      "name": "Rayon archives -12.5/-12/12",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        -25,
+        24,
+        -24
+      ],
+      "high": [
+        -23,
+        25,
+        -18
+      ]
+    },
+    {
+      "name": "Rayon archives -12.5/-12/13.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        -25,
+        27,
+        -24
+      ],
+      "high": [
+        -23,
+        28,
+        -18
+      ]
+    },
+    {
+      "name": "Rayon archives 11.5/-12/10.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        23,
+        21,
+        -24
+      ],
+      "high": [
+        25,
+        22,
+        -18
+      ]
+    },
+    {
+      "name": "Rayon archives 11.5/-12/12",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        23,
+        24,
+        -24
+      ],
+      "high": [
+        25,
+        25,
+        -18
+      ]
+    },
+    {
+      "name": "Rayon archives 11.5/-12/13.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        23,
+        27,
+        -24
+      ],
+      "high": [
+        25,
+        28,
+        -18
+      ]
+    },
+    {
+      "name": "Rayon archives -12.5/-7/10.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        -25,
+        21,
+        -14
+      ],
+      "high": [
+        -23,
+        22,
+        -8
+      ]
+    },
+    {
+      "name": "Rayon archives -12.5/-7/12",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        -25,
+        24,
+        -14
+      ],
+      "high": [
+        -23,
+        25,
+        -8
+      ]
+    },
+    {
+      "name": "Rayon archives -12.5/-7/13.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        -25,
+        27,
+        -14
+      ],
+      "high": [
+        -23,
+        28,
+        -8
+      ]
+    },
+    {
+      "name": "Rayon archives 11.5/-7/10.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        23,
+        21,
+        -14
+      ],
+      "high": [
+        25,
+        22,
+        -8
+      ]
+    },
+    {
+      "name": "Rayon archives 11.5/-7/12",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        23,
+        24,
+        -14
+      ],
+      "high": [
+        25,
+        25,
+        -8
+      ]
+    },
+    {
+      "name": "Rayon archives 11.5/-7/13.5",
+      "room": "Grande bibliothèque des archives",
+      "low": [
+        23,
+        27,
+        -14
+      ],
+      "high": [
+        25,
+        28,
+        -8
+      ]
+    },
+    {
+      "name": "Rayonnage lecture 10/10.5",
+      "room": "Bibliothèque de lecture",
+      "low": [
+        -54,
+        21,
+        20
+      ],
+      "high": [
+        -52,
+        22,
+        28
+      ]
+    },
+    {
+      "name": "Rayonnage lecture 10/12",
+      "room": "Bibliothèque de lecture",
+      "low": [
+        -54,
+        24,
+        20
+      ],
+      "high": [
+        -52,
+        25,
+        28
+      ]
+    },
+    {
+      "name": "Rayonnage lecture 10/13.5",
+      "room": "Bibliothèque de lecture",
+      "low": [
+        -54,
+        27,
+        20
+      ],
+      "high": [
+        -52,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "Rayonnage lecture 18/10.5",
+      "room": "Bibliothèque de lecture",
+      "low": [
+        -54,
+        21,
+        36
+      ],
+      "high": [
+        -52,
+        22,
+        44
+      ]
+    },
+    {
+      "name": "Rayonnage lecture 18/12",
+      "room": "Bibliothèque de lecture",
+      "low": [
+        -54,
+        24,
+        36
+      ],
+      "high": [
+        -52,
+        25,
+        44
+      ]
+    },
+    {
+      "name": "Rayonnage lecture 18/13.5",
+      "room": "Bibliothèque de lecture",
+      "low": [
+        -54,
+        27,
+        36
+      ],
+      "high": [
+        -52,
+        28,
+        44
+      ]
+    },
+    {
+      "name": "Socle de trophée 20/10.5",
+      "room": "Salle des trophées",
+      "low": [
+        40,
+        20,
+        21
+      ],
+      "high": [
+        43,
+        22,
+        24
+      ]
+    },
+    {
+      "name": "Socle de trophée 24/10.5",
+      "room": "Salle des trophées",
+      "low": [
+        48,
+        20,
+        21
+      ],
+      "high": [
+        51,
+        22,
+        24
+      ]
+    },
+    {
+      "name": "Socle de trophée 20/20",
+      "room": "Salle des trophées",
+      "low": [
+        40,
+        20,
+        40
+      ],
+      "high": [
+        43,
+        22,
+        43
+      ]
+    },
+    {
+      "name": "Socle de trophée 24/20",
+      "room": "Salle des trophées",
+      "low": [
+        48,
+        20,
+        40
+      ],
+      "high": [
+        51,
+        22,
+        43
+      ]
+    },
+    {
+      "name": "Alcôve royale -1",
+      "room": "Appartement royal -1",
+      "low": [
+        -24,
+        20,
+        12
+      ],
+      "high": [
+        -18,
+        21,
+        18
+      ]
+    },
+    {
+      "name": "Cabinet royal -1",
+      "room": "Appartement royal -1",
+      "low": [
+        -24,
+        21,
+        17
+      ],
+      "high": [
+        -18,
+        24,
+        18
+      ]
+    },
+    {
+      "name": "Alcôve royale 1",
+      "room": "Appartement royal 1",
+      "low": [
+        18,
+        20,
+        12
+      ],
+      "high": [
+        24,
+        21,
+        18
+      ]
+    },
+    {
+      "name": "Cabinet royal 1",
+      "room": "Appartement royal 1",
+      "low": [
+        18,
+        21,
+        17
+      ],
+      "high": [
+        24,
+        24,
+        18
+      ]
+    },
+    {
+      "name": "Alcôve des hôtes -1",
+      "room": "Chambre des hôtes",
+      "low": [
+        -51,
+        20,
+        -44
+      ],
+      "high": [
+        -45,
+        21,
+        -38
+      ]
+    },
+    {
+      "name": "Alcôve des hôtes 1",
+      "room": "Chambre des hôtes",
+      "low": [
+        45,
+        20,
+        -44
+      ],
+      "high": [
+        51,
+        21,
+        -38
+      ]
+    },
+    {
+      "name": "Table basse du salon -1",
+      "room": "Salon noble",
+      "low": [
+        -50,
+        10,
+        -44
+      ],
+      "high": [
+        -44,
+        11,
+        -40
+      ]
+    },
+    {
+      "name": "Table basse du salon 1",
+      "room": "Salon des hôtes",
+      "low": [
+        44,
+        10,
+        -44
+      ],
+      "high": [
+        50,
+        11,
+        -40
+      ]
+    },
+    {
+      "name": "Four architectural des offices",
+      "room": "Cuisine et offices",
+      "low": [
+        44,
+        0,
+        40
+      ],
+      "high": [
+        49,
+        3,
+        44
+      ]
+    },
+    {
+      "name": "Râtelier des gardes",
+      "room": "Salle des gardes",
+      "low": [
+        -54,
+        1,
+        -44
+      ],
+      "high": [
+        -53,
+        5,
+        -36
+      ]
+    },
+    {
+      "name": "Présentoir de la salle des armes",
+      "room": "Salle des armes",
+      "low": [
+        53,
+        1,
+        -44
+      ],
+      "high": [
+        54,
+        5,
+        -36
+      ]
+    },
+    {
+      "name": "Banquette de tour SO/0",
+      "room": "Tour SO",
+      "low": [
+        -50,
+        0,
+        -55
+      ],
+      "high": [
+        -48,
+        1,
+        -49
+      ]
+    },
+    {
+      "name": "Banquette de tour SO/5",
+      "room": "Tour SO",
+      "low": [
+        -50,
+        10,
+        -55
+      ],
+      "high": [
+        -48,
+        11,
+        -49
+      ]
+    },
+    {
+      "name": "Banquette de tour SO/10",
+      "room": "Tour SO",
+      "low": [
+        -50,
+        20,
+        -55
+      ],
+      "high": [
+        -48,
+        21,
+        -49
+      ]
+    },
+    {
+      "name": "Banquette de tour SO/15",
+      "room": "Tour SO",
+      "low": [
+        -50,
+        30,
+        -55
+      ],
+      "high": [
+        -48,
+        31,
+        -49
+      ]
+    },
+    {
+      "name": "Banquette de tour SE/0",
+      "room": "Tour SE",
+      "low": [
+        48,
+        0,
+        -55
+      ],
+      "high": [
+        50,
+        1,
+        -49
+      ]
+    },
+    {
+      "name": "Banquette de tour SE/5",
+      "room": "Tour SE",
+      "low": [
+        48,
+        10,
+        -55
+      ],
+      "high": [
+        50,
+        11,
+        -49
+      ]
+    },
+    {
+      "name": "Banquette de tour SE/10",
+      "room": "Tour SE",
+      "low": [
+        48,
+        20,
+        -55
+      ],
+      "high": [
+        50,
+        21,
+        -49
+      ]
+    },
+    {
+      "name": "Banquette de tour SE/15",
+      "room": "Tour SE",
+      "low": [
+        48,
+        30,
+        -55
+      ],
+      "high": [
+        50,
+        31,
+        -49
+      ]
+    },
+    {
+      "name": "Banquette de tour NO/0",
+      "room": "Tour NO",
+      "low": [
+        -50,
+        0,
+        49
+      ],
+      "high": [
+        -48,
+        1,
+        55
+      ]
+    },
+    {
+      "name": "Banquette de tour NO/5",
+      "room": "Tour NO",
+      "low": [
+        -50,
+        10,
+        49
+      ],
+      "high": [
+        -48,
+        11,
+        55
+      ]
+    },
+    {
+      "name": "Banquette de tour NO/10",
+      "room": "Tour NO",
+      "low": [
+        -50,
+        20,
+        49
+      ],
+      "high": [
+        -48,
+        21,
+        55
+      ]
+    },
+    {
+      "name": "Banquette de tour NO/15",
+      "room": "Tour NO",
+      "low": [
+        -50,
+        30,
+        49
+      ],
+      "high": [
+        -48,
+        31,
+        55
+      ]
+    },
+    {
+      "name": "Banquette de tour NE/0",
+      "room": "Tour NE",
+      "low": [
+        48,
+        0,
+        49
+      ],
+      "high": [
+        50,
+        1,
+        55
+      ]
+    },
+    {
+      "name": "Banquette de tour NE/5",
+      "room": "Tour NE",
+      "low": [
+        48,
+        10,
+        49
+      ],
+      "high": [
+        50,
+        11,
+        55
+      ]
+    },
+    {
+      "name": "Banquette de tour NE/10",
+      "room": "Tour NE",
+      "low": [
+        48,
+        20,
+        49
+      ],
+      "high": [
+        50,
+        21,
+        55
+      ]
+    },
+    {
+      "name": "Banquette de tour NE/15",
+      "room": "Tour NE",
+      "low": [
+        48,
+        30,
+        49
+      ],
+      "high": [
+        50,
+        31,
+        55
+      ]
+    },
+    {
+      "name": "Banquette du donjon 0/22",
+      "room": "Donjon — chambre 0 m",
+      "low": [
+        14,
+        0,
+        44
+      ],
+      "high": [
+        16,
+        1,
+        50
+      ]
+    },
+    {
+      "name": "Banquette du donjon 0/31",
+      "room": "Donjon — chambre 0 m",
+      "low": [
+        14,
+        0,
+        62
+      ],
+      "high": [
+        16,
+        1,
+        68
+      ]
+    },
+    {
+      "name": "Banquette du donjon 5/22",
+      "room": "Donjon — chambre 5 m",
+      "low": [
+        14,
+        10,
+        44
+      ],
+      "high": [
+        16,
+        11,
+        50
+      ]
+    },
+    {
+      "name": "Banquette du donjon 5/31",
+      "room": "Donjon — chambre 5 m",
+      "low": [
+        14,
+        10,
+        62
+      ],
+      "high": [
+        16,
+        11,
+        68
+      ]
+    },
+    {
+      "name": "Banquette du donjon 10/22",
+      "room": "Donjon — chambre 10 m",
+      "low": [
+        14,
+        20,
+        44
+      ],
+      "high": [
+        16,
+        21,
+        50
+      ]
+    },
+    {
+      "name": "Banquette du donjon 10/31",
+      "room": "Donjon — chambre 10 m",
+      "low": [
+        14,
+        20,
+        62
+      ],
+      "high": [
+        16,
+        21,
+        68
+      ]
+    },
+    {
+      "name": "Banquette du donjon 15/22",
+      "room": "Donjon — chambre 15 m",
+      "low": [
+        14,
+        30,
+        44
+      ],
+      "high": [
+        16,
+        31,
+        50
+      ]
+    },
+    {
+      "name": "Banquette du donjon 15/31",
+      "room": "Donjon — chambre 15 m",
+      "low": [
+        14,
+        30,
+        62
+      ],
+      "high": [
+        16,
+        31,
+        68
+      ]
+    },
+    {
+      "name": "Banquette du donjon 20/22",
+      "room": "Donjon — chambre 20 m",
+      "low": [
+        14,
+        40,
+        44
+      ],
+      "high": [
+        16,
+        41,
+        50
+      ]
+    },
+    {
+      "name": "Banquette du donjon 20/31",
+      "room": "Donjon — chambre 20 m",
+      "low": [
+        14,
+        40,
+        62
+      ],
+      "high": [
+        16,
+        41,
+        68
+      ]
+    },
+    {
+      "name": "Banquette du donjon 25/22",
+      "room": "Donjon — chambre 25 m",
+      "low": [
+        14,
+        50,
+        44
+      ],
+      "high": [
+        16,
+        51,
+        50
+      ]
+    },
+    {
+      "name": "Banquette du donjon 25/31",
+      "room": "Donjon — chambre 25 m",
+      "low": [
+        14,
+        50,
+        62
+      ],
+      "high": [
+        16,
+        51,
+        68
+      ]
+    }
+  ],
+  "cages": [
+    {
+      "name": "Cage tour SO",
+      "low": [
+        -69,
+        0,
+        -61
+      ],
+      "high": [
+        -56,
+        40,
+        -43
+      ]
+    },
+    {
+      "name": "Cage tour SE",
+      "low": [
+        56,
+        0,
+        -61
+      ],
+      "high": [
+        69,
+        40,
+        -43
+      ]
+    },
+    {
+      "name": "Cage tour NO",
+      "low": [
+        -69,
+        0,
+        43
+      ],
+      "high": [
+        -56,
+        40,
+        61
+      ]
+    },
+    {
+      "name": "Cage tour NE",
+      "low": [
+        56,
+        0,
+        43
+      ],
+      "high": [
+        69,
+        40,
+        61
+      ]
+    },
+    {
+      "name": "Cage du donjon",
+      "low": [
+        -8,
+        0,
+        47
+      ],
+      "high": [
+        5,
+        60,
+        65
+      ]
+    },
+    {
+      "name": "Cage ouest L",
+      "low": [
+        -53,
+        0,
+        -10
+      ],
+      "high": [
+        -35,
+        20,
+        7
+      ]
+    },
+    {
+      "name": "Cage est U",
+      "low": [
+        36,
+        0,
+        -10
+      ],
+      "high": [
+        49,
+        20,
+        8
+      ]
+    }
+  ]
+}
