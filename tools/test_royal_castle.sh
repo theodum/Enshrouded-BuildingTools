@@ -5,7 +5,7 @@ cd "$(dirname "$0")/.."
 mkdir -p build
 compiler=${HOSTCXX:-c++}
 "$compiler" -std=c++17 -O2 tools/castle_host.cpp -o build/castle_host
-for name in core project project_actions materials storeys voxel_stairs extended extended_config project_export; do
+for name in core project project_actions materials storeys voxel_stairs extended extended_config project_export native_props native_prop_checks native_snapshot native_calibration classic_composite classic_reader; do
     "$compiler" -std=c++17 -O1 "-DSRC_DIR=\"$(pwd)/tests\"" "tests/test_$name.cpp" -o "build/test_$name"
     if [ "$name" = core ] && [ -n "${ENSHROUDED_EXE:-}" ]; then
         "./build/test_$name" "$ENSHROUDED_EXE"

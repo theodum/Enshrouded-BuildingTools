@@ -17,7 +17,10 @@ DOCS={'EXTENDED-TESTING.md':'TESTING','BTPROJECT.md':'FORMAT','EXTENDED-STATUS.m
       'DEV5-VALIDATION.md':'BASELINE-DEV5','DEV5-MATERIALS-FIX.md':'MATERIALS-FIX',
       'DEV6-AUDIT.md':'TECHNICAL-AUDIT','ARCHITECTURE-ROADMAP.md':'ROADMAP',
       'DEV6-MULTISTOREY.md':'MULTISTOREY','DEV6-VALIDATION.md':'BASELINE-DEV6',
-      'DEV7-VOXEL-STAIRS.md':'VOXEL-STAIRS','DEV7-VALIDATION.md':'VALIDATION'}
+      'DEV7-VOXEL-STAIRS.md':'VOXEL-STAIRS','DEV7-VALIDATION.md':'VALIDATION',
+      'DEV8-NATIVE-OBJECTS.md':'NATIVE-OBJECTS','DEV8-VALIDATION.md':'NATIVE-VALIDATION','DEV9-CATALOG.md':'CATALOG',
+      'DEV10-NATIVE-PLACEMENT-FIX.md':'NATIVE-PLACEMENT-FIX','DEV11-TABLE-CHANGED.md':'TABLE-CHANGED',
+      'DEV12-CLASSIC-COMPOSITIONS.md':'CLASSIC-COMPOSITIONS'}
 
 
 def packaged_doc(source):
@@ -63,12 +66,23 @@ def verify():
     imports=check_pe(dll)
     fixtures=[p for folder in ('three-modules','dev3','dev7') for p in (ROOT/'examples'/folder).iterdir() if p.suffix in ('.btbp','.btproject')]
     assert len(fixtures)==74 and len({p.name for p in fixtures})==74
+    fixtures += list((ROOT/'examples/dev8').glob('*.recipe.json'))
+    assert len(fixtures)==75 and len({p.name for p in fixtures})==75
+    fixtures += [p for p in (ROOT/'examples/dev9').iterdir() if p.suffix in ('.btbp','.btproject','.json')]
+    assert len(fixtures)==79 and len({p.name for p in fixtures})==79
+    fixtures += [p for p in (ROOT/'examples/dev10').iterdir() if p.suffix in ('.btbp','.btproject','.json')]
+    assert len(fixtures)==90 and len({p.name for p in fixtures})==90
+    fixtures += list((ROOT/'examples/dev11').glob('*.json'))
+    assert len(fixtures)==91 and len({p.name for p in fixtures})==91
+    fixtures += [p for p in (ROOT/'examples/dev12').iterdir() if p.suffix in ('.btbp','.btproject','.json')]
+    assert len(fixtures)==95 and len({p.name for p in fixtures})==95
     languages=list((ROOT/'lang').glob('*.txt'));assert len(languages)==15
     common={'BuildingTools-LICENSE.txt':(ROOT/'LICENSE').read_bytes(),
             'BuildingTools-Extended.ini.example':(ROOT/'package/BuildingTools-Extended.ini.example').read_bytes(),
             'BuildingToolsExtended-CHANGELOG.md':(ROOT/'CHANGELOG.md').read_bytes()}
     common.update({'BuildingTools-Languages/'+p.name:p.read_bytes() for p in languages})
     common.update({'BuildingTools-Projects/'+p.name:p.read_bytes() for p in fixtures})
+    common.update({'BuildingTools-Catalog/'+p.name:p.read_bytes() for p in (ROOT/'catalog').iterdir() if p.is_file()})
     common.update({'BuildingToolsExtended-'+label+'.md':packaged_doc(source) for source,label in DOCS.items()})
     checksums=[]
     for sf in (False,True):

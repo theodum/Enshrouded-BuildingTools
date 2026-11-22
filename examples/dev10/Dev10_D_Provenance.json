@@ -1,0 +1,19 @@
+{
+  "format": "BuildingToolsFurnishingProvenance",
+  "version": 1,
+  "manifest": "Dev10_D_Cinq_Meubles.btproject",
+  "objects": 5,
+  "voxelCells": 0,
+  "nativePieces": 0,
+  "inGameValidated": false,
+  "unverifiedDraft": false,
+  "indexSHA256": "e161bf7c5e53db2df3d7177e5a07b3a1a7102a2f054dc45f8931cf3587b3c07e",
+  "referenceHashes": {},
+  "anchor": [
+    0,
+    0,
+    0
+  ],
+  "requiredWorldOrigin": null,
+  "requiredWorldRotation": null
+}

@@ -73,6 +73,23 @@ if [ "$1" = "test" ] || [ "$1" = "package" ]; then
     ./build/test_extended_config
     ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_project_export tests/test_project_export.cpp
     ./build/test_project_export
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_native_props tests/test_native_props.cpp
+    ./build/test_native_props
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_native_prop_checks tests/test_native_prop_checks.cpp
+    ./build/test_native_prop_checks
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_native_snapshot tests/test_native_snapshot.cpp
+    ./build/test_native_snapshot
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_native_calibration tests/test_native_calibration.cpp
+    ./build/test_native_calibration
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_classic_composite tests/test_classic_composite.cpp
+    ./build/test_classic_composite
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/test_classic_reader tests/test_classic_reader.cpp
+    ./build/test_classic_reader
+    ${HOSTCXX:-c++} -std=c++17 -O1 -o build/native_furniture_host tools/native_furniture_host.cpp
+    python3 -m unittest discover -s tests -p 'test_native_furniture.py'
+    python3 -m unittest discover -s tests -p 'test_native_item_catalog.py'
+    python3 -m unittest discover -s tests -p 'test_dev10_single_object.py'
+    python3 -m unittest discover -s tests -p 'test_classic_composite.py'
 fi
 
 if [ "$1" = "package" ]; then
@@ -87,6 +104,13 @@ if [ "$1" = "package" ]; then
     cp examples/three-modules/*.btbp examples/three-modules/*.btproject build/pkg/BuildingTools-Projects/
     cp examples/dev3/*.btbp examples/dev3/*.btproject build/pkg/BuildingTools-Projects/
     cp examples/dev7/*.btbp examples/dev7/*.btproject build/pkg/BuildingTools-Projects/
+    cp examples/dev8/*.recipe.json build/pkg/BuildingTools-Projects/
+    cp examples/dev9/*.btbp examples/dev9/*.btproject examples/dev9/*.recipe.json examples/dev9/furnishing-provenance.json build/pkg/BuildingTools-Projects/
+    cp examples/dev10/*.btbp examples/dev10/*.btproject examples/dev10/*.json build/pkg/BuildingTools-Projects/
+    cp examples/dev11/*.json build/pkg/BuildingTools-Projects/
+    cp examples/dev12/*.btbp examples/dev12/*.btproject examples/dev12/*.json build/pkg/BuildingTools-Projects/
+    mkdir -p build/pkg/BuildingTools-Catalog
+    cp catalog/* build/pkg/BuildingTools-Catalog/
     cp package/BuildingTools-Extended.ini.example build/pkg/
     package_doc() {
         sed -e 's/](EXTENDED-TESTING.md)/](BuildingToolsExtended-TESTING.md)/g' \
@@ -104,7 +128,13 @@ if [ "$1" = "package" ]; then
             -e 's/](DEV6-MULTISTOREY.md)/](BuildingToolsExtended-MULTISTOREY.md)/g' \
             -e 's/](DEV6-VALIDATION.md)/](BuildingToolsExtended-BASELINE-DEV6.md)/g' \
             -e 's/](DEV7-VOXEL-STAIRS.md)/](BuildingToolsExtended-VOXEL-STAIRS.md)/g' \
-            -e 's/](DEV7-VALIDATION.md)/](BuildingToolsExtended-VALIDATION.md)/g' "$1" > "build/pkg/BuildingToolsExtended-$2.md"
+            -e 's/](DEV7-VALIDATION.md)/](BuildingToolsExtended-VALIDATION.md)/g' \
+            -e 's/](DEV8-NATIVE-OBJECTS.md)/](BuildingToolsExtended-NATIVE-OBJECTS.md)/g' \
+            -e 's/](DEV8-VALIDATION.md)/](BuildingToolsExtended-NATIVE-VALIDATION.md)/g' \
+            -e 's/](DEV9-CATALOG.md)/](BuildingToolsExtended-CATALOG.md)/g' \
+            -e 's/](DEV10-NATIVE-PLACEMENT-FIX.md)/](BuildingToolsExtended-NATIVE-PLACEMENT-FIX.md)/g' \
+            -e 's/](DEV11-TABLE-CHANGED.md)/](BuildingToolsExtended-TABLE-CHANGED.md)/g' \
+            -e 's/](DEV12-CLASSIC-COMPOSITIONS.md)/](BuildingToolsExtended-CLASSIC-COMPOSITIONS.md)/g' "$1" > "build/pkg/BuildingToolsExtended-$2.md"
     }
     package_doc docs/EXTENDED-TESTING.md TESTING
     package_doc docs/BTPROJECT.md FORMAT
@@ -122,11 +152,17 @@ if [ "$1" = "package" ]; then
     package_doc docs/DEV6-VALIDATION.md BASELINE-DEV6
     package_doc docs/DEV7-VOXEL-STAIRS.md VOXEL-STAIRS
     package_doc docs/DEV7-VALIDATION.md VALIDATION
+    package_doc docs/DEV8-NATIVE-OBJECTS.md NATIVE-OBJECTS
+    package_doc docs/DEV8-VALIDATION.md NATIVE-VALIDATION
+    package_doc docs/DEV9-CATALOG.md CATALOG
+    package_doc docs/DEV10-NATIVE-PLACEMENT-FIX.md NATIVE-PLACEMENT-FIX
+    package_doc docs/DEV11-TABLE-CHANGED.md TABLE-CHANGED
+    package_doc docs/DEV12-CLASSIC-COMPOSITIONS.md CLASSIC-COMPOSITIONS
     cp CHANGELOG.md build/pkg/BuildingToolsExtended-CHANGELOG.md
     ZIP="dist/EnshroudedBuildingTools-$VERSION.zip"
     rm -f "$ZIP"
     (cd build/pkg && zip -q -9 "../../$ZIP" dinput8.dll BuildingTools-README.txt BuildingTools-LICENSE.txt BuildingTools-Extended.ini.example BuildingTools-Languages/*.txt \
-        BuildingTools-Projects/* BuildingToolsExtended-*.md)
+        BuildingTools-Projects/* BuildingTools-Catalog/* BuildingToolsExtended-*.md)
     echo "packaged $ZIP"
 
     # Shroudforge layout (second Nexus file): the same DLL as mods/building-tools/BuildingTools.dll,
@@ -141,6 +177,8 @@ if [ "$1" = "package" ]; then
     cp lang/*.txt build/pkg-sf/BuildingTools-Languages/
     mkdir -p build/pkg-sf/BuildingTools-Projects
     cp build/pkg/BuildingTools-Projects/* build/pkg-sf/BuildingTools-Projects/
+    mkdir -p build/pkg-sf/BuildingTools-Catalog
+    cp build/pkg/BuildingTools-Catalog/* build/pkg-sf/BuildingTools-Catalog/
     cp build/pkg/BuildingToolsExtended-*.md build/pkg-sf/
     cp build/pkg/BuildingTools-Extended.ini.example build/pkg-sf/
     SFZIP="dist/EnshroudedBuildingTools-Shroudforge-$VERSION.zip"
@@ -148,6 +186,6 @@ if [ "$1" = "package" ]; then
     (cd build/pkg-sf && zip -q -9 "../../$SFZIP" mods/building-tools/BuildingTools.dll mods/building-tools/mod.json \
         mods/building-tools/extended.mod.json mods/building-tools/native-plugin.ini \
         BuildingTools-README.txt BuildingTools-LICENSE.txt BuildingTools-Extended.ini.example BuildingTools-Languages/*.txt \
-        BuildingTools-Projects/* BuildingToolsExtended-*.md)
+        BuildingTools-Projects/* BuildingTools-Catalog/* BuildingToolsExtended-*.md)
     echo "packaged $SFZIP"
 fi

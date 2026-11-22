@@ -8,7 +8,7 @@ constexpr int MaxModules = 128, MaxCells = 1048576, MaxBytes = 524288, MaxPieces
 constexpr int MaxSpaces = 512, MaxSpaceColumns = 65536;
 constexpr int Unit = 16, Cell = 8; // integer sixteenths of a metre; native 0.5 m voxels
 constexpr int MaxCoord = 1048576;
-struct Module { char file[192]; int offset[3]; int rotation; int category; };
+struct Module { char file[192]; int offset[3]; int rotation; int category; bool objectsOnly=false,classicObjects=false; };
 struct NativePiece { uint32_t item; int offset[3]; int rotation; uint32_t material; int clearance; };
 struct Space { int lo[3],hi[3]; }; // reserved air above a complete voxel walking surface
 struct Manifest { char name[192]; int grid; int anchor[3]; int count; Module modules[MaxModules]; int pieceCount; NativePiece pieces[MaxPieces]; int spaceCount; Space spaces[MaxSpaces]; };
@@ -118,7 +118,7 @@ struct Reader {
     bool field(unsigned* seen, unsigned bit) { if (*seen & bit) return fail("Repeated JSON field"); *seen |= bit; return true; }
     bool module(Module* m) {
         if (!want('{')) return false;
-        unsigned seen = 0; m->rotation = 0; m->category = 0;
+        unsigned seen = 0; m->rotation = 0; m->category = 0;m->objectsOnly=m->classicObjects=false;
         do {
             char key[32]; if (!string(key, sizeof key) || !want(':')) return false;
             if (equal(key, "file")) { if (!field(&seen, 1) || !string(m->file, sizeof m->file) || !safe_file(m->file)) return fail("Expected a .btbp filename in the project directory"); }
@@ -133,9 +133,15 @@ struct Reader {
                 int at = 0; while (at < 7 && !equal(value, names[at])) ++at;
                 if (at == 7) return fail("Unknown architectural category");
                 m->category = at;
+            } else if(equal(key,"content")){
+                char value[24];if(!field(&seen,16)||!string(value,sizeof value))return false;
+                if(!equal(value,"all")&&!equal(value,"objects"))return fail("Unknown module content");m->objectsOnly=equal(value,"objects");
+            } else if(equal(key,"objectPlacement")){
+                char value[24];if(!field(&seen,32)||!string(value,sizeof value))return false;
+                if(!equal(value,"checked")&&!equal(value,"blueprint"))return fail("Unknown object placement method");m->classicObjects=equal(value,"blueprint");
             } else return fail("Unknown module field");
         } while (take(','));
-        return want('}') && ((seen & 3) == 3 || fail("Module needs file and offset"));
+        return want('}') && ((seen & 3) == 3 || fail("Module needs file and offset"))&&(!m->classicObjects||m->objectsOnly||fail("Blueprint placement requires objects-only content"));
     }
     bool piece(NativePiece* piece) {
         if (!want('{')) return false;
@@ -225,6 +231,9 @@ inline bool decode(const char* data, int size, Manifest* out, Error* error) {
     for (int a = 0; a < 3; ++a) if (out->anchor[a] % Cell) return r.fail("Anchor must align to the 0.5 m grid");
     for (int m = 0; m < out->count; ++m)
         for (int a = 0; a < 3; ++a) if (out->modules[m].offset[a] % Cell) { error->module = m; return r.fail("Module offset must align to the 0.5 m grid"); }
+    bool classic=false;for(int m=0;m<out->count;++m)classic|=out->modules[m].classicObjects;
+    if(classic){if(out->pieceCount||out->spaceCount)return r.fail("Classic compositions require an independent objects-only project");
+        for(int m=0;m<out->count;++m)if(!out->modules[m].classicObjects)return r.fail("Keep classic compositions separate from checked structure projects");}
     return true;
 }
 
@@ -265,6 +274,7 @@ inline bool add(Plan* plan, const Module& module, int index, const core::BpHeade
         scale[a] = (int)v / Cell;
     }
     turnedScale[0] = scale[module.rotation & 1 ? 2 : 0]; turnedScale[1] = scale[1]; turnedScale[2] = scale[module.rotation & 1 ? 0 : 2];
+    if(module.objectsOnly){plan->objects+=h.objects;return true;}
     int mapping[core::BP_MAX_MATS];
     for (int m = 0; m < h.nm; ++m) {
         if (!h.m[m].item || h.m[m].mat < 0x80) return fail(error, "Blueprint contains an unidentified building material", index);

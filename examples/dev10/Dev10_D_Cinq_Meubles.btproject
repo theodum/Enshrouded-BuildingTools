@@ -1,0 +1,24 @@
+{
+  "format": "BuildingToolsExtendedProject",
+  "version": 1,
+  "name": "Dev10 - Etape D APRES A B C - cinq meubles",
+  "gridSize": 0.5,
+  "anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "modules": [
+    {
+      "file": "Dev10_D_Cinq_Meubles.btbp",
+      "offset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": 0,
+      "category": "furniture"
+    }
+  ],
+  "pieces": []
+}

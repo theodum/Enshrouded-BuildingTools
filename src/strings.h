@@ -398,10 +398,10 @@
     X(S_EXT_ZONES, "extended.zones", "Show altar coverage") \
     X(S_EXT_MODULES, "extended.modules", "Show module volumes") \
     X(S_EXT_OBJECT_CREATIVE, "extended.object_creative", "Enable Creative native objects, or turn creative building off to pay for objects") \
-    X(S_EXT_OBJECT_UNSAFE, "extended.object_unsafe", "An unknown, special or logic-linked object was refused; omit objects to build only blocks") \
-    X(S_EXT_OBJECT_HELP, "extended.object_help", "Compatible props use the original creation procedure; their behavior still needs in-game testing. Logic-linked doors/windows, wired objects and altars are refused. Native payment checks object stock per batch; failure can stop after blocks were built.") \
+    X(S_EXT_OBJECT_UNSAFE, "extended.object_unsafe", "Unknown, special or disabled logic object refused; no ID was replaced") \
+    X(S_EXT_OBJECT_HELP, "extended.object_help", "Props reuse original blueprint placement. Logic objects require explicit experimental opt-in; links and contents are not copied. Interactions need in-game testing. Native stock is checked per batch; failure can stop after blocks were built.") \
     X(S_EXT_CATALOG, "extended.catalog", "Native materials and objects library") \
-    X(S_EXT_CATALOG_HELP, "extended.catalog_help", "IDs and names are read from the game. Pick a material for components/replacement, a native piece for stairs, or a compatible prop to preview/place without owning it in extended creative mode. Logic-linked items are listed for inspection only.") \
+    X(S_EXT_CATALOG_HELP, "extended.catalog_help", "Real IDs, names and model bounds are read from the game. Select a material, assign eight furniture roles and prepare/export the furnished demo. Suggestions use names only; confirm the selected models. Logic items require explicit opt-in.") \
     X(S_EXT_MATERIALS, "extended.materials", "Building materials") \
     X(S_EXT_PROPS, "extended.props", "Compatible native objects") \
     X(S_EXT_PIECES, "extended.pieces", "Native building pieces") \
@@ -492,7 +492,7 @@
     X(S_EXT_EXPERIMENTAL, "extended.experimental", "Experimental native placement (test world)") \
     X(S_EXT_NATIVE_DISABLED, "extended.native_disabled", "Automatic native objects/pieces are disabled. Enable Experimental native placement in Home > Options > Construction creative/native objects after reading the limits. Block-only projects remain available.") \
     X(S_EXT_EXPERIMENT_HELP, "extended.experiment_help", "Native objects and stairs are unvalidated in-game. Special/progression/logic-linked composite objects are refused; entity collisions and full rollback are unavailable. Use a test world.") \
-    X(S_EXT_LINKED_HELP, "extended.linked_help", "Read-only category: special, progression or logic-linked objects require creation events unavailable to the composite context. Place them with the original game tool.") \
+    X(S_EXT_LINKED_HELP, "extended.linked_help", "Read-only category: special, progression or currently disabled logic objects. Experimental original-blueprint logic copy is available through the explicit option; special/progression items remain refused.") \
     X(S_EXT_BATCH, "extended.batch", "Maximum voxels per batch") \
     X(S_EXT_PIECE_BUDGET, "extended.piece_budget", "Native bounds exceed the safe probe budget (4096 voxels including headroom). Use a smaller native piece or place it manually.") \
     X(S_EXT_TRACE, "extended.trace", "Trace native manual object events (read only)") \
@@ -560,6 +560,53 @@
     X(S_EXT_ALTAR_BOUNDS, "extended.altar_bounds", "Observed altar zone {0}: low ({1}), high ({2}) m. Native coverage checks remain authoritative.") \
     X(S_EXT_SPATIAL_DETAIL, "extended.spatial_detail", "Position ({0}) m; {1}. See BuildingTools.log.") \
     X(S_EXT_NATIVE_MISSING, "extended.native_missing", "Native piece {0}, ID {1}, material {2}: {3}.") \
+    X(S_EXT_PROP_ASSIGN, "extended.prop_assign", "Use catalogue choice for") \
+    X(S_EXT_CLASSIC_BATCH, "extended.classic_batch", "The captured composition exceeds this native batch budget. It was not split or placed partially.") \
+    X(S_EXT_CLASSIC_EDITED, "extended.classic_edited", "This captured composition has individual edits. Reload its source or import a new classic blueprint to preserve its recorded contacts.") \
+    X(S_EXT_CLASSIC_IMPORT, "extended.classic_import", "Import this blueprint as a furniture-only composite (original native placement)") \
+    X(S_EXT_BP_OBJECTS_OFF, "extended.bp_objects_off", "Enable Objects: Build in the classic blueprint options; the shared blueprint queue currently leaves objects out.") \
+    X(S_EXT_CLASSIC_HELP, "extended.classic_help", "Captured composition: source object order and contacts retained; outside props, voxels and altar coverage checked. No source voxel will be built. Original logic links and chest contents are not copied.") \
+    X(S_EXT_SCAN_EXACT, "extended.scan_exact", "World reading refused: {0}. This is not a confirmed collision. See native scan DATA in BuildingTools.log; index -1 denotes world reading.") \
+    X(S_EXT_CALIBRATE, "extended.calibrate", "Calibrate one manually placed object during this blueprint capture") \
+    X(S_EXT_CALIBRATION_HELP, "extended.calibration_help", "Capture exactly one complete furniture object. Native item, template, bounds and unit scale are verified; no guessed dimensions. World unchanged.") \
+    X(S_EXT_CALIBRATION_LOAD, "extended.calibration_load", "Load a saved calibration (prepares one furniture object)") \
+    X(S_EXT_SINGLE_TABLE, "extended.single_table", "Prepare one verified crude wooden table (zero structure)") \
+    X(S_EXT_CALIBRATION_READY, "extended.calibration_ready", "Calibration saved: {0}. Original blueprint capture preserved. No object placed.") \
+    X(S_EXT_CALIBRATION_ERROR, "extended.calibration_error", "Calibration refused: {0}. See BuildingTools.log. No native data substituted.") \
+    X(S_EXT_ALREADY_PRESENT, "extended.already_present", "An existing object occupies this placement. Stopped to avoid duplication; no automatic replay.") \
+    X(S_EXT_ROLE_REFUSED, "extended.role_refused", "Furniture role {0}, item {1}: native resolution refused ({2}). No replacement made.") \
+    X(S_EXT_INDEX_SEARCH, "extended.index_search", "Search name or ID (click to type, Enter ends typing)") \
+    X(S_EXT_INDEX_CATEGORY, "extended.index_category", "Imported category (name hint only)") \
+    X(S_EXT_INDEX_DEMO, "extended.index_demo", "Select the eight exact CSV demo IDs") \
+    X(S_EXT_INDEX_DEMO_READY, "extended.index_demo_ready", "CSV demo IDs selected, not validated. Enable original logic copy if needed, then prepare the measured room. No world change.") \
+    X(S_EXT_FURNITURE_EXPORT, "extended.furniture_export", "Export furniture only (zero voxels and native pieces)") \
+    X(S_EXT_PROP_ADD, "extended.prop_add", "Add one object to the current draft") \
+    X(S_EXT_PROP_BED, "extended.prop_bed", "Demo: bed") \
+    X(S_EXT_PROP_TABLE, "extended.prop_table", "Demo: table") \
+    X(S_EXT_PROP_CHAIR, "extended.prop_chair", "Demo: two chairs") \
+    X(S_EXT_PROP_TORCH, "extended.prop_torch", "Demo: two wall torches") \
+    X(S_EXT_PROP_PAINTING, "extended.prop_painting", "Demo: painting") \
+    X(S_EXT_PROP_CHEST, "extended.prop_chest", "Demo: chest") \
+    X(S_EXT_PROP_SMALL, "extended.prop_small", "Demo: two table decorations") \
+    X(S_EXT_PROP_FLOOR, "extended.prop_floor", "Demo: floor decoration") \
+    X(S_EXT_PROP_SUGGEST, "extended.prop_suggest", "Suggest available demo objects (French/English names)") \
+    X(S_EXT_PROP_ROOM, "extended.prop_room", "Prepare the furnished test room (replaces the draft)") \
+    X(S_EXT_PROP_DEMO_READY, "extended.prop_demo_ready", "Draft ready: room and 11 native objects. Export, reload and Check before building. No world change.") \
+    X(S_EXT_PROP_DEMO_FIT, "extended.prop_demo_fit", "Selected model does not fit the room, a support surface or a clear aisle. Select a smaller suitable object; previous draft kept.") \
+    X(S_EXT_PROP_CATALOG_EXPORT, "extended.prop_catalog_export", "Export the identified native object catalogue") \
+    X(S_EXT_PROP_CATALOG_DONE, "extended.prop_catalog_done", "Catalogue saved in BuildingTools-Projects: {0}") \
+    X(S_EXT_PROP_CATALOG_FAIL, "extended.prop_catalog_fail", "Complete verified catalogue unavailable or export failed. Open the material selector and refresh the library.") \
+    X(S_EXT_PROP_INVALID, "extended.prop_invalid", "Native object ID or measured bounds unavailable. No replacement was made.") \
+    X(S_EXT_PROP_OVERLAP, "extended.prop_overlap", "Native object bounds intersect another planned or existing object.") \
+    X(S_EXT_PROP_SUPPORT, "extended.prop_support", "No verified floor, wall or supporting furniture surface for this object.") \
+    X(S_EXT_PROP_LIMIT, "extended.prop_limit", "This object operation exceeds the 2048-object validation budget.") \
+    X(S_EXT_PROP_SCAN_LIMIT, "extended.prop_scan_limit", "More than 512 objects in the capture area; use a smaller area. No incomplete blueprint was saved.") \
+    X(S_EXT_PROP_SCAN_FAILED, "extended.prop_scan_failed", "Existing-object scan unavailable, incomplete, changed or over budget. Operation refused; see the item ID and log.") \
+    X(S_EXT_PROP_SCANNING, "extended.prop_scanning", "Reading existing objects for collision and support checks; world unchanged...") \
+    X(S_EXT_PROP_DETAIL, "extended.prop_detail", "Object index {0}, native item {1}.") \
+    X(S_EXT_PROP_LOGIC, "extended.prop_logic", "Allow the original blueprint logic-object copy (experimental)") \
+    X(S_EXT_PROP_LOGIC_HELP, "extended.prop_logic_help", "Reuses the original blueprint event writer. Logic links, wiring and container contents are not copied. Door and light interactions require an in-game test. Special items remain refused.") \
+    X(S_EXT_PROP_COUNTS, "extended.prop_counts", "Native objects placed: {0}/{1}; failed placement calls: {2}.") \
     X(S_EXT_VOXEL_STAIRS, "extended.voxel_stairs", "Voxel stairs") \
     X(S_EXT_VOXEL_L, "extended.voxel_l", "L-shaped") \
     X(S_EXT_VOXEL_U, "extended.voxel_u", "U-shaped") \

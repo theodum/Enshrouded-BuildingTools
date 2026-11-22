@@ -1,0 +1,22 @@
+{
+  "format": "BuildingToolsScannerFailureEvidence",
+  "version": 1,
+  "source": "BuildingTools.log",
+  "sourceSHA256": "e4d697e182f0bda4d8dad4c8cdf38b0b6a01e51fec701ffe1be95b8544e6d9e5",
+  "gameEXESHA256": "5d9ef2f140b8ed49e30dbee655841b89d08baec20f799a1817e171a18a850c77",
+  "testedMod": "0.34.0-dev10",
+  "project": "Dev10_A_Table_Unique.btproject",
+  "item": 3507087400,
+  "loadedObjects": 1,
+  "loadedVoxels": 0,
+  "transformComponentObserved": 133,
+  "capacityObserved": 1048576,
+  "failures": [
+    {"action": "inspect", "time": "13:53:36.980", "code": "E_TABLE_CHANGED", "slot": 599, "visited": 34, "props": 3, "kept": 0, "restarts": 2},
+    {"action": "build", "time": "13:53:44.078", "code": "E_TABLE_CHANGED", "slot": 978, "visited": 48, "props": 7, "kept": 0, "restarts": 2}
+  ],
+  "limits": "Dev10 did not record which coherence field changed or its before/after values. No claim that the native table is immutable or that an offset false positive has been observed.",
+  "replacementMethod": "classic_ecs_bitset_snapshot",
+  "nativePlacementTestedByAgent": false,
+  "persistenceTestedByAgent": false
+}

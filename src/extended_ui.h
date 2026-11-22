@@ -36,7 +36,7 @@ static void draw_project_summary_diagnostics() {
             auto absent=[&](uint32_t id){++missing;if(!first)first=id;};
             for(int i=0;i<g_projectManifest.pieceCount;++i){const auto& p=g_projectManifest.pieces[i];if(!project_piece_item(p))absent(p.item);
                 if(p.material && !bp_block_item(g_bpItemById(p.material,g_bpItemReg)))absent(p.material);}
-            if(g_projectUseObjects)for(int i=0;i<g_projectObjectCount;++i)if(!extended_prop_item(g_bpItemById(g_projectObjects[i].item,g_bpItemReg)))absent(g_projectObjects[i].item);
+            if(g_projectUseObjects)for(int i=0;i<g_projectObjectCount;++i)if(!project_prop_item(g_bpItemById(g_projectObjects[i].item,g_bpItemReg)))absent(g_projectObjects[i].item);
             Buf info,id;id.x(first);info.fmt(T(S_EXT_NATIVE_ISSUES),num(missing).s,missing?id.z():"-");bp_text(info.z());
         }
     }
@@ -50,6 +50,7 @@ static void draw_diagnostic_rows() {
     bp_text(T(S_EXT_DIAG_HELP));
     draw_project_summary_diagnostics();
     if (g_projectOperation) {
+        Buf objects;objects.fmt(T(S_EXT_PROP_COUNTS),num(g_projectPropCounts.placed).s,num(g_projectRunObjects).s,num(g_projectPropCounts.failed).s);bp_text(objects.z());
         Buf id,row; id.x(g_projectOperation); row.fmt(T(S_EXT_OPERATION),id.z(),num(g_projectJob.completed).s,num(g_projectJob.total).s); bp_text(row.z());
         Buf timing; timing.fmt(T(S_EXT_CHECK_MS),num(g_projectWorstCheck).s,num(g_projectActiveLimit).s); bp_text(timing.z());
         if (ui_button(T(S_EXT_REPORT), !g_projectRunning)) {
@@ -131,9 +132,35 @@ static void draw_extended_tools() {
 static void draw_catalog_window() {
     static int kind = 0, page = 0;
     static int append = 1, module = 1, offset[3] = {}, rotation = 0;
+    static int furnitureTarget=0,sourceCategory=0;
+    static char previousSearch[64]={};if(!project::equal(previousSearch,g_catalogSearch)){copy_text(previousSearch,g_catalogSearch,sizeof previousSearch);page=0;}
     BpFrame frame; bp_frame_begin(frame, T(S_EXT_CATALOG), T(S_EXT_CATALOG_HELP));
     const char* kinds[] = {T(S_EXT_MATERIALS), T(S_EXT_PROPS), T(S_EXT_PIECES), T(S_EXT_LINKED)}; LONG value;
     if (ui_option(T(S_EXT_CATEGORY), kinds, 4, kind, &value)) { kind = value; page = 0; }
+    Buf query;query.str(T(S_EXT_INDEX_SEARCH)).str(": ").str(g_catalogSearch);if(g_catalogSearchEdit)query.c('_');
+    const bool typingKey=(GetAsyncKeyState(VK_SPACE)&0x8000)||(GetAsyncKeyState(VK_RETURN)&0x8000);
+    if(ui_button(query.z())&&!typingKey)g_catalogSearchEdit=!g_catalogSearchEdit;
+    const char* categories[15];categories[0]=T(S_EXT_ALL);for(int i=0;i<14;++i)categories[i+1]=itemindex::Categories[i];
+    if(ui_option(T(S_EXT_INDEX_CATEGORY),categories,15,sourceCategory,&value)){sourceCategory=value;page=0;}
+    auto matches=[&](int i){if(g_catalog[i].kind!=kind)return false;const auto* source=itemindex::find(g_catalog[i].item);
+        if(sourceCategory&&(!source||source->category!=sourceCategory-1))return false;
+        Buf id;id.u(g_catalog[i].item).c(' ').x(g_catalog[i].item);
+        return itemindex::contains(id.z(),g_catalogSearch)||(source&&itemindex::contains(source->name,g_catalogSearch))||itemindex::contains(bp_item_name_cached(g_catalog[i].item),g_catalogSearch);};
+    const char* targets[]={T(S_EXT_PROP_ADD),T(S_EXT_PROP_BED),T(S_EXT_PROP_TABLE),T(S_EXT_PROP_CHAIR),T(S_EXT_PROP_TORCH),T(S_EXT_PROP_PAINTING),T(S_EXT_PROP_CHEST),T(S_EXT_PROP_SMALL),T(S_EXT_PROP_FLOOR)};
+    const char* logicOptions[]={T(S_OPT_OFF),T(S_OPT_ON)};
+    if(ui_option(T(S_EXT_PROP_LOGIC),logicOptions,2,g_projectBlueprintLogic,&value)&&!g_projectRunning){g_projectBlueprintLogic=value;++g_projectGeneration;g_projectNeedN=0;catalog_refresh();}
+    bp_text(T(S_EXT_PROP_LOGIC_HELP));
+    if(ui_option(T(S_EXT_PROP_ASSIGN),targets,9,furnitureTarget,&value))furnitureTarget=value;
+    if(ui_button(T(S_EXT_PROP_SUGGEST)))furniture_suggest();
+    if(ui_button(T(S_EXT_INDEX_DEMO)))furniture_csv_roles();
+    if(ui_button(T(S_EXT_SINGLE_TABLE)))calibration_single_table();
+    static bool calibrations=false;if(ui_button(T(S_EXT_CALIBRATION_LOAD))){calibrations=!calibrations;if(calibrations)calibration_list();}
+    if(calibrations)for(int i=0;i<g_nativeCalibrationCount;++i){char name[192];bp_utf8(g_nativeCalibrationFiles[i],name,sizeof name);if(ui_button(name)){calibration_load(i);break;}}
+    if(g_nativeCalibrationError[0])bp_text(g_nativeCalibrationError);
+    for(int r=0;r<props::RoleCount;++r){Buf selected;selected.str(targets[r+1]).str(": ");if(g_furnitureSelected[r])bp_item_label(selected,g_furnitureSelected[r]);else selected.str("-");bp_text(selected.z());}
+    if(ui_button(T(S_EXT_PROP_ROOM)))furniture_prepare();
+    if(g_furnitureError[0])bp_text(g_furnitureError);
+    if(ui_button(T(S_EXT_PROP_CATALOG_EXPORT))){char name[128];if(native_catalog_export(name,sizeof name)){Buf text;text.fmt(T(S_EXT_PROP_CATALOG_DONE),name);flash(text.z());}else flash(T(S_EXT_PROP_CATALOG_FAIL));}
     if (kind==3) bp_text(T(S_EXT_LINKED_HELP));
     if (kind==1 || kind==2) bp_text(T(S_EXT_EXPERIMENT_HELP));
     if (kind == 1) {
@@ -146,19 +173,23 @@ static void draw_catalog_window() {
     }
     if (ui_button(T(S_EXT_REFRESH))) catalog_refresh();
     if (!g_catalogCount) bp_text(T(S_PROJECT_UNAVAILABLE));
-    int total = 0; for (int i = 0; i < g_catalogCount; ++i) if (g_catalog[i].kind == kind) ++total;
+    int total = 0; for (int i = 0; i < g_catalogCount; ++i) if (matches(i)) ++total;
     const int pages = (total + 19) / 20; if (page >= pages) page = 0;
     int newPage; if (pages > 1 && ui_int(T(S_EXT_PAGE), page + 1, 1, pages, 1, &newPage)) page = newPage - 1;
     int index = 0;
     for (int i = 0; i < g_catalogCount; ++i) {
-        if (g_catalog[i].kind != kind) continue;
+        if (!matches(i)) continue;
         if (index++ < page * 20 || index > (page + 1) * 20) continue;
-        Buf label; bp_item_label(label, g_catalog[i].item); label.str(" (").x(g_catalog[i].item).c(')');
+        Buf label;const auto* source=itemindex::find(g_catalog[i].item);
+        if(source)label.str(source->name);else bp_item_label(label,g_catalog[i].item);
+        label.str(" (").x(g_catalog[i].item).c(')');
         if (ui_button(label.z(), kind != 3)) {
             if (kind == 0) { g_catalogMaterial = g_catalog[i].item; flash(T(S_EXT_SELECTED)); }
             if (kind == 2) { g_catalogPiece = g_catalog[i].item; flash(T(S_EXT_SELECTED)); }
-            if (kind==1) { if (catalog_object(g_catalog[i].item,offset,rotation,append!=0,module-1)) break; flash(T(S_EXT_OBJECT_BOUNDS_FAIL)); }
+            if (kind==1) {if(furnitureTarget){g_furnitureSelected[furnitureTarget-1]=g_catalog[i].item;flash(T(S_EXT_SELECTED));}
+                else {if (catalog_object(g_catalog[i].item,offset,rotation,append!=0,module-1)) break; flash(T(S_EXT_OBJECT_BOUNDS_FAIL));}}
         }
+        if(kind==1||kind==3)bp_text(nativecatalog::name(native_item_resolution(g_catalog[i].item)));
     }
     bp_frame_rows_end(frame); BpRow row; bp_row_begin(row);
     if (ui_button(T(S_BP_BACK))) g_bpPage = 0;

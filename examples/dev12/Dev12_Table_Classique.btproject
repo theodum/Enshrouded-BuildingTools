@@ -1,0 +1,26 @@
+{
+  "format": "BuildingToolsExtendedProject",
+  "version": 1,
+  "name": "Dev12_Table_Classique - composition classique conservee",
+  "gridSize": 0.5,
+  "anchor": [
+    0.0,
+    0.5,
+    0.0
+  ],
+  "modules": [
+    {
+      "file": "Dev12_Table_Classique_Source.btbp",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "category": "furniture",
+      "content": "objects",
+      "objectPlacement": "blueprint"
+    }
+  ],
+  "pieces": []
+}

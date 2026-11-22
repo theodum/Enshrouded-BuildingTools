@@ -1,0 +1,135 @@
+{
+  "sourceSHA256": "7147654d0e59e4a69a99b8cb2338a8f4ada128651a654561b0074d6a636e956b",
+  "sourceBytes": 224,
+  "step": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "dimensions": [
+    8,
+    8,
+    8
+  ],
+  "sourceVoxelCells": 64,
+  "objectCount": 5,
+  "objects": [
+    {
+      "index": 0,
+      "item": 1488697302,
+      "hex": "0x58bbb7d6",
+      "position": [
+        0.91064453125,
+        1.19921875,
+        2.73779296875
+      ],
+      "rotation": [
+        0.0,
+        0.9655685424804688,
+        0.0,
+        -0.2601488530635834
+      ],
+      "recordOffset": 64
+    },
+    {
+      "index": 1,
+      "item": 2939168228,
+      "hex": "0xaf3025e4",
+      "position": [
+        0.337890625,
+        1.19921875,
+        2.747314453125
+      ],
+      "rotation": [
+        0.0,
+        0.9999990463256836,
+        0.0,
+        -0.0013837706064805388
+      ],
+      "recordOffset": 96
+    },
+    {
+      "index": 2,
+      "item": 807271393,
+      "hex": "0x301dfbe1",
+      "position": [
+        0.76708984375,
+        1.19921875,
+        3.099609375
+      ],
+      "rotation": [
+        0.0,
+        0.8662901520729065,
+        0.0,
+        0.49954119324684143
+      ],
+      "recordOffset": 128
+    },
+    {
+      "index": 3,
+      "item": 807271393,
+      "hex": "0x301dfbe1",
+      "position": [
+        0.33837890625,
+        1.19921875,
+        3.129638671875
+      ],
+      "rotation": [
+        0.0,
+        0.8662901520729065,
+        0.0,
+        0.49954119324684143
+      ],
+      "recordOffset": 160
+    },
+    {
+      "index": 4,
+      "item": 3329412877,
+      "hex": "0xc672cf0d",
+      "position": [
+        0.74169921875,
+        0.449951171875,
+        2.930419921875
+      ],
+      "rotation": [
+        0.0,
+        0.9999990463256836,
+        0.0,
+        -0.0013837706064805388
+      ],
+      "recordOffset": 192
+    }
+  ],
+  "serializedProperties": [
+    "inventoryID",
+    "position",
+    "quaternion"
+  ],
+  "notSerialized": [
+    "templateGUID",
+    "scale",
+    "containerContents",
+    "fuel",
+    "logicLinks",
+    "customState"
+  ],
+  "compositePlacementValidatedInGame": false,
+  "persistenceValidated": false,
+  "sourceName": "esaai blueprint tabel.btbp",
+  "moduleFile": "Dev12_Table_Classique_Source.btbp",
+  "buildVoxelCells": 0,
+  "sourceVoxelRole": "captured support contacts, never rebuilt",
+  "instances": [
+    [
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "anchor": [
+    0.0,
+    0.5,
+    0.0
+  ]
+}

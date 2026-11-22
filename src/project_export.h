@@ -1,14 +1,18 @@
 // Export into NEW BTBP files; publish the manifest last by atomic rename.
 // Sparse plans are partitioned into 16 m tiles, never a giant dense blueprint.
 #include "project_spaces.h"
-static bool project_export(char* result, int capacity) {
+#include "blueprint_composition.h"
+#include "blueprint_composite_export.h"
+static bool project_export(char* result, int capacity, bool furnitureOnly=false) {
     ProjectStateGuard guard;
     if (!g_projectLoaded || g_projectRunning) return false;
-    if(spaces::validate(g_projectPlan,g_projectManifest)!=spaces::Issue::None)return false;
+    if(composition::classic(g_projectManifest))return project_export_classic_refs(result,capacity);
+    if(!furnitureOnly&&spaces::validate(g_projectPlan,g_projectManifest)!=spaces::Issue::None)return false;
+    if(furnitureOnly&&!g_projectObjectCount)return false;
     struct Tile { int low[3]; uint16_t module; uint8_t category; };
     static Tile tiles[project::MaxModules]; int tileCount = 0;
     auto tile_low = [](int value) { return value >= 0 ? value / 256 * 256 : -((-value + 255) / 256 * 256); };
-    for (int i = 0; i < g_projectPlan.count; ++i) {
+    for (int i = 0; i < (furnitureOnly?0:g_projectPlan.count); ++i) {
         const auto& cell = g_projectPlan.cells[i]; Tile tile{}; tile.module = cell.module; tile.category = cell.category;
         for (int a = 0; a < 3; ++a) { if (cell.p[a] % 8) return false; tile.low[a] = tile_low(cell.p[a]); }
         int at = 0; while (at < tileCount && (tiles[at].module != tile.module || tiles[at].category != tile.category || memcmp(tiles[at].low, tile.low, sizeof tile.low))) ++at;
@@ -16,9 +20,9 @@ static bool project_export(char* result, int capacity) {
     }
     const int objectFiles = (g_projectObjectCount + core::BP_MAX_OBJS - 1) / core::BP_MAX_OBJS;
     const int files = tileCount + objectFiles;
-    if (files > project::MaxModules || (!files && !g_projectManifest.pieceCount)) return false;
+    if (files > project::MaxModules || (!files && (furnitureOnly||!g_projectManifest.pieceCount))) return false;
     SYSTEMTIME time; GetLocalTime(&time); Buf base;
-    base.str("Extended_").u(time.wYear).u(time.wMonth, 10, 2).u(time.wDay, 10, 2).c('_').u(time.wHour, 10, 2).u(time.wMinute, 10, 2).u(time.wSecond, 10, 2).c('_').u(GetTickCount());
+    base.str(furnitureOnly?"Furniture_":"Extended_").u(time.wYear).u(time.wMonth, 10, 2).u(time.wDay, 10, 2).c('_').u(time.wHour, 10, 2).u(time.wMinute, 10, 2).u(time.wSecond, 10, 2).c('_').u(GetTickCount());
     char prefix[96]; copy_text(prefix, base.z(), sizeof prefix);
     wchar_t folder[MAX_PATH]; if (!project_path(folder, L"")) return false; CreateDirectoryW(folder, nullptr);
     auto path = [&](const char* name, wchar_t* full) {
@@ -78,7 +82,7 @@ static bool project_export(char* result, int capacity) {
         row.str("],\"rotation\":0,\"category\":\"").str(categories[category >= 0 && category < 7 ? category : 0]).str("\"}"); write(row);
     }
     Buf middle; middle.str("\n  ],\n  \"pieces\":[\n"); write(middle);
-    for (int i = 0; i < g_projectManifest.pieceCount; ++i) {
+    for (int i = 0; i < (furnitureOnly?0:g_projectManifest.pieceCount); ++i) {
         const auto& piece = g_projectManifest.pieces[i]; Buf row;
         if (i) row.str(",\n");
         row.str("    {\"item\":").u(piece.item).str(",\"offset\":[");
@@ -88,7 +92,7 @@ static bool project_export(char* result, int capacity) {
         row.c('}'); write(row);
     }
     Buf last;last.str("\n  ]");
-    if(g_projectManifest.spaceCount){last.str(",\n  \"spaces\":[\n");write(last);
+    if(!furnitureOnly&&g_projectManifest.spaceCount){last.str(",\n  \"spaces\":[\n");write(last);
         for(int i=0;i<g_projectManifest.spaceCount;++i){const auto& s=g_projectManifest.spaces[i];Buf row;if(i)row.str(",\n");row.str("    {\"low\":[");
             for(int a=0;a<3;++a){if(a)row.c(',');row.f(s.lo[a]/16.0,4);}row.str("],\"high\":[");for(int a=0;a<3;++a){if(a)row.c(',');row.f(s.hi[a]/16.0,4);}row.str("]}");write(row);}
         Buf end;end.str("\n  ]\n}\n");write(end);

@@ -1,0 +1,20 @@
+{
+  "format": "BuildingToolsFurnitureRecipe",
+  "version": 1,
+  "name": "Piece temoin native - selection par registre reel",
+  "generator": "src/native_furniture.h:props::furniture_demo",
+  "requires": "Complete live native registry and eight confirmed furniture role selections",
+  "room": {"width": 12, "depth": 10, "interiorHeight": 4.5, "voxelSize": 0.5, "voxelCells": 1692},
+  "roles": [
+    {"role": "bed", "count": 1, "item": null},
+    {"role": "table", "count": 1, "item": null},
+    {"role": "chair", "count": 2, "item": null},
+    {"role": "wall_torch", "count": 2, "item": null},
+    {"role": "painting", "count": 1, "item": null},
+    {"role": "chest", "count": 1, "item": null},
+    {"role": "small_decoration", "count": 2, "item": null, "support": "table"},
+    {"role": "floor_decoration", "count": 1, "item": null}
+  ],
+  "inGameValidated": false,
+  "note": "Recipe only. The complete BTBP/.btproject is generated in game using real selected IDs. No guessed furniture IDs are shipped."
+}

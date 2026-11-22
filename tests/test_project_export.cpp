@@ -1,54 +1,6 @@
 // Compile the actual native exporter against file-only Win32 adapters. Exercises
 // publication, read-back, bounds, native-piece IDs and non-overwrite semantics.
-#include "../src/extended_core.h"
-#include <filesystem>
-#include <fstream>
-#include <cstdio>
-#include <cstring>
-#include <chrono>
-#include <vector>
-#include <string>
-namespace fs = std::filesystem;
-using DWORD = unsigned long; using BOOL = bool; using HANDLE = FILE*;
-#define MAX_PATH 1024
-#define CP_UTF8 65001
-#define MB_ERR_INVALID_CHARS 8
-#define GENERIC_WRITE 1
-#define CREATE_NEW 1
-#define FILE_ATTRIBUTE_NORMAL 0
-#define MOVEFILE_WRITE_THROUGH 1
-#define INVALID_HANDLE_VALUE nullptr
-#define LOG(expr) do {} while (0)
-struct SYSTEMTIME { int wYear=2026,wMonth=11,wDay=17,wHour=12,wMinute=30,wSecond=0; };
-static void GetLocalTime(SYSTEMTIME* t) { *t = SYSTEMTIME{}; }
-static int tick=1000, failWrite=-1, failFlush=-1;
-static DWORD GetTickCount() { return tick; }
-static std::string narrow(const wchar_t* s) { std::string out; while (*s) out += (char)*s++; return out; }
-static int MultiByteToWideChar(int,int,const char* s,int,wchar_t* out,int n) { int i=0; do { if(i==n) return 0; out[i]=(unsigned char)s[i]; } while(s[i++]); return i; }
-static BOOL CreateDirectoryW(const wchar_t* p,void*) { return fs::create_directory(narrow(p)); }
-static HANDLE CreateFileW(const wchar_t* p,int,int,void*,int,int,void*) { auto path=narrow(p); if(fs::exists(path)) return nullptr; return std::fopen(path.c_str(),"wb"); }
-static BOOL WriteFile(HANDLE f,const void* p,DWORD n,DWORD* written,void*) { if(failWrite==0){*written=0;return false;} if(failWrite>0)--failWrite; *written=std::fwrite(p,1,n,f); return *written==n; }
-static BOOL FlushFileBuffers(HANDLE f) { if(failFlush==0)return false;if(failFlush>0)--failFlush;return std::fflush(f)==0; }
-static void CloseHandle(HANDLE f) { std::fclose(f); }
-static BOOL MoveFileExW(const wchar_t* a,const wchar_t* b,int) { if(fs::exists(narrow(b))) return false; fs::rename(narrow(a),narrow(b)); return true; }
-struct Buf {
-    char s[1024]{}; int n=0;
-    Buf& c(char v){if(n<1023)s[n++]=v;return *this;}
-    Buf& str(const char* v){while(*v)c(*v++);return *this;}
-    Buf& u(uint64_t v,int base=10,int width=0){char b[64];int k=0;do{int digit=(int)(v%base);b[k++]=(char)(digit<10?'0'+digit:'a'+digit-10);v/=base;}while(v);while(k<width)b[k++]='0';while(k)c(b[--k]);return *this;}
-    Buf& i(int64_t v){if(v<0){c('-');v=-v;}return u((uint64_t)v);}
-    Buf& f(double v,int digits){char b[80];std::snprintf(b,sizeof b,"%.*f",digits,v);return str(b);}
-    const char* z(){s[n]=0;return s;}
-};
-static void copy_text(char* out,const char* in,int size){std::snprintf(out,size,"%s",in);}
-struct ProjectStateGuard { ProjectStateGuard(){} ~ProjectStateGuard(){} };
-static fs::path folder;
-static bool project_path(wchar_t* out,const wchar_t* leaf){auto path=(folder/narrow(leaf)).wstring();if(path.size()>=MAX_PATH)return false;std::wcscpy(out,path.c_str());return true;}
-static bool g_projectLoaded=true, g_projectRunning=false;
-static project::Plan g_projectPlan{};
-static project::Manifest g_projectManifest{};
-static extended::Object g_projectObjects[2]; static int g_projectObjectCount=0;
-#include "../src/project_export.h"
+#include "project_export_host.h"
 static int failures=0;
 #define CHECK(c) do { if(!(c)){std::printf("FAIL line %d: %s\n",__LINE__,#c);++failures;} }while(0)
 static std::vector<uint8_t> read(const fs::path& p){std::ifstream f(p,std::ios::binary);return std::vector<uint8_t>((std::istreambuf_iterator<char>(f)),{});}
@@ -85,5 +37,13 @@ int main(){
     ++tick;failFlush=3;CHECK(!project_export(filename,sizeof filename));
     manifests=0;for(auto& p:fs::directory_iterator(folder))if(p.path().extension()==".btproject")++manifests;CHECK(manifests==1);
     CHECK(original==read(folder/filename));
+    // Export only furniture from a draft which still contains structure/pieces.
+    ++tick;failFlush=-1;g_projectManifest.spaceCount=0;
+    CHECK(project_export(filename,sizeof filename,true));bytes=read(folder/filename);
+    CHECK(project::decode((char*)bytes.data(),(int)bytes.size(),&parsed,&error));
+    CHECK(parsed.count==1&&parsed.pieceCount==0&&parsed.spaceCount==0&&parsed.anchor[0]==8);
+    auto props=read(folder/parsed.modules[0].file);core::BpHeader h{};uint8_t empty;
+    CHECK(core::bp_decode(props.data(),props.size(),&h,&empty,1));CHECK(h.nm==0&&h.objects==1&&empty==core::BP_EMPTY);
+    CHECK(g_projectPlan.count==3&&g_projectManifest.pieceCount==1);
     std::printf("export: %d failures\n",failures);return failures!=0;
 }

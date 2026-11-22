@@ -1,31 +1,42 @@
 // Item IDs come exclusively from the game's already-verified group iterator and
 // item registry. No scan guesses, fabricated IDs or inventory mutation.
 struct ExtendedItem { uint32_t item; int kind; };
-static ExtendedItem g_catalog[4096]; static int g_catalogCount = 0;
+static ExtendedItem g_catalog[8192]; static int g_catalogCount = 0;
+static_assert(itemindex::Count<=8192,"Imported index exceeds the bounded native catalogue");
 static uint32_t g_catalogMaterial = 0, g_catalogPiece = 0;
+static bool g_catalogTruncated=false;
 static bool catalog_refresh() {
-    g_catalogCount = 0;
+    g_catalogCount = 0;g_catalogTruncated=true; // only a completed traversal may be exported
+    // Seed every attributed source ID, including unresolved/non-placeable entries.
+    for(const auto& source:itemindex::Entries){uint8_t* it=g_bpItemById&&g_bpItemReg?g_bpItemById(source.item,g_bpItemReg):nullptr;
+        if(it&&(!readable(it,4)||*(uint32_t*)it!=source.item))it=nullptr;
+        int kind=3;if(bp_block_item(it))kind=0;
+        else if(native_item_resolution(source.item)==nativecatalog::Ready)kind=1;
+        else if(it&&(item_kind(it)==ITEM_PIECE||item_kind(it)==ITEM_BIG_SHAPE)&&readable(it+0x427,1)&&!it[0x427])kind=2;
+        g_catalog[g_catalogCount++]={source.item,kind};}
     uint8_t* reg = g_extendedItemGroups;
     if (!reg || !g_iterBegin || !g_iterNext || !g_bpItemReg || !g_bpItemById || !readable(reg, 0x48)) return false;
     uint64_t end = *(uint64_t*)(reg + 0x10); int guard = 0;
-    for (uint64_t at = g_iterBegin(reg + 8); at != end && guard++ < 200000; at = g_iterNext(reg + 8, at)) {
+    uint64_t at = g_iterBegin(reg + 8);
+    for (; at != end && guard++ < 200000; at = g_iterNext(reg + 8, at)) {
         auto groups = *(uint8_t***)(reg + 0x40);
         if (!groups || at > 2000000 || !readable(groups + at,sizeof(void*))) return false;
-        uint8_t* group = groups[at]; if (!group || !readable(group, 16)) continue;
+        uint8_t* group = groups[at]; if (!group || !readable(group, 16)) return false;
         const int32_t offset = *(int32_t*)(group + 8); const uint32_t n = *(uint32_t*)(group + 12);
-        if (!offset || n > 20000) continue;
-        const uint32_t* ids = (const uint32_t*)(group + 8 + offset); if (!readable(ids, (size_t)n * 4)) continue;
-        for (uint32_t k = 0; k < n && g_catalogCount < 4096; ++k) {
+        if(!n)continue;if (!offset || n > 20000) return false;
+        const uint32_t* ids = (const uint32_t*)(group + 8 + offset); if (!readable(ids, (size_t)n * 4)) return false;
+        for (uint32_t k = 0; k < n; ++k) {
             uint32_t id = ids[k]; if (!id) continue;
             bool duplicate = false; for (int j = 0; j < g_catalogCount; ++j) if (g_catalog[j].item == id) { duplicate = true; break; }
             if (duplicate) continue;
             uint8_t* item = g_bpItemById(id, g_bpItemReg); int kind = -1;
             if (bp_block_item(item)) kind = 0;
-            else if (prop_item(item) && readable(item + 0x5d8, 4)) kind = extended_prop_item(item) ? 1 : 3;
+            else if (prop_item(item) && readable(item + 0x5d8, 4)) kind = project_prop_item(item) ? 1 : 3;
             else if (item && (item_kind(item) == ITEM_PIECE || item_kind(item) == ITEM_BIG_SHAPE) && readable(item + 0x427, 1) && !item[0x427]) kind = 2;
-            if (kind >= 0) g_catalog[g_catalogCount++] = ExtendedItem{id, kind};
+            if (kind >= 0) {if(g_catalogCount==8192){g_catalogTruncated=true;return false;}g_catalog[g_catalogCount++] = ExtendedItem{id, kind};}
         }
     }
+    if(at!=end)return false;g_catalogTruncated=false;
     // Stable numeric IDs keep paging independent of the engine hash-table order.
     for (int i = 1; i < g_catalogCount; ++i) { ExtendedItem item = g_catalog[i]; int j = i; while (j && g_catalog[j - 1].item > item.item) { g_catalog[j] = g_catalog[j - 1]; --j; } g_catalog[j] = item; }
     return g_catalogCount != 0;
@@ -52,8 +63,9 @@ static void project_generated_finish() {
 }
 static bool catalog_object(uint32_t id, const int* offset = nullptr, int rotation = 0, bool append = false, int module = 0) {
     ProjectStateGuard guard;
+    if(append&&project_classic_mode()){flash(T(S_EXT_CLASSIC_EDITED));return false;}
     uint8_t* item = g_bpItemById ? g_bpItemById(id, g_bpItemReg) : nullptr;
-    if (!extended_prop_item(item)) return false;
+    if (!project_prop_item(item)) return false;
     double local[3]; for(int a=0;a<3;++a) local[a]=(offset ? offset[a] : 0)/16.0;
     float rotationQ[4],mn[3],mx[3]; const float identity[]={0,0,0,1}; core::bp_turn_rot(rotation,identity,rotationQ);
     extended::Box bounds{};

@@ -1,4 +1,50 @@
-# État de Building Tools Extended 0.34.0-dev7
+# État de Building Tools Extended 0.34.0-dev12
+
+Le retour réel confirme la capture et la reconstruction classique d'une table
+**avec quatre décorations**. Dev12 réutilise ce BTBP intact et la file native
+`bp_fill` pour les composites. Les modules `content=objects` / `objectPlacement=blueprint`
+ne construisent aucun voxel source ; le lecteur historique et les contacts
+capturés servent aux contrôles supplémentaires. Les autres projets conservent
+leur politique par défaut. Voir [DEV12-CLASSIC-COMPOSITIONS.md](DEV12-CLASSIC-COMPOSITIONS.md).
+La priorité est ce démonstrateur réel de cinq objets. **Sa reconstruction
+composite et sa persistance restent à valider en jeu**, sans décorer le château.
+Les bilans suivants sont historiques.
+
+Le test réel dev10 confirme la résolution de la table mais échoue sur
+`E_TABLE_CHANGED`, avant toute pose. Dev11 remplace la lecture sur plusieurs
+callbacks par une collecte complète des entrées occupées dans un seul callback,
+contrôlée avant/après et bornée. Une lecture instable ou partielle reste refusée.
+Continuer **uniquement avec Dev10_A_Table_Unique** et le protocole de
+[DEV11-TABLE-CHANGED.md](DEV11-TABLE-CHANGED.md). Pose et persistance restent à
+valider en jeu ; aucun ameublement du château n'est développé dans cette étape.
+Les bilans ci-dessous décrivent leurs livraisons historiques.
+
+Dev10 corrige le contrôle des proxies natifs dégénérés et ajoute des diagnostics
+distincts pour la lecture du monde, la résolution et le placement. La capture
+classique peut enregistrer une calibration d'un seul meuble. Les projets A
+(une table) et D (cinq meubles, après A/B/C) contiennent zéro structure.
+La compilation et les régressions automatiques réussissent ; **le placement natif
+réel et la persistance attendent le test utilisateur**. Le château reste inchangé.
+Suivre en priorité [DEV10-NATIVE-PLACEMENT-FIX.md](DEV10-NATIVE-PLACEMENT-FIX.md).
+Le semis du monde et la bougie refusée sont deux causes distinctes ; les bornes
+brutes absentes des logs dev9 ne sont pas inventées. Les bilans ci-dessous
+conservent leur contexte historique.
+
+Dev9 ajoute les 3 526 références du CSV attribué, la recherche/catégorisation,
+la résolution au chargement et un véritable export uniquement mobilier. Les
+états distinguent référence importée, politique native et appels natifs acceptés ;
+aucun état ne certifie une interaction réelle. Le démonstrateur contient 11 IDs
+réels du CSV mais reste à valider en jeu. Voir [DEV9-CATALOG.md](DEV9-CATALOG.md).
+
+Dev8 ajoute le catalogue natif exportable et la pièce témoin de 11 objets réels
+sélectionnés dans le registre, en réutilisant le placement blueprint original.
+Les tests de fichiers et les contrôles sur monde simulé sont automatisés ; la
+capture réelle, les interactions et la consommation restent à valider en jeu.
+Le château n'est pas modifié ; sa décoration séparée attend cette validation.
+Voir [DEV8-NATIVE-OBJECTS.md](DEV8-NATIVE-OBJECTS.md) et
+[DEV8-VALIDATION.md](DEV8-VALIDATION.md). Les mentions de refus systématique des
+objets à logique dans les bilans dev3–dev7 sont historiques : dev8 propose une
+activation expérimentale explicite du mécanisme original, sans copie des liens.
 
 Les fonctionnalités ci-dessous sont du code dans la DLL Windows. « Implémenté »
 ne signifie pas « validé dans Enshrouded » : aucun monde n'a été chargé par l'agent.

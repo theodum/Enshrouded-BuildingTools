@@ -21,6 +21,12 @@
 #include "storey_demo.h"
 #include "voxel_stairs.h"
 #include "extended_core.h"
+#include "native_props.h"
+#include "native_furniture.h"
+#include "native_item_policy.h"
+#include "native_item_index.h"
+#include "native_snapshot.h"
+#include "native_calibration.h"
 #include "native_abi.h"
 
 using core::CursorXf;
@@ -29,7 +35,7 @@ using core::Aabb;
 using core::I3;
 
 #define MOD_NAME    "Building Tools"
-#define MOD_VERSION "0.34.0-dev7"
+#define MOD_VERSION "0.34.0-dev12"
 
 // -------------------------------------------------------------- freestanding
 extern "C" {
@@ -3472,6 +3478,9 @@ static uint8_t connected_remove(CostList* list, void* ctx, void* state, Aabb* bx
 #include "extended_catalog.h"
 #include "extended_architecture.h"
 #include "project_export.h"
+#include "blueprint_classic_import.h"
+#include "native_furniture_runtime.h"
+#include "native_calibration_runtime.h"
 #include "extended_altars.h"
 
 static uint8_t remove_hook_body(void* list, void* ctx, void* state, void* box, void* xfp, void* filter, uint8_t check);

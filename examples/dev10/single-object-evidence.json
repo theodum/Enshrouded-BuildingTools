@@ -1,0 +1,43 @@
+{
+  "format": "BuildingToolsSingleObjectEvidence",
+  "version": 1,
+  "sourceReport": "NativeCatalog_20261122_701307234.json",
+  "sourceReportSHA256": "c9e7c49178530016fb5bb6bfa8075c26b00afc0570e67ad76a8b225ad89b1fe1",
+  "indexSHA256": "e161bf7c5e53db2df3d7177e5a07b3a1a7102a2f054dc45f8931cf3587b3c07e",
+  "gameImage": {
+    "timeDateStamp": 1793791052,
+    "sizeOfImage": 44298240
+  },
+  "nativeEntry": {
+    "item": 3507087400,
+    "name": "Table en bois brut",
+    "nameMayBeTruncated": false,
+    "category": "tables",
+    "resolution": "policy_compatible",
+    "flags": 0,
+    "compatible": true,
+    "logicLinkCopied": false,
+    "bounds": {
+      "low": [
+        -1.240024,
+        0.0,
+        -0.650846
+      ],
+      "high": [
+        1.247342,
+        0.9,
+        0.649154
+      ]
+    },
+    "placedEntity": "ddae6400a2e77345961e551beb051aa0",
+    "placementCalls": {
+      "accepted": 0,
+      "failed": 0
+    },
+    "interactionValidated": false,
+    "requiredSupport": "not_exposed",
+    "constraints": "contact, nonoverlap, altar coverage; native interaction untested"
+  },
+  "nativePlacementTested": false,
+  "note": "Policy, template and native placement AABB observed in game. No placement/persistence claim."
+}

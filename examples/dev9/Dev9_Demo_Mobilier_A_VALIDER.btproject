@@ -1,0 +1,24 @@
+{
+  "format": "BuildingToolsExtendedProject",
+  "version": 1,
+  "name": "Dev9 - mobilier natif CSV (brouillon a valider en jeu)",
+  "gridSize": 0.5,
+  "anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "modules": [
+    {
+      "file": "Dev9_Demo_Mobilier_A_VALIDER.btbp",
+      "offset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": 0,
+      "category": "furniture"
+    }
+  ],
+  "pieces": []
+}

@@ -1,0 +1,71 @@
+{
+  "format": "BuildingToolsClassicCompositionCatalog",
+  "version": 1,
+  "scope": "Per captured composition; no automatic item/category-wide compatibility approval",
+  "compositions": [
+    {
+      "key": "esaai_blueprint_tabel",
+      "name": "Table d appoint avec quatre decorations",
+      "project": "Dev12_Table_Classique.btproject",
+      "source": "Dev12_Table_Classique_Source.btbp",
+      "sourceSHA256": "7147654d0e59e4a69a99b8cb2338a8f4ada128651a654561b0074d6a636e956b",
+      "objectCount": 5,
+      "buildVoxels": 0,
+      "capturedSupportCells": 64,
+      "classicPlacement": "observed_in_user_game_log",
+      "compositePlacement": "awaiting_game_test",
+      "persistence": "awaiting_game_test",
+      "serializedProperties": [
+        "inventoryID",
+        "position",
+        "quaternion"
+      ],
+      "notSerialized": [
+        "templateGUID",
+        "scale",
+        "containerContents",
+        "fuel",
+        "logicLinks",
+        "customState"
+      ],
+      "items": [
+        {
+          "item": 807271393,
+          "hex": "0x301dfbe1",
+          "name": "Coaster",
+          "category": "decorations",
+          "observedInClassicComposition": true,
+          "compositeValidated": false,
+          "persistenceValidated": false
+        },
+        {
+          "item": 1488697302,
+          "hex": "0x58bbb7d6",
+          "name": "Wooden Bowl",
+          "category": "decorations",
+          "observedInClassicComposition": true,
+          "compositeValidated": false,
+          "persistenceValidated": false
+        },
+        {
+          "item": 2939168228,
+          "hex": "0xaf3025e4",
+          "name": "Candle",
+          "category": "lights",
+          "observedInClassicComposition": true,
+          "compositeValidated": false,
+          "persistenceValidated": false
+        },
+        {
+          "item": 3329412877,
+          "hex": "0xc672cf0d",
+          "name": "Wooden Side Table",
+          "category": "tables",
+          "observedInClassicComposition": true,
+          "compositeValidated": false,
+          "persistenceValidated": false
+        }
+      ]
+    }
+  ]
+}

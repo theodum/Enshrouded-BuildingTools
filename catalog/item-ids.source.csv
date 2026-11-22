@@ -1,0 +1,3527 @@
+﻿name,item_id_hex,item_id_decimal,category,stack_size
+"""Boar At Home""",becc3614,3201054228,BuildTools,50
+"""Flightless Redtail On One Leg""",0123208f,19079311,BuildTools,50
+"""Flower Snake""",dfbf5843,3753859139,BuildTools,50
+"""Flower Vase""",500ddd97,1343085975,BuildTools,50
+"""Still Life""",49bc6de0,1237085664,BuildTools,50
+"""Temple Landscape""",6abedd25,1790893349,BuildTools,50
+"""Tower In The Night""",e54cdff0,3847020528,BuildTools,50
+"""Wolf's Choir""",64a9255a,1688806746,BuildTools,50
+8kLoreText_OpenBook_Item,f10057a3,4043331491,Materials,1
+Ability_DoubleJump,dc9da1c6,3701318086,Materials,1
+Ability_Jump_Default_Submerged,38dd2401,954016769,Materials,1
+Ability_Jump_Snow_Submerged,ee2e63cf,3996017615,Materials,1
+Ability_Jump_Struggle_Submerged,13172f67,320286567,Materials,1
+Ability_Jump_Swim_Jump_Out,697b0474,1769669748,Materials,1
+Ability_JumpAttack_CrashDown,fe41e36f,4265730927,Materials,1
+Ability_JumpAttack_SlashUp_1H_Axe_Mace_Sword,1310afe1,319860705,Materials,1
+Ability_JumpAttack_SlashUp_2H_Daggers,0c96f1dd,211218909,Materials,1
+Ability_JumpAttack_SlashUp_2H_Greatsword,09dae250,165339728,Materials,1
+Ability_JumpAttack_SlashUp_2H_Hammer,6f0b4533,1863009587,Materials,1
+Ability_SprintJump,b2374fd5,2989969365,Materials,1
+Abyssal Wing Axe,9caf00b9,2628714681,Weapons,1
+Abysswalker,f2b0d528,4071675176,Weapons,1
+Acid Bite,1c1f749b,471823515,Ammunition,500
+Acid Cleaver,032d9171,53318001,Weapons,1
+Acidic Mycelium,186d3638,409810488,Materials,250
+Active Mycelium,81e20cfb,2179075323,Materials,250
+Adorned Drakling Daggers,80abb9f2,2158737906,Weapons,1
+Advanced Glider,534ba901,1397467393,Tools,1
+Advanced Rake,81bb769f,2176546463,BuildTools,1
+Adventurer Boots,2a5ea1ca,710844874,Equipment,1
+Adventurer Boots,162f6371,372204401,Equipment,1
+Adventurer Chest,9e145c29,2652134441,Equipment,1
+Adventurer Chest,b8da18f5,3101300981,Equipment,1
+Adventurer Gloves,420f94ad,1108317357,Equipment,1
+Adventurer Gloves,2e140cdc,773065948,Equipment,1
+Adventurer Helmet,c83edc61,3359562849,Equipment,1
+Adventurer Helmet,ff1b25e5,4279969253,Equipment,1
+Adventurer Trousers,c4003fc4,3288350660,Equipment,1
+Adventurer Trousers,29f12da4,703671716,Equipment,1
+Aerated Banshee Gel,a8d579fa,2832562682,Materials,250
+Aerostriker,6a697497,1785296023,Weapons,1
+Albaneve Summits Dirt,7c00c41f,2080424991,Materials,1000
+Alchemical Base,8d5e7532,2371777842,Materials,250
+Alchemist Apprentice Boots,d9768981,3648424321,Equipment,1
+Alchemist Apprentice Boots,5a379f89,1513594761,Equipment,1
+Alchemist Apprentice Chest,cd1535ce,3440719310,Equipment,1
+Alchemist Apprentice Chest,50105a80,1343249024,Equipment,1
+Alchemist Apprentice Gloves,c4e3ffcd,3303276493,Equipment,1
+Alchemist Apprentice Gloves,b055a7c5,2958403525,Equipment,1
+Alchemist Apprentice Hat,5db83ec3,1572355779,Equipment,1
+Alchemist Apprentice Hat,e5a9ac59,3853102169,Equipment,1
+Alchemist Apprentice Trousers,fb04bdcb,4211391947,Equipment,1
+Alchemist Apprentice Trousers,984a3432,2554999858,Equipment,1
+Alchemist Showcase,715f4596,1902069142,BuildTools,20
+Alchemist's Ring,0598de5a,93904474,Equipment,1
+Alchemist's Ring,79f979a5,2046392741,Equipment,1
+Alchemy Station,e067fcdc,3764911324,BuildTools,1
+Alden Crowley,e05f1fdf,3764330463,BuildTools,1
+Algae,300c7868,806123624,Consumables,20
+Algae Buds,91ecd8d2,2448218322,Consumables,20
+Algae Salad,a2f52d31,2733976881,Consumables,20
+Algae Seedling,8fba1b49,2411338569,BuildTools,100
+Almanac of Plants and Seedlings,33cfd09a,869257370,BuildTools,1
+Aloe,2d8e23b7,764289975,Materials,250
+Aloe Plant,12320aab,305269419,BuildTools,50
+Aloe Seedling,1f5b19ca,526064074,BuildTools,100
+Alpine Antler Boots,e7d264ee,3889325294,Equipment,1
+Alpine Antler Boots,fdff51fc,4261368316,Equipment,1
+Alpine Antler Chest,d5358343,3577054019,Equipment,1
+Alpine Antler Chest,963829db,2520263131,Equipment,1
+Alpine Antler Gloves,17aeeedc,397340380,Equipment,1
+Alpine Antler Gloves,f5b51881,4122286209,Equipment,1
+Alpine Antler Hood,dcfaef09,3707432713,Equipment,1
+Alpine Antler Hood,b36da8d1,3010308305,Equipment,1
+Alpine Antler Trousers,dd4eeeba,3712937658,Equipment,1
+Alpine Antler Trousers,db8aa57e,3683296638,Equipment,1
+Alpine Rose,34fdc5e9,889046505,BuildTools,50
+Amber,6f0139e1,1862351329,Materials,250
+Amber Bow,94778b82,2490862466,Weapons,1
+Amethyst,770b83eb,1997243371,Materials,250
+Ammo_Magic_Staff_TX_Meteor_2,b189ffc9,2978611145,Ammunition,40
+Ammonia Gland,78da83c4,2027586500,Materials,250
+Ammonite Imprint,e7fa4cb4,3891940532,Collectibles,20
+Ancestral Star,84bcc08c,2226962572,Weapons,1
+Ancestral Star,71fae999,1912269209,Weapons,1
+Ancestral Star,e51c11a8,3843821992,Weapons,1
+Ancient Drak Wand,6d995054,1838764116,Weapons,1
+Ancients Night Door,9e48ecd3,2655579347,BuildTools,50
+Animal Fur,3aaa39a7,984234407,Materials,250
+Antidote,cd243274,3441701492,Consumables,20
+Antique,ef63753b,4016272699,ColorPalette,50
+Antiseptic,26b09da6,649108902,Materials,250
+Antler Bow,acf1e310,2901533456,Weapons,1
+Anton Godwin,eb21c0e3,3944857827,BuildTools,1
+Apex Machete,a899383f,2828613695,Weapons,1
+Apprentice Wand,42444694,1111770772,Weapons,1
+Aquamarine,57fa3bcd,1476017101,Materials,250
+Aquamarine Dreams,7cc38c1b,2093190171,ColorPalette,50
+Aquamarine Dust,2106f5a3,554104227,Materials,250
+Archaic Essence I,6a40e93a,1782638906,Materials,500
+Archaic Essence II,4ee19490,1323406480,Materials,500
+Archaic Essence III,ea2beb3f,3928746815,Materials,500
+Archaic Essence IV,d4480073,3561488499,Materials,500
+Archaic Essence V,e5256405,3844432901,Materials,500
+Archaic Essence VI,18e4eb33,417655603,Materials,500
+Archer Boots,a2ca9a45,2731186757,Equipment,1
+Archer Chest,5bff7eb2,1543470770,Equipment,1
+Archer Gloves,9ff92fcc,2683908044,Equipment,1
+Archer Helmet,c7c65ca4,3351665828,Equipment,1
+Archer Trousers,d42855b2,3559413170,Equipment,1
+Archmage Boots,74707c83,1953528963,Equipment,1
+Archmage Boots,8243beb7,2185477815,Equipment,1
+Archmage Chest,ce4793d0,3460797392,Equipment,1
+Archmage Chest,4d6fa9a9,1299163561,Equipment,1
+Archmage Gloves,2ef64b3d,787893053,Equipment,1
+Archmage Gloves,17ba70dc,398094556,Equipment,1
+Archmage Hat,b62c963f,3056375359,Equipment,1
+Archmage Hat,512f3bd4,1362050004,Equipment,1
+Archmage Trousers,605a15de,1616516574,Equipment,1
+Archmage Trousers,83f7b8a5,2214049957,Equipment,1
+Armor_lvl02_Tinko_Arms,c06119fc,3227589116,Equipment,1
+Armor_lvl02_Tinko_Boots,13b29d10,330472720,Equipment,1
+Armor_lvl02_Tinko_Chest,76bec331,1992213297,Equipment,1
+Armor_lvl02_Tinko_Legs,40c56e55,1086680661,Equipment,1
+Armor_lvl05_Mage01_Legs,8b29220a,2334728714,Equipment,1
+Armor_lvl05_Set2_Arms,6094c66e,1620362862,Equipment,1
+Armor_lvl05_Set2_Boots,a301dfa6,2734808998,Equipment,1
+Armor_lvl05_Set2_Helmet,c3f4d820,3287603232,Equipment,1
+Armor_lvl05_Set2_Legs,9b33926e,2603848302,Equipment,1
+Armor_lvl08_Fogbound_Upgrade_Arms,46affd8d,1185938829,Equipment,1
+Armor_lvl08_Fogbound_Upgrade_Boots,9424f53c,2485450044,Equipment,1
+Armor_lvl08_Fogbound_Upgrade_Chest,6b1e8082,1797161090,Equipment,1
+Armor_lvl08_Fogbound_Upgrade_Helmet,03bd5c66,62741606,Equipment,1
+Armor_lvl08_Fogbound_Upgrade_Legs,ff8dca51,4287482449,Equipment,1
+Armor_lvl08_Mage01_Upgrade_Arms,3d82493d,1031948605,Equipment,1
+Armor_lvl08_Mage01_Upgrade_Boots,7d108580,2098234752,Equipment,1
+Armor_lvl08_Mage01_Upgrade_Chest,3a9c3abe,983317182,Equipment,1
+Armor_lvl08_Mage01_Upgrade_Helmet,d231115e,3526431070,Equipment,1
+Armor_lvl08_Mage01_Upgrade_Legs,619ecf66,1637797734,Equipment,1
+Armor_lvlxx_Ranger_Arms1,60a5c3c5,1621476293,Equipment,1
+Armor_lvlxx_Ranger_Boots1,a4799762,2759432034,Equipment,1
+Armor_lvlxx_Ranger_Chest1,1b4f465c,458180188,Equipment,1
+Armor_lvlxx_Ranger_Helmet1,4ff3b2c3,1341371075,Equipment,1
+Armor_lvlxx_Ranger_Legs1,a4d8f028,2765680680,Equipment,1
+Armor_T6_MultiClass_SkeletonArmor_Arms_Loot,0c425fd2,205676498,Equipment,1
+Armor_T6_MultiClass_SkeletonArmor_Boots_Loot,407889b3,1081641395,Equipment,1
+Armor_T6_MultiClass_SkeletonArmor_Chest_Loot,fc8a8171,4236935537,Equipment,1
+Armor_T6_MultiClass_SkeletonArmor_Helmet_Loot,e1554899,3780462745,Equipment,1
+Armor_T6_MultiClass_SkeletonArmor_Legs_Loot,26077c3b,638024763,Equipment,1
+Arrow,9e1af81e,2652567582,Ammunition,20
+Arsonist's Bow,384c37fd,944519165,Weapons,1
+Assassin Boots,1a6dbe08,443399688,Equipment,1
+Assassin Boots,efe6dea7,4024884903,Equipment,1
+Assassin Chest,a7092849,2802395209,Equipment,1
+Assassin Chest,430428f9,1124346105,Equipment,1
+Assassin Gloves,c78af280,3347772032,Equipment,1
+Assassin Gloves,32e1cb66,853658470,Equipment,1
+Assassin Hood,42fb6e86,1123774086,Equipment,1
+Assassin Hood,73015da0,1929469344,Equipment,1
+Assassin Trousers,34e4dae5,887413477,Equipment,1
+Assassin Trousers,cb7503b3,3413443507,Equipment,1
+Athalan Skree,4fe25661,1340233313,BuildTools,1
+Athanor,b2f2692b,3002231083,BuildTools,1
+Aunt Braelyn,8370590e,2205178126,BuildTools,1
+Aureolin Flower,f927bc27,4180130855,Consumables,100
+Aureolin Flower Seedling,a4a79846,2762446918,BuildTools,100
+Aureolin Plant,e0fb6464,3774571620,BuildTools,50
+Aurora Sword,b4788350,3027796816,Weapons,1
+Avalanche Starter,ecbd38b9,3971823801,Weapons,1
+Awning I,4fe3c1fa,1340326394,BuildTools,20
+Awning II,74cbf70d,1959524109,BuildTools,20
+Awning III,f72d8bb4,4146957236,BuildTools,20
+Axe,1da5f1f1,497414641,Tools,1
+Azure Russula,4dc5e916,1304815894,Consumables,20
+Azure Russula Seedling,e113280b,3776129035,BuildTools,100
+Baby Capybara,727a19e5,1920604645,BuildTools,1
+Baby Common Goat,17b771e6,397898214,BuildTools,1
+Baby Dune Armadillo,57ccffc0,1473052608,BuildTools,1
+Baby Fae Deer,bc451fe0,3158646752,BuildTools,1
+Baby Flightless Redtail,ee916a01,4002507265,BuildTools,1
+Baby Frizzy Goat,b539d5af,3040466351,BuildTools,1
+Baby Hophare,08775890,142039184,BuildTools,1
+Baby Round-Billed Sailer,ff7adb58,4286241624,BuildTools,1
+Baby Yak,a7e9c2b5,2817114805,BuildTools,1
+Balefire Brazier,ca5f0397,3395224471,BuildTools,50
+Balthazar,f72a4c04,4146744324,BuildTools,1
+Bamboo Bar Counter,dab16b65,3669060453,BuildTools,50
+Bamboo Barricade I,052d3143,86847811,BuildTools,50
+Bamboo Barricade II,661b8a78,1713080952,BuildTools,50
+Bamboo Barricade III,12b63d17,313933079,BuildTools,50
+Bamboo Barricade IV,f31e97ea,4078868458,BuildTools,50
+Bamboo Bedside Table,7b005b40,2063620928,BuildTools,50
+Bamboo Bench,ec191ddd,3961069021,BuildTools,50
+Bamboo Boardwalk I,3555aacc,894806732,BuildTools,20
+Bamboo Boardwalk II,43ba605e,1136287838,BuildTools,20
+Bamboo Cage I,67df08fa,1742670074,BuildTools,20
+Bamboo Cage II,27c1cf62,667012962,BuildTools,20
+Bamboo Chair,4b8295c5,1266849221,BuildTools,50
+Bamboo Container I,283dfe7f,675151487,BuildTools,20
+Bamboo Container II,5018424d,1343767117,BuildTools,20
+Bamboo Crate I,542d8340,1412268864,BuildTools,20
+Bamboo Crate I,f68a9bd0,4136278992,BuildTools,20
+Bamboo Crate II,684448cd,1749305549,BuildTools,20
+Bamboo Door,e921c36a,3911304042,BuildTools,50
+Bamboo Fence Pole,c7a4cd06,3349466374,BuildTools,50
+Bamboo Fence Pole,ba0a1828,3121223720,BuildTools,50
+Bamboo Fence With Ropes I,3be37559,1004762457,BuildTools,50
+Bamboo Fence With Ropes II,99622ff1,2573348849,BuildTools,50
+Bamboo Ladder,387be9d8,947644888,BuildTools,20
+Bamboo Ladder II,9fe6b9de,2682698206,BuildTools,20
+Bamboo Ladder III,5afc866a,1526498922,BuildTools,20
+Bamboo Logs,5251ac02,1381084162,Materials,250
+Bamboo Lounger,610bae37,1628155447,BuildTools,50
+Bamboo Palm Leaf Umbrella,035906cf,56166095,BuildTools,50
+Bamboo Plant,5e739766,1584633702,BuildTools,50
+Bamboo Room Divider I,0f8a5510,260723984,BuildTools,20
+Bamboo Room Divider I,16280a8a,371722890,BuildTools,20
+Bamboo Room Divider I,743f3b4b,1950301003,BuildTools,20
+Bamboo Room Divider I,cb736666,3413337702,BuildTools,20
+Bamboo Room Divider I,d70ccacf,3607939791,BuildTools,20
+Bamboo Room Divider II,37b660d3,934699219,BuildTools,20
+Bamboo Seedling,ac06ccf6,2886126838,BuildTools,100
+Bamboo Stairs,81aa3914,2175416596,BuildTools,20
+Bamboo Stairs,5a72b8bb,1517467835,BuildTools,20
+Bamboo Window I,28789e9b,678993563,BuildTools,50
+Bamboo Window II,6bb194ea,1806800106,BuildTools,50
+Bamboo Window III,f94ad04b,4182429771,BuildTools,50
+Bamboo Wood Block,1fa83ac2,531118786,BuildTools,5000
+Banana,9c9346ae,2626897582,Consumables,20
+Banana Plant,51b076a4,1370519204,BuildTools,50
+Banana Seedling,ebc4d37a,3955544954,BuildTools,100
+Bandage,5bc2b4bd,1539486909,Consumables,20
+Banebringer,88dccf6f,2296172399,Weapons,1
+Barbarian Greatsword,99723794,2574399380,Weapons,1
+Bare Fists,da9e5c1b,3667811355,Weapons,1
+Baroness Daggers,3c1646b6,1008092854,Weapons,1
+Basket I,d02991e5,3492385253,BuildTools,20
+Basket II,1a6958f8,443111672,BuildTools,20
+Basket III,b6f2800a,3069345802,BuildTools,20
+Basket IV,32684478,845694072,BuildTools,20
+Basket V,0c7533d1,209007569,BuildTools,20
+Basket VI,384ff6ee,944764654,BuildTools,20
+Basswood Tree Seedling,b800132c,3087012652,BuildTools,100
+Battering Ram Hammer,7565a899,1969596569,Weapons,1
+Batwing Axe,ada2e77d,2913134461,Weapons,1
+Beef Stew,9d06a938,2634459448,Consumables,20
+Beehive Smoker,6b29c011,1797898257,BuildTools,1
+Beet Seedling,a23617da,2721454042,BuildTools,100
+Bejeweled Golden Urn,b0d6e390,2966872976,Collectibles,20
+Bell Pepper,f40a4e3f,4094316095,Consumables,20
+Bell Pepper Seedling,8aecef1c,2330783516,BuildTools,100
+Bellows,ee21083e,3995142206,BuildTools,1
+Bembel Pitcher,04105dcc,68181452,BuildTools,50
+Bench,e19559d8,3784661464,BuildTools,50
+Berry Bush Seedling,4604958b,1174705547,BuildTools,100
+Big Ammonite,d5b4aab8,3585387192,Collectibles,20
+Big Blackmire Statue I,bc1cad2b,3155995947,BuildTools,20
+Big Blackmire Statue II,336075ca,861959626,BuildTools,20
+"Big Bronze Statue ""Snake""",8be203c7,2346845127,BuildTools,20
+Big Clay Vat,be95e227,3197493799,BuildTools,20
+Big Coffin,154e2223,357442083,BuildTools,20
+Big Coffin Lid,2778c3ae,662225838,BuildTools,20
+Big Decorated Tree,9bec6805,2615961605,BuildTools,50
+Big Elegant Sofa,0a78d6c2,175691458,BuildTools,50
+Big Farm Animal Pillow,33265fd2,858152914,BuildTools,50
+Big Fur Rug,5d41e40f,1564599311,BuildTools,50
+Big Furry Straw Mat,837f1582,2206143874,BuildTools,50
+Big Hollow's Eve Pumpkin I,494bd7f2,1229707250,BuildTools,50
+Big Hollow's Eve Pumpkin II,b30583f5,3003483125,BuildTools,50
+Big Hollow's Eve Pumpkin III,41bdec39,1102965817,BuildTools,50
+Big Leather Crate,3da6d524,1034343716,BuildTools,20
+Big Shape,16a432dc,379859676,Blueprints,1
+Big Shape,054f63eb,89089003,Blueprints,1
+Big Steel Barrel,b3284fa5,3005763493,BuildTools,20
+"Big Stone Statue ""Sword""",8de4525b,2380550747,BuildTools,20
+Big Straw Mat,a2a2bbe2,2728573922,BuildTools,50
+Big Waggon,eab90473,3937993843,BuildTools,20
+Big Wooden Crate,9529abcc,2502536140,BuildTools,20
+Bird Feeder,9372d5af,2473776559,BuildTools,50
+Bird Food,9830b1df,2553328095,AnimalFood,200
+Bird Food Bait,a4a95e84,2762563204,AnimalFood,50
+Black Coffee,fadf8e20,4208954912,Consumables,20
+Black Eyes,b23477b6,2989782966,Equipment,1
+Black Hair,fe88c796,4270376854,Equipment,1
+Black Powder,6cfeac45,1828629573,Materials,250
+Black Powder Ball,6042ecbc,1614998716,Weapons,20
+Blackened Staff,b834f7f6,3090479094,Weapons,1
+Blackguard Boots,34281ed7,875044567,Equipment,1
+Blackguard Chest,c7f44f55,3354677077,Equipment,1
+Blackguard Gloves,08c71732,147265330,Equipment,1
+Blackguard Helmet,96d0b096,2530259094,Equipment,1
+Blackguard Trousers,449188ba,1150388410,Equipment,1
+Blackmire Bark,4922de66,1227021926,Materials,250
+Blackmire Dirt,8e33ba5c,2385754716,Materials,1000
+Blackmire Heartwood,680e88c9,1745782985,Materials,250
+Blackmire Rubble,d7cf26a5,3620677285,Materials,1000
+Blackmire Statue I,dcba1a39,3703183929,BuildTools,20
+Blackmire Statue II,6b9dea20,1805511200,BuildTools,20
+Blackmire Statue III,5aaca562,1521263970,BuildTools,20
+Blackmire Statue IV,ce451e4e,3460636238,BuildTools,20
+Blackmire Statue V,52caefd8,1389031384,BuildTools,20
+Blackmire Statue VI,ce34cdd4,3459567060,BuildTools,20
+Blackmire Stone,2d50848b,760251531,Materials,1000
+Blacksmith Boots,860b4858,2248886360,Equipment,1
+Blacksmith Garb,68f1ac9a,1760668826,Equipment,1
+Blacksmith Hat,c52f14b3,3308197043,Equipment,1
+Blacksmith Pants,37f161e3,938566115,Equipment,1
+Blast Furnace,92eed965,2465126757,BuildTools,1
+Blazing Wand,9675b7f1,2524297201,Weapons,1
+Blessed Club,72b4386f,1924413551,Weapons,1
+Blessed Club,91118bad,2433846189,Weapons,1
+Blessed Club,68577e12,1750564370,Weapons,1
+Blink,d14e93c4,3511587780,Materials,1
+Blink Daggers,f5c33d53,4123213139,Weapons,1
+Blizzard Wand,c2eaec62,3270175842,Weapons,1
+Block Dismantle,3c76f0ba,1014427834,BuildTools,1
+Block Dismantle 4x4,be1d3b4a,3189586762,BuildTools,100
+Blood In The Snow,9abf37a9,2596222889,Collectibles,1
+Blood Omen Axe,b6e1b8be,3068246206,Weapons,1
+Blood Rose Boots,8e501903,2387613955,Equipment,1
+Blood Rose Boots,a2b8a839,2730010681,Equipment,1
+Blood Rose Chestplate,ba540e76,3126070902,Equipment,1
+Blood Rose Chestplate,b0576904,2958518532,Equipment,1
+Blood Rose Gloves,fceb3b15,4243274517,Equipment,1
+Blood Rose Gloves,2747f320,659026720,Equipment,1
+Blood Rose Mail Coif,681d54b4,1746752692,Equipment,1
+Blood Rose Mail Coif,f3fb4be8,4093332456,Equipment,1
+Blood Rose Pants,17798141,393838913,Equipment,1
+Blood Rose Pants,8be44ae4,2346994404,Equipment,1
+Bloodfeather Chest,0e40f86c,239138924,Equipment,1
+Bloodfeather Chest,7b1f4c25,2065648677,Equipment,1
+Bloodfeather Gloves,7cbd84fa,2092795130,Equipment,1
+Bloodfeather Gloves,0fcb3721,264976161,Equipment,1
+Bloodfeather Helmet,b6160cde,3054898398,Equipment,1
+Bloodfeather Helmet,f8ce6a91,4174277265,Equipment,1
+Bloodfeather Pants,d1c3afe8,3519262696,Equipment,1
+Bloodfeather Pants,84edc057,2230173783,Equipment,1
+Bloodfeather Shoes,70654767,1885685607,Equipment,1
+Bloodfeather Shoes,e72f5af8,3878640376,Equipment,1
+Blue Decorative Box,1885154d,411374925,BuildTools,50
+Blue Eyes,dbdd7ef7,3688726263,Equipment,1
+Blue Fabric,17bb2c00,398142464,Materials,250
+Blue Floor Light I,68268830,1747355696,BuildTools,50
+Blue Floor Light II,ae60165c,2925532764,BuildTools,50
+Blue Globe,b17ee2d3,2977882835,BuildTools,50
+Blue Goblet,7eb5ec48,2125851720,ColorPalette,50
+Blue Hair,cb04cafe,3406088958,Equipment,1
+Blue Luminescent Block,0b7f9c4b,192912459,BuildTools,5000
+Blue Pendant Light I,89a74a23,2309442083,BuildTools,50
+Blue Pendant Light II,37fb9778,939235192,BuildTools,50
+Blue Rocket,dc95d601,3700807169,BuildTools,20
+Blue Wall Light I,00e49133,14979379,BuildTools,50
+Blue Wall Light II,dbc517f7,3687127031,BuildTools,50
+Blunt Knives,2fe6808a,803635338,Weapons,1
+Boiled Eggs,43be4ab4,1136544436,Consumables,20
+Bone Arrow,4a552b18,1247095576,Ammunition,500
+Bone Block,462350fa,1176719610,BuildTools,5000
+Bone Channel I,08cc6f7a,147615610,Ammunition,500
+Bone Channel II,b3b0b3b0,3014702000,Ammunition,500
+Bonebreaker,5c8f3f02,1552891650,Weapons,1
+Bonemeal,b1c8eec6,2982735558,Materials,250
+Bones,7a6407ea,2053375978,Materials,250
+Bonescourge Mace,9dc18d02,2646707458,Weapons,1
+Book I,72761755,1920341845,BuildTools,50
+Book I,e5b2f671,3853710961,BuildTools,50
+Book I,232464b6,589587638,BuildTools,50
+Book I,8816d6da,2283198170,BuildTools,50
+Book I,3e245215,1042567701,BuildTools,50
+Book I,634a59c7,1665817031,BuildTools,50
+Book I,2c57d892,743954578,BuildTools,50
+Book I,c683cca3,3330526371,BuildTools,50
+Book I,97e16dda,2548133338,BuildTools,50
+Book I,18a62a4e,413542990,BuildTools,50
+Book I,b1588e4c,2975370828,BuildTools,50
+Book I,6ff9318c,1878602124,BuildTools,50
+Book I,fce05bf4,4242562036,BuildTools,50
+Book I,285785d2,676824530,BuildTools,50
+Book II,2dbd9430,767398960,BuildTools,50
+Book III,b5ac3120,3047960864,BuildTools,50
+Book IV,fff18e70,4294020720,BuildTools,50
+Book V,3ee093dc,1054905308,BuildTools,50
+Boreal Axe,78ecf48e,2028795022,Weapons,1
+Boreal Wood Banquet Table,bad60643,3134588483,BuildTools,50
+Boreal Wood Bed,fe4a082d,4266264621,BuildTools,50
+Boreal Wood Bedside Table,10af531c,279925532,BuildTools,50
+Boreal Wood Bench,9df1f682,2649880194,BuildTools,50
+Boreal Wood Chair,5a71a7c6,1517397958,BuildTools,50
+Boreal Wood Door,f8f36fc2,4176703426,BuildTools,50
+Boreal Wood Double Door,62841872,1652824178,BuildTools,50
+Boreal Wood Garden Fence Door,424601bf,1111884223,BuildTools,50
+Boreal Wood Garden Fence I,323e4235,842940981,BuildTools,50
+Boreal Wood Garden Fence II,c74b8b59,3343616857,BuildTools,50
+Boreal Wood Garden Fence Pole,4a69f157,1248457047,BuildTools,50
+Boreal Wood Shelf,37d98183,937001347,BuildTools,50
+Boreal Wood Side Table,8e3ba239,2386272825,BuildTools,50
+Boreal Wood Table,408d2f76,1082994550,BuildTools,50
+Bound Tome,43405f8f,1128292239,Collectibles,20
+Bow,d2479ec1,3527909057,Weapons,1
+Bow and Arrow Wall Mount,c6502168,3327140200,BuildTools,20
+Bow Of The Serpent,1cf81b28,486021928,Weapons,1
+Bow Of The Serpent,a7b1345e,2813408350,Weapons,1
+Bow Of The Serpent,456ea73b,1164879675,Weapons,1
+Bow Of The Serpent,cfe6c81b,3488008219,Weapons,1
+Bow Of The Serpent,425f24be,1113531582,Weapons,1
+Bow Weapon Rack,28b5deb3,683007667,BuildTools,20
+Box 4m,4bad00e3,1269629155,Blueprints,1
+Brazen Bull Boots,c9c39f47,3385040711,Equipment,1
+Brazen Bull Boots,f32feca9,4080004265,Equipment,1
+Brazen Bull Chest,f23a348c,4063900812,Equipment,1
+Brazen Bull Chest,d5352de9,3577032169,Equipment,1
+Brazen Bull Gloves,ab5ffc4a,2875194442,Equipment,1
+Brazen Bull Gloves,70d09832,1892718642,Equipment,1
+Brazen Bull Helmet,03c47ede,63209182,Equipment,1
+Brazen Bull Helmet,55dc79b4,1440512436,Equipment,1
+Brazen Bull Shield,73c8e382,1942545282,Equipment,1
+Brazen Bull Shield,b684a67f,3062146687,Equipment,1
+Brazen Bull Trousers,a23b3713,2721789715,Equipment,1
+Brazen Bull Trousers,fc325a24,4231158308,Equipment,1
+Brazier,06eed042,116314178,BuildTools,50
+Brick Fireplace,fcf1e470,4243711088,BuildTools,50
+Brick-Timbered Block,25668ba0,627477408,BuildTools,5000
+Bright Morningstar,77d26392,2010276754,Weapons,1
+Bright Resolve,78879c80,2022153344,ColorPalette,50
+Brisk Bow,1666bbab,375831467,Weapons,1
+Brittle Shroud Flakes,f3e3d74d,4091795277,Materials,250
+Brittle Shroud Petals,4c8d43ae,1284326318,Materials,250
+Brittlebush Plant,2a66c113,711377171,BuildTools,50
+Broken Hollow Halls Banner,d8f1fe85,3639737989,BuildTools,20
+Bronze Arrow,ede078cf,3990911183,Ammunition,500
+Bronze Axe,3c55b420,1012249632,Tools,1
+Bronze Barrel,a7b5c973,2813708659,BuildTools,20
+Bronze Bars,26442eb9,642002617,Materials,250
+Bronze Bathtub,650f33c0,1695495104,BuildTools,50
+Bronze Block,0330f8ff,53541119,BuildTools,5000
+Bronze Bowl,69d9f49c,1775891612,BuildTools,50
+Bronze Candleholder,b9327c44,3107093572,BuildTools,50
+Bronze Chandelier,ba84d9e7,3129268711,BuildTools,50
+Bronze Cup,16cedcbd,382655677,BuildTools,50
+Bronze Cyclops Trophy,8fd0a376,2412815222,BuildTools,10
+Bronze Fell Cyclops Trophy,7a4f96be,2052036286,BuildTools,10
+Bronze Fell Dragon Youngling Trophy,c7fac237,3355099703,BuildTools,10
+Bronze Fell Monstrosity Trophy,4d0c55d5,1292654037,BuildTools,10
+Bronze Fell Sicklescythe Trophy,c98e43dd,3381543901,BuildTools,10
+Bronze Fell Thunderbrute Trophy,f977d7dd,4185380829,BuildTools,10
+Bronze Fell Wispwyvern Trophy,7084a0c6,1887740102,BuildTools,10
+Bronze Floor Candleholder,7905109e,2030375070,BuildTools,50
+Bronze Hollow Cyclops Trophy,1b5ba878,458991736,BuildTools,10
+Bronze Hydrak'Dal Trophy,26783c50,645413968,BuildTools,10
+Bronze Jug,508ec70c,1351534348,BuildTools,50
+Bronze Key,7d95401f,2106933279,Materials,5
+Bronze Pickaxe,8facaa63,2410457699,BuildTools,1
+Bronze Platter,c534b469,3308565609,BuildTools,50
+Bronze Scavenger Matron Trophy,d49b041a,3566928922,BuildTools,10
+Bronze Sword,43108313,1125155603,Weapons,1
+Bronze Vukah Brawler Trophy,97288292,2536014482,BuildTools,10
+Bronze Wall Torch,27a674fb,665220347,BuildTools,50
+Bronze-engraved Greatsword,ed33747a,3979572346,Weapons,1
+Broodmother’s Eye,fd361cd8,4248181976,Weapons,1
+Bug Dust,390d22ae,957162158,Materials,250
+Build_TerrainMaterial_T7_AncientLand_fertile_Highgrass,f1100f2e,4044361518,Materials,1000
+Build_TerrainMaterial_T7_AncientLand_Rubble,a5b43cb6,2780052662,Materials,1000
+Build_TerrainMaterial_T7_AncientLand_Stone,34c2682c,885155884,Materials,1000
+Build_TerrainMaterial_T7_AncientLand_Stone_Basalt,a9f5926e,2851443310,Materials,1000
+Build_TerrainMaterial_T7_Dirt_AncientLand,904f2433,2421105715,Materials,1000
+Build_TerrainMaterial_T7_Dirt_AncientLand_Sand,e87199fa,3899759098,Materials,1000
+Build_TerrainMaterial_T7_Farmsoil_Basalt,73105665,1930450533,Materials,250
+BuildTool_Voxel_Placement_Desert_House_Corner_A,74b685a0,1958118816,BuildTools,100
+BuildTool_Voxel_Placement_Desert_House_Door_A,bcc0a1e8,3166740968,BuildTools,100
+BuildTool_Voxel_Placement_Desert_House_Floor_A,39ae58b4,967727284,BuildTools,100
+BuildTool_Voxel_Placement_Desert_House_Foundation_A,e84820f9,3897041145,BuildTools,100
+BuildTool_Voxel_Placement_Desert_House_Roof_A,38287119,942174489,BuildTools,100
+BuildTool_Voxel_Placement_Desert_House_Stair_A,ed79bfd3,3984179155,BuildTools,100
+BuildTool_Voxel_Placement_Desert_House_Wall_A,334344fa,860046586,BuildTools,100
+BuildTool_Voxel_Placement_Desert_House_Wall_B,9f429499,2671940761,BuildTools,100
+BuildTool_Voxel_Placement_Fort_Floor_A,a1614091,2707505297,BuildTools,100
+BuildTool_Voxel_Placement_Fort_Foundation_A,cc905333,3432010547,BuildTools,100
+BuildTool_Voxel_Placement_Fort_Wall_A,789e3203,2023633411,BuildTools,100
+BuildTool_Voxel_Placement_Fort_Wall_Gate_A,1c484336,474497846,BuildTools,100
+BuildTool_Voxel_Placement_Fort_Wall_Stairs,576a2b42,1466575682,BuildTools,100
+BuildTool_Voxel_Placement_Fort_Wall_Tower_A,da500b17,3662678807,BuildTools,100
+BuildTool_Voxel_Placement_House_block_2x2,94fa0baa,2499414954,BuildTools,100
+BuildTool_Voxel_Placement_House_block_4x4,ae604961,2925545825,BuildTools,100
+BuildTool_Voxel_Placement_House_Floor_A,c781fe76,3347185270,BuildTools,100
+BuildTool_Voxel_Placement_House_Foundation_A,f8aa91d5,4171928021,BuildTools,100
+BuildTool_Voxel_Placement_House_Roof,85a56f4b,2242211659,BuildTools,100
+BuildTool_Voxel_Placement_House_Roof_Side_Bricks,1dcdc876,500025462,BuildTools,100
+BuildTool_Voxel_Placement_House_Stairs_Inside,7dec092c,2112620844,BuildTools,100
+BuildTool_Voxel_Placement_House_Wall_Bricks_A,ed32b779,3979523961,BuildTools,100
+BuildTool_Voxel_Placement_House_Wall_Bricks_B,19e2cb75,434293621,BuildTools,100
+BuildTool_Voxel_Placement_House_Wall_Corner_Bricks,911a7248,2434429512,BuildTools,100
+BuildTool_Voxel_Placement_House_Wall_Door_Bricks,f6e59d54,4142243156,BuildTools,100
+BuildTool_Voxel_Placement_House_Wall_Window_Bricks_A,90c5f5d4,2428892628,BuildTools,100
+BuildTool_Voxel_Placement_House_Wall_Window_Bricks_B,1d299ebb,489266875,BuildTools,100
+Bursting Fell Heart,e53b056c,3845850476,Materials,250
+Butter,b1cc23e3,2982945763,Materials,250
+Butter Churn,b4bc800f,3032252431,BuildTools,1
+Butterfly Bloom Seedling,6a694e41,1785286209,BuildTools,100
+Buttermilk,696b947e,1768658046,Consumables,100
+By The Riverside,9f80a311,2676007697,Collectibles,1
+Cactus Plant,105f4f52,274681682,BuildTools,50
+Cactus Plant,a5b20d42,2779909442,BuildTools,50
+Cactus Seedling,dcc8d89c,3704150172,BuildTools,100
+Cade Hawthorn,44836d45,1149463877,BuildTools,1
+Calla Luna,8b8de9ed,2341333485,Materials,250
+Calla Luna Soup,22ffe61e,587195934,Consumables,20
+Camera,a303b96e,2734930286,Tools,1
+Camp Bed,2211885e,571574366,BuildTools,50
+Campfire,4f130a00,1326647808,BuildTools,5
+Candied Ginger,ee607bdc,3999300572,Consumables,20
+Candle,af3025e4,2939168228,BuildTools,50
+Captain Melville Fontane,a002b7a8,2684532648,BuildTools,1
+Captain Whiskers,4616bd99,1175895449,BuildTools,1
+Captain's Coat,acd1bbdf,2899426271,Equipment,1
+Capybara,41242027,1092886567,BuildTools,1
+Capybara Bait,50f09d3f,1357946175,AnimalFood,50
+Capybara Bristles,fc264e7b,4230368891,Materials,250
+Capybara Feeder,b1864fab,2978369451,BuildTools,50
+Capybara Food,33e71cad,870784173,AnimalFood,200
+Carpet,c5d5e4aa,3319129258,BuildTools,50
+Carved Limestone Vase I,451f002f,1159659567,BuildTools,50
+Carved Limestone Vase II,de3b9fa2,3728449442,BuildTools,50
+Carved Limestone Vase III,d5ea3e9f,3588898463,BuildTools,50
+Carved Round Door,3c6cb7f2,1013757938,BuildTools,50
+Carved Secret Bookshelf Door,7b959b45,2073402181,BuildTools,50
+Carved Secret Bookshelf Door,ba58d7d3,3126384595,BuildTools,50
+Carved Tropical Wood Fence Pole,09a1a3d5,161588181,BuildTools,50
+Carved Tropical Wood Fence Pole,6541876f,1698793327,BuildTools,50
+Carved Tropical Wood Fence Pole,90c82343,2429035331,BuildTools,50
+Carved Tropical Wood Fence with Ropes I,8b74da4a,2339691082,BuildTools,50
+Carved Tropical Wood Fence with Ropes II,67795eb6,1736007350,BuildTools,50
+Carved Wooden Cabinet,e5117edc,3843129052,BuildTools,50
+Carved Wooden Door,8a605a1b,2321570331,BuildTools,50
+Carved Wooden Double Door,ec651153,3966046547,BuildTools,50
+Carved Wooden Nightstand,d6941ef2,3600031474,BuildTools,50
+Carved Wooden Shelf,14ee652e,351167790,BuildTools,50
+Carved Wooden Window Frame,c906589a,3372636314,BuildTools,50
+Castle Bench,bb5c33b7,3143381943,BuildTools,50
+Castle Block,d51681fb,3575022075,BuildTools,5000
+Castle Roof Block,6842cd66,1749208422,BuildTools,5000
+Castle Throne,e6e87b38,3873995576,BuildTools,50
+Castle Wall Shelf,f3af74d9,4088362201,BuildTools,50
+Castle Wall Stone Block,59cabd6d,1506458989,BuildTools,5000
+Cat Bowl,b1c6a879,2982586489,BuildTools,50
+Cat Food,460cc76b,1175242603,AnimalFood,200
+Cat Food Bait,2ee26768,786589544,AnimalFood,50
+Cat Pillow,27081bcf,654842831,BuildTools,50
+Cathedral,f9ad2ebd,4188876477,ColorPalette,50
+Cattail Seedling,323cb2bc,842838716,BuildTools,100
+Cauldron,12913e04,311508484,BuildTools,1
+Cauldron,b9ee1781,3119388545,BuildTools,1
+Ceiling,04df0b2d,81726253,Blueprints,1
+Ceiling,c6ff4677,3338618487,Blueprints,1
+Ceiling Chain,87de281b,2279483419,BuildTools,20
+Ceiling Lantern,85074bf2,2231847922,BuildTools,50
+Celestial Axe,6e2f9f64,1848614756,Weapons,1
+Chain Heal I,e72d214c,3878494540,Ammunition,500
+Chain Heal II,bfb92613,3216582163,Ammunition,500
+Chain Lightning,3e7f92e5,1048548069,Ammunition,500
+Chamomile,cf5b015a,3478847834,Materials,250
+Chamomile Plant,840bbfdd,2215362525,BuildTools,50
+Chamomile Seedling,978b7537,2542499127,BuildTools,100
+Chamomile Tea,8b59aafa,2337909498,Consumables,20
+Champion's Axe,ab9712ef,2878804719,Weapons,1
+Chandelier,5747c7d6,1464322006,BuildTools,50
+Chanterelle,645b00e2,1683685602,Consumables,20
+Charcoal,162cb6d2,372029138,Materials,250
+Charcoal Kiln,15e4e52e,367322414,BuildTools,1
+Chester Loft,10ac553c,279729468,BuildTools,1
+Chicken Soup,672a1d1d,1730813213,Consumables,20
+Chief Drak'Dal Axe,f743114a,4148367690,Weapons,1
+Chieftain's Hammer,5109ef42,1359605570,Weapons,1
+Child Of The Lyre,43b2d436,1135793206,Collectibles,1
+Chimerical Greatsword,0122e495,19063957,Weapons,1
+Chitin Powder,765e969f,1985910431,Materials,250
+Circlet Of Lightning,affeaffd,2952703997,Equipment,1
+Circular Sawblades,571ac328,1461371688,Materials,50
+Circus Knives,35155456,890590294,Weapons,1
+Circus Knives,36736b07,913533703,Weapons,1
+Circus Knives,f644feba,4131716794,Weapons,1
+Citywall Block,749c6e1d,1956408861,BuildTools,5000
+Clay Bowl,6a86cba9,1787218857,BuildTools,50
+Clay Cup,8d46073e,2370176830,BuildTools,50
+Clay Fireplace,71d8deef,1910038255,BuildTools,50
+Clay Jug,3484681d,881092637,BuildTools,50
+Clay Platter,6be2df4b,1810030411,BuildTools,50
+Clay Pot I,d76bd513,3614168339,BuildTools,50
+Clay Pot II,7ef96fd9,2130276313,BuildTools,50
+Clay Pot III,0f524d44,257051972,BuildTools,50
+Clay Pot IV,3b1da13a,991797562,BuildTools,50
+Clay Tea Cup,94427bcf,2487385039,BuildTools,50
+Clay Vase I,ed65db16,3982875414,BuildTools,50
+Clay Vase II,2e975cc0,781671616,BuildTools,50
+Clay Vase III,564e033d,1447953213,BuildTools,50
+Clay Vase IV,54132daa,1410543018,BuildTools,50
+Clay Vase V,f7a062a7,4154483367,BuildTools,50
+Clay Vase VI,85ccc171,2244788593,BuildTools,50
+Cleaned Bandage,c1674c6e,3244772462,Consumables,20
+Clearwater Staff,cebea0b5,3468599477,Weapons,1
+Climbing Rose,2e772004,779558916,BuildTools,1000
+Closed Copper Jar,42a38636,1118012982,BuildTools,20
+Cloudy Brook,890b92cc,2299237068,ColorPalette,50
+Club,3a67584f,979851343,Weapons,1
+Club of Defiance,7dc2a3db,2109907931,Weapons,1
+Coal,8bfda5a0,2348656032,Materials,250
+Coal Powder,fc210a01,4230023681,Materials,250
+Coalescent Wand,7ed9708f,2128179343,Weapons,1
+Coaster,301dfbe1,807271393,BuildTools,20
+Coconana Smoothie,56142d86,1444162950,Consumables,20
+Coconut,04f579f5,83196405,Consumables,20
+Coconut Milk,ba986cb3,3130551475,Consumables,20
+Coconut Palm Seedling,6cdfb072,1826599026,BuildTools,100
+Coconut Plant,1f8be8ee,529262830,BuildTools,50
+Coffee Beans,17aa352c,397030700,Materials,250
+Coffee Brewery,f97ae3bd,4185580477,BuildTools,1
+Coffee Drum Roaster,7b4cc817,2068629527,BuildTools,1
+Coffee Seedling,c82c3098,3358339224,BuildTools,100
+Coffin,fbcd3fe8,4224532456,BuildTools,20
+Coffin Lid,f3dd9eaf,4091387567,BuildTools,20
+Collection Of Books I,c2472a9d,3259443869,BuildTools,50
+Collection Of Books I,4c1ba61c,1276880412,BuildTools,50
+Collection Of Books II,08ce727f,147747455,BuildTools,50
+Collection Of Books II,6746a270,1732682352,BuildTools,50
+Collection Of Books III,1f36e459,523691097,BuildTools,50
+Collection Of Books III,0b1c08b6,186386614,BuildTools,50
+Coloring Station,c0781900,3229096192,BuildTools,1
+Column,4fb13733,1337014067,Blueprints,1
+Column,848b7621,2223732257,Blueprints,1
+Commander's Ring,76ce1020,1993216032,Equipment,1
+Common Fishing Bait,4a4cc815,1246545941,Ammunition,250
+Common Goat,e011f905,3759274245,BuildTools,1
+Composite Bow,85601037,2237665335,Weapons,1
+Conifer Crate,e8b2c90d,3904030989,BuildTools,20
+Conifer Crate,973d0949,2537359689,BuildTools,20
+Conifer Crate,2102f25a,553841242,BuildTools,20
+Conifer Logs,57f0f395,1475408789,Materials,250
+Conifer Tree Seedling,e37a0ff0,3816427504,BuildTools,100
+Conifer Wood Block,9bde0344,2615018308,BuildTools,5000
+Construction Hammer,2950da8d,693164685,Blueprints,1
+Consumable_Orb_Health,9e9d9e1b,2661129755,Consumables,20
+Cooked Fae Deer Milk,e0f8d400,3774403584,Consumables,100
+Cooked Rice,dbd3748e,3688068238,Consumables,20
+Cooking Station,e75f49c4,3881781700,BuildTools,1
+Copper Arrow,f12faa48,4046432840,Ammunition,500
+Copper Axe,75ef886a,1978632298,Tools,1
+Copper Bars,0a2c835d,170689373,Materials,250
+Copper Block,60876270,1619485296,BuildTools,5000
+Copper Bowl,21174731,555173681,BuildTools,50
+Copper Cup,07c491fa,130322938,BuildTools,50
+Copper Door,d718df85,3608731525,BuildTools,50
+Copper Double Door,5f17d2da,1595396826,BuildTools,50
+Copper Fence,3eebfba6,1055652774,BuildTools,50
+Copper Hair,b85f63d5,3093259221,Equipment,1
+Copper Jug,e61d3fd8,3860676568,BuildTools,50
+Copper Ore,2b9d5b6f,731732847,Materials,250
+Copper Pickaxe,9f3729b9,2671192505,BuildTools,1
+Copper Platter,30a02674,815801972,BuildTools,50
+Copper Pot,90dd9d4e,2430442830,BuildTools,20
+Copperblade Greatsword,d64d9e95,3595411093,Weapons,1
+Corn Seedling,da32ee05,3660770821,BuildTools,100
+Corncob,b9e52caa,3118804138,Consumables,20
+Corrosive Blood,893badb3,2302389683,Materials,250
+Corrosive Daggers,65f4d370,1710543728,Weapons,1
+Corrupted Boar Tusk,cafb37d9,3405461465,Materials,250
+Crab Cakes,56a17a5b,1453423195,Consumables,20
+Crab Fossil,a8e6a318,2833687320,Collectibles,20
+Crab Meat,e6a2829b,3869409947,Consumables,20
+Crackling Wand,64f5c6e5,1693828837,Weapons,1
+Creamy Mushroom Spaetzle,468fb0bc,1183822012,Consumables,20
+Crimson Valor,39bf26e9,968828649,ColorPalette,50
+Crimsonback,63d79399,1675072409,Consumables,30
+Critter Bait,1f7b2fa8,528166824,AnimalFood,50
+Critter Carapace,60123435,1611805749,Materials,250
+Critter Glands,64ede1c5,1693311429,Materials,250
+Critter Parts,c29a4d76,3264892278,Materials,250
+Critter Plush,394dd59c,961402268,BuildTools,50
+Crown Crusher,9b397023,2604232739,Weapons,1
+Crucible,f517dd48,4111981896,BuildTools,1
+Crude Bench,8ddef1ea,2380198378,BuildTools,50
+Crude Mattress,bc3e446c,3158197356,BuildTools,50
+Crude Wooden Bed,566c8dfe,1449954814,BuildTools,50
+Crude Wooden Cabinet,24e63adb,619068123,BuildTools,50
+Crude Wooden Closet,75c8f41d,1976103965,BuildTools,50
+Crude Wooden Door,adead79f,2917848991,BuildTools,50
+Crude Wooden Double Door,b504f70b,3037001483,BuildTools,50
+Crude Wooden Fence I,52323ec4,1379024580,BuildTools,50
+Crude Wooden Fence II,3ef6faeb,1056373483,BuildTools,50
+Crude Wooden Fence III,07cec63b,130991675,BuildTools,50
+Crude Wooden Fence IV,4880c899,1216399513,BuildTools,50
+Crude Wooden Gate I,bfa5d5b4,3215316404,BuildTools,50
+Crude Wooden Gate II,04553cd8,72695000,BuildTools,50
+Crude Wooden Jug,44fa8d37,1157270839,BuildTools,50
+Crude Wooden Nightstand,5e6eabf0,1584311280,BuildTools,50
+Crude Wooden Platter,bf0277ea,3204610026,BuildTools,50
+Crude Wooden Side Table,a3d60d55,2748714325,BuildTools,50
+Crude Wooden Stool,00d89a3e,14195262,BuildTools,50
+Crude Wooden Table,d109e828,3507087400,BuildTools,50
+Crypt Bench,a4702c3c,2758814780,BuildTools,50
+Crypt Bookrest,d4b13afe,3568384766,BuildTools,50
+Crypt Brazier,6b8e2c5e,1804479582,BuildTools,50
+Crypt Candle,45976fc6,1167552454,BuildTools,50
+Crypt Chair,a5c2799b,2780985755,BuildTools,50
+Crypt Chandelier,9dc098f6,2646644982,BuildTools,50
+Crypt Fence,ed6ae53a,3983205690,BuildTools,50
+Crypt Gate,32d373c8,852718536,BuildTools,50
+Crypt Skull Torch,eb57216c,3948355948,BuildTools,50
+Crypt Standing Skull Torch,66a555ca,1722111434,BuildTools,50
+Crypt Standing Torch,d9b9afa2,3652824994,BuildTools,50
+Crypt Throne,68697ad5,1751743189,BuildTools,50
+Crypt Wall Skull Torch,0e7626ea,242624234,BuildTools,50
+Crypt Wall Torch,1ad92bda,450440154,BuildTools,50
+Cryptic Wand,fffe5e6e,4294860398,Weapons,1
+Cryptic Wand,f9e4ba3e,4192516670,Weapons,1
+Cryptic Wand,dee62afb,3739626235,Weapons,1
+Cryptic Wand,f148ff83,4048093059,Weapons,1
+Cryptic Wand,ad5fcd54,2908736852,Weapons,1
+Cryptic Wand,98cd7462,2563601506,Weapons,1
+Crystal Ball,db7d4547,3682420039,BuildTools,50
+Crystal Bowl,5616641b,1444307995,BuildTools,50
+Crystal Cup,efa7a535,4020741429,BuildTools,50
+Crystal Jug,3a484c6c,977816684,BuildTools,50
+Crystal Knives,cb6659cb,3412482507,Weapons,1
+Crystal Platter,c0441491,3225687185,BuildTools,50
+Crystalwater Staff,0f32aa91,254978705,Weapons,1
+Cube 1m,b3aaf557,3014325591,Blueprints,1
+Cube 2m,6d2ac86d,1831520365,Blueprints,1
+Cube 4m,bdc840c0,3184017600,Blueprints,1
+Cup Runneth Over,e22b793c,3794499900,Collectibles,1
+Curse Bringer Axe,aa0b6f69,2852876137,Weapons,1
+Cursed Fishing Rod,6c38f2e3,1815671523,FishingRod,1
+Cursed Shroud Sack,979cd952,2543638866,Materials,250
+Cyan Decorative Box,342723a6,874980262,BuildTools,50
+Cyan Party Hat,774c9e44,2001509956,Equipment,1
+Cyclone Axe,0609b068,101298280,Weapons,1
+Cyclops Head,89b2d1cf,2310197711,Materials,50
+Cyclops Pelvis,9e719dd0,2658246096,Collectibles,20
+Cyclops Showcase,34a7a325,883401509,BuildTools,20
+Cyclops Skull,07e7ef6b,132640619,Collectibles,20
+Cyclops Torso,9a1dfa9f,2585655967,Collectibles,20
+Cyclops Trophy,a9abae56,2846600790,BuildTools,10
+Dagger Wall Mount,c5465468,3309720680,BuildTools,20
+Daggers,ececc0b2,3974938802,Weapons,1
+Daggers Weapon Rack,a1b4d667,2712983143,BuildTools,20
+Dark Blonde Hair,62e16569,1658938729,Equipment,1
+Dark Brown Eyes,8c044f34,2349092660,Equipment,1
+Dark Brown Hair,d4d195a7,3570505127,Equipment,1
+Dark Cleaver,2e6dfc9e,778960030,Weapons,1
+Dark Crystal Cluster,4ee8299f,1323837855,Collectibles,20
+Dark Morningstar,70da3229,1893347881,Weapons,1
+Dark Red Eyes,73b73c94,1941388436,Equipment,1
+Dark Red Hair,49c07562,1237349730,Equipment,1
+Dark Staff,bce22175,3168936309,Weapons,1
+Darkwood Axe,f57931c4,4118360516,Weapons,1
+Darya's Staff,e204c2e9,3791962857,Weapons,1
+Darya's Staff,ff880d80,4287106432,Weapons,1
+Darya's Staff,ee7a0b1a,4000975642,Weapons,1
+Darya's Wand,5d0dd357,1561187159,Weapons,1
+Darya's Wand,8af081a1,2331017633,Weapons,1
+Darya's Wand,7d75d16f,2104873327,Weapons,1
+Date Palm Seedling,a127acfe,2703731966,BuildTools,100
+Daylilies For Emily,7de3fd66,2112093542,ColorPalette,50
+Daylily,711b27c8,1897605064,Materials,250
+Daylily Plant,c69643d3,3331736531,BuildTools,50
+Daylily Seedling,4d01dd15,1291967765,BuildTools,100
+Deadeye Boots,514ce0f7,1363992823,Equipment,1
+Deadeye Boots,149167a5,345073573,Equipment,1
+Deadeye Gloves,8ef04efc,2398113532,Equipment,1
+Deadeye Gloves,b738f874,3073964148,Equipment,1
+Deadeye Hood,dbc6689c,3687213212,Equipment,1
+Deadeye Hood,bb3e6026,3141427238,Equipment,1
+Deadeye Trousers,57277118,1462202648,Equipment,1
+Deadeye Trousers,795863a5,2035835813,Equipment,1
+Deadeye Vest,cdc8698e,3452463502,Equipment,1
+Deadeye Vest,e615afe0,3860180960,Equipment,1
+Death Gazer Axe,b0b46647,2964612679,Weapons,1
+Decay Tool,c3dd790f,3286071567,Blueprints,1
+Deceit,a82f212e,2821660974,ColorPalette,50
+Deceiving Staff,3f68836e,1063813998,Weapons,1
+Decoration Workbench,a31a4193,2736406931,BuildTools,1
+Decorative Bells I,4a30c100,1244709120,BuildTools,50
+Decorative Bells II,af8dfc32,2945317938,BuildTools,50
+Decorative Bells III,f4358f5e,4097150814,BuildTools,50
+Decorative Butter Churn,bfd2ea08,3218270728,BuildTools,20
+Decorative Oven I,777e3fb1,2004762545,BuildTools,50
+Decorative Oven II,b6f30a25,3069381157,BuildTools,50
+Decorative Oven III,b31d1e7a,3005030010,BuildTools,50
+Deeproot Axe,73adb5cf,1940764111,Weapons,1
+Deerstalker Boots,a46a6b62,2758437730,Equipment,1
+Deerstalker Boots,cfcb5a0d,3486210573,Equipment,1
+Deerstalker Chest,393b421b,960184859,Equipment,1
+Deerstalker Chest,660f63e0,1712284640,Equipment,1
+Deerstalker Gloves,2089f6b9,545912505,Equipment,1
+Deerstalker Gloves,89a1bcc4,2309078212,Equipment,1
+Deerstalker Hood,d24676de,3527833310,Equipment,1
+Deerstalker Hood,9ef21f38,2666667832,Equipment,1
+Deerstalker Trousers,42efdd80,1123016064,Equipment,1
+Deerstalker Trousers,7bf26c7d,2079485053,Equipment,1
+Desert City Wall,bd6da8d3,3178080467,BuildTools,5000
+Desert Shingle Roof Block,e867fcf9,3899129081,BuildTools,5000
+Desert Temple Block,ab5d35e2,2875012578,BuildTools,5000
+Devilish Bow,81d74b1f,2178370335,Weapons,1
+Diamond Wall Emblem,992a7d0a,2569698570,BuildTools,50
+Diamond Wall Emblem I,adf525b6,2918524342,BuildTools,50
+Diamond Wall Emblem II,b1a09d7b,2980093307,BuildTools,50
+Dimweald Axe,0cb964b9,213476537,Weapons,1
+Dimweald Hammer,509ba5bc,1352377788,Weapons,1
+Direction Sign,344f5c88,877616264,BuildTools,20
+Dirt Road Block,1aaf5161,447697249,Materials,250
+Disc 3m,443683d2,1144423378,Blueprints,1
+Diver’s Endurance Flask,c1f788de,3254225118,Consumables,20
+Diving Helmet,1a410cd1,440470737,Equipment,1
+Dodge Roll,183756a7,406279847,Materials,1
+Dodge Roll Attack,add377d8,2916317144,Materials,1
+Dog Bowl,401e843f,1075741759,BuildTools,50
+Dog Food,5ab9b82a,1522120746,AnimalFood,200
+Dog Food Bait,b59dfc2c,3047029804,AnimalFood,50
+Dog Pillow,34ce536f,885937007,BuildTools,50
+Door Frame,e217a453,3793200211,Blueprints,1
+Door Frame,a0d02cc7,2697997511,Blueprints,1
+Door Frame,94966eed,2492886765,Blueprints,1
+Draconian Bow,1b99f545,463074629,Weapons,1
+Draconian Bow,d547d50e,3578254606,Weapons,1
+Draconian Bow,35caad5f,902475103,Weapons,1
+Draconian Bow,3edc18ca,1054611658,Weapons,1
+Dragon Sword,8c313369,2352034665,Weapons,1
+Dragon Sword,e8e73eb4,3907468980,Weapons,1
+Dragon Sword,dacaf5e5,3670734309,Weapons,1
+Dragon Sword,d49800b7,3566731447,Weapons,1
+Dragon Sword,ccb64422,3434497058,Weapons,1
+Dragon's Wing,4ca9715d,1286173021,Weapons,1
+Dragon's Wing,1f5e0094,526254228,Weapons,1
+Dragon's Wing,2914fb3f,689240895,Weapons,1
+Dragonsbane,a03ef57f,2688480639,Weapons,1
+Dragonsbane,5fd9670a,1608083210,Weapons,1
+Dragonsbane,2b7fb550,729789776,Weapons,1
+Drak Blood,fd3a7c41,4248468545,Materials,250
+Drak Claws,c2505949,3260045641,Materials,250
+Drak Relief I,2788af7a,663269242,Collectibles,20
+Drak Relief II,2aa06e46,715157062,Collectibles,20
+Drak Relief III,c13e1bb6,3242073014,Collectibles,20
+Drak Relief IV,cc1dfefb,3424517883,Collectibles,20
+Drak Relief Showcase,414720be,1095180478,BuildTools,20
+Drak Relief V,17b13b72,397491058,Collectibles,20
+Drak Relief VI,ef45605f,4014301279,Collectibles,20
+Drak Relief VII,adfee281,2919162497,Collectibles,20
+Drak Scales,33a8070f,866649871,Materials,250
+Drak Soulward Flask,8ba58388,2342880136,Consumables,20
+Drak Stone Totem I,c718f9ab,3340302763,BuildTools,20
+Drak Stone Totem I,2830b902,674281730,BuildTools,20
+Drak Stone Totem II,6767a96b,1734846827,BuildTools,20
+Drak Stone Totem III,0a683141,174600513,BuildTools,20
+Drak Stone Totem IV,b5801bdb,3045071835,BuildTools,20
+Drak Stone Totem V,2e626ac0,778201792,BuildTools,20
+Drak Teeth,36fe559f,922637727,Materials,250
+Drak Temple Block,2d0ed074,755945588,BuildTools,5000
+Drak Temple Roof Block,0da46295,228876949,BuildTools,5000
+Drak Temple Vase I,61bae53b,1639638331,BuildTools,50
+Drak Temple Vase II,81011104,2164330756,BuildTools,50
+Drak Temple Vase III,fd78e9f1,4252559857,BuildTools,50
+Drak Temple Vase IV,1fa3cbf9,530828281,BuildTools,50
+Drak Temple Vase V,27845a18,662985240,BuildTools,50
+Drak Temple Vase VI,dd449a26,3712260646,BuildTools,50
+Drak Temple Vase VII,bea56731,3198510897,BuildTools,50
+Drak Whistle Bow,d66d67da,3597494234,Weapons,1
+Drak Wood Totem I,ce0ae264,3456819812,BuildTools,20
+Drak Wood Totem II,ac69db19,2892618521,BuildTools,20
+Drak Wood Totem III,6fb628b3,1874208947,BuildTools,20
+Drak Wood Totem IV,9322f914,2468542740,BuildTools,20
+Drak Wood Totem V,712e0894,1898842260,BuildTools,20
+Drak'Dal Spine,bedd9475,3202192501,Weapons,1
+Drakian Boots,1c9f3c8e,480197774,Equipment,1
+Drakling Daggers,7f4d7572,2135782770,Weapons,1
+Draped In Envy,8bb0cf6a,2343620458,ColorPalette,50
+Dreadbane,3974ccdd,963955933,Weapons,1
+Dreadbane,d848e2ca,3628655306,Weapons,1
+Dreadbane,773da883,2000529539,Weapons,1
+Dreadbane,ff6c9c81,4285308033,Weapons,1
+Dried Banana Chips,665d41a0,1717387680,Consumables,20
+Dried Fur,cbe0b1f9,3420500473,Materials,250
+Dried Purple Berry,a854fa99,2824141465,Consumables,20
+Drying Rack,d1666847,3513149511,BuildTools,1
+Dull Shark Tooth,c5e9d43e,3320435774,Collectibles,20
+Dune Armadillo,50bbc1b7,1354482103,BuildTools,1
+Dune Armadillo Feeder,aba19fe5,2879496165,BuildTools,50
+Dune Armadillo Food,77fdb92c,2013116716,AnimalFood,200
+Dune Armadillo Food Bait,80703fa6,2154839974,AnimalFood,50
+Dusk Amethyst,ed3ba516,3980109078,ColorPalette,50
+Eagle Eye Boots,ed5c34dd,3982243037,Equipment,1
+Eagle Eye Chest,ce2e1f89,3459129225,Equipment,1
+Eagle Eye Gloves,3b316b84,993094532,Equipment,1
+Eagle Eye Helmet,16c8e798,382265240,Equipment,1
+Eagle Eye Trousers,88a1302d,2292265005,Equipment,1
+Eclipsed Blade,03f995b2,66688434,Weapons,1
+Ectoplasm,2a6dff30,711851824,Materials,250
+Ectoplasm Block,e71aea16,3877300758,BuildTools,5000
+Ectoplasm Cluster,7174291b,1903438107,Materials,500
+Ectoplasm Crystal,c0e8cdeb,3236482539,Materials,500
+Ectoplasm Fragment,9bfd9983,2617088387,Materials,500
+Ectoplasm Gem,eba5fad8,3953523416,Materials,250
+Ectoplasm Press,8f7ed74c,2407454540,BuildTools,1
+Ectoplasm Shard,56a58bb5,1453689781,Materials,500
+Ectoplasm Soup,254df379,625865593,Consumables,20
+Efflorescent Hope Boots,42efc84b,1123010635,Equipment,1
+Efflorescent Hope Boots,6913f415,1762915349,Equipment,1
+Efflorescent Hope Chest,ebbd5b70,3955055472,Equipment,1
+Efflorescent Hope Chest,1b6f8259,460292697,Equipment,1
+Efflorescent Hope Flower Crown,574b419c,1464549788,Equipment,1
+Efflorescent Hope Flower Crown,a9c7314b,2848403787,Equipment,1
+Efflorescent Hope Gloves,f99248fb,4187113723,Equipment,1
+Efflorescent Hope Gloves,abcbc419,2882257945,Equipment,1
+Efflorescent Hope Pants,8780dfaa,2273370026,Equipment,1
+Efflorescent Hope Pants,860e1804,2249070596,Equipment,1
+Eggs,7106e3cc,1896276940,Consumables,20
+Elder Boots,713de2be,1899881150,Equipment,1
+Elder Chest,e9a524dc,3919914204,Equipment,1
+Elder Gloves,7f1bab11,2132519697,Equipment,1
+Elder Hat,5814d36f,1477759855,Equipment,1
+Elder Trousers,ff224a43,4280437315,Equipment,1
+Elder's Staff,da05e03a,3657818170,Weapons,1
+Electric Nerve,a22aec37,2720721975,Materials,250
+Elevated Sea Urchin,8ff0888d,2414905485,Collectibles,20
+Elio Ricci,ddced9a8,3721320872,BuildTools,1
+Elite Hollow Boots,18438d91,407080337,Equipment,1
+Elite Hollow Boots,425167a4,1112631204,Equipment,1
+Elite Hollow Chest Plate,a0549382,2689897346,Equipment,1
+Elite Hollow Chest Plate,fb8668f4,4219889908,Equipment,1
+Elite Hollow Gloves,2a20a6ab,706782891,Equipment,1
+Elite Hollow Gloves,67af5f36,1739546422,Equipment,1
+Elite Hollow Helmet,bdefb43b,3186603067,Equipment,1
+Elite Hollow Helmet,2a3bef8b,708571019,Equipment,1
+Elite Hollow Pants,cf1ff868,3474978920,Equipment,1
+Elite Hollow Pants,f6662fcd,4133892045,Equipment,1
+Emberfin,cbca4784,3419031428,Consumables,30
+Emerald Forest,3ca2c59e,1017300382,ColorPalette,50
+Emily Fray,3bddd3a9,1004393385,BuildTools,1
+Empty Cymbidium Pot,7eb1247a,2125538426,BuildTools,50
+Empty Cymbidium Pot,f67b0bf6,4135259126,BuildTools,50
+Empty Farmbed,908e8d09,2425261321,BuildTools,10
+Empty Farmbed,e971e22c,3916554796,BuildTools,10
+Empty Farmbed,240f7bf9,604994553,BuildTools,10
+Empty Farmbed,c557d30b,3310867211,BuildTools,10
+Empty Farmbed,52fdd66b,1392367211,BuildTools,10
+Empty Fern Pot,c03931eb,3224973803,BuildTools,50
+Empty Lily Pot,d2b2c30b,3534930699,BuildTools,50
+Empty Lily Pot,d62c5592,3593229714,BuildTools,50
+Empty Lily Pot,8ac93083,2328440963,BuildTools,50
+Empty_Flower_Pot_Ancient_Large_Empty,c5b58c98,3317009560,BuildTools,50
+Empty_Flower_Pot_Ancient_Small_Empty,1a6cfb99,443349913,BuildTools,50
+Enflamed Sword,1ee67060,518418528,Weapons,1
+Enhanced Spiked Club,1868c788,409520008,Weapons,1
+Enormous Magic Chest,01d6411a,30818586,BuildTools,1
+Enshrouded Axe,aaef2be4,2867801060,Weapons,1
+Enshrouded Cyclops Eye,aa8aa0f4,2861211892,Materials,250
+Enshrouded Ice,451358b3,1158895795,Materials,250
+Enshrouded Oil,50809ec9,1350606537,Materials,250
+Enshrouded Vulture Talon,7d4d767e,2102228606,Materials,250
+Epic Fishing Bait,1c1a1097,471470231,Ammunition,250
+Eternal Acid Bite,ffcdab9c,4291668892,Ammunition,1
+Eternal Chain Heal,47b8ec3e,1203301438,Ammunition,1
+Eternal Chain Lightning,a565756b,2774889835,Ammunition,1
+Eternal Fireball I,72022b44,1912744772,Ammunition,1
+Eternal Fireball II,4f85a152,1334157650,Ammunition,1
+Eternal Frost Arrow I,17b40657,397674071,Ammunition,1
+Eternal Frost Arrow II,3858c08c,945340556,Ammunition,1
+Eternal Heal Beam Channel,60e8c08d,1625866381,Ammunition,1
+Eternal Heal Channel,8b4de09b,2337136795,Ammunition,1
+Eternal Ice Bolt I,52e7f0c0,1390932160,Ammunition,1
+Eternal Ice Bolt II,1f16ff95,521600917,Ammunition,1
+Eternal Ice Bolt III,78f92a55,2029595221,Ammunition,1
+Eternal Light Burst,044d91d8,72192472,Ammunition,1
+Eternal Lightning Channel,52d4346e,1389638766,Ammunition,1
+Ethereal Plane,902430a6,2418290854,Equipment,1
+Ethereal Plane,6c00e1fa,1811997178,Equipment,1
+Evergreen Tree Seedling,290a7c9f,688553119,BuildTools,100
+Excellent Ectoplasm,6825d757,1747310423,Materials,250
+Excellent Ectoplasm Soup,25b23d89,632438153,Consumables,20
+Excellent Fishing Rod,af6edb3c,2943277884,FishingRod,1
+Exceptional Ectoplasm,08d87845,148404293,Materials,250
+Exceptional Ectoplasm Soup,aeca0a84,2932476548,Consumables,20
+Exceptional Flute,f3087ba2,4077419426,Instrument,1
+Exceptional Hand Drum,4effc6b9,1325385401,Instrument,1
+Exceptional Handpan,2992ca47,697485895,Instrument,1
+Exceptional Harp,38607db5,945847733,Instrument,1
+Exceptional Lute,c4dce081,3302809729,Instrument,1
+Exceptional Ring of Health,74187cd1,1947761873,Equipment,1
+Exceptional Ring of Mana,1b668382,459703170,Equipment,1
+Exceptional Ring of Stamina,5f0a6094,1594515604,Equipment,1
+Exclusive Hollow Boots,8abf5adc,2327796444,Equipment,1
+Exclusive Hollow Boots,26324e2c,640831020,Equipment,1
+Exclusive Hollow Chestplate,4ba1d245,1268896325,Equipment,1
+Exclusive Hollow Chestplate,1fc4f8e1,533002465,Equipment,1
+Exclusive Hollow Gloves,20496878,541681784,Equipment,1
+Exclusive Hollow Gloves,a7662f4f,2808491855,Equipment,1
+Exclusive Hollow Helmet,d7be4a32,3619572274,Equipment,1
+Exclusive Hollow Helmet,ba08f81d,3121149981,Equipment,1
+Exclusive Hollow Pants,5cb01a35,1555044917,Equipment,1
+Exclusive Hollow Pants,301394f5,806589685,Equipment,1
+Executioner's Axe,c4f3ef68,3304320872,Weapons,1
+Experience Scroll,4848d40d,1212732429,Consumables,20
+Explorer Boots,f6ce4ae0,4140714720,Equipment,1
+Explorer Coat,7f9039d3,2140158419,Equipment,1
+Explorer Gloves,8d962cc2,2375429314,Equipment,1
+Explorer Helmet,2b24b745,723826501,Equipment,1
+Explorer Pants,da64e033,3664044083,Equipment,1
+Explorer's Machete,f20e5e7a,4061027962,Weapons,1
+Explosive Arrow I,799826df,2040014559,Ammunition,500
+Explosive Arrow II,3decc63b,1038927419,Ammunition,500
+Explosive Arrow III,c7330bd1,3342011345,Ammunition,500
+Explosive Barrel,ce5cd929,3462191401,BuildTools,200
+Explosive Crawler,e6b0ff92,3870359442,Weapons,20
+Explosive Powder Ball,88175069,2283229289,Weapons,20
+Explosive Powder Ball Net,fc53041d,4233298973,Weapons,20
+Extinguished Sword,d0c477d9,3502536665,Weapons,1
+Extraordinary Glider,10f14447,284247111,Tools,1
+Fabric,7ede9d9f,2128518559,Materials,250
+Fae Deer,473f7cb8,1195343032,BuildTools,1
+Fae Deer Feeder,d3ed7fae,3555557294,BuildTools,50
+Fae Deer Food,901274dc,2417128668,AnimalFood,200
+Fae Deer Food Bait,c8f10f17,3371241239,AnimalFood,50
+Fake Ancient Door,817adc66,2172312678,BuildTools,50
+Fake Ancient Door,2064d7a8,543479720,BuildTools,50
+Fake Basement Door,27955109,664097033,BuildTools,50
+Fake Castle Door,babe0256,3133014614,BuildTools,50
+Fake Stair Passage,4dca3582,1305097602,BuildTools,50
+Fake Stone Door,4c11d49f,1276236959,BuildTools,50
+Fake Stone Floor Passage,3e6dcf77,1047383927,BuildTools,50
+Fake Temple Door,917daea8,2440933032,BuildTools,50
+Fake Wooden Door,a7727598,2809296280,BuildTools,50
+Fake Wooden Floor Passage,3e1d790a,1042118922,BuildTools,50
+Falk Fall Daggers,044d25c2,72164802,Weapons,1
+Fallen Wing Axe,36cae6e6,919267046,Weapons,1
+Fancy Stone Block,d8378fb2,3627519922,BuildTools,5000
+Fang Blade,62e8cdd0,1659424208,Weapons,1
+Farm Animal Pillow,a60be0a8,2785796264,BuildTools,50
+Farm Soil,6cb3103a,1823674426,Materials,250
+Farmer Boots,e0cdab64,3771575140,Equipment,1
+Farmer Garb,08c6ef4a,147255114,Equipment,1
+Farmer Hat,ba301c41,3123715137,Equipment,1
+Farmer Pants,bcfeae9d,3170807453,Equipment,1
+Fearsome Club,d2ad15d7,3534558679,Weapons,1
+Feather,e4d1113b,3838906683,Materials,250
+Feathered Mace,57e67982,1474722178,Weapons,1
+Fell Broad Sword,277c6671,662464113,Weapons,1
+Fell Commander Bow,c5388da5,3308817829,Weapons,1
+Fell Confusion Pheromones,bb7d915f,3145568607,Weapons,20
+Fell Curse Cleansing Tonic,5a86f7bf,1518794687,Consumables,20
+Fell Cyclops Head,3095a730,815114032,Materials,50
+Fell Cyclops Trophy,b2357913,2989848851,BuildTools,10
+Fell Dragon Youngling Head,60c8a851,1623763025,Materials,50
+Fell Dragon Youngling Trophy,403639c0,1077295552,BuildTools,10
+Fell Fashion,32fedbb5,855563189,ColorPalette,50
+Fell Heart,2001bda3,536984995,Materials,250
+Fell Impaler Bow,5856c5ff,1482081791,Weapons,1
+Fell Monstrosity Head,43dfb1fd,1138733565,Materials,50
+Fell Monstrosity Trophy,fc091244,4228452932,BuildTools,10
+Fell Shield,ed560164,3981836644,Equipment,1
+Fell Sicklescythe Head,ccec8f00,3438055168,Materials,50
+Fell Sicklescythe Trophy,c9513210,3377541648,BuildTools,10
+Fell Thunderbrute Greatsword,fb62cceb,4217556203,Weapons,1
+Fell Thunderbrute Head,a190bb6a,2710616938,Materials,50
+Fell Thunderbrute Trophy,b8754057,3094691927,BuildTools,10
+Fell Wispwyvern Head,2a2bc4d3,707511507,Materials,50
+Fell Wispwyvern Trophy,04b30778,78841720,BuildTools,10
+"Fenrig Mills, Jr.",48133085,1209217157,BuildTools,1
+Fenrig's Axe,9171f1d7,2440163799,Weapons,1
+Fenrig's Axe,03e66f8c,65433484,Weapons,1
+Fenrig's Axe,6e75f886,1853225094,Weapons,1
+Fenrig's Axe,1b98316e,462958958,Weapons,1
+Fenrig's Axe,67729e04,1735564804,Weapons,1
+Fenrig's Axe,d26ba4b7,3530269879,Weapons,1
+Fenrig's Axe,8ed91ee7,2396593895,Weapons,1
+Fern,633fb4b5,1665119413,BuildTools,50
+Fern,28235ad0,673405648,BuildTools,50
+Fern,493f4b9c,1228884892,BuildTools,50
+Fern,7860b303,2019603203,BuildTools,50
+Fertile Blackmire Dirt,fb7a074e,4219078478,Materials,1000
+Fertile Kindlewastes Sand,ae630c35,2925726773,Materials,1000
+Fertile Nomad Highlands Dirt,e1be4882,3787344002,Materials,1000
+Fertile Revelwood Dirt,1b610f74,459345780,Materials,1000
+Fertile Springlands Dirt,960c9329,2517406505,Materials,1000
+Fertile Veilwater Basin Dirt,54c6af7b,1422307195,Materials,1000
+Fertilised Farm Soil,0f8153bb,260133819,Materials,250
+Field Stones,b26197a8,2992740264,Materials,500
+Final Gambit,74168eb1,1947635377,Weapons,1
+Fine Copperblade Greatsword,5a473d86,1514618246,Weapons,1
+Fine Hardwood Fence,c5297a1a,3307829786,BuildTools,50
+Fine Hardwood Fence Pole,f33c85f5,4080829941,BuildTools,50
+Fine Hardwood Handrail,2d5be37c,760996732,BuildTools,50
+Fine Sand,d001d9a9,3489782185,Materials,1000
+Fine Stone Fence,87cdbc28,2278407208,BuildTools,50
+Fine Stone Fence Pole,a956c88d,2841036941,BuildTools,50
+Fine Stone Handrail,681fafe0,1746907104,BuildTools,50
+Fine Wooden Fence,bcbb0968,3166374248,BuildTools,50
+Fine Wooden Fence Pole,d7a6affb,3618025467,BuildTools,50
+Fire Bolt,8f25fe1a,2401631770,Ammunition,500
+Fire Bowl,bde7930c,3186070284,BuildTools,50
+Fire Fly,3c7e24a5,1014899877,Ammunition,250
+Fire Wisp Summon,3114e919,823453977,Consumables,20
+Fireball I,e988b200,3918049792,Ammunition,500
+Fireball II,6d4c9023,1833734179,Ammunition,500
+Fireball III,50e04c0a,1356876810,Ammunition,500
+Fireball III,cc406d38,3426774328,Ammunition,40
+Fired Brick,4b379373,1261933427,Materials,250
+Fired Bricks Block,e10d54dc,3775747292,BuildTools,5000
+Firefly Chandelier,f10dd709,4044216073,BuildTools,50
+Firefly Lamp,31b67d1d,834043165,BuildTools,50
+Firefly Standing Lamp,0e9ce973,245164403,BuildTools,50
+Firefly Wall Lamp,0c100c0f,202378255,BuildTools,50
+Fireplace,983747cb,2553759691,BuildTools,50
+Fireworks,7af19acb,2062654155,Ammunition,20
+Fireworks,180c512d,403460397,Ammunition,20
+Fireworks,405147b0,1079068592,Ammunition,20
+Fireworks,641ba08f,1679532175,Ammunition,20
+Fireworks,c6a44460,3332654176,Ammunition,20
+Fish Bones,85c69415,2244383765,Materials,250
+Fish Chowder,3fe67082,1072066690,Consumables,20
+Fish Cutlet,27933fe7,663961575,Consumables,20
+Fish Drying Rack,fe2d6c53,4264389715,BuildTools,50
+Fish Filet,2255ff26,576061222,Consumables,20
+Fish Fossil,eb595e63,3948502627,Collectibles,20
+Fish Teeth,8c355569,2352305513,Materials,250
+Fish Trap,a077afd7,2692198359,BuildTools,50
+Fish Trophy Board,a7b16c04,2813422596,BuildTools,20
+Flag Pole I,01f5d42b,32887851,BuildTools,20
+Flag Pole II,5f2d5751,1596806993,BuildTools,20
+Flag Pole III,16e21431,383915057,BuildTools,20
+Flag Pole IV,ea32e8e3,3929204963,BuildTools,20
+Flag Pole V,8bbc3852,2344368210,BuildTools,20
+Flag Pole VI,b784ae2d,3078925869,BuildTools,20
+Flame Altar,ebb93c94,3954785428,BuildTools,1
+Flame Mosaic Piece I,f4c4bfc6,4106534854,Collectibles,20
+Flame Mosaic Piece II,5fc1216d,1606492525,Collectibles,20
+Flame Mosaic Piece III,7faaeef7,2141908727,Collectibles,20
+Flame Mosaic Piece IV,0b004760,184567648,Collectibles,20
+Flame Mosaic Piece V,45cc4aed,1171016429,Collectibles,20
+Flame Mosaic Piece VI,4c98fa06,1285093894,Collectibles,20
+Flame Mosaic Piece VII,8ea5dae1,2393234145,Collectibles,20
+Flame Mosaic Piece VIII,7227ed23,1915219235,Collectibles,20
+Flame Mosaic Showcase,d7e574e6,3622139110,BuildTools,20
+Flame Pact Boots,1b560e9d,458624669,Equipment,1
+Flame Pact Boots,a54f3e1d,2773433885,Equipment,1
+Flame Pact Gloves,54f976a5,1425634981,Equipment,1
+Flame Pact Gloves,e44374c7,3829626055,Equipment,1
+Flame Pact Hat,ecd5eaab,3973442219,Equipment,1
+Flame Pact Hat,a51081c0,2769322432,Equipment,1
+Flame Pact Pants,d98c7d04,3649862916,Equipment,1
+Flame Pact Pants,fe75578e,4269102990,Equipment,1
+Flame Pact Vest,92b0b7e9,2461054953,Equipment,1
+Flame Pact Vest,19b9626a,431579754,Equipment,1
+Flaming Gauntlets,bf96e333,3214336819,Equipment,1
+Flaming Heartbeat,13a4eb2f,329575215,Collectibles,1
+Flammable Goo,34ea2a1a,887761434,Materials,250
+Flare Arrow,d1484f63,3511177059,Ammunition,500
+Flask of the Fell,9d1b0484,2635793540,Consumables,20
+Flat Bread,80c0308f,2160078991,Consumables,20
+Flat ramp 2m,6e501ffd,1850744829,Blueprints,1
+Flat ramp 4m,e5027779,3842144121,Blueprints,1
+Flat Roof,f127ac1b,4045909019,Blueprints,1
+Flat Roof,69be0b55,1774062421,Blueprints,1
+Flax,e863af88,3898847112,Materials,250
+Flax Plant,125a765c,307918428,BuildTools,50
+Flax Seedling,020e3c6a,34487402,BuildTools,100
+Fleeting Memory,94eff2f0,2498753264,Collectibles,1
+Fleshgrinder,406be4c6,1080812742,Weapons,1
+Flightless Redtail,5bea4db1,1542081969,BuildTools,1
+Flint,21286e19,556297753,ColorPalette,50
+Flint Arrow,54c54cd4,1422216404,Ammunition,500
+Flintstone,5e8e867a,1586398842,Materials,1000
+Floor Drain,a157fc32,2706897970,BuildTools,20
+Floor Drain,e9b39a4f,3920861775,BuildTools,20
+Flour,0a1adb1c,169532188,Materials,250
+Flower Soil,d6dda79f,3604850591,Materials,250
+Flower Wreath,1a32e063,439541859,BuildTools,20
+Flower Wreath,2568cb9c,627624860,BuildTools,20
+Fluffy Boots,e3772144,3816235332,Equipment,1
+Fluffy Boots,2cbc2925,750528805,Equipment,1
+Fluffy Hood,92b5cee2,2461388514,Equipment,1
+Fluffy Hood,f11c2892,4045154450,Equipment,1
+Fluffy Mittens,120a3922,302659874,Equipment,1
+Fluffy Mittens,05f0f864,99678308,Equipment,1
+Fluffy Pants,52328797,1379043223,Equipment,1
+Fluffy Pants,1b0b9a93,453745299,Equipment,1
+Fluffy Tunic,23374069,590823529,Equipment,1
+Fluffy Tunic,78d318c6,2027100358,Equipment,1
+Flute,b11b236f,2971345775,Instrument,1
+Foliage,88e99801,2297010177,Materials,250
+Food Plate,a5792729,2776180521,BuildTools,20
+Food_T4_raw_fruit_Date,fc3dad4f,4231900495,Consumables,20
+Food_T6_dish_Skeleton_Slurp_T6,c675d231,3329610289,Consumables,20
+Food_T7_raw_bad_vegetable_Beans,c5bd9d64,3317538148,Consumables,20
+Food_T7_raw_fruit_Artichoke,196d3222,426586658,Consumables,20
+Food_T7_raw_fruit_Pomegranate,4ecb067b,1321928315,Consumables,20
+Food_T7_raw_vegetable_Cabbage,6447db8f,1682430863,Consumables,20
+Food_WheatProduct_Bread,453042c0,1160790720,Consumables,20
+Fool's Demise,a83f5c16,2822724630,Weapons,1
+Fool's Errand,e37d19b3,3816626611,Weapons,1
+Foreboding Golden Urn,e88ad9ed,3901413869,Collectibles,20
+Forest Beet,d32b42e1,3542827745,Consumables,20
+Forest Longbow,13800730,327157552,Weapons,1
+Forge,2df036b6,770717366,BuildTools,1
+Forgotten Library,9e2fd6be,2653935294,ColorPalette,50
+Forked Tongue,803b7450,2151380048,Weapons,1
+Forsaken,1b3f153d,457119037,Weapons,1
+Fossil Showcase (2 Medium Slots),affe4b99,2952678297,BuildTools,20
+Fossil Showcase (2 Small Slots),83fc0795,2214332309,BuildTools,20
+Fossil Showcase (3 Small and 2 Medium Slots),c9b3df94,3384008596,BuildTools,20
+Fossil Showcase (3 Small Slots),dc47e050,3695698000,BuildTools,20
+Fossilized Bone,b8841be2,3095665634,Materials,250
+Fossilized Bone Arrow,5b9117ea,1536235498,Ammunition,500
+Fossilized Bone Dust,b72db570,3073226096,Materials,250
+Foundation,e4372e81,3828821633,Blueprints,1
+Foundation,38a8fd04,950598916,Blueprints,1
+Fowler Boots,35f526d3,905258707,Equipment,1
+Fowler Chest,892ab70f,2301277967,Equipment,1
+Fowler Gloves,29ae00de,699269342,Equipment,1
+Fowler Helmet,6ca193bb,1822528443,Equipment,1
+Fowler Trousers,c39c093f,3281783103,Equipment,1
+Fresh Shroud Spore,f3d43b70,4090772336,Materials,250
+Freshblood Mace,7e6a2ab6,2120886966,Weapons,1
+Fried Rice,883537d1,2285189073,Consumables,20
+Frizzy Goat,9b09f53a,2601121082,BuildTools,1
+Frizzy Goat Milk,1a73be52,443792978,Consumables,100
+Frog,d68a6764,3599394660,Ammunition,250
+Frog In The Grass,e5468903,3846605059,ColorPalette,50
+From Dusk Till Dawn,6ede9386,1860080518,ColorPalette,50
+Frost Smasher,e033613b,3761463611,Weapons,1
+Frost Wand,df9377d2,3750983634,Weapons,1
+Frostbite Slasher Boots,c9eabf14,3387604756,Equipment,1
+Frostbite Slasher Boots,11d24ab9,298994361,Equipment,1
+Frostbite Slasher Chest,1599a12a,362389802,Equipment,1
+Frostbite Slasher Chest,a4a0dc58,2762005592,Equipment,1
+Frostbite Slasher Gloves,3eefbfab,1055899563,Equipment,1
+Frostbite Slasher Gloves,08c0cc51,146852945,Equipment,1
+Frostbite Slasher Hood,1cfc4e88,486297224,Equipment,1
+Frostbite Slasher Hood,71219c8c,1898028172,Equipment,1
+Frostbite Slasher Trousers,b5ddcbee,3051211758,Equipment,1
+Frostbite Slasher Trousers,2dd34f02,768823042,Equipment,1
+Frostwing Axe,0f94982f,261396527,Weapons,1
+Frozen Core Wand,cbccb69e,3419190942,Weapons,1
+Frozen Gauntlets,a777f2ee,2809656046,Equipment,1
+Fruit Bowl,36acf603,917304835,Consumables,20
+Fur Boots,2efa3d10,788151568,Equipment,1
+Fur Chest,45458b76,1162185590,Equipment,1
+Fur Gloves,f892a8bc,4170361020,Equipment,1
+Fur Hood,69b3cab9,1773390521,Equipment,1
+Fur Patch,27667708,661026568,Materials,250
+Fur Rug,e915acd1,3910511825,BuildTools,50
+Fur Trousers,407be3bb,1081861051,Equipment,1
+Furry Straw Mat,4e9ae48b,1318773899,BuildTools,50
+Gabrielle Fairburn,3eec9aee,1055693550,BuildTools,1
+Galen Yager,ede9f3bc,3991532476,BuildTools,1
+Garden Gnome,60b24997,1622296983,BuildTools,50
+Gastropods,a996a5c5,2845222341,Collectibles,20
+Gem of Agility,f61b7cb6,4128996534,WeaponGem,1
+Gem of Battle Mania,05fd35ca,100480458,WeaponGem,1
+Gem of Bleeding,299a8888,697993352,WeaponGem,1
+Gem of Bloodlust,3f9106c1,1066469057,WeaponGem,1
+Gem of Burning,da5cbec2,3663511234,WeaponGem,1
+Gem of Cold Composure,bef06420,3203425312,WeaponGem,1
+Gem of Corruption,3ff4ca68,1073007208,WeaponGem,1
+Gem of Focused Light,03c1b61e,63026718,WeaponGem,1
+Gem of Fracturing,6a7745e9,1786201577,WeaponGem,1
+Gem of Hopeful Embers,f4599d6e,4099513710,WeaponGem,1
+Gem of Lesser Necromancy,9f3a9036,2671415350,WeaponGem,1
+Gem of Lycanthropy,570658c3,1460033731,WeaponGem,1
+Gem of Meteoric Impact,393bfca4,960232612,WeaponGem,1
+Gem of Necromancy,5507bcd0,1426570448,WeaponGem,1
+Gem of Overpowering,a2b671ca,2729865674,WeaponGem,1
+Gem of Puncturing,3259ffff,844759039,WeaponGem,1
+Gem of Retaliation,809cf8b5,2157770933,WeaponGem,1
+Gem of Skulls,ea2b601d,3928711197,WeaponGem,1
+Gem of Soul Reaping,0a58cd31,173591857,WeaponGem,1
+Gem of Storm's Eye,e52a5ac0,3844758208,WeaponGem,1
+Gem of Swiftness,522e2761,1378756449,WeaponGem,1
+Gem of Toxic Betrayal,18c7a1f0,415736304,WeaponGem,1
+Gemini Ring,499a6088,1234854024,Equipment,1
+Gentian,e1448d02,3779366146,Consumables,100
+Gentian Plant,398870ce,965243086,BuildTools,50
+Gentian Seedling,3951b134,961655092,BuildTools,100
+Ghost Glider,c81fa83c,3357517884,Tools,1
+Ghostly Shield,8af746dd,2331461341,Equipment,1
+Ghostly Shield,10f8ef3d,284749629,Equipment,1
+Giant Bone Arrow I,c2ed8c18,3270347800,Ammunition,500
+Giant Bones,b031edf6,2956062198,Materials,250
+Giant Critter Scales,d4e6bcc9,3571891401,Materials,250
+Giant Hollow Halls Banner,bebfc344,3200238404,BuildTools,20
+Gilded Axe,0eb86c81,246967425,Tools,1
+Gilded Pickaxe,4b993562,1268331874,BuildTools,1
+Ginger,3086213d,814096701,Consumables,20
+Ginger In A Jungle,911491ef,2434044399,ColorPalette,50
+Ginger Plant,e2ad44ee,3803006190,BuildTools,50
+Ginger Seedling,9b0a7166,2601152870,BuildTools,100
+Ginger Tea,63572dca,1666657738,Consumables,20
+Glass,85e3f499,2246309017,Materials,250
+Glass Shards,9d683f7f,2640854911,Materials,250
+Gleam Root,7fe23ed5,2145533653,Materials,250
+Gleam Root Diving Light,01ecb2e1,32289505,Tools,50
+Gleam Root Dust,d1095cf2,3507051762,Materials,250
+Gleaming Staff,1b5154b9,458314937,Weapons,1
+Glider,3d4a78dd,1028290781,Tools,1
+Glimmer Gentian,d3826a6d,3548539501,Materials,250
+Glimmer Gentian Tea,27a25af7,664951543,Consumables,20
+Gloom Monarch Boots,79cf3b09,2043624201,Equipment,1
+Gloom Monarch Chestplate,184d0dff,407703039,Equipment,1
+Gloom Monarch Gloves,fc664e80,4234563200,Equipment,1
+Gloom Monarch Helmet,421f09a4,1109330340,Equipment,1
+Gloom Monarch Trousers,02eb8568,48989544,Equipment,1
+Gloomberry,bd24d89c,3173308572,Consumables,250
+Glow Dust,6d15e5c6,1830151622,Materials,250
+Glow Soup,223c0c0d,574360589,Consumables,20
+Goat Feeder,2d661965,761665893,BuildTools,50
+Goat Food,0c517db5,206667189,AnimalFood,200
+Goat Food Bait,5c236b2c,1545825068,AnimalFood,50
+Goat Hammer,030d8049,51216457,Weapons,1
+Gold Bars,1eaacb52,514509650,Materials,250
+Gold Coins,995ab3e1,2572858337,Materials,1000
+Gold Cyclops Trophy,8860277f,2288002943,BuildTools,10
+Gold Dust,3f31d383,1060230019,Materials,250
+Gold Fell Cyclops Trophy,3bb15c50,1001479248,BuildTools,10
+Gold Fell Dragon Youngling Trophy,71412c8c,1900096652,BuildTools,10
+Gold Fell Monstrosity Trophy,d1bab401,3518673921,BuildTools,10
+Gold Fell Sicklescythe Trophy,a807ade3,2819075555,BuildTools,10
+Gold Fell Thunderbrute Trophy,d4b3d6a1,3568555681,BuildTools,10
+Gold Fell Wispwyvern Trophy,f3ba29d2,4089063890,BuildTools,10
+Gold Hollow Cyclops Trophy,3adfc737,987744055,BuildTools,10
+Gold Hydrak'Dal Trophy,3a03b30b,973320971,BuildTools,10
+Gold In The Water,d0466107,3494273287,ColorPalette,50
+Gold Key,477e1014,1199443988,Materials,5
+Gold Ore,a1d54105,2715107589,Materials,250
+Gold Scavenger Matron Trophy,a0b9b47c,2696524924,BuildTools,10
+Gold Vukah Brawler Trophy,c49b5fa4,3298516900,BuildTools,10
+Golden Ball,d09b47f2,3499837426,ColorPalette,50
+Golden Bulwark Boots,cad7d3bc,3403142076,Equipment,1
+Golden Bulwark Boots,53f752a1,1408717473,Equipment,1
+Golden Bulwark Chest Plate,78e568f3,2028300531,Equipment,1
+Golden Bulwark Chest Plate,1fea741b,535458843,Equipment,1
+Golden Bulwark Gloves,87e56261,2279957089,Equipment,1
+Golden Bulwark Gloves,7fd5856b,2144699755,Equipment,1
+Golden Bulwark Helmet,8e1bb2cc,2384179916,Equipment,1
+Golden Bulwark Helmet,5635e715,1446373141,Equipment,1
+Golden Bulwark Pants,15f1d6ca,368170698,Equipment,1
+Golden Bulwark Pants,fbf33a54,4227021396,Equipment,1
+Golden Bulwark Shield,714447ca,1900300234,Equipment,1
+Golden Bulwark Shield,69ec9b4f,1777113935,Equipment,1
+Golden Leaf,3a872f0c,981937932,ColorPalette,50
+Golden Recruit Axe,81b5bd94,2176171412,Weapons,1
+Golden Recruit Axe,57510c29,1464929321,Weapons,1
+Golden Steel Arrow,d89c1a30,3634108976,Ammunition,500
+Golden War Hero Axe,87413023,2269196323,Weapons,1
+Golden War Hero Axe,6fea9c58,1877646424,Weapons,1
+Goldlaced Greatsword,041e78d7,69105879,Weapons,1
+Goo,cae4db22,3403995938,Materials,250
+Gorestriker,2df95952,771316050,Weapons,1
+Gormander's War Banner I,a28c7e45,2727116357,BuildTools,20
+Gormander's War Banner II,bb7bec9d,3145460893,BuildTools,20
+Granite,e66e1ce9,3865976041,Materials,1000
+Granite Block,31c90b50,835259216,BuildTools,5000
+Granite Fireplace,57a42f41,1470377793,BuildTools,50
+Granite Ornamented Roof Block,53608f71,1398837105,BuildTools,5000
+Granite Rubble Road Block,c9450bd7,3376745431,Materials,250
+Granite Shingle Roof Block,bb93d200,3147026944,BuildTools,5000
+Granite Stone Bathtub,4ac8ca6e,1254673006,BuildTools,50
+Granite Stone Lavatory,8819e6fc,2283398908,BuildTools,50
+Granite Stone Shower,6814b778,1746188152,BuildTools,50
+Granite Stone Sink,f3ace870,4088195184,BuildTools,50
+Granite Throne,cb0ad243,3406484035,BuildTools,50
+Granite Window Frame,a1b2c18a,2712846730,BuildTools,50
+Grapple Plant,7b1c9ff6,2065473526,Consumables,100
+Grapple Plant Flower,6cbe7b54,1824422740,BuildTools,50
+Grapple Plant Seedling,7125f503,1898312963,BuildTools,100
+Grappling Hook,55bf8eb8,1438617272,Tools,1
+Grappling Hook Pull Anchor,dc5e1245,3697152581,BuildTools,20
+Grappling Hook Swing Anchor,3b6b988f,996907151,BuildTools,20
+Grass,582a219c,1479156124,BuildTools,50
+Grass,fc39bead,4231642797,BuildTools,50
+Grass,308d2d71,814558577,BuildTools,50
+Grasshopper,8b988f97,2342031255,Ammunition,250
+Gravedigger Boots,1761dd57,392289623,Equipment,1
+Gravedigger Garb,d956eec6,3646353094,Equipment,1
+Gravedigger Hat,577c8c58,1467780184,Equipment,1
+Gravedigger Pants,135989f7,324635127,Equipment,1
+Graven Idol Axe,649beaa9,1687939753,Weapons,1
+Graveyard Fence,029ff5e5,44037605,BuildTools,50
+Graveyard Fence Broken I,d62d0f9e,3593277342,BuildTools,50
+Graveyard Fence Broken II,eea827de,4003997662,BuildTools,50
+Graveyard Fence Pole,4243207e,1111695486,BuildTools,50
+Gray Eyes,b16f3b75,2976856949,Equipment,1
+Gray Hair,dc003920,3691002144,Equipment,1
+Great Mace,a0d0b71f,2698032927,Weapons,1
+Greater Antidote,97b46474,2545181812,Consumables,20
+Greater Ectoplasm,18e89a9a,417897114,Materials,250
+Greater Ectoplasm Soup,bb7cd728,3145520936,Consumables,20
+Greater Golden Twinflame Sword,dad3e392,3671319442,Weapons,1
+Greater Golden Twinflame Sword,c61f77dd,3323951069,Weapons,1
+Greater Golden Twinflame Sword,ae527245,2924638789,Weapons,1
+Greater Health Potion,b8f2de47,3102924359,Consumables,20
+Greater Health Potion +,59f7a95b,1509402971,Consumables,20
+Greater Mana Potion,7c516c66,2085710950,Consumables,20
+Greater Mana Potion +,f252d2dd,4065514205,Consumables,20
+Greater Ring of Health,195fb4f0,425702640,Equipment,1
+Greater Ring of Mana,ad916cf8,2911988984,Equipment,1
+Greater Ring of Stamina,627b1d51,1652235601,Equipment,1
+Greater Shroud Survival Flask,0c7cae5c,209497692,Consumables,20
+Greater Skull Summoning Vessel,123636d7,305542871,Weapons,20
+Greater Thunderblast Axe,b45986c9,3025766089,Weapons,1
+Greatsword Gauntlets,099712fe,160895742,Equipment,1
+Greatsword Of Rivalry,17604852,392185938,Weapons,1
+Greatsword Of The Old Order,ec08eebd,3960008381,Weapons,1
+Green Decorative Box,f82c80d2,4163666130,BuildTools,50
+Green Eyes,4f24e4c0,1327817920,Equipment,1
+Green Fabric,885e307a,2287874170,Materials,250
+Green Hair,c1db3112,3252367634,Equipment,1
+Green Luminescent Block,cac7a00d,3402080269,BuildTools,5000
+Green Rocket,9627395d,2519152989,BuildTools,20
+Green Vitriol Dust,dcb10d80,3702590848,Materials,250
+Green-Winged Orchid,373aee60,926608992,ColorPalette,50
+Grey Blades,06270f7e,103223166,Weapons,1
+Grilled Algae Buds,cc0bf8ee,3423336686,Consumables,20
+Grilled Bird Meat,78e7c62b,2028455467,Consumables,20
+Grilled Crab Meat,11940d5e,294915422,Consumables,20
+Grilled Crimsonback,e67e643e,3867042878,Consumables,30
+Grilled Dune Armadillo,2657f258,643297880,Consumables,20
+Grilled Emberfin,a230a73b,2721097531,Consumables,30
+Grilled Fatty Meat,01dcf34f,31257423,Consumables,20
+Grilled Fish with Coconut Rice,f854075d,4166256477,Consumables,20
+Grilled Game,0102fad6,16972502,Consumables,20
+Grilled Lakehopper,6e06d352,1845941074,Consumables,30
+Grilled Lean Meat,7c9f7632,2090825266,Consumables,20
+Grilled Penny Bun,5a1c2f2f,1511796527,Consumables,20
+Grilled Shadowtail,bf34e9d6,3207915990,Consumables,30
+Grilled Shimmerfin,5bcedc23,1540283427,Consumables,30
+Grilled Shockfin,ff738928,4285761832,Consumables,30
+Grilled Silverback,4bf6ac2e,1274457134,Consumables,30
+Grilled Stripetail,83f20c6e,2213678190,Consumables,30
+Grilled Sunscale,9746b2f8,2537992952,Consumables,30
+Grilled Thornridge,ac1654c6,2887144646,Consumables,30
+Grilled Waveleaper,a6e37a5d,2799925853,Consumables,30
+Grilled Whiskerfin,568d2b39,1452092217,Consumables,30
+Grilled Wolf Meat,c9199bb0,3373898672,Consumables,20
+Grilled Yellowfin,6df345bd,1844659645,Consumables,30
+Grilled Yucca Fruit,2cb0194d,749738317,Consumables,20
+Grinding Stones,fcf23fbe,4243734462,BuildTools,1
+Ground Coffee Beans,50f4361d,1358181917,Materials,250
+Ground Lantern I,681864ac,1746429100,BuildTools,50
+Ground Lantern II,e42e5101,3828240641,BuildTools,50
+Ground Sign,f1a58a41,4054157889,BuildTools,20
+Guard of the North Boots,490631e2,1225142754,Equipment,1
+Guard of the North Chestplate,c2b599ae,3266681262,Equipment,1
+Guard of the North Gloves,b389368e,3012114062,Equipment,1
+Guard of the North Helmet,83e4b1a0,2212802976,Equipment,1
+Guard of the North Pants,4fd68da5,1339461029,Equipment,1
+Guard Of The North Sword,49c76eca,1237806794,Weapons,1
+Guard Of The North Sword,f2c8904b,4073230411,Weapons,1
+Guardian Boots,1ff43f21,536100641,Equipment,1
+Guardian Boots,855eec45,2237590597,Equipment,1
+Guardian Chestplate,8186a0c4,2173083844,Equipment,1
+Guardian Chestplate,14e34980,350439808,Equipment,1
+Guardian Gloves,a18a7fc6,2710208454,Equipment,1
+Guardian Gloves,fb14858e,4212426126,Equipment,1
+Guardian Helmet,641870e4,1679323364,Equipment,1
+Guardian Helmet,48d59eab,1221959339,Equipment,1
+Guardian Shield,4f91b930,1334950192,Equipment,1
+Guardian Shield,366c9d41,913087809,Equipment,1
+Guardian Trousers,9bc68a4c,2613480012,Equipment,1
+Guardian Trousers,5168bc01,1365818369,Equipment,1
+Guillotine,cfd07ae4,3486546660,Weapons,1
+Gunther Galeforth,5fd360a9,1607688361,BuildTools,1
+Hailcaster Boots,db3841ce,3677897166,Equipment,1
+Hailcaster Boots,19c51e4f,432348751,Equipment,1
+Hailcaster Chest,91a4cde9,2443496937,Equipment,1
+Hailcaster Chest,5f6ad668,1600837224,Equipment,1
+Hailcaster Gloves,26ad9145,648909125,Equipment,1
+Hailcaster Gloves,21f00bcf,569379791,Equipment,1
+Hailcaster Hat,a7be637d,2814272381,Equipment,1
+Hailcaster Hat,a6cfadad,2798628269,Equipment,1
+Hailcaster Pants,2bcdb63f,734901823,Equipment,1
+Hailcaster Pants,dfbce711,3753699089,Equipment,1
+Hailscourge,214bd402,558617602,Weapons,1
+Hailscourge,411fb242,1092596290,Weapons,1
+Hailscourge,8fa4f478,2409952376,Weapons,1
+Hailscourge,36165cee,907435246,Weapons,1
+Hailscourge,bb81ba38,3145841208,Weapons,1
+Hailscourge,23ead27c,602591868,Weapons,1
+Hair Splitter,45fa1c87,1174019207,Weapons,1
+Half Wooden Barrel,9dc10da0,2646674848,BuildTools,20
+Half-Light Halos,a6adcdf2,2796408306,Weapons,1
+Half-Timbered Block,ab2b6c51,2871749713,BuildTools,5000
+Half-timbered Shell Limestone Block,4ab388eb,1253279979,BuildTools,5000
+Hammer Of The Piercing Gaze,006b0c01,7015425,Weapons,1
+Hand Drum,85eeba18,2247014936,Instrument,1
+Hand Spindle,5f0c3af2,1594637042,BuildTools,1
+Handpan,7981ca49,2038549065,Instrument,1
+Hanging Lantern,527cd2c9,1383912137,BuildTools,50
+Hanging Silver Chandelier,8478db3d,2222512957,BuildTools,50
+Hannah Reed,32233f92,841170834,BuildTools,1
+Hardened Leather,6871e534,1752294708,Materials,250
+Hardwood,693dc809,1765656585,Materials,250
+Harp,0807181b,134682651,Instrument,1
+Harrow,2483e261,612622945,BuildTools,20
+Harvest Festival,4e78c1c9,1316536777,ColorPalette,50
+Hatchet,413bf00f,1094447119,Weapons,1
+Hawk Boots,a2292d03,2720607491,Equipment,1
+Hawk Chest,f2105396,4061156246,Equipment,1
+Hawk Gloves,6d2db490,1831711888,Equipment,1
+Hawk Helmet,db3f96c4,3678377668,Equipment,1
+Hawk Trousers,74d35075,1960005749,Equipment,1
+Hazelnut,c84ecf0a,3360608010,Consumables,20
+Hazelnut Bush Seedling,9ef54901,2666875137,BuildTools,100
+Head Pounder,3f79b303,1064940291,Weapons,1
+Headscarf,8ba17ca5,2342616229,Equipment,1
+Heal Beam Channel,40d10beb,1087441899,Ammunition,500
+Heal Channel,713cc0e6,1899806950,Ammunition,500
+Healer Boots,f3be843d,4089349181,Equipment,1
+Healer Boots,fc5f86b1,4234118833,Equipment,1
+Healer Gloves,d7912684,3616614020,Equipment,1
+Healer Gloves,24a4a71c,614770460,Equipment,1
+Healer Headwrap,f0d13346,4040241990,Equipment,1
+Healer Headwrap,256ecb63,628018019,Equipment,1
+Healer Pants,2b0f4aaa,722422442,Equipment,1
+Healer Pants,5874f575,1484060021,Equipment,1
+Healer Tunic,06a6181e,111548446,Equipment,1
+Healer Tunic,a1675d3b,2707905851,Equipment,1
+Health Potion,ccd46f7a,3436474234,Consumables,20
+Health Potion +,afcb1810,2949322768,Consumables,20
+Heart Pillow,b443d8e9,3024345321,BuildTools,50
+Heart Pillow,df74e1e2,3748979170,BuildTools,50
+Heart's Desire,73302998,1932536216,ColorPalette,50
+Heather Flower,8cab0f0b,2360020747,BuildTools,50
+Helix,8964e067,2305089639,Weapons,1
+Hemotoxin Antidote,5418f4db,1410921691,Consumables,20
+Herbal Mountain Tea,c2d07b8a,3268443018,Consumables,20
+Herbalist Boots,75e5b8eb,1977989355,Equipment,1
+Herbalist Boots,e8969436,3902182454,Equipment,1
+Herbalist Gloves,f1a101cb,4053860811,Equipment,1
+Herbalist Gloves,388cb2b5,948744885,Equipment,1
+Herbalist Headwrap,90f451ee,2431930862,Equipment,1
+Herbalist Headwrap,49edbf95,1240317845,Equipment,1
+Herbalist Pants,311ad213,823841299,Equipment,1
+Herbalist Pants,ca7f07bf,3397322687,Equipment,1
+Herbalist Tunic,a681aa85,2793515653,Equipment,1
+Herbalist Tunic,7884daa7,2021972647,Equipment,1
+Hero's Shield,df30bebe,3744513726,Equipment,1
+Hero's Shield,0262764a,40007242,Equipment,1
+High Bamboo Window,7020aa19,1881188889,BuildTools,50
+High Carved Wooden Window Frame,78f31fe6,2029199334,BuildTools,50
+High Crude Wooden Shelf,b8b0b831,3098589233,BuildTools,50
+High Elegant Armchair,e9c23bbd,3921820605,BuildTools,50
+High Golden Window Frame,b374eefa,3010785018,BuildTools,50
+High Iron Window Frame I,e0959303,3767898883,BuildTools,50
+High Iron Window Frame II,7d373751,2100770641,BuildTools,50
+High Ornamented Stone Window Frame,e7628967,3881994599,BuildTools,50
+High Paling Fence I,6ec5f2a6,1858466470,BuildTools,50
+High Paling Fence II,a9d16296,2849071766,BuildTools,50
+High Paling Fence III,5ce24db3,1558334899,BuildTools,50
+High Polished Window Frame,f28b98d6,4069234902,BuildTools,50
+Highly Polished Stone Block,22bd4fe5,582832101,BuildTools,5000
+Hollow Cyclops Head,cb558c40,3411381312,Materials,50
+Hollow Cyclops Head,5197a820,1368893472,Materials,50
+Hollow Cyclops Trophy,aa28fc75,2854812789,BuildTools,10
+Hollow Halls Block,79a8f854,2041116756,BuildTools,5000
+Hollow Halls Showcase (1 Large Slot),6627eeca,1713893066,BuildTools,20
+Hollow Halls Showcase (2 Medium Slots),76c3be43,1992539715,BuildTools,20
+Hollow Halls Showcase (2 Small Slots),d158a8c3,3512248515,BuildTools,20
+Hollow Halls Showcase (3 Small and 2 Medium Slots),98d5bfb3,2564145075,BuildTools,20
+Hollow Halls Showcase (3 Small Slots),b4dd9823,3034421283,BuildTools,20
+Hollow's Eve Banner,d782e9a1,3615680929,BuildTools,50
+Hollow's Eve Boots,fec4f68d,4274321037,Equipment,1
+Hollow's Eve Chest,0e4a7206,239759878,Equipment,1
+Hollow's Eve Gloves,626aaa5e,1651157598,Equipment,1
+Hollow's Eve Hood,6f9c6d81,1872522625,Equipment,1
+Hollow's Eve Pants,766fcf42,1987039042,Equipment,1
+Holly and Berry,7536e747,1966532423,ColorPalette,50
+Homage To Drak Slurp,941693d3,2484507603,ColorPalette,50
+Honey,0d89ee9b,227143323,Consumables,20
+Honey Baked Banana,d40370e4,3556995300,Consumables,20
+Honey Beehive,a6700b01,2792360705,BuildTools,1
+Hopeful Glimmer,42104d68,1108364648,Weapons,1
+Hophare,ca2b2dfd,3391827453,BuildTools,1
+Hophare Feeder,90bd73e2,2428335074,BuildTools,50
+Hophare Food,63cb1767,1674254183,AnimalFood,200
+Hophare Food Bait,37821c6d,931273837,AnimalFood,50
+Horizontal Banner I,238191cc,595694028,BuildTools,20
+Horizontal Banner II,0cd5e44e,215344206,BuildTools,20
+Horn Daggers,ca7e4986,3397273990,Weapons,1
+Horned Beast Bow,ab8d8d35,2878180661,Weapons,1
+Horned Greatsword,ce48203f,3460833343,Weapons,1
+Huge Chest,a8ef01ce,2834235854,BuildTools,1
+Huge Crypt Door,8e07455a,2382841178,BuildTools,50
+Huge Magic Chest,f7d5170c,4157937420,BuildTools,1
+Hugo Vanderhall,64ba825d,1689944669,BuildTools,1
+Hunter Boots,931c35e1,2468099553,Equipment,1
+Hunter Boots,7522e16f,1965220207,Equipment,1
+Hunter Boots,09a51988,161814920,Equipment,1
+Hunter Garb,fea32e48,4272107080,Equipment,1
+Hunter Gloves,26dd2ab8,652028600,Equipment,1
+Hunter Gloves,16d52ebb,383069883,Equipment,1
+Hunter Headband,2de07d35,769686837,Equipment,1
+Hunter Hood,3d21d3f6,1025627126,Equipment,1
+Hunter Hood,3a470fea,977735658,Equipment,1
+Hunter Pants,3f29b78a,1059698570,Equipment,1
+Hunter Trousers,49ace713,1236068115,Equipment,1
+Hunter Trousers,56e548c2,1457866946,Equipment,1
+Hunter Vest,867566d8,2255840984,Equipment,1
+Hunter Vest,9bbf61ad,2613010861,Equipment,1
+Hunter's Bow,e7621f31,3881967409,Weapons,1
+Hunter's Ring,c14d1774,3243054964,Equipment,1
+Hydrak'Dal Head,1499eaed,345631469,Materials,50
+Hydrak'Dal Trophy,2be4935e,736400222,BuildTools,10
+Ice,fa53db5d,4199799645,Materials,1000
+Ice Beam Wand,5f192357,1595482967,Weapons,1
+Ice Blade,ffbab9de,4290427358,Weapons,1
+Ice Bolt I,bce7922f,3169292847,Ammunition,500
+Ice Bolt II,5b63fa78,1533278840,Ammunition,500
+Ice Protection Lotion,170d2a07,386738695,Consumables,20
+Ice-Coated Daggers,6ab70715,1790379797,Weapons,1
+Icicle Hail,e685d941,3867531585,Ammunition,100
+Icicle Sword,561a851d,1444578589,Weapons,1
+Icy Brook,b0e4f130,2967793968,ColorPalette,50
+Icy Giant Bones,e82c487f,3895216255,Materials,250
+Ignited Bow,56dcc06d,1457307757,Weapons,1
+Ignited Hammer,c732f017,3342004247,Weapons,1
+Ikko,cfadb30a,3484267274,BuildTools,1
+Improved Bandage,8e6397df,2388891615,Consumables,20
+Improved Fishing Rod,1bfb07f1,469436401,FishingRod,1
+Improved Grappling Hook,6aa6a1d4,1789305300,Tools,1
+Improved Millstone,eac48543,3938747715,BuildTools,1
+Improved Water Well,44e3709b,1155756187,BuildTools,1
+Incendiary Ball,5733067a,1462961786,Weapons,20
+Incendiary Ball,3dc1dbfe,1036114942,Weapons,20
+Indigo Plant,fee6a7a9,4276529065,Materials,250
+Indigo Plant,ec63ce9f,3965963935,BuildTools,50
+Indigo Seedling,5b6024db,1533027547,BuildTools,100
+Infernal Wand,d493e5f3,3566462451,Weapons,1
+Inner Roof Corner,dddcdf67,3722239847,Blueprints,1
+Inner Roof Corner,88f05b30,2297453360,Blueprints,1
+Inscribed Golden Urn,14bb08c5,347801797,Collectibles,20
+Instrument Holder,dd9e49d6,3718138326,BuildTools,20
+Instrument Stand,e7ff330d,3892261645,BuildTools,20
+Inverted Stepped Wall,561d0fad,1444745133,Blueprints,1
+Inverted Stepped Wall,fb0df18e,4211995022,Blueprints,1
+Invisible Barrier,e0bf561d,3770635805,Equipment,1
+Invisible Barrier,8ebd21eb,2394759659,Equipment,1
+Iron Adorned Round Door,ac768a82,2893449858,BuildTools,50
+Iron Arrow,56b0f8fe,1454438654,Ammunition,500
+Iron Axe,f63f03e5,4131324901,Tools,1
+Iron Bars,097be3ae,159114158,Materials,250
+Iron Bench,9bf23a0c,2616343052,BuildTools,50
+Iron Block,107eca7c,276744828,BuildTools,5000
+Iron Bucket,07017fa7,117538727,BuildTools,20
+Iron Chandelier,f91425f4,4178847220,BuildTools,50
+Iron Claw Club,06189614,102274580,Weapons,1
+Iron Crypt Brazier,7876280b,2021009419,BuildTools,50
+Iron Crypt Chandelier,65661b8b,1701190539,BuildTools,50
+Iron Crypt Wall Torch,975bab5a,2539367258,BuildTools,50
+Iron Cyclops Trophy,d44f7de3,3561979363,BuildTools,10
+Iron Door,1a1a105d,437915741,BuildTools,50
+Iron Double Door,97aacbe0,2544552928,BuildTools,50
+Iron Dust,f538d98b,4114143627,Materials,250
+Iron Fell Cyclops Trophy,905ed2f4,2422133492,BuildTools,10
+Iron Fell Dragon Youngling Trophy,34e382d1,887325393,BuildTools,10
+Iron Fell Monstrosity Trophy,831089b6,2198899126,BuildTools,10
+Iron Fell Sicklescythe Trophy,f043558c,4030944652,BuildTools,10
+Iron Fell Thunderbrute Trophy,845beb4c,2220616524,BuildTools,10
+Iron Fell Wispwyvern Trophy,eaa04c56,3936373846,BuildTools,10
+Iron Fence,ec05a1de,3959792094,BuildTools,50
+Iron Fireplace,53b528bd,1404381373,BuildTools,50
+Iron Grate,9a00ee0c,2583752204,BuildTools,50
+Iron Grate,d8e27e1b,3638722075,BuildTools,50
+Iron Hollow Cyclops Trophy,3edde96c,1054730604,BuildTools,10
+Iron Hydrak'Dal Trophy,d2788311,3531113233,BuildTools,10
+Iron Ore,1b29335d,455684957,Materials,250
+Iron Pickaxe,50320935,1345456437,BuildTools,1
+Iron Prison Door,307a23a6,813310886,BuildTools,50
+Iron Prison Double Door,61d59d58,1641389400,BuildTools,50
+Iron Scavenger Matron Trophy,91194cea,2434354410,BuildTools,10
+Iron Vukah Brawler Trophy,992aa216,2569708054,BuildTools,10
+Iron Wall Torch,87c0016e,2277507438,BuildTools,50
+Iron Window Frame,79fd1708,2046629640,BuildTools,50
+Ironheart Greatsword,c98cf242,3381457474,Weapons,1
+Irrigation Gate Large,0a90f0ec,177271020,BuildTools,20
+Irrigation Gate Small,c4fc77b9,3304880057,BuildTools,20
+Ivy,bba6cb08,3148270344,BuildTools,1000
+Jagged Obsidian Axe,5be8b74e,1541977934,Weapons,1
+Jester Hat,b80501af,3087335855,Equipment,1
+Jewelry Box,e5c02a1c,3854576156,BuildTools,50
+Jezmina's Apotheosis,95950775,2509571957,Weapons,1
+Jezmina's Apotheosis,790a3fdc,2030714844,Weapons,1
+Jezmina's Apotheosis,9caa8f8a,2628423562,Weapons,1
+Jezmina's Apotheosis,bbfce07e,3153911934,Weapons,1
+Jezmina's Apotheosis,26bc57e2,649877474,Weapons,1
+Jezmina's War Banner I,e7ad0356,3886875478,BuildTools,20
+Jezmina's War Banner II,4992c240,1234354752,BuildTools,20
+Jump Attack,b9e2fecc,3118661324,Materials,1
+Jump Attack,501fb49c,1344255132,Materials,1
+Jump Attack,95d4ff2b,2513764139,Materials,1
+Jump Attack,7ba76ef6,2074570486,Materials,1
+Jump Attack,dc1d7e67,3692920423,Materials,1
+Kaori Conway,c4a0e8f9,3298879737,BuildTools,1
+Kettle,fb740875,4218685557,BuildTools,1
+Key to The Pike,e3076566,3808912742,Tools,1
+Kiln,014977d3,21592019,BuildTools,1
+Kindlewastes Bone Key,f1975ff8,4053229560,Tools,1
+Kindlewastes Flower,3d132b37,1024666423,Materials,250
+Kindlewastes Flower Seedling,78a8963a,2024314426,BuildTools,100
+Kindlewastes Rubble,f1cc477a,4056696698,Materials,1000
+Kingmaker,eb1d0a99,3944549017,ColorPalette,50
+Kingsize Bed,7a65c7ec,2053490668,BuildTools,50
+Kitchen,d5db41ab,3587916203,BuildTools,1
+Knight Boots,0ab61350,179704656,Equipment,1
+Knight Chestplate,ad60ae18,2908794392,Equipment,1
+Knight Gloves,f272037d,4067558269,Equipment,1
+Knight Helmet,b21329ac,2987600300,Equipment,1
+Knight Trousers,ed4c14cc,3981186252,Equipment,1
+Laboratory,68555285,1750422149,BuildTools,1
+Lady Leclair,834e9968,2202966376,BuildTools,1
+Lakehopper,cf6fe4ab,3480216747,Consumables,30
+Lamp,eaa5fca1,3936746657,BuildTools,50
+Lantern,61397fef,1631158255,BuildTools,50
+Lantern Garden Gnome,3575ccac,896912556,BuildTools,50
+Lapislazuli,b57ce1c6,3044860358,Materials,250
+Large Albaneve Summits Brazier,80825ecc,2156027596,BuildTools,50
+Large Backpack,3b624853,996296787,Equipment,1
+Large Backpack,baa1776a,3131144042,Equipment,1
+Large Bamboo Basket,59d1cff0,1506922480,BuildTools,20
+Large Bamboo Basket,a09680c2,2694217922,BuildTools,20
+Large Bamboo Basket,d31e520a,3541979658,BuildTools,20
+Large Bamboo Basket,aae51509,2867139849,BuildTools,20
+Large Bamboo Crate,8aaabec7,2326445767,BuildTools,20
+Large Bamboo Crate,d3e00468,3554673768,BuildTools,20
+Large Boreal Wood Bed,609eb1c8,1621012936,BuildTools,50
+Large Boreal Wood Cabinet,5aa80b18,1520962328,BuildTools,50
+Large Boreal Wood Cupboard,f9b3ff54,4189323092,BuildTools,50
+Large Boreal Wood Sideboard,9e599e66,2656673382,BuildTools,50
+Large Carved Wooden Cabinet,0cec0696,216794774,BuildTools,50
+Large Castle Table,1efb366d,519779949,BuildTools,50
+Large Chest,faa0e9f1,4204849649,BuildTools,1
+Large Crypt Cabinet,a5eb7f94,2783674260,BuildTools,50
+Large Crypt Coffin I,f07c806c,4034691180,BuildTools,20
+Large Crypt Coffin II,8b4081a7,2336260519,BuildTools,20
+Large Crypt Coffin Lid,60d28207,1624408583,BuildTools,20
+Large Crypt Cupboard,c5ab47be,3316336574,BuildTools,50
+Large Crypt Door,791b422a,2031829546,BuildTools,50
+Large Crypt Mausoleum,14dd5a9f,350050975,BuildTools,20
+Large Crypt Sideboard,c4192207,3289981447,BuildTools,50
+Large Crypt Table,dd08eb10,3708349200,BuildTools,50
+Large Dark Crystal,0a2cc571,170706289,Collectibles,20
+Large Drak'Dal Door,1709e7a1,386525089,BuildTools,50
+Large Elevated Crypt Coffin I,5e736685,1584621189,BuildTools,20
+Large Elevated Crypt Coffin II,27f813ff,670569471,BuildTools,20
+Large Golden Window Frame,d14d35b8,3511498168,BuildTools,50
+Large Iron Crypt Brazier,35adddfa,900587002,BuildTools,50
+Large Iron Window Frame,1ce48f02,484740866,BuildTools,50
+Large Magic Chest,db6ac612,3681207826,BuildTools,1
+Large Palm Wood Cabinet,eb6586ca,3949299402,BuildTools,50
+Large Palm Wood Cupboard,dc4bbc85,3695950981,BuildTools,50
+Large Plant Pot,61e48ca4,1642368164,BuildTools,50
+Large Polished Wooden Cabinet,e1279ba9,3777469353,BuildTools,50
+Large Polished Wooden Cupboard,05939143,93557059,BuildTools,50
+Large Quick Stack Station,dda3aef7,3718491895,BuildTools,20
+Large Round Carved Window Frame,e55be0bb,3848003771,BuildTools,50
+Large Round Iron Window Frame,9301b0b9,2466361529,BuildTools,50
+Large Round Polished Window Frame,4eb9c5a8,1320797608,BuildTools,50
+Large Round Steel Window Frame,c4b31768,3300071272,BuildTools,50
+Large Round Stone Window Frame,0c8db75f,210614111,BuildTools,50
+Large Round Wooden Window Frame,50704e6b,1349537387,BuildTools,50
+Large Salon Mirror,41a9a6aa,1101637290,BuildTools,50
+Large Salon Mirror,9e8b2bf7,2659920887,BuildTools,50
+Large Set of Vials,1b7e2fa5,461254565,BuildTools,500
+Large Silver Brazier,5abf7713,1522497299,BuildTools,50
+Large Spiral Stone Stairs,cca6fcb4,3433495732,BuildTools,20
+Large Stone Arc,c63e2105,3325960453,BuildTools,50
+Large Throne Room Brazier,2bf99653,737777235,BuildTools,50
+Large Water Wheel,8b866c8b,2340842635,BuildTools,1
+Larger Sea Lily Fossil,f0623823,4032968739,Collectibles,20
+Latte,9e1612bb,2652246715,Consumables,20
+Lavender Dream,930a872f,2466940719,ColorPalette,50
+Leather,f67a812e,4135223598,Materials,250
+Leather Bag,178b3531,394999089,BuildTools,20
+Leather Crate,6ffb17a9,1878726569,BuildTools,20
+Left Cyclops Arm,86ffeba2,2264918946,Collectibles,20
+Left Cyclops Leg,3c53dc7a,1012128890,Collectibles,20
+Legendary Runes,a8fcdc84,2835143812,Materials,5000
+Lesser Golden Twinflame Sword,6a7d781b,1786607643,Weapons,1
+Lesser Golden Twinflame Sword,a551b40a,2773595146,Weapons,1
+Lesser Golden Twinflame Sword,f9af5276,4189016694,Weapons,1
+Lesser Ring of Health,3993797a,965966202,Equipment,1
+Lesser Ring of Mana,0120840d,18908173,Equipment,1
+Lesser Ring of Stamina,4b267dd5,1260813781,Equipment,1
+Licuala Plant,fc4c56ba,4232861370,BuildTools,50
+Licuala Seedling,abe519c0,2883918272,BuildTools,100
+Light Blonde Hair,345675fe,878081534,Equipment,1
+Light Blue Eyes,be4d6cfd,3192745213,Equipment,1
+Light Blue Hair,c33649b2,3275114930,Equipment,1
+Light Brown Eyes,bc1d6432,3156042802,Equipment,1
+Light Brown Hair,d0b4af55,3501502293,Equipment,1
+Light Burst,2c0c36d4,738997972,Ammunition,500
+Light Red Hair,9facb127,2678894887,Equipment,1
+Lightforged Axe,90aa51c2,2427081154,Weapons,1
+Lightforged Daggers,7b2b96e2,2066454242,Weapons,1
+Lightning Channel,647c48ca,1685866698,Ammunition,500
+Lilac Insomnia,68c10d53,1757482323,ColorPalette,50
+Limestone,cd603dcd,3445636557,Materials,1000
+Limestone Block,8d003fd7,2365603799,BuildTools,5000
+Limestone Fence,dbf3bd47,3690184007,BuildTools,50
+Limestone Road Block,c5fdb42b,3321738283,Materials,250
+Linen,6c352cb4,1815424180,Materials,250
+Liquid Light,de2273e7,3726799847,ColorPalette,50
+Lockpick,acb994b8,2897843384,Tools,50
+Lonely At The Top,46a27792,1185052562,Collectibles,1
+Long Plant Pot,5a524f44,1515343684,BuildTools,50
+Long Wall Banner,e63a811d,3862593821,BuildTools,20
+Loom,02e355f3,48453107,BuildTools,1
+LoreText_Guidance_BrokenVillage,770c4c28,1997294632,Materials,1
+Low Crude Wooden Shelf,9a2296db,2585958107,BuildTools,50
+Low Elegant Armchair,69db1196,1775964566,BuildTools,50
+Low Large Plant Pot,0611b35e,101823326,BuildTools,50
+Low Paling Fence I,3ed5836e,1054180206,BuildTools,50
+Low Paling Fence II,a044e757,2688870231,BuildTools,50
+Lucky Fishing Rod,58050294,1476723348,FishingRod,1
+Lumberer Boots,594fe1c2,1498407362,Equipment,1
+Lumberer Coat,32bbf3a2,851178402,Equipment,1
+Lumberer Gloves,560ba1e2,1443602914,Equipment,1
+Lumberer Hat,bfbb706e,3216732270,Equipment,1
+Lumberer Pants,d5e377a2,3588454306,Equipment,1
+Lumenshade Axe,7f00f657,2130769495,Weapons,1
+Luminous Growth,bbed8b2d,3152907053,Materials,250
+Luminous Wand,6ad4933c,1792316220,Weapons,1
+Lump of Clay,72bd4309,1925006089,Materials,250
+Lunar New Year Door,a2074940,2718386496,BuildTools,50
+Lupa's Scalper,90f91842,2432243778,Weapons,1
+Lupa's Scalper,20eb3063,552284259,Weapons,1
+Lupa's Scalper,8e4fc4b6,2387592374,Weapons,1
+Lupa's Scalper,3cc3be72,1019461234,Weapons,1
+Lupa's Scalper,d37f4f39,3548335929,Weapons,1
+Lute,70cc4c6f,1892437103,Instrument,1
+Lying Wooden Barrel,1c693438,476656696,BuildTools,20
+Mace of Denial,c47c1f62,3296468834,Weapons,1
+Mace of Wrath,d7fa26a5,3623495333,Weapons,1
+Mace-like Club,8828c46b,2284373099,Weapons,1
+Madly Maroon,dbc9616f,3687407983,ColorPalette,50
+Mae's Map Piece,faac460e,4205594126,Collectibles,1
+Mage Boots,ebb20ba5,3954314149,Equipment,1
+Mage Boots,a95b1d01,2841320705,Equipment,1
+Mage Chest,d291158f,3532723599,Equipment,1
+Mage Chest,d04ab4db,3494556891,Equipment,1
+Mage Gloves,1c54b857,475314263,Equipment,1
+Mage Gloves,eccf7cd4,3973020884,Equipment,1
+Mage Hat,c0f669c5,3237374405,Equipment,1
+Mage Hat,efcf2566,4023330150,Equipment,1
+Mage Trousers,6b382d67,1798843751,Equipment,1
+Mage Trousers,80fe00b6,2164129974,Equipment,1
+Magic Shield,6622ee4f,1713565263,Ammunition,500
+Magician Boots,6e181134,1847071028,Equipment,1
+Magician Boots,c35072be,3276829374,Equipment,1
+Magician Chest,ca7b905d,3397095517,Equipment,1
+Magician Chest,5acc179b,1523324827,Equipment,1
+Magician Gloves,34d04307,886063879,Equipment,1
+Magician Gloves,1ffe6e2a,536768042,Equipment,1
+Magician Hat,b010eaf3,2953898739,Equipment,1
+Magician Hat,ffa62200,4289077760,Equipment,1
+Magician Trousers,a3849217,2743374359,Equipment,1
+Magician Trousers,af5b3f6f,2941992815,Equipment,1
+Magnificent Granite Stone Chair,c6976b3b,3331812155,BuildTools,50
+Magnificent Granite Stone Table,3721b01a,924954650,BuildTools,50
+Maid Garb,a1f78eb8,2717355704,Equipment,1
+Maid Hat,bda863e7,3181929447,Equipment,1
+Major Arcana,0d6cbe9a,225230490,Weapons,1
+Makeshift Daggers,b62d45a8,3056420264,Weapons,1
+Mana Potion,04f64485,83248261,Consumables,20
+Mana Potion +,fbb88c3a,4223175738,Consumables,20
+Mandible Crusher,f673ff5e,4134797150,Weapons,1
+Mangrove Seedling,b2810190,2994798992,BuildTools,100
+"Mannequin ""Back Off""",9fd9c46f,2681848943,BuildTools,20
+"Mannequin ""Here I Come""",790bb32a,2030809898,BuildTools,20
+"Mannequin ""Let Me Serve You""",1ddfd46f,501208175,BuildTools,20
+"Mannequin ""Look At Me""",13168f94,320245652,BuildTools,20
+"Mannequin ""Strike A Pose""",b71ce1fb,3072123387,BuildTools,20
+"Mannequin ""Victory""",4728448d,1193821325,BuildTools,20
+Marianne Reed,49eaae4d,1240116813,BuildTools,1
+Maritime Bathtub,015639d3,22428115,BuildTools,50
+Maritime Shower,adad1831,2913802289,BuildTools,50
+Maritime Sink,060e9781,101619585,BuildTools,50
+Maritime Toilet,742040a2,1948270754,BuildTools,50
+Market On A Yearfall's Day,602e7dd5,1613659605,Collectibles,1
+Marksman Boots,462fd8c4,1177540804,Equipment,1
+Marksman Boots,19443c99,423902361,Equipment,1
+Marksman Gloves,27a046a3,664815267,Equipment,1
+Marksman Gloves,f250b200,4065374720,Equipment,1
+Marksman Hood,7584bd20,1971633440,Equipment,1
+Marksman Hood,6233c43b,1647559739,Equipment,1
+Marksman Trousers,63cc8baf,1674349487,Equipment,1
+Marksman Trousers,a97fda22,2843728418,Equipment,1
+Marksman Vest,cf308757,3476064087,Equipment,1
+Marksman Vest,47efd3ff,1206899711,Equipment,1
+Masonry Tools,77ce9b68,2010028904,BuildTools,1
+Massive Hammer,1cdf3d35,484392245,Weapons,1
+Masterful Mace,b4e41af1,3034847985,Weapons,1
+Material_T6_Green_Essence,eec21da0,4005698976,Materials,500
+Material_T6_SlurpBroth,59ccc524,1506592036,Materials,250
+Material_T7_Archaic_Core,b7dcd57c,3084703100,Materials,250
+Material_T7_Archaic_Shards,7fa553a8,2141541288,Materials,250
+Material_T7_Basalt_Dust,10f22301,284304129,Materials,250
+Material_T7_Celesthium_Bar,ac78b933,2893592883,Materials,250
+Material_T7_Celesthium_Ore,795a0eba,2035945146,Materials,250
+Material_T7_Diamond,03ab981c,61577244,Materials,250
+Material_T7_Diamond_Dust,66dec327,1725874983,Materials,250
+Material_T7_Fognest_Ressource,7f4ab528,2135602472,Materials,500
+Material_T7_Moonstone,d19987d6,3516499926,Materials,250
+Material_T7_Moonstone_Dust,f312a98d,4078086541,Materials,250
+Material_T7_Sparkling_Dust,32555998,844454296,Materials,250
+Mauveine,f5cd7308,4123882248,Materials,250
+Meat and Corncob Skewer,a94e9a40,2840500800,Consumables,20
+Meat and Mushroom Skewer,c3e08ac8,3286272712,Consumables,20
+Meat and Tomato Skewer,69529ea5,1767022245,Consumables,20
+Meat Chopper,a8cf4d1d,2832157981,Weapons,1
+Meat Wrap,df31ed48,3744591176,Consumables,20
+Medium Albaneve Summits Brazier,ccaeb994,3434002836,BuildTools,50
+Medium Backpack,e0e90a4e,3773368910,Equipment,1
+Medium Backpack,f19bc16c,4053516652,Equipment,1
+Medium Boreal Wood Cabinet,2978b752,695777106,BuildTools,50
+Medium Castle Table,dfdb61a6,3755696550,BuildTools,50
+Medium Chest,d919ac26,3642338342,BuildTools,1
+Medium Crypt Cabinet,6ae90a4d,1793657421,BuildTools,50
+Medium Crypt Table,afe2863d,2950858301,BuildTools,50
+Medium Flask,786b3f7e,2020294526,BuildTools,50
+Medium Hollow Halls Banner,21051f7f,553983871,BuildTools,20
+Medium Hollow's Eve Pumpkin I,1ed18ef6,517050102,BuildTools,50
+Medium Hollow's Eve Pumpkin II,d1024df3,3506589171,BuildTools,50
+Medium Hollow's Eve Pumpkin III,8e2d9b23,2385353507,BuildTools,50
+Medium Magic Chest,92d92d5f,2463706463,BuildTools,1
+Medium Plant Pot,253ef976,624884086,BuildTools,50
+Medium Shape,1c3c2581,473703809,Blueprints,1
+Medium Shape,56cebba7,1456389031,Blueprints,1
+Medium Stone Brazier,52951769,1385502569,BuildTools,50
+Megalodon Greatsword,bee979f4,3202972148,Weapons,1
+Mei-Yin Chen,8d9ad8d8,2375735512,BuildTools,1
+Mercenary Boots,38f5cda3,955633059,Equipment,1
+Mercenary Boots,01d01d36,30416182,Equipment,1
+Mercenary Chest,9f0e8e19,2668531225,Equipment,1
+Mercenary Chest,e285921c,3800404508,Equipment,1
+Mercenary Gloves,dfa3a847,3752044615,Equipment,1
+Mercenary Gloves,8349eae5,2202659557,Equipment,1
+Mercenary Helmet,0d650e3a,224726586,Equipment,1
+Mercenary Helmet,c20a2f3c,3255447356,Equipment,1
+Mercenary Shield,8cd95b6f,2363054959,Equipment,1
+Mercenary Shield,507093fa,1349555194,Equipment,1
+Mercenary Trousers,7949bb1b,2034875163,Equipment,1
+Mercenary Trousers,e64c9350,3863778128,Equipment,1
+Metal Block,1ce951b4,485052852,BuildTools,5000
+Metal Bound Wooden Door,2a7992b7,712610487,BuildTools,50
+Metal Bound Wooden Double Door,e61b4502,3860546818,BuildTools,50
+Metal Scraps,07e67b5b,132545371,Materials,250
+Metal Sheets,fe9ff6a2,4271896226,Materials,250
+Metalstar Mace,f4ff735a,4110381914,Weapons,1
+Midnight Lily,910c1368,2433487720,Consumables,250
+Midnight Tomb Block,a9c37a40,2848160320,BuildTools,5000
+Milk,ab457577,2873455991,Consumables,100
+Milkmaid Boots,2ee5a429,786801705,Equipment,1
+Milkmaid Garb,e55ac05d,3847929949,Equipment,1
+Milkmaid Hat,c0b1da4b,3232881227,Equipment,1
+Mill,b14e06e0,2974680800,BuildTools,1
+Miner Helmet,53028698,1392674456,Equipment,1
+Mining Sieve,86cbbee7,2261499623,BuildTools,1
+Minor Arcana,071e8df6,119442934,Weapons,1
+Minstrel Hat,48eb0567,1223361895,Equipment,1
+Mint Mushroom Meat,05664746,90588998,Materials,250
+Mirage,4573c01e,1165213726,Collectibles,1
+Mirage,76bc31be,1992044990,Weapons,1
+Misfortune Mace,0c85c609,210093577,Weapons,1
+Mist of a Fell Sicklescythe,a0de4c1e,2698923038,Materials,250
+Mixed Sandstone Block,c96c88c1,3379333313,BuildTools,5000
+Monstera Plant,634e7ae4,1666087652,BuildTools,50
+Monstera Plant,1f31f13d,523366717,BuildTools,50
+Monstrous Ribs,b152fe95,2975006357,Materials,250
+Moon Over The Well,7228ea24,1915284004,Collectibles,1
+Moon Rock Greatsword,af9dc07c,2946351228,Weapons,1
+Morning Sun,b67c522a,3061600810,Collectibles,1
+Morningdew Greatsword,575cb2d6,1465692886,Weapons,1
+Mortar,a5909476,2777715830,BuildTools,1
+Moss,d5bab21f,3585782303,Materials,1000
+Mossy Stone,7e4c6fdf,2118938591,ColorPalette,50
+Moth,83376ef6,2201448182,Ammunition,250
+Mother-Of-Pearl,7125958d,1898288525,Materials,250
+Mother's Eye,8fed8d38,2414710072,Equipment,1
+Mountain's Shadow Boots,3946391d,960903453,Equipment,1
+Mountain's Shadow Boots,a0450b67,2688879463,Equipment,1
+Mountain's Shadow Chest,0ca592bf,212177599,Equipment,1
+Mountain's Shadow Chest,a60460be,2785304766,Equipment,1
+Mountain's Shadow Gloves,cce83dd4,3437772244,Equipment,1
+Mountain's Shadow Gloves,beefbc6f,3203382383,Equipment,1
+Mountain's Shadow Helmet,e0878132,3766976818,Equipment,1
+Mountain's Shadow Helmet,cbec47f3,3421259763,Equipment,1
+Mountain's Shadow Shield,4d229713,1294112531,Equipment,1
+Mountain's Shadow Shield,ca5faeb6,3395268278,Equipment,1
+Mountain's Shadow Trousers,b184b413,2978264083,Equipment,1
+Mountain's Shadow Trousers,0b3f3d24,188693796,Equipment,1
+Mushroom Flesh,93c408e5,2479098085,Materials,250
+Mushroom Omelette,8cf3a59c,2364777884,Consumables,20
+Muted Green Hair,687292cb,1752339147,Equipment,1
+Muted Red Hair,8c9d7893,2359130259,Equipment,1
+Mycelium,d127476b,3509012331,Materials,250
+Mycelium,50b0c754,1353762644,BuildTools,1000
+Mycelium Overgrown Block,97a19022,2543947810,BuildTools,5000
+Mysterious Flask,838b5002,2206945282,Consumables,20
+Mysterious Mauve,42f8bba9,1123597225,ColorPalette,50
+Mysterious Tome,c5715507,3312538887,Collectibles,20
+Mystic Boots,0a5da75c,173909852,Equipment,1
+Mystic Chest,b48e9100,3029242112,Equipment,1
+Mystic Gloves,81cb3aae,2177579694,Equipment,1
+Mystic Hat,33096b96,856255382,Equipment,1
+Mystic Pants,1b170c4c,454495308,Equipment,1
+Mythic Wand,98c37576,2562946422,Weapons,1
+Nails,a3872f64,2743545700,Materials,250
+Nameless One,ebb593f7,3954545655,BuildTools,1
+Narrow Wall,02dd1282,48042626,Blueprints,1
+Natural Water Dispenser,4e1bd0c3,1310445763,BuildTools,20
+Necromancer's Skull Summoning Vessel,41e0e94e,1105258830,Weapons,20
+Nettle Seedling,8901e9d5,2298603989,BuildTools,100
+New Moon,91d3adef,2446568943,ColorPalette,50
+New Moon Greatsword,9f427297,2671932055,Weapons,1
+Nightfall,d5983175,3583521141,Weapons,1
+Nightnebula,b454fe58,3025469016,Weapons,1
+Nightshade,1eeff01d,519041053,ColorPalette,50
+Nightwind Bow,cea74428,3467068456,Weapons,1
+Nitrate,838a4980,2206878080,Materials,250
+Noble Boots,9120ab8a,2434837386,Equipment,1
+Noble Diadem,eb54e797,3948210071,Equipment,1
+Noble Dress,bd87d2e3,3179795171,Equipment,1
+Noble Gloves,1551050d,357631245,Equipment,1
+Noble Pants,c03369e5,3224594917,Equipment,1
+Noble Sword,0cbb09c0,213584320,Weapons,1
+Nomad Highlands Bone Key,91ffd3d3,2449462227,Tools,1
+Nomad Highlands Broad Tree Seedling,e23c411d,3795599645,BuildTools,100
+Nomad Highlands Dirt,a2e35887,2732808327,Materials,1000
+Nomad Highlands Rubble,c0a8858f,3232269711,Materials,1000
+Nomad Highlands Slender Tree Seedling,14ff55dd,352277981,BuildTools,100
+Notice Board,5bff9b59,1543478105,BuildTools,20
+Nova,cafbc2bf,3405497023,Weapons,1
+Oak Tree Seedling,0b6fc5e0,191874528,BuildTools,100
+Oath Breaker,44f34c7c,1156795516,Weapons,1
+Obsidian,c944e0e9,3376734441,Materials,250
+Obsidian Arrow,817e7f72,2172551026,Ammunition,500
+Obsidian Block,3c37b9d6,1010285014,BuildTools,5000
+Obsidian Dust,49f535d0,1240806864,Materials,250
+Of Daggers And Wine,a62ab657,2787817047,Collectibles,1
+Old Books,9b99eafe,2610555646,Materials,250
+Omen Boots,f126f04f,4045860943,Equipment,1
+Omen Chest,5cf7c376,1559741302,Equipment,1
+Omen Gloves,4162beac,1096990380,Equipment,1
+Omen Helmet,a3ae55d0,2746111440,Equipment,1
+Omen Trousers,f499b734,4103714612,Equipment,1
+One-Handed Melee Weapon Rack,4a42f92d,1245903149,BuildTools,20
+One-Handed Melee Weapon Wall Mount,6ce7d942,1827133762,BuildTools,20
+Ony's Map Piece,6e6533a0,1852126112,Collectibles,1
+Open Copper Jar,b94dd31a,3108885274,BuildTools,20
+Open Sandwich,2f1c7474,790393972,Consumables,20
+Oracle's Everblue,53b01a74,1404050036,Weapons,1
+Orange Decorative Box,f5c33b46,4123212614,BuildTools,50
+Orange Eyes,5c66cdc2,1550241218,Equipment,1
+Orange Fabric,ac5234d9,2891068633,Materials,250
+Orange Floor Light I,18dd9f79,417177465,BuildTools,50
+Orange Floor Light II,f3610306,4083221254,BuildTools,50
+Orange Pendant Light I,b63b7b6d,3057351533,BuildTools,50
+Orange Pendant Light II,0b8448c6,193218758,BuildTools,50
+Orange Wall Light I,32da1c76,853154934,BuildTools,50
+Orange Wall Light II,db4e9298,3679359640,BuildTools,50
+Ornamented Vase I,4e1db24a,1310569034,BuildTools,50
+Ornamented Vase II,094ab9b1,155892145,BuildTools,50
+Ornamented Vase III,a840fc50,2822831184,BuildTools,50
+Ornamented Vase IV,d77382e1,3614671585,BuildTools,50
+Ornamented Vase V,7023dfab,1881399211,BuildTools,50
+Ornamented Vase VI,4d286a36,1294494262,BuildTools,50
+Ornate Flute,50aa0b8b,1353321355,Instrument,1
+Ornate Greatsword,afbce7a6,2948392870,Weapons,1
+Ornate Hand Drum,041f7baf,69172143,Instrument,1
+Ornate Handpan,015f8042,23035970,Instrument,1
+Ornate Harp,8fcc54ba,2412532922,Instrument,1
+Ornate Lute,413d03c4,1094517700,Instrument,1
+Ornate Steel Door,985427f1,2555652081,BuildTools,50
+Ornate Steel Double Door,a89c1294,2828800660,BuildTools,50
+Ornate Wall Banner,5bbfa16e,1539285358,BuildTools,20
+Ornate Wood Bow,1c6b8fff,476811263,Weapons,1
+Ornate Wooden Bed,89619301,2304873217,BuildTools,50
+Orpheus' Map Piece,f00f0c1e,4027517982,Collectibles,1
+Oscar Godwin,a6fe0d97,2801667479,BuildTools,1
+Oswald Anders,2ee18a0f,786532879,BuildTools,1
+Outer Roof Corner,b2df757f,3000989055,Blueprints,1
+Outer Roof Corner,3abe2900,985540864,Blueprints,1
+Oven,ca8693ca,3397817290,BuildTools,1
+Overgrowth Tool,be8b0750,3196782416,Blueprints,1
+Padding,65ff9103,1711247619,Materials,250
+Palm Leaf Basket,fabc3f0c,4206640908,BuildTools,20
+Palm Leaf Basket,f91d9a1a,4179466778,BuildTools,20
+Palm Leaf Basket,42112d4b,1108421963,BuildTools,20
+Palm Leaf Roof Block,9f2d57e8,2670548968,BuildTools,5000
+Palm Leaves,1f11576d,521230189,Materials,250
+Palm Wood Banquet Table,b37bb08b,3011227787,BuildTools,50
+Palm Wood Bed,1ac8ca2d,449366573,BuildTools,50
+Palm Wood Bedside Table,59469800,1497798656,BuildTools,50
+Palm Wood Block,a867c32f,2825372463,BuildTools,5000
+Palm Wood Chair,f7cfcba2,4157590434,BuildTools,50
+Palm Wood Logs,b025483c,2955233340,Materials,250
+Palm Wood Shelf,2bebdd49,736877897,BuildTools,50
+Palm Wood Side Table,da02d537,3657618743,BuildTools,50
+Palm Wood Table,5581674a,1434543946,BuildTools,50
+Paper,111b8fb0,287018928,Materials,250
+Paper Lantern I,3f0f579e,1057970078,BuildTools,50
+Paper Lantern II,76734ed7,1987268311,BuildTools,50
+Paper Reed,3d29abca,1026141130,Materials,250
+Papyrus Seedling,1e32a90f,506636559,BuildTools,100
+Parade Daggers,4b3ddafd,1262344957,Weapons,1
+Passionflower,f7442a68,4148439656,Materials,250
+Pastel Yearwake,51247795,1361344405,ColorPalette,50
+Peak Roof Top,fdd40471,4258530417,Blueprints,1
+Peak Roof Top,ece79104,3974598916,Blueprints,1
+Pearl,5fa72420,1604789280,Materials,250
+Pearlfrost Mentor Boots,7d39436b,2100904811,Equipment,1
+Pearlfrost Mentor Boots,d1cdf5b4,3519935924,Equipment,1
+Pearlfrost Mentor Chest,2816a7d9,672573401,Equipment,1
+Pearlfrost Mentor Chest,5e8d924c,1586336332,Equipment,1
+Pearlfrost Mentor Gloves,d3dd82ec,3554509548,Equipment,1
+Pearlfrost Mentor Gloves,935c2fdf,2472292319,Equipment,1
+Pearlfrost Mentor Hat,2965a204,694526468,Equipment,1
+Pearlfrost Mentor Hat,f486cb16,4102474518,Equipment,1
+Pearlfrost Mentor Pants,1a40ab6b,440445803,Equipment,1
+Pearlfrost Mentor Pants,f4fde06a,4110278762,Equipment,1
+Pendant Ceiling Lantern,7d39129c,2100892316,BuildTools,50
+Penny Bun,23d06ec5,600862405,Consumables,20
+Penny Bun Seedling,2ccab461,751481953,BuildTools,100
+Petrified Shroud Stalker Shell,d63d3c69,3594337385,Materials,250
+Philipp_Buoyancy_Platform,c18a2ece,3247058638,Weapons,20
+Pickaxe,2525bb44,623229764,BuildTools,1
+Pikemead Statue Showcase,2f31d9ca,791796170,BuildTools,20
+Pikemead Statue Showcase,7d5412ad,2102661805,BuildTools,20
+Pikemead Statue Showcase,0a3fe74e,171960142,BuildTools,20
+Pikemead's Bulwark,1b17504d,454512717,Equipment,1
+Pikemead's Bulwark,810a0532,2164917554,Equipment,1
+Pikemead's Bulwark,ded1b712,3738285842,Equipment,1
+Pikemead's Bulwark,ebe81628,3957855784,Equipment,1
+Pikemead's Bulwark,1eaaf56d,514520429,Equipment,1
+Pikemead's Bulwark,6cf61d2e,1828068654,Equipment,1
+Pikemead's Bulwark,49be12f5,1237193461,Equipment,1
+Pikemead's Peak,eee1f180,4007784832,Collectibles,1
+Pine Shortbow,d309c6d7,3540633303,Weapons,1
+Pinewood Fence Gate I,19c579be,432372158,BuildTools,50
+Pinewood Fence Gate II,e79fc8fd,3886008573,BuildTools,50
+Pinewood Fence I,5f2c999d,1596758429,BuildTools,50
+Pinewood Fence II,6b28558e,1797805454,BuildTools,50
+Pinewood Fence Pole,bf7e651a,3212731674,BuildTools,50
+Pinewood Room Divider I,5cfde198,1560142232,BuildTools,50
+Pinewood Room Divider II,b28850c9,2995278025,BuildTools,50
+Pinewood Room Divider III,3f30e030,1060167728,BuildTools,50
+Pinewood Room Divider IV,d526c96d,3576088941,BuildTools,50
+Pink Flower,ae81433f,2927706943,BuildTools,50
+Pink Flower,a3638098,2741207192,BuildTools,50
+Pink Flower,1260f830,308344880,BuildTools,50
+Pink Flower,fea409b8,4272163256,BuildTools,50
+Pink Flower,6441fe29,1682046505,BuildTools,50
+Pink Lily Flower,bba3356c,3148035436,BuildTools,50
+Pink Mushroom Meat,cfd0af9c,3486560156,Materials,250
+Pink Wall Flower,54693c12,1416182802,BuildTools,50
+Pink Wall Flower,1fd2c0b8,533905592,BuildTools,50
+Pinky Promise,f789265a,4152960602,ColorPalette,50
+Piscine Ivory Dust,208998db,545888475,Materials,250
+Plaguebringer Boots,37bb5c60,935025760,Equipment,1
+Plaguebringer Chest,00d1f330,13759280,Equipment,1
+Plaguebringer Gloves,50a485a6,1352959398,Equipment,1
+Plaguebringer Hood,b518eec8,3038310088,Equipment,1
+Plaguebringer Trousers,469a1430,1184502832,Equipment,1
+Plaited Block,a4a93911,2762553617,BuildTools,5000
+Plant Fiber,c5a97b68,3316218728,Materials,250
+Plant Fiber Roof Block,f303e04f,4077117519,BuildTools,5000
+Plantain,8c09ddff,2349456895,Consumables,20
+Plantain Curry,abec4aba,2884389562,Consumables,20
+Plough,58837187,1485009287,BuildTools,20
+Pocket Heater,9a202c28,2585799720,Consumables,20
+Poison Sack,599f74ae,1503622318,Materials,250
+Poisoned Bronze Arrow,20e04287,551568007,Ammunition,500
+Poisoned Copper Arrow,ae01020a,2919301642,Ammunition,500
+Poisoned Golden Steel Arrow,3e9e6fdb,1050570715,Ammunition,500
+Poisoned Iron Arrow,8d3cf68a,2369582730,Ammunition,500
+Poisoned Steel Arrow,0623c745,103008069,Ammunition,500
+Polaris' Map Piece,b1eb7175,2984997237,Collectibles,1
+Polished Granite Block,eb78408a,3950526602,BuildTools,5000
+Polished Scrap Brazier,ce12e91c,3457345820,BuildTools,50
+Polished Stone,0626f7eb,103217131,ColorPalette,50
+Polished Window Frame,9e039a49,2651036233,BuildTools,50
+Polished Wooden Banquet Table,8af1a6e0,2331092704,BuildTools,50
+Polished Wooden Bedside Table,caea243d,3404342333,BuildTools,50
+Polished Wooden Bench,9661efcf,2523000783,BuildTools,50
+Polished Wooden Chair,70a824da,1890067674,BuildTools,50
+Polished Wooden Door,b3910fb5,3012628405,BuildTools,50
+Polished Wooden Double Door,dbdf70d2,3688853714,BuildTools,50
+Polished Wooden Shelf,e2ce13e2,3805156322,BuildTools,50
+Polished Wooden Side Table,7446fdaa,1950809514,BuildTools,50
+Polished Wooden Table,e5dd7f4a,3856498506,BuildTools,50
+Polished Wooden Throne,c1043371,3238278001,BuildTools,50
+Polymath's Wand,830d76dd,2198697693,Weapons,1
+Pompom Jr.,1ffac51a,536528154,BuildTools,1
+Popcorn,8e00a463,2382406755,Consumables,20
+Portable Water Pump,3ed083dd,1053852637,BuildTools,1
+Pottery Flasks,aabaf673,2864379507,BuildTools,20
+Pottery Jar,295e878c,694060940,BuildTools,20
+Pottery Mug,80264d05,2149993733,BuildTools,20
+Pottery Vase,9df004cd,2649752781,BuildTools,20
+Pottery Vessel,95a80ae4,2510818020,BuildTools,20
+Prawn Fossil,8d4a9286,2370474630,Collectibles,20
+Prayer of the Flame Scroll,7ab33fcf,2058567631,Consumables,20
+Pretty In Pink,0d1e09de,220072414,ColorPalette,50
+Primitive Stone Shelf,d6e378fc,3605231868,BuildTools,50
+Princely Greatsword,526b6685,1382770309,Weapons,1
+Prismatic Ward,5774f098,1467281560,Equipment,1
+Prismatic Ward,9ec97cdc,2664004828,Equipment,1
+Prison Fence,9227a1d5,2452070869,BuildTools,50
+Prison Fence,ccaf3919,3434035481,BuildTools,50
+Prison Fence Corner,9b4c11e7,2605453799,BuildTools,50
+Prison Fence Gate,76de9f19,1994301209,BuildTools,25
+Prison Fence Pole,d35d2ec8,3546099400,BuildTools,25
+Prized Skull Trophy,932a7fa5,2469035941,BuildTools,10
+Prop_FlamePower_Restore_item,6ba0706b,1805676651,BuildTools,1
+Prop_Fognest_Ressource_item_01a,73d883e2,1943569378,BuildTools,100
+Prop_Fognest_Ressource_item_01b,c5ace89f,3316443295,BuildTools,1
+Prop_Fognest_Ressource_item_01c,234cf69c,592246428,BuildTools,1
+Prop_Fognest_Ressource_item_02a,b77409cc,3077835212,BuildTools,100
+Prop_Fognest_Ressource_item_02b,1fe54aa9,535120553,BuildTools,1
+Prop_Fognest_Ressource_item_02c,c574e8c0,3312773312,BuildTools,1
+Prop_Fognest_Ressource_item_03a,bee87ba6,3202907046,BuildTools,100
+Prop_Fognest_Ressource_item_03b,f90f9933,4178549043,BuildTools,1
+Prop_Fognest_Ressource_item_03c,c401543b,3288421435,BuildTools,1
+Prop_Fognest_Ressource_item_04a,c519a078,3306791032,BuildTools,100
+Prop_Fognest_Ressource_item_04b,f8b49ed8,4172586712,BuildTools,1
+Prop_Fognest_Ressource_item_04c,1bf20f2e,468848430,BuildTools,1
+Prop_Fognest_Ressource_item_05a,e0098aa0,3758721696,BuildTools,100
+Prop_Fognest_Ressource_item_05b,90e608d8,2430994648,BuildTools,1
+Prop_Fognest_Ressource_item_05c,48abe799,1219225497,BuildTools,1
+Prop_Fognest_Ressource_item_06a,5ff88be2,1610124258,BuildTools,100
+Prop_Fognest_Ressource_item_06b,16576c03,374828035,BuildTools,1
+Prop_Fognest_Ressource_item_06c,805da2a0,2153620128,BuildTools,1
+Protector Greatsword,e5c6f529,3855021353,Weapons,1
+Proud Daggers,462f8c3d,1177521213,Weapons,1
+Provisional Scythe,b45d5d42,3026017602,Weapons,1
+Prowl,91a17c87,2443279495,ColorPalette,50
+Pulley,a3bbe2fe,2746999550,BuildTools,20
+Pumpkin,fc6438af,4234426543,Consumables,250
+Pumpkin Seedling,d7e6fc73,3622239347,BuildTools,100
+Pumpkin Soup,ad27b1c5,2905059781,Consumables,20
+Pure Amethyst,6a0a9497,1779078295,ColorPalette,50
+Purified Slime,801751f9,2149011961,Materials,250
+Purple Berries,dcf8790d,3707271437,Consumables,20
+Purple Berry Cake,03e43609,65287689,Consumables,20
+Purple Eyes,d3cd7113,3553456403,Equipment,1
+Purple Floor Light I,1ed3b4a3,517190819,BuildTools,50
+Purple Floor Light II,56bcabf8,1455205368,BuildTools,50
+Purple Hair,ae913117,2928750871,Equipment,1
+Purple Pendant Light I,830966f9,2198431481,BuildTools,50
+Purple Pendant Light II,e171fda5,3782344101,BuildTools,50
+Purple Rocket,7cbacf85,2092617605,BuildTools,20
+Purple Wall Light I,4f97dfc9,1335353289,BuildTools,50
+Purple Wall Light II,ff094058,4278796376,BuildTools,50
+Pyreblade,96f75f07,2532794119,Weapons,1
+Queen Pikemead Statue Piece,e7753bcc,3883219916,Collectibles,20
+Queen Pikemead Statue Piece,5cca3bf9,1556757497,Collectibles,20
+Queen Pikemead Statue Piece,9c704e92,2624605842,Collectibles,20
+quest_reward_icon_shroud_root,58c32efa,1489186554,BuildTools,1
+Quetzal Hunter Chest,d6b6f597,3602314647,Equipment,1
+Quetzal Hunter Chest,3428f3dc,875099100,Equipment,1
+Quetzal Hunter Gloves,3c21f9c2,1008859586,Equipment,1
+Quetzal Hunter Gloves,47e475b2,1206154674,Equipment,1
+Quetzal Hunter Helmet,26423ba5,641874853,Equipment,1
+Quetzal Hunter Helmet,bdc70602,3183937026,Equipment,1
+Quetzal Hunter Pants,375fc492,929023122,Equipment,1
+Quetzal Hunter Pants,22ceaf35,583970613,Equipment,1
+Quetzal Hunter Shoes,3d9a04bd,1033503933,Equipment,1
+Quetzal Hunter Shoes,cfd4a530,3486819632,Equipment,1
+Quick Stack Station,a9b54dc5,2847231429,BuildTools,20
+Radiant Paladin Boots,e4f365e8,3841156584,Equipment,1
+Radiant Paladin Chestplate,e5beeb7c,3854494588,Equipment,1
+Radiant Paladin Gloves,1c3559ec,473258476,Equipment,1
+Radiant Paladin Helmet,461e3dad,1176386989,Equipment,1
+Radiant Paladin Trousers,8640f9cf,2252405199,Equipment,1
+Ragged Boots,f2e57301,4075123457,Equipment,1
+Ragged Pants,86979b74,2258082676,Equipment,1
+Ragged Shirt,6bab5640,1806390848,Equipment,1
+Rake,99775196,2574733718,BuildTools,1
+Ramone Jones,80ba9c8b,2159713419,BuildTools,1
+Ranger Boots,d6047cfe,3590618366,Equipment,1
+Ranger Boots,0fce0d71,265162097,Equipment,1
+Ranger Gloves,704af793,1883961235,Equipment,1
+Ranger Gloves,716dae06,1903013382,Equipment,1
+Ranger Hood,46fd3fa5,1191002021,Equipment,1
+Ranger Hood,606b453a,1617642810,Equipment,1
+Ranger Trousers,59b7684e,1505192014,Equipment,1
+Ranger Trousers,8d8d9ffc,2374868988,Equipment,1
+Ranger Vest,6ea48a82,1856277122,Equipment,1
+Ranger Vest,a5a0cd33,2778778931,Equipment,1
+Rare Fishing Bait,4e494fab,1313427371,Ammunition,250
+Rattlesnake Bow,cfb35684,3484636804,Weapons,1
+Raw Bird Meat,170026bf,385885887,Consumables,20
+Raw Dune Armadillo Meat,570efd21,1460600097,Consumables,20
+Raw Fatty Meat,897e7ac8,2306767560,Consumables,20
+Raw Game,95c119cb,2512460235,Consumables,20
+Raw Lean Meat,58fbbb1c,1492892444,Consumables,20
+Raw Meat and Corncob Skewer,ecf3ed22,3975408930,Materials,250
+Raw Meat and Mushroom Skewer,8b394119,2335785241,Materials,250
+Raw Meat and Tomato Skewer,ed80dfa5,3984646053,Materials,250
+Raw Rice,8d8cc80b,2374813707,Materials,250
+Raw Taro,9018ebf2,2417552370,Consumables,20
+Raw Wolf Meat,b0f45532,2968802610,Consumables,20
+Raw Wool,75fe69b5,1979607477,Materials,250
+Reaper's Wand,b6ff20ef,3070173423,Weapons,1
+Reaper's Wand,009884d8,9995480,Weapons,1
+Reaper's Wand,00dcfe3b,14483003,Weapons,1
+Reaper's Wand,dca2dd29,3701660969,Weapons,1
+Reaper's Wand,82d56128,2195022120,Weapons,1
+Reaper's Wand,4c19ba43,1276754499,Weapons,1
+Reaper's Wand,16b5b9c8,381008328,Weapons,1
+Recent Drak Wand,383a1e60,943332960,Weapons,1
+Red Carpet Block,eb90e07f,3952140415,BuildTools,5000
+Red Eyes,12ae8515,313427221,Equipment,1
+Red Fabric,ec0a4c32,3960097842,Materials,250
+Red Flower,8fdf5017,2413776919,BuildTools,50
+Red Flower,095de305,157147909,BuildTools,50
+Red Flower,8d7cc4bf,2373764287,BuildTools,50
+Red Flower,b86fe973,3094342003,BuildTools,50
+Red Flower,e2bd724f,3804066383,BuildTools,50
+Red Fountain,a36545ff,2741323263,BuildTools,20
+Red Hair,3277c733,846710579,Equipment,1
+Red Marble Block,ddcf6406,3721356294,BuildTools,5000
+Red Marble Fragment,96d5e919,2530601241,Materials,500
+Red Party Hat,de99ab1f,3734612767,Equipment,1
+Red Wall Flower,78f5cf2a,2029375274,BuildTools,50
+Red Wall Flower,654d0666,1699546726,BuildTools,50
+Reed Seedling,84e8739d,2229826461,BuildTools,100
+Refined Sandstone Block,5cb6c9d3,1555483091,BuildTools,5000
+Refined Stone Block,11ad3094,296562836,BuildTools,5000
+Refined Wood Block,50f99da9,1358536105,BuildTools,5000
+Regular Sandstone Block,841a1bee,2216303598,BuildTools,5000
+Regular Stone Block,c56bc6d5,3312174805,BuildTools,5000
+Repair Kit,c948f6ae,3377002158,Consumables,10
+Reptile Hide,a99c63f8,2845598712,Materials,250
+Reptile Leather,1163c9ce,291752398,Materials,250
+Resin,f4f57bb1,4109728689,Materials,250
+Resin Torch,1fabd22f,531354159,Weapons,1
+Resource Bundle I,4e4f8aa8,1313835688,BuildTools,20
+Resource Bundle II,85bc875b,2243725147,BuildTools,20
+Revelation By The Pond,e901407f,3909173375,ColorPalette,50
+Revelwood Bone Key,8cbbdc5b,2361121883,Tools,1
+Revelwood Dirt,eaacb195,3937186197,Materials,1000
+Revelwood Green Leaf Seedling,d7f21be9,3622968297,BuildTools,100
+Revelwood Red Leaf Seedling,f56e1bc9,4117633993,BuildTools,100
+Revelwood Rubble,60844ae8,1619282664,Materials,1000
+Revelwood Stone,4668e901,1181280513,Materials,1000
+Revitalizing Health Potion,dcb1dded,3702644205,Consumables,20
+Revitalizing Health Potion +,474d6ab4,1196255924,Consumables,20
+Rice Seedling,d1d489cb,3520367051,BuildTools,100
+Right Cyclops Arm,d226bc9c,3525754012,Collectibles,20
+Right Cyclops Leg,8b745cce,2339658958,Collectibles,20
+Ring of Endless Life,9ef25a09,2666682889,Equipment,1
+Ring of Endless Life,be0c6602,3188483586,Equipment,1
+Ring of Frost,5ec9fa07,1590295047,Equipment,1
+Ring of Health,f29b7aa9,4070275753,Equipment,1
+Ring of Mana,52122e16,1376923158,Equipment,1
+Ring Of Rapacity,47748781,1198819201,Equipment,1
+Ring of Stamina,33182243,857219651,Equipment,1
+Ring of the Ancients,3c71bf20,1014087456,Equipment,1
+Ring Of The Burning Light,79442800,2034509824,Equipment,1
+Ring Of The Burning Light,e75e5ff9,3881721849,Equipment,1
+Ring of the Flame,fed85bec,4275592172,Equipment,1
+Ring of the Heir,163f820b,373260811,Equipment,1
+Ring of Thundersnow,4623bcb0,1176747184,Equipment,1
+Ripped Alchemist's Wall Hanging,8cfa0e25,2365197861,Collectibles,20
+Ripped Alchemist's Wall Hanging,51c91c62,1372134498,Collectibles,20
+Riptide,b13154ae,2972800174,Equipment,1
+Riptide,eeab43fc,4004201468,Equipment,1
+Riptide,57e7c677,1474807415,Equipment,1
+Riptide,33e96aa6,870935206,Equipment,1
+Riptide,ad1254cc,2903659724,Equipment,1
+Riptide,9da34e3e,2644725310,Equipment,1
+Rising Fighter Boots,6502a141,1694671169,Equipment,1
+Rising Fighter Boots,7ffc08de,2147223774,Equipment,1
+Rising Fighter Chest,7a418e55,2051116629,Equipment,1
+Rising Fighter Chest,af17a28b,2937561739,Equipment,1
+Rising Fighter Gloves,0be46540,199517504,Equipment,1
+Rising Fighter Gloves,77a59426,2007340070,Equipment,1
+Rising Fighter Helmet,7b62760e,2070050318,Equipment,1
+Rising Fighter Helmet,223555ab,573920683,Equipment,1
+Rising Fighter Shield,11e2231e,300032798,Equipment,1
+Rising Fighter Shield,98fe56a5,2566805157,Equipment,1
+Rising Fighter Trousers,ffeffc2d,4293917741,Equipment,1
+Rising Fighter Trousers,2893e486,680780934,Equipment,1
+Ritual Tempest Wand,f4a77a8f,4104616591,Weapons,1
+Roasted Azure Russula,7655ef78,1985343352,Consumables,20
+Roasted Coffee Beans,c911f03e,3373396030,Materials,250
+Roasted Corncob,ffedc712,4293773074,Consumables,20
+Roasted Shiitake Mushroom,785e67d0,2019452880,Consumables,20
+Robert Gibson,132687e1,321292257,BuildTools,1
+Rochelle Anders,171d1f69,387784553,BuildTools,1
+Rock 2m,f648d815,4131969045,Blueprints,1
+Rocky Shore,173a300c,389689356,ColorPalette,50
+Rocky Stone Road Block,eac0f57a,3938514298,Materials,250
+Rogue Boots,d7cfb854,3620714580,Equipment,1
+Rogue Boots,4792b21a,1200796186,Equipment,1
+Rogue Chestplate,63e9794b,1676245323,Equipment,1
+Rogue Chestplate,e4b0022c,3836740140,Equipment,1
+Rogue Gloves,410064c2,1090544834,Equipment,1
+Rogue Gloves,2a1e4866,706627686,Equipment,1
+Rogue Helmet,066ba50e,107717902,Equipment,1
+Rogue Helmet,22c43bd3,583285715,Equipment,1
+Rogue Shield,612ccd5a,1630326106,Equipment,1
+Rogue Shield,a893dab1,2828262065,Equipment,1
+Rogue Trousers,787e23f7,2021532663,Equipment,1
+Rogue Trousers,6bdfaae9,1809820393,Equipment,1
+Roof Side,93f4bc82,2482289794,Blueprints,1
+Roof Side,408d7a6a,1083013738,Blueprints,1
+Roof Tiles Block,0bbb57fb,196827131,BuildTools,5000
+Rooibos,61119bee,1628543982,Materials,250
+Rooibos Seedling,e0610514,3764454676,BuildTools,100
+Rooibos Tea,b1cce55b,2982995291,Consumables,20
+"Room Divider ""Dragon""",3c1de241,1008591425,BuildTools,50
+"Room Divider ""Fish""",4212d804,1108531204,BuildTools,50
+"Room Divider ""Flower""",481e688e,1209952398,BuildTools,50
+"Room Divider ""Snake""",ce49b339,3460936505,BuildTools,50
+Room Divider I,34be3b8a,884882314,BuildTools,50
+Room Divider II,30bd747f,817722495,BuildTools,50
+Room Divider III,edf3e76b,3992184683,BuildTools,50
+Root Staff,95e85c0c,2515033100,Weapons,1
+Rotblood,d1ec44f8,3521922296,Weapons,1
+Rough Flintstone Block,53c48cd0,1405390032,BuildTools,5000
+Rough Sandstone Block,04586087,72900743,BuildTools,5000
+Rough Stone Block,81ae592d,2175686957,BuildTools,5000
+Rough Wood Block,55edc905,1441646853,BuildTools,1
+Rough Wood Block,72a0233a,1923097402,BuildTools,1
+Rough Wood Block,85bb304f,2243637327,BuildTools,1
+Rough Wood Block,1a843e4f,444874319,BuildTools,1
+Rough Wood Block,77f3eb92,2012474258,BuildTools,5000
+Roughly Cut Stone Block,c6f2e604,3337807364,BuildTools,5000
+Round Carved Window Frame,94ef7b6d,2498722669,BuildTools,50
+Round Food Plate,cbdadf48,3420118856,BuildTools,20
+Round Iron Window Frame,ae7bf7bd,2927359933,BuildTools,50
+Round Polished Window Frame,4a1186d1,1242662609,BuildTools,50
+Round Sea Urchin,8ae2788d,2330097805,Collectibles,20
+Round Steel Window Frame,3372ffee,863174638,BuildTools,50
+Round Stone Window Frame,00382e0e,3681806,BuildTools,50
+Round Wooden Door,2f1dfcf8,790494456,BuildTools,50
+Round Wooden Door Frame,ad55ff2c,2908094252,BuildTools,50
+Round Wooden Window Frame,e6a98463,3869869155,BuildTools,50
+Round-Billed Sailer,fb867a98,4219894424,BuildTools,1
+Royal Boots,10ef81f1,284131825,Equipment,1
+Royal Crown,c7e407b5,3353610165,Equipment,1
+Royal Decree,cad1e51d,3402753309,ColorPalette,50
+Royal Doublet,fd9bd180,4254847360,Equipment,1
+Royal Gloves,beefbcb2,3203382450,Equipment,1
+Royal Gloves,811d08d3,2166163667,Equipment,1
+Royal Gloves,46fbf837,1190918199,Equipment,1
+Royal Gloves,dd66c03b,3714498619,Equipment,1
+Royal Pants,75369f67,1966514023,Equipment,1
+Rubble,4af862a6,1257792166,Materials,1000
+Ruffian's Axe,6e618213,1851884051,Weapons,1
+Ruffles,a787938e,2810680206,BuildTools,1
+Rune Apprentice's Sword,50efd0eb,1357893867,Weapons,1
+Rune Master's Sword,39f222da,972169946,Weapons,1
+Runes,41a792dc,1101501148,Materials,5000
+Rust,9b71e58a,2607932810,ColorPalette,50
+Rust And Rose,8af97ffb,2331607035,ColorPalette,50
+Rustic Banquet Table,d959832b,3646522155,BuildTools,50
+Rustic Bed,aea2084f,2929854543,BuildTools,50
+Rustic Bench,a96d4873,2842511475,BuildTools,50
+Rustic Chair,d7b6bf62,3619077986,BuildTools,50
+Rustic Door,ee3267e1,3996280801,BuildTools,50
+Rustic Door,56a6e8a5,1453779109,BuildTools,50
+Rustic Side Table,15d47ed8,366247640,BuildTools,50
+Rustic Table,268b82ca,646677194,BuildTools,50
+Rustic Window Frame,541d931a,1411224346,BuildTools,50
+Rustic Window Frame,42b0236b,1118839659,BuildTools,50
+Rusty Greatsword,3f84dc30,1065671728,Weapons,1
+Rusty Short Sword,466db1e9,1181594089,Weapons,1
+Rusty Sword,2b76680f,729180175,Weapons,1
+Sacred Vukah Scroll,a03195a9,2687604137,Consumables,20
+Sacrificial Vukah Dagger,44e25e72,1155686002,Weapons,1
+Sacrificial Vukah Dagger,c0a2fd74,3231907188,Weapons,1
+Sacrificial Vukah Dagger,7233fecb,1916010187,Weapons,1
+Sacrificial Vukah Dagger,aa838c04,2860747780,Weapons,1
+Sacrificial Vukah Dagger,343c0370,876348272,Weapons,1
+Sacrificial Vukah Dagger,b94d9036,3108868150,Weapons,1
+Sacrificial Vukah Dagger,3fec3d70,1072446832,Weapons,1
+Sacrilegious Steelsword,53a5af1e,1403367198,Weapons,1
+Saffron,dc4f0fed,3696168941,Materials,250
+Saffron Plant,95c758ff,2512869631,BuildTools,50
+Saffron Seedling,549801d8,1419248088,BuildTools,100
+Sage Boots,35cf5fff,902782975,Equipment,1
+Sage Boots,d7873edc,3615964892,Equipment,1
+Sage Gloves,5ad542c1,1523925697,Equipment,1
+Sage Gloves,6ac0f96b,1791031659,Equipment,1
+Sage Headwrap,cef54170,3472179568,Equipment,1
+Sage Headwrap,490b0480,1225458816,Equipment,1
+Sage Leaves,d4577120,3562500384,Consumables,100
+Sage Pants,67907dff,1737522687,Equipment,1
+Sage Pants,bdc46498,3183764632,Equipment,1
+Sage Plant,eb618d9c,3949039004,BuildTools,50
+Sage Seedling,ef8839e2,4018682338,BuildTools,100
+Sage Tunic,740e2f5b,1947086683,Equipment,1
+Sage Tunic,5afd539a,1526551450,Equipment,1
+Salon Sign,261ca28f,639410831,BuildTools,20
+Salon Sink,2bfe8a22,738101794,BuildTools,50
+Salon Stool,ed879886,3985086598,BuildTools,50
+Salt,5d3ef433,1564406835,Materials,250
+Sand,94a506e7,2493843175,Materials,1000
+Sand Throne,d5dc24e0,3587974368,BuildTools,50
+Sandstone,538b2f00,1401630464,Materials,1000
+Sandstone Brazier,77719ad6,2003933910,BuildTools,50
+Sandstone Fence,9165b722,2439362338,BuildTools,50
+Sandstone Fence Corner,3af4071a,989071130,BuildTools,50
+Sandstorm Swiftblades,1d24b9ea,488946154,Weapons,1
+Sapphire,54868769,1418102633,BuildTools,1
+Satin Strings,673acf25,1731907365,Collectibles,1
+Saturated Blue Hair,ce09c5e2,3456746978,Equipment,1
+Saturated Green Hair,fa00772a,4194334506,Equipment,1
+Scaffold I,794f9722,2035259170,BuildTools,20
+Scaffold II,1d612afb,492907259,BuildTools,20
+Scales,f321a3a6,4079068070,Materials,250
+Scarab,29be0169,700318057,Ammunition,250
+Scare Crow,af23a770,2938349424,BuildTools,1
+Scavenger Bonfire,0651a65b,106014299,BuildTools,50
+Scavenger Gong,a8a4fe2d,2829385261,BuildTools,20
+Scavenger Matron Helmet,d50cc32c,3574383404,Materials,50
+Scavenger Matron Trophy,b10f88c4,2970585284,BuildTools,10
+Scavenger Miner Axe,8e40910a,2386596106,Weapons,1
+Scholar Of The Empyrean Boots,c7fc7752,3355211602,Equipment,1
+Scholar Of The Empyrean Boots,4c52be82,1280491138,Equipment,1
+Scholar Of The Empyrean Cloak,13de860b,333350411,Equipment,1
+Scholar Of The Empyrean Cloak,5121541a,1361138714,Equipment,1
+Scholar Of The Empyrean Gloves,58191924,1478039844,Equipment,1
+Scholar Of The Empyrean Gloves,1fa0497d,530598269,Equipment,1
+Scholar Of The Empyrean Helmet,e8ff99a8,3909065128,Equipment,1
+Scholar Of The Empyrean Helmet,e3c8870e,3821569806,Equipment,1
+Scholar Of The Empyrean Pants,96770fa0,2524385184,Equipment,1
+Scholar Of The Empyrean Pants,80d8872e,2161674030,Equipment,1
+Scholar of the Young Flame Boots,c3f3b180,3287527808,Equipment,1
+Scholar of the Young Flame Cloak,f39b17c5,4087027653,Equipment,1
+Scholar of the Young Flame Gloves,f593cf73,4120104819,Equipment,1
+Scholar of the Young Flame Helmet,c716b5bd,3340154301,Equipment,1
+Scholar of the Young Flame Pants,43ce7009,1137602569,Equipment,1
+Scholar's Wand,70e0bdc2,1893776834,Weapons,1
+Scientific Instruments,356376c4,895710916,BuildTools,1
+Scorching Wand,e589d7a4,3851016100,Weapons,1
+Scout Boots,ee3271f8,3996283384,Equipment,1
+Scout Boots,63f5425f,1677017695,Equipment,1
+Scout Chest,3d93049f,1033045151,Equipment,1
+Scout Chest,f5336159,4113785177,Equipment,1
+Scout Gloves,7590bbbe,1972419518,Equipment,1
+Scout Gloves,44df7cf4,1155497204,Equipment,1
+Scout Hood,c400a0ef,3288375535,Equipment,1
+Scout Hood,9811dd43,2551307587,Equipment,1
+Scout Pants,4a123d29,1242709289,Equipment,1
+Scout Pants,962c821e,2519499294,Equipment,1
+Scrap Arrow,6715c2dd,1729479389,Ammunition,500
+Scrap Bowl,773413f1,1999901681,BuildTools,50
+Scrap Bucket,e02d7902,3761076482,BuildTools,20
+Scrap Cage,bb028d4d,3137506637,BuildTools,20
+Scrap Cup,79fd36de,2046637790,BuildTools,50
+Scrap Jug,373c6630,926705200,BuildTools,50
+Scrap Ladle,d2d4f672,3537172082,BuildTools,50
+Scrap Pan I,7454bcab,1951710379,BuildTools,50
+Scrap Pan II,2883b80f,679720975,BuildTools,50
+Scrap Platter,08a25d2b,144858411,BuildTools,50
+Scrap Pot I,9f9b500e,2677755918,BuildTools,50
+Scrap Pot II,4f926e10,1334996496,BuildTools,50
+Scrap Pot III,7a8ed144,2056180036,BuildTools,50
+Scrap Pot IV,af5e90e1,2942210273,BuildTools,50
+Scrap Pot V,c1a0f6aa,3248551594,BuildTools,50
+Scrap Pot VI,c307b977,3272063351,BuildTools,50
+Scrap Standing Torch,4705f051,1191571537,BuildTools,50
+Scrap Vat I,b9093b3d,3104389949,BuildTools,20
+Scrap Vat II,f625aef9,4129664761,BuildTools,20
+Scrappy Axe,a78e2d44,2811112772,Tools,1
+Scrappy Crate,cb1a34c0,3407492288,BuildTools,20
+Scrappy Greatsword,8076b247,2155262535,Weapons,1
+Scrappy Pickaxe,0f4bf035,256634933,BuildTools,1
+Scrappy Sword,4c0d3e02,1275936258,Weapons,1
+Sea Urchin Cluster,e0f07f01,3773857537,Collectibles,20
+Seafoam,ff860545,4286973253,ColorPalette,50
+Seafood Grill,36b56875,917858421,BuildTools,1
+Seared Fish Cutlet,06818a26,109152806,Consumables,20
+Seared Fish Filet,6cdf6ab0,1826581168,Consumables,20
+Secret Ancient Door,efa32d23,4020448547,BuildTools,50
+Secret Basement Door,89b860e0,2310562016,BuildTools,50
+Secret Bookshelf Door,be6cee35,3194809909,BuildTools,50
+Secret Castle Door,0155a380,22389632,BuildTools,50
+Secret Crude Wooden Bookshelf Door,829a5e69,2191154793,BuildTools,50
+Secret Flintstone Door,9bb4064b,2612266571,BuildTools,50
+Secret Granite Door,7b975788,2073515912,BuildTools,50
+Secret Limestone Door,397eed6a,964619626,BuildTools,50
+Secret Polished Granite Door,65e7e0a4,1709695140,BuildTools,50
+Secret Red Marble Door,4d1823f1,1293427697,BuildTools,50
+Secret Sandstone Door,d9850508,3649373448,BuildTools,50
+Secret Shell Limestone Door,97775ead,2541182637,BuildTools,50
+Secret Stair Passage,b5dba830,3051071536,BuildTools,50
+Secret Stone Door,b9566676,3109447286,BuildTools,50
+Secret Stone Floor Passage,6c614ab0,1818315440,BuildTools,50
+Secret Temple Door,a9d61b21,2849381153,BuildTools,50
+Secret Wooden Door,72441cc8,1917066440,BuildTools,50
+Secret Wooden Floor Passage,11a9085f,296290399,BuildTools,50
+Sediment,d018a3a2,3491275682,ColorPalette,50
+Seedbed,ab204788,2871019400,BuildTools,1
+Serpent Warrior Boots,d9935f53,3650314067,Equipment,1
+Serpent Warrior Chest,4be793b3,1273467827,Equipment,1
+Serpent Warrior Gloves,b9c15fba,3116457914,Equipment,1
+Serpent Warrior Helmet,43041835,1124341813,Equipment,1
+Serpent Warrior Pants,a55fd19f,2774520223,Equipment,1
+Shades Of Red,31d021f9,835723769,ColorPalette,50
+Shadowbane,fa85a3e3,4203062243,Weapons,1
+Shadowbloom,0ff44be6,267668454,Materials,250
+Shadowbloom Wrap,9e9e9f2c,2661195564,Consumables,20
+Shadowtail,30b2cb93,817023891,Consumables,30
+Sharktooth Greatsword,367552fc,913658620,Weapons,1
+Sharp Shark Tooth,a06d792c,2691529004,Collectibles,20
+Sharpened Broadsword,e556e9dd,3847678429,Weapons,1
+Sharpshooter Boots,5b9b6120,1536909600,Equipment,1
+Sharpshooter Boots,08f7826c,150438508,Equipment,1
+Sharpshooter Gloves,9b2160a8,2602655912,Equipment,1
+Sharpshooter Gloves,04416cce,71396558,Equipment,1
+Sharpshooter Hood,dbfd17d3,3690797011,Equipment,1
+Sharpshooter Hood,aa96c026,2862006310,Equipment,1
+Sharpshooter Trousers,634f0b88,1666124680,Equipment,1
+Sharpshooter Trousers,d74e55ab,3612235179,Equipment,1
+Sharpshooter Vest,115db875,291354741,Equipment,1
+Sharpshooter Vest,11022fb1,285355953,Equipment,1
+Shell Limestone,6e80ec0b,1853942795,Materials,1000
+Shell Limestone Block,9a3a5df7,2587516407,BuildTools,5000
+Shell Limestone Road Block,1210cad0,303090384,Materials,250
+Shell Limestone Shingles,fc67354f,4234622287,BuildTools,5000
+Shellbreaker Daggers,abd0ce53,2882588243,Weapons,1
+Shepherd's Lightning,c8f9131d,3371766557,Weapons,1
+Shepherd's Staff,44fad060,1157288032,Weapons,1
+Shield,fb2ab2c2,4213879490,Equipment,1
+Shield of Light,b62fa3d7,3056575447,Equipment,1
+Shield of Light,9a07ae22,2584194594,Equipment,1
+Shield Rack,87ce6a14,2278451732,BuildTools,20
+Shield Wall Emblem I,8267a089,2187829385,BuildTools,50
+Shield Wall Emblem II,0d282cee,220736750,BuildTools,50
+Shield Wall Mount,0d0899ef,218667503,BuildTools,20
+Shiitake Mushroom,c7f4b939,3354704185,Consumables,20
+Shiitake Seedling,1908c009,420003849,BuildTools,100
+Shimmerfin,77800c7d,2004880509,Consumables,30
+Shivering Skeans,6e56b6f0,1851176688,Weapons,1
+Shivs,11f8ae5b,301510235,Weapons,1
+Shock Wisp,17a7d038,396873784,Ammunition,500
+Shockfin,81bc1e18,2176589336,Consumables,30
+Shocking Ice Wand,f8a24363,4171383651,Weapons,1
+Short Sword,a461a4c3,2757862595,Weapons,1
+Shortcrust Pastry Base,d7772bb2,3614911410,Materials,250
+Shovel Garden Gnome,13dc3bc7,333200327,BuildTools,50
+Shroud Adhesive,3e69d113,1047122195,Materials,250
+Shroud Arrow I,e036aeb0,3761680048,Ammunition,500
+Shroud Arrow II,fb2f04ae,4214162606,Ammunition,500
+Shroud Beam Channel,80613b7f,2153855871,Ammunition,500
+Shroud Core,5b1c6f3a,1528590138,Materials,250
+Shroud Corrupted Hammer,de4f581c,3729741852,Weapons,1
+Shroud Flayer Seedling,538598e6,1401264358,BuildTools,100
+Shroud Gelatin,146404a7,342099111,Materials,250
+Shroud Infused Farm Soil,c0d07356,3234886486,Materials,250
+Shroud Liquid,334c64a4,860644516,Materials,250
+Shroud Meteor,eae19975,3940653429,Ammunition,500
+Shroud Meteor Shower,079e249c,127804572,Consumables,20
+Shroud Mushroom,fc1ee8c6,4229884102,Materials,250
+Shroud Nexus,25d14a91,634473105,Materials,250
+Shroud Particles,d7edc544,3622683972,Materials,250
+Shroud Radiance,32e53ce5,853884133,Materials,250
+Shroud Relic,d5793269,3581489769,Materials,250
+Shroud Sack,6701c6e0,1728169696,Materials,250
+Shroud Sand,45e22bf5,1172450293,Materials,250
+Shroud Slime,6b782b38,1803037496,Materials,250
+Shroud Sludge,707c2f8c,1887186828,Materials,250
+Shroud Spores,98946174,2559861108,Materials,250
+Shroud Survival Flask,6a466200,1782997504,Consumables,20
+Shroud Vapor,228b846f,579568751,Materials,250
+Shroud Weaver,60a9983d,1621727293,Weapons,1
+Shroud Weaver,501249ee,1343375854,Weapons,1
+Shroud Weaver,be4dd183,3192770947,Weapons,1
+Shroud Weaver,d4d8fadf,3570989791,Weapons,1
+Shroud Wood,4ebb5403,1320899587,Materials,250
+Shroud Wood Block,99e546cc,2581939916,BuildTools,5000
+Shroudbinder Wand,bd3b0cec,3174763756,Weapons,1
+Shrub Seedling,f13e32e2,4047385314,BuildTools,100
+Sickle Greatsword,0dc79fb1,231186353,Weapons,1
+Sigil Ring of the Elder Guard,c8cc5263,3368833635,Equipment,1
+Signpost Pole,5738d7ef,1463343087,BuildTools,20
+Silent Echo,9bc011af,2613055919,Collectibles,1
+Silver Bars,a3b498fe,2746521854,Materials,250
+Silver Bowl,f86cafd8,4167872472,BuildTools,50
+Silver Candleholder,b8fb7c73,3103489139,BuildTools,50
+Silver Chalice,a1fc56d0,2717669072,ColorPalette,50
+Silver Chest,6a9ed1bd,1788793277,BuildTools,1
+Silver Cup,2ef0560c,787502604,BuildTools,50
+Silver Dust,de3f8398,3728704408,Materials,250
+Silver Jug,13cd1626,332207654,BuildTools,50
+Silver Key,df708da9,3748695465,Materials,5
+Silver Ore,c017a732,3222775602,Materials,250
+Silver Platter,203382fc,540246780,BuildTools,50
+Silver Storm,f5a0652d,4120929581,Weapons,1
+Silverback,9a248157,2586083671,Consumables,30
+Silvernight Greatsword,5f04174f,1594103631,Weapons,1
+Silvershot Bow,f418cfb2,4095266738,Weapons,1
+Simple Coffin,a2aa0819,2729052185,BuildTools,20
+Simple Coffin Lid,09962278,160834168,BuildTools,20
+Simple Fishing Bait,bbd82249,3151503945,Ammunition,250
+Simple Fishing Rod,195db0e6,425570534,FishingRod,1
+Simple Tropical Wood Fence with Ropes I,094d99de,156080606,BuildTools,50
+Simple Tropical Wood Fence with Ropes II,7d5b5fc7,2103140295,BuildTools,50
+Simple Wood Support,d3ffcbd5,3556756437,BuildTools,20
+Simple Wood Support,85aa8291,2242544273,BuildTools,20
+Simple Wood Support,e0065b0a,3758512906,BuildTools,20
+Simple Wood Support,9a38f243,2587423299,BuildTools,20
+Simple Wooden Fence,da6e9d11,3664682257,BuildTools,50
+Simple Wooden Handrail,bcc0679a,3166726042,BuildTools,50
+Simple Wooden Pole,bab187e7,3132196839,BuildTools,50
+Single Gastropod,557e471e,1434339102,Collectibles,20
+"Single Roof Block 0,5m",bb045990,3137624464,Blueprints,1
+"Single Terrain Block 0,5m",c262d78e,3261257614,Blueprints,1
+"Single Wall Block 0,5m",766da1db,1986896347,Blueprints,1
+Sinister Crescent Staff,d99b6cac,3650841772,Weapons,1
+Siren Seeker Chest,766dd5bf,1986909631,Equipment,1
+Siren Seeker Chest,6cf3594c,1827887436,Equipment,1
+Siren Seeker Gloves,6204ef1f,1644490527,Equipment,1
+Siren Seeker Gloves,942b5b22,2485869346,Equipment,1
+Siren Seeker Headband,46083b8f,1174944655,Equipment,1
+Siren Seeker Headband,9a9bc130,2593898800,Equipment,1
+Siren Seeker Pants,f4163e2b,4095098411,Equipment,1
+Siren Seeker Pants,58978b25,1486326565,Equipment,1
+Siren Seeker Sandals,1a2b0d76,439029110,Equipment,1
+Siren Seeker Sandals,632d8e9b,1663930011,Equipment,1
+Skill Point,f2ad8315,4071457557,Currency,1000
+Skull Candle,5907dbe2,1493687266,BuildTools,500
+Skull Splitter Axe,a5e5109a,2783252634,Weapons,1
+Skull Stalker Chest,bd4321d3,3175293395,Equipment,1
+Skull Stalker Chest,fed1dbbc,4275166140,Equipment,1
+Skull Stalker Gloves,01a3e825,27519013,Equipment,1
+Skull Stalker Gloves,20705e87,544235143,Equipment,1
+Skull Stalker Helmet,40a6bc53,1084669011,Equipment,1
+Skull Stalker Helmet,ed669142,3982922050,Equipment,1
+Skull Stalker Pants,ae6aeb13,2926242579,Equipment,1
+Skull Stalker Pants,a62238ad,2787260589,Equipment,1
+Skull Stalker Shoes,03baebd9,62581721,Equipment,1
+Skull Stalker Shoes,c8029b4c,3355614028,Equipment,1
+Skull Summoning Vessel,ba3dd356,3124613974,Weapons,20
+Skull Trophy I,39dd25d5,970794453,BuildTools,10
+Skull Trophy II,f4d6c7c3,4107716547,BuildTools,10
+Skull Trophy III,4902aafc,1224911612,BuildTools,10
+Skull Trophy IV,23289409,589861897,BuildTools,10
+Skull Trophy V,29a3ec87,698608775,BuildTools,10
+Skull Trophy VI,b56155d5,3043055061,BuildTools,10
+Sleek Daggers,176b175c,392894300,Weapons,1
+Small Backpack,fc3d5c4c,4231879756,Equipment,1
+Small Backpack,de38058e,3728213390,Equipment,1
+Small Bamboo Baordwalk,7a80d96c,2055264620,BuildTools,20
+Small Bamboo Window I,29684173,694698355,BuildTools,50
+Small Bamboo Window II,15566842,357984322,BuildTools,50
+Small Boreal Wood Cupboard,02f24fc3,49434563,BuildTools,50
+Small Boreal Wood Sideboard,bc6440c9,3160686793,BuildTools,50
+Small Castle Sideboard,8f658c7a,2405796986,BuildTools,50
+Small Castle Table,d139a4d5,3510215893,BuildTools,50
+Small Chest,0cc076a8,213939880,BuildTools,1
+Small Crypt Cabinet,3ec4e8b6,1053092022,BuildTools,50
+Small Crypt Cupboard,9df06080,2649776256,BuildTools,50
+Small Crypt Sideboard,4a68a47e,1248371838,BuildTools,50
+Small Crypt Table,959d99fb,2510133755,BuildTools,50
+Small Decorated Tree,85cf215d,2244944221,BuildTools,50
+Small Elegant Sofa,e3778bee,3816262638,BuildTools,50
+Small Flask,6378c25c,1668858460,BuildTools,50
+Small Hollow's Eve Pumpkin I,c96defca,3379425226,BuildTools,50
+Small Hollow's Eve Pumpkin II,cf03c931,3473131825,BuildTools,50
+Small Hollow's Eve Pumpkin III,66fd35eb,1727870443,BuildTools,50
+Small Magic Chest,f1147751,4044650321,BuildTools,1
+Small Mortar,f9a2a56f,4188185967,BuildTools,50
+Small Palm Wood Cabinet,43316a62,1127311970,BuildTools,50
+Small Palm Wood Cupboard,23d6803e,601260094,BuildTools,50
+Small Plant Pot,70323767,1882339175,BuildTools,50
+Small Polished Wooden Cabinet,0735bafa,120961786,BuildTools,50
+Small Polished Wooden Cupboard,7b7f89fe,2071955966,BuildTools,50
+Small Salon Mirror,0cb4a72d,213165869,BuildTools,50
+Small Set of Vials,b3e99582,3018429826,BuildTools,1
+Small Shape,1a2bf7b0,439089072,Blueprints,1
+Small Shape,b098acb2,2962795698,Blueprints,1
+Small Silver Brazier,6459eb59,1683614553,BuildTools,50
+Small Steel Barrel,70d9dba3,1893325731,BuildTools,20
+Small Steel Brazier,6e5df5bd,1851651517,BuildTools,50
+Small Stone Arc,020ba0eb,34316523,BuildTools,50
+Small Stone Brazier,89facc67,2314914919,BuildTools,50
+Small Throne Room Brazier,488f4f47,1217351495,BuildTools,50
+Small Wall Mounted Silver Lamp,734646c7,1933985479,BuildTools,50
+Small Wall Mounted Steel Brazier,2578d907,628676871,BuildTools,50
+Small Water Wheel,515a691e,1364879646,BuildTools,1
+Small Windmill Sails,b081f2c8,2961306312,BuildTools,1
+Smaller Sea Lily Fossil,0d10d9ff,219208191,Collectibles,20
+Smelter,08c2accb,146975947,BuildTools,1
+Smithing Tools,26051d2d,637869357,BuildTools,1
+Smooth Stone Road Block,1348363c,323499580,Materials,250
+Snakespine Wand,22160f1f,571871007,Weapons,1
+Snap Trap,b420d78f,3022051215,BuildTools,20
+Snow,9780dea7,2541805223,Materials,1000
+Snow Lantern,52c57a14,1388673556,BuildTools,50
+Snowball,f378891e,4084762910,Weapons,20
+Snowfall,1bee2d9f,468594079,ColorPalette,50
+Snowflake Splicer,25c3d403,633590787,Weapons,1
+Snowpal Child,dbc31fdf,3686997983,BuildTools,50
+Snowpal Dad,d391ff5c,3549560668,BuildTools,50
+Snowpal Mom,ca2cabe7,3391925223,BuildTools,50
+Soldier Boots,24f5302d,620048429,Equipment,1
+Soldier Boots,61bd1055,1639780437,Equipment,1
+Soldier Chestplate,5d6694ee,1567003886,Equipment,1
+Soldier Chestplate,e80a6097,3892994199,Equipment,1
+Soldier Gloves,f402f8e4,4093835492,Equipment,1
+Soldier Gloves,58228a4c,1478658636,Equipment,1
+Soldier Helmet,33e86f30,870870832,Equipment,1
+Soldier Helmet,b84763e1,3091686369,Equipment,1
+Soldier Shield,d87f815c,3632234844,Equipment,1
+Soldier Shield,25cb7116,634089750,Equipment,1
+Soldier Trousers,701500f7,1880424695,Equipment,1
+Soldier Trousers,b71e5e65,3072220773,Equipment,1
+Soothsayer,9f434b2d,2671987501,Weapons,1
+Soothsayer,6655329e,1716859550,Weapons,1
+Soothsayer,96b58ba1,2528480161,Weapons,1
+Soothsayer,8e36427e,2385920638,Weapons,1
+Soothsayer,86c0c7c6,2260780998,Weapons,1
+Spark,5b9329b8,1536371128,Materials,250
+Sparkling Dark Crystal,04dfefa2,81784738,Collectibles,20
+Special Ability,19cfdc48,433052744,Materials,1
+Special Ability,9a98cbef,2593704943,Materials,1
+Spectral Ward,53bf5455,1405047893,Equipment,1
+Spectral Ward,0c0a1710,201987856,Equipment,1
+Spellbreaker Boots,bcc8bee1,3167272673,Equipment,1
+Spellbreaker Chest,d45d5004,3562885124,Equipment,1
+Spellbreaker Gloves,5cf665f9,1559651833,Equipment,1
+Spellbreaker Hat,afcb850d,2949350669,Equipment,1
+Spellbreaker Pants,d1fe6984,3523111300,Equipment,1
+Spice,431eb948,1126086984,Materials,250
+Spiced Tea,4b50d6aa,1263589034,Consumables,20
+Spider Gland,4842a81f,1212327967,Materials,250
+Spider Web I,012908a8,19466408,BuildTools,50
+Spider Web II,a1e6d6f8,2716260088,BuildTools,50
+Spider Web III,a21beb57,2719738711,BuildTools,50
+Spider Web IV,c7b598ec,3350567148,BuildTools,50
+Spiked Club,765e1c9d,1985879197,Weapons,1
+Spiked Greatsword,57488717,1464370967,Weapons,1
+Spine Of Dalszul,e7a6ba03,3886463491,Weapons,1
+Spine Splinter,e45d39c6,3831314886,Weapons,1
+Spinechill Axe,3d6423f6,1029972982,Weapons,1
+Spinning Machine,7d412833,2101422131,BuildTools,1
+Spinning Wheel,2af2bac2,720550594,BuildTools,1
+Spiral Iron Stairs,6046b32e,1615246126,BuildTools,20
+Spiritual Cane,d2c882c0,3536356032,Weapons,1
+Splash Dash,e0b753e2,3770110946,Materials,1
+Springlands Dirt,5cdef690,1558115984,Materials,1000
+Springlands Rubble,fc54eb18,4233423640,Materials,1000
+Square Plant Pot,05f1c4db,99730651,BuildTools,50
+Staff,482345a2,1210271138,Weapons,1
+Staff of Guidance,5b571414,1532433428,Weapons,1
+Staff Of Reeds,af94a897,2945755287,Weapons,1
+Staff Of The Moor,0cfab0a5,217755813,Weapons,1
+Staff of the Ram,1eb7015d,515309917,Weapons,1
+Staff Of The Serpent,ae308a6d,2922416749,Weapons,1
+Staff Of The Serpent,6f56d711,1867962129,Weapons,1
+Staff Of The Serpent,76a35832,1990416434,Weapons,1
+Staff Of The Serpent,e1adbb3c,3786259260,Weapons,1
+Staff Of The Serpent,baa654cb,3131462859,Weapons,1
+Staff Of The Serpent,56b28fbc,1454542780,Weapons,1
+Staff Of The Serpent,03746ca8,57961640,Weapons,1
+Staff of the Taurus,7be0e800,2078337024,Weapons,1
+Staff Wall Mount,412b39a3,1093351843,BuildTools,20
+Staff Weapon Rack,ff235070,4280504432,BuildTools,20
+Stair,d5255352,3575993170,Blueprints,1
+Stair,67b8d5a6,1740166566,Blueprints,1
+Stair,7db28b0c,2108853004,Blueprints,1
+Stair,762f8c7b,1982827643,Blueprints,1
+Standing Crypt Coffin,0d208a23,220236323,BuildTools,20
+Standing Lantern,d2d07f0b,3536879371,BuildTools,50
+Standing Target,55885961,1434999137,BuildTools,20
+Standing Torch,0086ea26,8841766,BuildTools,1000
+Standing Wooden Barrel,f1b0e464,4054901860,BuildTools,20
+Stapelia Starflower,12831338,310580024,Materials,250
+Starlight Block,290e46d8,688801496,BuildTools,5000
+Statue of Queen Pikemead,fb191265,4212724325,BuildTools,20
+Steel Arrow,d42aedf2,3559583218,Ammunition,500
+Steel Axe,a91825ce,2836932046,Tools,1
+Steel Bars,bc1d395a,3156031834,Materials,250
+Steel Bucket,febba8f2,4273711346,BuildTools,20
+Steel Chandelier,274cf3b0,659354544,BuildTools,50
+Steel Fence,7042066a,1883375210,BuildTools,50
+Steel Fence Pole,5252bfaa,1381154730,BuildTools,50
+Steel Handrail,39535df5,961764853,BuildTools,50
+Steel Hanging Lamp,360bf756,906753878,BuildTools,50
+Steel Moon Axe,5f81a25d,1602331229,Weapons,1
+Steel Pickaxe,e8c9b19b,3905532315,BuildTools,1
+Steel Portcullis,0d2b4e5e,220941918,BuildTools,50
+Steel Standing Lamp,9b51ca99,2605828761,BuildTools,50
+Steel Wall Lamp,3a9d3adc,983382748,BuildTools,50
+Steep ramp 2m,4caf7966,1286568294,Blueprints,1
+Steep ramp 4m,b1b54c2c,2981448748,Blueprints,1
+Stepped Wall,1b4ab9f2,457882098,Blueprints,1
+Stepped Wall,7cf340d4,2096316628,Blueprints,1
+Stinging Nettle,888c46fd,2290894589,Consumables,100
+Stir-Fried Vegetables,41ebb2d4,1105965780,Consumables,20
+Stone,25a43c2f,631520303,Materials,1000
+Stone Banquet Table,a0effb7c,2700082044,BuildTools,50
+Stone Bed,cb98767d,3415766653,BuildTools,50
+Stone Bedside Table,b064eb3c,2959403836,BuildTools,50
+Stone Bench,c5ed2726,3320653606,BuildTools,50
+Stone Chair,571a881f,1461356575,BuildTools,50
+Stone Column,fc61d6bc,4234270396,BuildTools,50
+Stone Column Base,2811e600,672261632,BuildTools,50
+Stone Column Block,bd8e69d9,3180227033,BuildTools,50
+Stone Door,0ca79964,212310372,BuildTools,50
+Stone Double Door,29572962,693578082,BuildTools,50
+Stone Fireplace,db356aaa,3677711018,BuildTools,50
+Stone Lavatory,66423a82,1715616386,BuildTools,50
+Stone Shingle Roof Block,654a9afa,1699388154,BuildTools,5000
+Stone Shower,7b775056,2071416918,BuildTools,50
+Stone Side Table,aaa17d58,2862710104,BuildTools,50
+Stone Sink,30f4280a,821307402,BuildTools,50
+Stone Table,b2612367,2992710503,BuildTools,50
+Stone Window Frame,dca0915d,3701510493,BuildTools,50
+Stonewrought Sword,f6bb631e,4139475742,Weapons,1
+Stormbound Staff,31ddc7fa,836618234,Weapons,1
+Straight Roof Top,026ee372,40821618,Blueprints,1
+Straight Roof Top,c0ed178a,3236763530,Blueprints,1
+Straight Roof Top End,5fd9b5af,1608103343,Blueprints,1
+Straight Roof Top End,9d527e78,2639429240,Blueprints,1
+Straw,e9ba3050,3921293392,Materials,250
+Straw Mat,4d27c4b0,1294451888,BuildTools,50
+Straw Pile,8da5def1,2376457969,BuildTools,20
+Straw Roof Block,20da5e12,551181842,BuildTools,5000
+Strawberry,cf65ebd7,3479563223,Consumables,20
+Strawberry Cake,0fcb5281,264983169,Consumables,20
+Strawberry Milkshake,1a336c0a,439577610,Consumables,20
+Strawberry Seedling,f93d5c42,4181548098,BuildTools,100
+String,18feb214,419344916,Materials,250
+Stripetail,34eb7b8b,887847819,Consumables,30
+Stun Arrow,8d55f4f2,2371220722,Ammunition,500
+Sugar,6b58413a,1800945978,Consumables,20
+Sugar Cane,9270781a,2456844314,Consumables,20
+Sugar Cane Seedling,0214abc0,34909120,BuildTools,100
+Sulfur,a811bd6e,2819734894,Materials,250
+Summer Games Bangles,3f6d75d3,1064138195,Equipment,1
+Summer Games Boots,2bc19ce3,734108899,Equipment,1
+Summer Games Cropped Top,9772be61,2540879457,Equipment,1
+Summer Games Headband,6a5b0ce2,1784351970,Equipment,1
+Summer Games Pants,d51fb2c2,3575624386,Equipment,1
+Summit Greatsword,113857d8,288905176,Weapons,1
+Summoning Staff,46783e00,1182285312,BuildTools,1
+Sun Axe,ddb0fb84,3719363460,Weapons,1
+Sun Hammer,eaa67e40,3936779840,Weapons,1
+Sunbeam,9efc077f,2667317119,Weapons,1
+Sunny Loungewear Boots,f50a003c,4111073340,Equipment,1
+Sunny Loungewear Garb,e703cee8,3875786472,Equipment,1
+Sunny Loungewear Pants,0ddd3987,232601991,Equipment,1
+Sunpiercer Chestplate,743bec2b,1950084139,Equipment,1
+Sunpiercer Chestplate,97c78c69,2546437225,Equipment,1
+Sunpiercer Gloves,207a40cb,544882891,Equipment,1
+Sunpiercer Gloves,5a6f7c4b,1517255755,Equipment,1
+Sunpiercer Helmet,dd688a5e,3714615902,Equipment,1
+Sunpiercer Helmet,5d2a2171,1563042161,Equipment,1
+Sunpiercer Pants,48788f2f,1215860527,Equipment,1
+Sunpiercer Pants,1652001c,374472732,Equipment,1
+Sunpiercer Shield,29fd729e,704475806,Equipment,1
+Sunpiercer Shield,aab15e29,2863750697,Equipment,1
+Sunpiercer Shoes,6a10b90f,1779480847,Equipment,1
+Sunpiercer Shoes,136fe25d,326099549,Equipment,1
+Sunscale,cd5b8cd2,3445329106,Consumables,30
+Superior Health Potion,8f5b4ba7,2405125031,Consumables,20
+Superior Health Potion +,325d044e,844956750,Consumables,20
+Superior Mana Potion,002f1e04,3087876,Consumables,20
+Superior Mana Potion +,bdb3bc70,3182673008,Consumables,20
+Superior Ring of Health,7822499d,2015512989,Equipment,1
+Superior Ring of Mana,0e821068,243404904,Equipment,1
+Superior Ring of Stamina,a044cd03,2688863491,Equipment,1
+Supply Sacks I,68807edf,1753251551,BuildTools,20
+Supply Sacks II,52d5525f,1389711967,BuildTools,20
+Supply Sacks III,41ea14c8,1105859784,BuildTools,20
+Supply Sacks IV,a7cd9777,2815268727,BuildTools,20
+Supply Sacks V,de604dc8,3730853320,BuildTools,20
+Support Strut,b0c3617b,2965594491,BuildTools,20
+Surprise_Enemy_SkeletonSkull,6966a3f5,1768334325,Consumables,20
+Sushi,d25cabbe,3529288638,Consumables,20
+Sweet Mokka,2528cb97,623430551,Consumables,20
+Swimfins,2266cf18,577163032,Equipment,1
+Sword and Shield Rack,cd862acc,3448122060,BuildTools,20
+Sword Garden Gnome,a5674247,2775007815,BuildTools,50
+Sword of Radiance,d295e211,3533038097,Weapons,1
+Sword Of The Serpent,3f1e8a78,1058966136,Weapons,1
+Sword Of The Serpent,5fb64428,1605780520,Weapons,1
+Sword Of The Serpent,f15a4cd0,4049226960,Weapons,1
+Sword Of The Serpent,c23bfed5,3258711765,Weapons,1
+Sword Of The Serpent,7cc161a1,2093048225,Weapons,1
+Sword Of The Serpent,999b0497,2577073303,Weapons,1
+T7_Seedling_Fruit_Artichoke,ca85db2d,3397770029,BuildTools,100
+T7_Seedling_Fruit_Pomegranate,bcba8cce,3166342350,BuildTools,100
+T7_Seedling_Vegetable_Bean,a7e0fb74,2816539508,BuildTools,100
+T7_Seedling_Vegetable_Cabbage,38ec14c7,954995911,BuildTools,100
+Table Saw,fd32f816,4247975958,BuildTools,1
+Tainted Axe,bf092a48,3205048904,Weapons,1
+Talion's Bow,32cade6f,852156015,Weapons,1
+Talion's Bow,ef698423,4016669731,Weapons,1
+Talion's Bow,961390f8,2517864696,Weapons,1
+Talion's Bow,9ecd0c33,2664238131,Weapons,1
+Talion's Bow,e7a39749,3886257993,Weapons,1
+Talion's Bow,56ab8c04,1454083076,Weapons,1
+Tall Crypt Fence,6b408672,1799390834,BuildTools,50
+Tall Stone Brazier,06c28758,113411928,BuildTools,50
+Tank Boots,38579478,945263736,Equipment,1
+Tank Boots,f907c2a4,4178035364,Equipment,1
+Tank Chestplate,540016fb,1409292027,Equipment,1
+Tank Chestplate,5cbda3d9,1555932121,Equipment,1
+Tank Gloves,218beabc,562817724,Equipment,1
+Tank Gloves,425e32cf,1113469647,Equipment,1
+Tank Helmet,88aa0624,2292844068,Equipment,1
+Tank Helmet,3bd1e3b1,1003611057,Equipment,1
+Tank Trousers,9599551a,2509853978,Equipment,1
+Tank Trousers,045023ee,72360942,Equipment,1
+Tanning Station,acf37e75,2901638773,BuildTools,1
+Tar,66332507,1714627847,Materials,250
+Taro Plant,8cf67c28,2364963880,BuildTools,50
+Taro Root Curry,f5d5c5e2,4124427746,Consumables,20
+Taro Seedling,be85212e,3196395822,BuildTools,100
+Tarpaulin,83a416b5,2208569013,BuildTools,20
+Tarpaulin Corner,d56e6054,3580780628,BuildTools,20
+Tarred Bow,3f888d3e,1065913662,Weapons,1
+Tarred Shingle Roof Block,d0cb20e6,3502973158,BuildTools,5000
+Tarred Straw Block,ca09edca,3389648330,BuildTools,5000
+Tarred Wood Block,6eabef99,1856761753,BuildTools,5000
+Temple Keeper's Bow,47fd72b1,1207792305,Weapons,1
+Temple Stones,c9829d2a,3380780330,BuildTools,5000
+Thaumaturge Boots,cb5eb883,3411982467,Equipment,1
+Thaumaturge Boots,8e8c7846,2391570502,Equipment,1
+Thaumaturge Chest,f111dfb1,4044480433,Equipment,1
+Thaumaturge Chest,2853bd83,676576643,Equipment,1
+Thaumaturge Gloves,b2443021,2990813217,Equipment,1
+Thaumaturge Gloves,cb192526,3407422758,Equipment,1
+Thaumaturge Hat,088982b9,143229625,Equipment,1
+Thaumaturge Hat,134adada,323672794,Equipment,1
+Thaumaturge Pants,43efe91f,1139796255,Equipment,1
+Thaumaturge Pants,10c207e4,281151460,Equipment,1
+The Dragons' Map,d01eb1b8,3491672504,Collectibles,50
+The Dragons' Map,8dec1e0c,2381061644,Collectibles,1
+The Needles,e6e43118,3873714456,Weapons,1
+Thieves Guild,5c4d2f2d,1548562221,ColorPalette,50
+Thornridge,f1156d69,4044713321,Consumables,30
+Threadbare Pants,ecc1c60c,3972122124,Equipment,1
+Throne Room Floor Lamp,28755194,678777236,BuildTools,50
+Throne Room Wall Brazier,cb5a186e,3411679342,BuildTools,50
+Throne Room Wall Lamp,7bee5541,2079216961,BuildTools,50
+Thunderbolt Axe,3812aebd,940748477,Weapons,1
+Tidecaller Gloves,fe764238,4269163064,Equipment,1
+Tidecaller Gloves,f849766f,4165564015,Equipment,1
+Tidecaller Headpiece,ccaa627c,3433718396,Equipment,1
+Tidecaller Headpiece,6b73da87,1802754695,Equipment,1
+Tidecaller Pants,86374238,2251768376,Equipment,1
+Tidecaller Pants,365a690b,911894795,Equipment,1
+Tidecaller Shoes,72813256,1921069654,Equipment,1
+Tidecaller Shoes,c93d3306,3376231174,Equipment,1
+Tidecaller Tunic,acb0ec21,2897275937,Equipment,1
+Tidecaller Tunic,510dcf5b,1359859547,Equipment,1
+Tin Bars,3fed66ec,1072522988,Materials,250
+Tin Ore,df7d7424,3749540900,Materials,250
+Tiny Backpack,1fa74ed7,531058391,Equipment,1
+Tiny Chest,02f09172,49320306,BuildTools,1
+Tiny Plant Pot,b29fcdda,2996817370,BuildTools,50
+Tomato,3dc85885,1036540037,Consumables,20
+Tomato Fish Soup,998983e9,2575926249,Consumables,20
+Tomato Seedling,55c4687e,1438935166,BuildTools,100
+Tomb Raider's Bow,391418fb,957618427,Weapons,1
+"Tombstone ""Always Loved""",62952439,1653941305,BuildTools,20
+"Tombstone ""Forever In Our Hearts""",ad4a4430,2907325488,BuildTools,20
+"Tombstone ""In Loving Memory""",9fa0d2d5,2678117077,BuildTools,20
+"Tombstone ""Together Again""",047c8fd7,75272151,BuildTools,20
+"Tombstone ""Until We Meet Again""",eaf36fcc,3941822412,BuildTools,20
+Tome of Agony,8f2ba3f3,2402001907,Collectibles,20
+Tool_ClimbingClaws,5c5dbf1c,1549647644,Tools,1
+Torch,cf128197,3474096535,Weapons,1
+Torchlight Staff,c1e197b0,3252787120,Weapons,1
+Torn Cloth,592f94df,1496290527,Materials,250
+Totem Wand,7eaae516,2125128982,Weapons,1
+Totemhead Mace,1fdba77e,534488958,Weapons,1
+Totempole Mace,a86c2785,2825660293,Weapons,1
+Toxic Sack,ffa225b8,4288816568,Materials,250
+Toxic Slime,5c5fe471,1549788273,Materials,250
+Trader Hat,3158f848,827914312,Equipment,1
+Trailblazer Boots,bd122ffc,3172085756,Equipment,1
+Trailblazer Boots,0463b9f2,73644530,Equipment,1
+Trailblazer Chest,24076798,604465048,Equipment,1
+Trailblazer Chest,d0ec9bfb,3505167355,Equipment,1
+Trailblazer Gloves,c9eca182,3387728258,Equipment,1
+Trailblazer Gloves,46b42317,1186210583,Equipment,1
+Trailblazer Hood,ae056844,2919589956,Equipment,1
+Trailblazer Hood,3483f155,881062229,Equipment,1
+Trailblazer Trousers,3d171550,1024922960,Equipment,1
+Trailblazer Trousers,912a0e12,2435452434,Equipment,1
+Training Doll I,dba584bc,3685057724,BuildTools,20
+Training Doll II,3243b2a4,843297444,BuildTools,20
+Training Doll III,955af326,2505765670,BuildTools,20
+Traitor's Bow,61cd5f05,1640849157,Weapons,1
+Trampoline (High Jump),a9b846f1,2847426289,BuildTools,20
+Trampoline (Medium Jump),542bc879,1412155513,BuildTools,20
+Transcendental Screen,a8273d74,2821143924,Equipment,1
+Transcendental Screen,d0122e38,3490852408,Equipment,1
+Trap Fireball,87402383,2269127555,Ammunition,20
+Trap Fireball,dd29086f,3710453871,Ammunition,20
+Trap Fireball,930dd2a1,2467156641,Ammunition,20
+Trap Fireball,3bfb207f,1006313599,Ammunition,20
+Trap Fireball,90f264ce,2431804622,Ammunition,20
+Trap Fireball,6296479d,1654015901,Ammunition,20
+Trap Fireball,5dadb03d,1571663933,Ammunition,20
+Trap Fireball,ab364284,2872459908,Ammunition,20
+Trap Fireball,75f12caa,1978739882,Ammunition,20
+Trap Fireball,68b097c7,1756403655,Ammunition,20
+Tribal Hammer,a33b1f35,2738560821,Weapons,1
+Tricorn,3b8f9f33,999268147,Equipment,1
+Trilobite Imprint,1ae99daa,451517866,Collectibles,20
+Trilobites,6766cae6,1734789862,Collectibles,20
+Tropical Wood,4c7cdfd3,1283252179,Materials,250
+Turquoise Eyes,bf6db75b,3211638619,Equipment,1
+Turquoise Hair,5e5cd067,1583140967,Equipment,1
+Twigs,6b356a28,1798662696,Materials,250
+Twilight Bloom,b19e3b13,2979937043,ColorPalette,50
+Twin Soul Mace,63e7142c,1676088364,Weapons,1
+Twisting Wand,9915e663,2568349283,Weapons,1
+Two-colored Lily Flower,7275cff3,1920323571,BuildTools,50
+Two-Handed Melee Weapon Rack,5aa8d538,1521014072,BuildTools,20
+Two-Handed Melee Weapon Wall Mount,80061c96,2147884182,BuildTools,20
+Tyger,f86045be,4167058878,BuildTools,1
+Ultimate Health Potion,1d4a13ca,491393994,Consumables,20
+Ultimate Health Potion +,92bed6c3,2461980355,Consumables,20
+Ultimate Mana Potion,add3544b,2916308043,Consumables,20
+Ultimate Mana Potion +,3091e277,814867063,Consumables,20
+Ultimate Ring of Health,04569257,72782423,Equipment,1
+Ultimate Ring of Mana,c33d304e,3275567182,Equipment,1
+Ultimate Ring of Stamina,f32f9afd,4079983357,Equipment,1
+Uncommon Fishing Bait,963e5039,2520666169,Ammunition,250
+Uncooked Fae Deer Milk,77f6897a,2012645754,Consumables,20
+Undergrowth Staff,4ad17068,1255239784,Weapons,1
+Underwater Grappling Hook,c64094bb,3326121147,Tools,1
+Underwater Luminous Growth,3fabf120,1068232992,Materials,250
+Underwater Mud,3511d2e8,890360552,Materials,1000
+Underwater Overgrowth,5aaf850a,1521452298,BuildTools,1000
+Urn,c42c0e92,3291221650,BuildTools,50
+Valiant Shield,80bb0b51,2159741777,Equipment,1
+Valiant Shield,18f9faed,419035885,Equipment,1
+Valor Heart Daggers,a91b910f,2837156111,Weapons,1
+Valor Heart Daggers,7597398c,1972844940,Weapons,1
+Valor Heart Daggers,a0fc0934,2700871988,Weapons,1
+Valor Heart Daggers,6fae0399,1873675161,Weapons,1
+Valor Heart Daggers,dd8eff60,3717136224,Weapons,1
+Valor Heart Daggers,67116ffe,1729196030,Weapons,1
+Valory,419af480,1100674176,BuildTools,1
+Vanity_T2_NPC_Barber_Boots,a8f748ab,2834778283,Equipment,1
+Vanity_T2_NPC_Barber_Chest,9c46a373,2621875059,Equipment,1
+Vanity_T2_NPC_Barber_Gloves,51f19de4,1374789092,Equipment,1
+Vanity_T2_NPC_Barber_Helmet,350cf6fb,890042107,Equipment,1
+Vanity_T2_NPC_Barber_Legs,9beb5591,2615891345,Equipment,1
+Vaporous Staff,a3e4625d,2749653597,Weapons,1
+Vat I,0bd0bbc4,198228932,BuildTools,20
+Vat II,bbf40d5b,3153333595,BuildTools,20
+Vat III,a6c322a1,2797806241,BuildTools,20
+Vault Door,125cc963,308070755,BuildTools,50
+VC_Beard01_full,b52a2653,3039438419,Customization,1
+VC_Beard02_chincurtain,a4e21f6b,2766282603,Customization,1
+VC_Beard03_muttonchops,edc10b23,3988851491,Customization,1
+VC_Beard04_circlebeard,4ef6c929,1324796201,Customization,1
+VC_Beard05_goatee,e3c1f895,3821140117,Customization,1
+VC_Beard06_moustache,07532541,122889537,Customization,1
+VC_Beard07_soulpatch,91d5ee06,2446716422,Customization,1
+VC_Beard08_muttonchops,5407b13e,1409790270,Customization,1
+VC_Beard09_moustache,02388ae2,37260002,Customization,1
+VC_Beard10_balbo,1b3a4437,456803383,Customization,1
+VC_Beard11_goatee,290792c5,688362181,Customization,1
+VC_Beard12_stubble,c107a46f,3238503535,Customization,1
+VC_Beard13_stubble,143d4b1f,339561247,Customization,1
+VC_Body_Chest_01,88d8a0f3,2295898355,Customization,1
+VC_Body_Chest_Female_05_elder,de06075b,3724937051,Customization,1
+VC_Body_Chest_Male_04_elder,13034a57,318982743,Customization,1
+VC_Body_Collar_01,a2629792,2724370322,Customization,1
+VC_Body_Collar_Female_05_elder,0ce55f55,216358741,Customization,1
+VC_Body_Collar_Male_04_elder,76f42927,1995712807,Customization,1
+VC_Body_Crotch_01,d601ee97,3590450839,Customization,1
+VC_Body_Crotch_Female_05_elder,a7f6a962,2817960290,Customization,1
+VC_Body_Crotch_Male_04_elder,2d80823c,763396668,Customization,1
+VC_Body_Feet_01,3bb9e89b,1002039451,Customization,1
+VC_Body_Feet_Female_05_elder,39046b87,956590983,Customization,1
+VC_Body_Feet_Male_04_elder,096096fa,157325050,Customization,1
+VC_Body_Hands_01,0abc9658,180131416,Customization,1
+VC_Body_Hands_Female_05_elder,a7db1f39,2816155449,Customization,1
+VC_Body_Hands_Male_04_elder,926d7b52,2456648530,Customization,1
+VC_Body_Head_Female_01_young_caucasian,304c550f,810308879,Customization,1
+VC_Body_Head_Female_02_young_african,9f40fb06,2671835910,Customization,1
+VC_Body_Head_Female_03_young_asian,ac0bf6c3,2886465219,Customization,1
+VC_Body_Head_Female_04_mid_mixed,147981b8,343507384,Customization,1
+VC_Body_Head_Female_05_elder_indian,1fca1b05,533338885,Customization,1
+VC_Body_Head_Female_06_elder_african,a83410ab,2821984427,Customization,1
+VC_Body_Head_Female_07_young_indian,f90a5792,4178204562,Customization,1
+VC_Body_Head_Female_08_young_mixed,6e5618f2,1851136242,Customization,1
+VC_Body_Head_Female_09_young_mixed,8c08cc14,2349386772,Customization,1
+VC_Body_Head_Female_10_young_caucasian,c83cf77c,3359438716,Customization,1
+VC_Body_Head_Female_11_elder_caucasian,5003f7b3,1342437299,Customization,1
+VC_Body_Head_Female_12_young_caucasian,ab125116,2870104342,Customization,1
+VC_Body_Head_Female_13_mid_asian,ea22af40,3928141632,Customization,1
+VC_Body_Head_Male_01_young_caucasian,93c7a47c,2479334524,Customization,1
+VC_Body_Head_Male_02_young_african,d04394eb,3494089963,Customization,1
+VC_Body_Head_Male_03_young_asian,4908d779,1225316217,Customization,1
+VC_Body_Head_Male_04_elder_caucasian,fdcf7d5a,4258233690,Customization,1
+VC_Body_Head_Male_05_mid_mixed,9cdec598,2631845272,Customization,1
+VC_Body_Head_Male_06_elder_asian,11140aaa,286526122,Customization,1
+VC_Body_Head_Male_07_mid_caucasian,e1bd6919,3787286809,Customization,1
+VC_Body_Head_Male_08_mid_indian,e40c42a2,3826008738,Customization,1
+VC_Body_Head_Male_09_young_caucasian,e9c8497b,3922217339,Customization,1
+VC_Body_Head_Male_10_young_african,86a46569,2258920809,Customization,1
+VC_Body_Head_Male_11_young_indian,bd9cafc2,3181162434,Customization,1
+VC_Body_Head_Male_12_mid_caucasian,778f7390,2005889936,Customization,1
+VC_Body_LowerArms_01,b5defaad,3051289261,Customization,1
+VC_Body_LowerArms_Female_05_elder,b0202335,2954896181,Customization,1
+VC_Body_LowerArms_Male_04_elder,ff13788c,4279466124,Customization,1
+VC_Body_LowerLegs_01,418d2edc,1099771612,Customization,1
+VC_Body_LowerLegs_Female_05_elder,58593acc,1482242764,Customization,1
+VC_Body_LowerLegs_Male_04_elder,1c5feb81,476048257,Customization,1
+VC_Body_Neck_01,fe3df20c,4265472524,Customization,1
+VC_Body_Neck_Female_05_elder,5af83494,1526215828,Customization,1
+VC_Body_Neck_Male_04_elder,f4940564,4103341412,Customization,1
+VC_Body_UpperArms_01,37d34415,936592405,Customization,1
+VC_Body_UpperArms_Female_05_elder,36db5727,920344359,Customization,1
+VC_Body_UpperArms_Male_04_elder,2ce37f7e,753106814,Customization,1
+VC_Body_UpperLegs_01,5b98b87d,1536735357,Customization,1
+VC_Body_UpperLegs_Female_05_elder,676bac67,1735109735,Customization,1
+VC_Body_UpperLegs_Male_04_elder,b5bc5b25,3049020197,Customization,1
+VC_Body_Waist_01,5f1fef82,1595928450,Customization,1
+VC_Body_Waist_Female_05_elder,a70e01ae,2802713006,Customization,1
+VC_Body_Waist_Male_04_elder,9e9dd7e7,2661144551,Customization,1
+VC_Hair_00_00_bald,a58a85a9,2777318825,Customization,1
+VC_Hair_01_01_bun,4a8e06d1,1250821841,Customization,1
+VC_Hair_01_02_pony_bun,ba5888d7,3126364375,Customization,1
+VC_Hair_01_03_pony_bun,910b2b2d,2433428269,Customization,1
+VC_Hair_01_04_pony_bun,38fd7256,956133974,Customization,1
+VC_Hair_01_05_pony_bun,d87e8106,3632169222,Customization,1
+VC_Hair_01_06_mohawk_bun,2c445a3a,742677050,Customization,1
+VC_Hair_01_07_pony_mohawk_bun,3be20079,1004667001,Customization,1
+VC_Hair_02_01_pony_ponytail,2a3ef577,708769143,Customization,1
+VC_Hair_02_02_ponytail,a284ff6b,2726625131,Customization,1
+VC_Hair_02_03_pony_ponytail,30e87c9b,820542619,Customization,1
+VC_Hair_02_04_pony_ponytail,d2b5edab,3535138219,Customization,1
+VC_Hair_02_05_mohawk_ponytail,f3c51cf2,4089781490,Customization,1
+VC_Hair_02_06_pony_mohawk_ponytail,13c105d7,331417047,Customization,1
+VC_Hair_03_01_long_back,d0d17f94,3503390612,Customization,1
+VC_Hair_03_02_mid,0542529b,88232603,Customization,1
+VC_Hair_03_03_mid_back,b6f00ef3,3069185779,Customization,1
+VC_Hair_04_01_pixie,d26218b3,3529644211,Customization,1
+VC_Hair_04_02_frenchcrop,dc047e95,3691282069,Customization,1
+VC_Hair_04_03_cowlick,a549535b,2773046107,Customization,1
+VC_Hair_04_04_hanfu_ponytail,1180f249,293663305,Customization,1
+VC_Hair_04_05_braid_01,90f17ff6,2431746038,Customization,1
+VC_Hair_04_06_slick_fade,f5ecf072,4125945970,Customization,1
+VC_Hair_04_08_curly_long,c1cb60c7,3251331271,Customization,1
+VC_Hair_04_09_curly_widelong,647ccd0b,1685900555,Customization,1
+VC_Hair_04_10_curly_spacebuns_long,47c9ae04,1204399620,Customization,1
+VC_Hair_05_01_fauxhawk,06025e8a,100818570,Customization,1
+VC_Hair_05_02_fauxhawk_fade,1be57ffb,468025339,Customization,1
+VC_Hair_06_01_dread_braids_long_back,395fabe3,962571235,Customization,1
+VC_Hair_08_01_inverted_bob,1810b991,403749265,Customization,1
+VC_Hair_08_02_mohawk_dreads_long_back,ab1fb478,2870981752,Customization,1
+VC_Hair01_longtied,01d5f450,30798928,Customization,1
+VC_Hair02_bald,27862cc7,663104711,Customization,1
+VC_Hair03_bald,58689fc6,1483251654,Customization,1
+VC_Hair04_bald,190af6cb,420148939,Customization,1
+VC_Hair05_bald,2a63e5e4,711189988,Customization,1
+VC_Hair06_mid_back,8bc4418e,2344894862,Customization,1
+VC_Hair08_dreads_hightop,8a2b35ab,2318087595,Customization,1
+VC_Hair09_dreads_bun,1bef98ba,468687034,Customization,1
+VC_Haircap_01_buzz,1c6e498b,476989835,Customization,1
+VC_Haircap_02_fade,d6b4b96b,3602168171,Customization,1
+Vegetable Puree,a6807b30,2793438000,Consumables,20
+Vegetable Soup,b5ca45f6,3049932278,Consumables,20
+Veil Of Blues,17533bb4,391330740,ColorPalette,50
+Veilrift Axe,50d4a0c8,1356112072,Weapons,1
+Veilwater Basin Boardwalk I,075febe1,123726817,BuildTools,20
+Veilwater Basin Boardwalk I,3d709743,1030788931,BuildTools,20
+Veilwater Basin Boardwalk I,27e95d18,669605144,BuildTools,20
+Veilwater Basin Boardwalk I,01ff4763,33507171,BuildTools,20
+Veilwater Basin Boardwalk II,473c86e7,1195149031,BuildTools,20
+Veilwater Basin Boardwalk II,f0fc11e4,4043051492,BuildTools,20
+Veilwater Basin Dirt,f41a6341,4095370049,Materials,1000
+Veilwater Basin Rubble,86414da8,2252426664,Materials,1000
+Veilwater Basin Sand,82001bba,2181045178,Materials,1000
+Venom Stinger,9cea65f0,2632607216,Materials,250
+Venomkiss,af0225ae,2936153518,Weapons,1
+Verily Verdant,e4fde83a,3841845306,ColorPalette,50
+Vertical Banner I,6e1ed117,1847513367,BuildTools,20
+Vertical Banner II,d005fbe4,3490053092,BuildTools,20
+Vertical Banner III,d03117eb,3492878315,BuildTools,20
+Vertical Banner IV,cac281a3,3401744803,BuildTools,20
+Vesztah's Mace,972be6f0,2536236784,Weapons,1
+Village Oak,61b90ef7,1639517943,ColorPalette,50
+Violet Decorative Box,7a741026,2054426662,BuildTools,50
+Violet Fabric,d1ef11eb,3522105835,Materials,250
+Violet Storm,5e811303,1585517315,Weapons,1
+Voidcaller,466ad79e,1181407134,Weapons,1
+Vorgoth's War Banner I,6c8a3b99,1820998553,BuildTools,20
+Vorgoth's War Banner II,2714c532,655672626,BuildTools,20
+Vukah Brawler Head,8b6b5aff,2339068671,Materials,50
+Vukah Brawler Trophy,faa090e6,4204826854,BuildTools,10
+Vukah Nesting Material,d54376b3,3577968307,Materials,250
+Vukah Shrine,673f5059,1732202585,BuildTools,20
+Waggon,f9f81af2,4193786610,BuildTools,20
+Wailing Blade,fd80f19d,4253086109,Weapons,1
+Wailing Blade,0eb461aa,246702506,Weapons,1
+Wailing Blade,c29f66d7,3265226455,Weapons,1
+Wailing Blade,0bc292f3,197300979,Weapons,1
+Wailing Blade,064693bc,105288636,Weapons,1
+Wailing Blade,7265dc3c,1919278140,Weapons,1
+Wailing Blade,1b37a4be,456631486,Weapons,1
+Wall,8464a37d,2221187965,Blueprints,1
+Wall Banner,4825f095,1210445973,BuildTools,20
+Wall Blocks 1m,10b5c02c,280346668,Blueprints,1
+Wall Drain,42f4a380,1123328896,BuildTools,20
+Wall Drain,db58bcf2,3680025842,BuildTools,20
+Wall Lantern,b3f67666,3019273830,BuildTools,50
+Wall Lantern,989c5adb,2560383707,BuildTools,50
+Wall Mounted Candleholder,f3bd061c,4089251356,BuildTools,50
+Wall Sign,bf61ed97,3210866071,BuildTools,20
+Wall Tapestry I,1dcf72d7,500134615,BuildTools,50
+Wall Tapestry II,dc4e5254,3696120404,BuildTools,50
+Wall Tapestry III,47969bdc,1201052636,BuildTools,50
+Wall Tapestry IV,5c270e48,1546063432,BuildTools,50
+Wall Tapestry Piece,863dd8c8,2252200136,Collectibles,20
+Wall Tapestry Piece,d6c6bd4c,3603348812,Collectibles,20
+Wall Tapestry Showcase,30d78a91,819432081,BuildTools,20
+Wall Tapestry V,8953d990,2303973776,BuildTools,50
+Wall Target,96b650dd,2528530653,BuildTools,20
+Wall Torch,66f057f6,1727027190,BuildTools,1000
+Wand,df6897ff,3748173823,Weapons,1
+Wand Of Bloodflow,99007146,2566943046,Weapons,1
+Wand Wall Mount,55e61f29,1441144617,BuildTools,20
+Wand Weapon Rack,8d355764,2369083236,BuildTools,20
+Wanderer's Boots,e7c3bf66,3888365414,Equipment,1
+Warden Boots,3f1735fc,1058485756,Equipment,1
+Warden Boots,cb0c696e,3406588270,Equipment,1
+Warden Chestplate,8e086fb8,2382917560,Equipment,1
+Warden Chestplate,180e1bce,403577806,Equipment,1
+Warden Gloves,6d9c27f6,1838950390,Equipment,1
+Warden Gloves,3377e914,863496468,Equipment,1
+Warden Helmet,ea23307d,3928174717,Equipment,1
+Warden Helmet,ab177147,2870440263,Equipment,1
+Warden Trousers,e5dbb801,3856381953,Equipment,1
+Warden Trousers,20686bf9,543714297,Equipment,1
+Warlock Boots,92ba9025,2461700133,Equipment,1
+Warlock Boots,0d1b636f,219898735,Equipment,1
+Warlock Gloves,d973441f,3648209951,Equipment,1
+Warlock Gloves,6347efa0,1665658784,Equipment,1
+Warlock Helmet,8ee34154,2397258068,Equipment,1
+Warlock Helmet,4718b318,1192801048,Equipment,1
+Warlock Pants,19098012,420053010,Equipment,1
+Warlock Pants,5d30576d,1563449197,Equipment,1
+Warlock Shirt,4f588182,1331200386,Equipment,1
+Warlock Shirt,003374ad,3372205,Equipment,1
+Warm Padding,229744c2,580338882,Materials,250
+Warrior Arms,abb8c2b2,2881012402,Equipment,1
+Warrior Boots,4bea627f,1273651839,Equipment,1
+Warrior Chest,c4d943f3,3302573043,Equipment,1
+Warrior Helmet,9a16bcfe,2585181438,Equipment,1
+Warrior Trousers,585f68f1,1482647793,Equipment,1
+Water Balloon,5b2973fe,1529443326,Weapons,20
+Water Barrel,1fcad9df,533387743,BuildTools,20
+Water Barrier Ground,7659f1f5,1985606133,BuildTools,20
+Water Barrier Wall,dccd11a4,3704426916,BuildTools,20
+Water Dispenser,03defba8,64945064,BuildTools,20
+Water Pouch,e4831ad8,3833797336,Consumables,1
+Water Reptile Hide,a82a37be,2821339070,Materials,250
+Water Reptile Leather,7ac3dbac,2059656108,Materials,250
+Water Trough,fef6877d,4277569405,BuildTools,20
+Water Well,7f5802d9,2136474329,BuildTools,1
+Watering Can,8ec15337,2395034423,BuildTools,1
+Waveborne Ritualist Boots,e4632abe,3831704254,Equipment,1
+Waveborne Ritualist Boots,2937faf8,691534584,Equipment,1
+Waveborne Ritualist Gloves,15b3a625,364095013,Equipment,1
+Waveborne Ritualist Gloves,cb77f135,3413635381,Equipment,1
+Waveborne Ritualist Helmet,937ca196,2474418582,Equipment,1
+Waveborne Ritualist Helmet,c523001c,3307405340,Equipment,1
+Waveborne Ritualist Pants,c8d55dd4,3369426388,Equipment,1
+Waveborne Ritualist Pants,106495ea,275027434,Equipment,1
+Waveborne Ritualist Tunic,a2c904a2,2731082914,Equipment,1
+Waveborne Ritualist Tunic,c3a3241f,3282248735,Equipment,1
+Waveleaper,d9be2e3b,3653119547,Consumables,30
+Waves Of Valor,51689a22,1365809698,ColorPalette,50
+Wax,5682c2ab,1451410091,Materials,250
+Wax Torch,e9430638,3913483832,Weapons,1
+Wayfarer Pants,86fa4027,2264547367,Equipment,1
+Weapon_T1_SM_MagicRunes,a27b00b9,2725970105,Weapons,1
+Weapon_T3_SM_MagicRunes,04ea2257,82453079,Weapons,1
+Weathered Stone Block,53d37532,1406367026,BuildTools,5000
+Well Block,127c31a5,310129061,BuildTools,5000
+Wet Boot,09f2f6d9,166917849,Materials,500
+Wheat Grains,91256dd9,2435149273,Materials,250
+Wheat Seedling,6bfc3047,1811689543,BuildTools,100
+Wheel Barrow,3c134978,1007896952,BuildTools,20
+Whirlwind Crescendo,8474f607,2222257671,Materials,1
+Whiskerfin,488815bb,1216878011,Consumables,30
+White Cymbidum Flower,dbd3891d,3688073501,BuildTools,50
+White Eyes,74f49b95,1962187669,Equipment,1
+White Flower,836b9f44,2204868420,BuildTools,50
+White Flower,9874d438,2557793336,BuildTools,50
+White Flower,c8b392a8,3367211688,BuildTools,50
+White Flower,7f912f16,2140221206,BuildTools,50
+White Flower,0729c036,120176694,BuildTools,50
+White Glowing Substance,ec2efacc,3962501836,Materials,250
+White Hair,2011255f,537994591,Equipment,1
+White Luminescent Block,89b9bb1b,2310650651,BuildTools,5000
+White Wall Flower,691e75c4,1763603908,BuildTools,50
+White Wall Flower,983027c4,2553292740,BuildTools,50
+White Wolf Sword,c10e0e09,3238923785,Weapons,1
+Wide Carved Wooden Window Frame,9dc8a25c,2647171676,BuildTools,50
+Wide Wall,388c5a32,948722226,Blueprints,1
+Wildheart Seekers,b609840e,3054076942,Weapons,1
+Wildwood Shortbow,85a58fee,2242220014,Weapons,1
+Window Frame,93eefcd9,2481913049,Blueprints,1
+Window Frame,cf199c14,3474562068,Blueprints,1
+Windy Fields,030bc9d5,51104213,ColorPalette,50
+Winged Shadow,34d66849,886466633,Weapons,1
+Winterly Boots,97eab852,2548742226,Equipment,1
+Winterly Chest,41da0d72,1104809330,Equipment,1
+Winterly Gloves,f0ee743f,4042159167,Equipment,1
+Winterly Hat,a66c1a7e,2792102526,Equipment,1
+Winterly Pants,732839c3,1932016067,Equipment,1
+Wisp of Light,857a3d9e,2239380894,Consumables,20
+Wisteria,237488fa,594839802,BuildTools,1000
+Wizard Boots,569456e4,1452562148,Equipment,1
+Wizard Chest,9f736a04,2675141124,Equipment,1
+Wizard Gloves,eb74a95a,3950291290,Equipment,1
+Wizard Hat,f78e1252,4153283154,Equipment,1
+Wizard Pants,93902676,2475697782,Equipment,1
+Wolf Daggers,5c76c274,1551286900,Weapons,1
+Wolf Pack Axe,f2ee3563,4075697507,Weapons,1
+Wolf's Claw,e10d50ce,3775746254,Weapons,1
+Wolf's Fang Boots,1ab1e3fc,447865852,Equipment,1
+Wolf's Fang Boots,ce2ba5da,3458967002,Equipment,1
+Wolf's Fang Chest,0e044ab3,235162291,Equipment,1
+Wolf's Fang Chest,8470ec05,2221992965,Equipment,1
+Wolf's Fang Gloves,e03c67d9,3762055129,Equipment,1
+Wolf's Fang Gloves,2c53501c,743657500,Equipment,1
+Wolf's Fang Hood,7f4eda12,2135874066,Equipment,1
+Wolf's Fang Hood,5dbd0a6b,1572670059,Equipment,1
+Wolf's Fang Shield,ade15fc0,2917228480,Equipment,1
+Wolf's Fang Shield,18564a92,408308370,Equipment,1
+Wolf's Fang Trousers,7f09d4d0,2131350736,Equipment,1
+Wolf's Fang Trousers,6bcffd98,1808792984,Equipment,1
+Wolf's Hydra,f49d9a59,4103969369,Weapons,1
+Wolf's Hydra,20754f9e,544559006,Weapons,1
+Wolf's Hydra,ab668254,2875621972,Weapons,1
+Wolf's Hydra,a89f46d5,2829010645,Weapons,1
+Wolf's Hydra,86f82cfb,2264411387,Weapons,1
+Wolf's Maw,a5212feb,2770415595,Weapons,1
+Wolf's Snarl Longbow,29433573,692270451,Weapons,1
+Wolfsbane,50c4bdfd,1355070973,Materials,250
+Wolfsbane Plant,7b9b5083,2073776259,BuildTools,50
+Wolfsbane Seedling,b3afb764,3014637412,BuildTools,100
+Wood Acid,6177b424,1635234852,Materials,250
+Wood Banister I,4c633e94,1281572500,BuildTools,50
+Wood Banister II,e7bc9422,3887895586,BuildTools,50
+Wood Banister III,5be80015,1541931029,BuildTools,50
+Wood Banister VI,8bf8ccd4,2348338388,BuildTools,50
+Wood Logs,2b0cf1d5,722268629,Materials,250
+Wood Planks,60ef3ad1,1626290897,Materials,250
+Wood Wall I,9ec23a3a,2663529018,BuildTools,20
+Wood Wall II,589ddfd3,1486741459,BuildTools,20
+Wood Wall III,dad965a7,3671680423,BuildTools,20
+Wood Wall IV,06638c4d,107187277,BuildTools,20
+Wooden Arrow,b03f58c9,2956941513,Ammunition,500
+Wooden Banquet Table,1ba4cf9f,463785887,BuildTools,50
+Wooden Bathtub,37b1d5ef,934401519,BuildTools,50
+Wooden Bed,af3cdce4,2940001508,BuildTools,50
+Wooden Bowl,58bbb7d6,1488697302,BuildTools,50
+Wooden Bucket,b93df332,3107844914,BuildTools,20
+Wooden Chair,dd5f8bb9,3714026425,BuildTools,50
+Wooden Chest,4d9c3cee,1302084846,BuildTools,1
+Wooden Crate,bf3100ef,3207659759,BuildTools,20
+Wooden Cup,792c32bb,2032939707,BuildTools,50
+Wooden Door,4e19b997,1310308759,BuildTools,50
+Wooden Double Door,c6be5d11,3334364433,BuildTools,50
+Wooden Grate I,61a6b083,1638314115,BuildTools,50
+Wooden Grate II,6e1275cc,1846703564,BuildTools,50
+Wooden Ladder,93f3cbfa,2482228218,BuildTools,20
+Wooden Lavatory,baf1fb81,3136420737,BuildTools,50
+Wooden Palisade I,7eae1879,2125338745,BuildTools,50
+Wooden Palisade II,5f77a482,1601676418,BuildTools,50
+Wooden Palisade III,75e7ea08,1978133000,BuildTools,50
+Wooden Palisade IV,940a0cd9,2483686617,BuildTools,50
+Wooden Palisade V,220ccc18,571264024,BuildTools,50
+Wooden Palisade VI,a159c902,2707015938,BuildTools,50
+Wooden Palisade VII,663416a7,1714689703,BuildTools,50
+Wooden Palisade VIII,687d2a54,1753033300,BuildTools,50
+Wooden Shield,29335b11,691231505,Equipment,1
+Wooden Side Table,c672cf0d,3329412877,BuildTools,50
+Wooden Sink,741d96c3,1948096195,BuildTools,50
+Wooden Table,9b3feb38,2604657464,BuildTools,50
+Wooden Tavern Counter,f60b84c2,4127950018,BuildTools,50
+Wooden Tooth,d7fa5ae9,3623508713,Weapons,1
+Wooden Window Frame,3d6eb031,1030664241,BuildTools,50
+Wool,a91eefa9,2837376937,Materials,250
+Workbench,771b4c5d,1998277725,BuildTools,1
+Wound Ointment,29df8cf9,702516473,Materials,250
+Yak,d5c34daa,3586346410,BuildTools,1
+Yak Feeder,d5966e49,3583405641,BuildTools,50
+Yak Food,b57e8d1e,3044969758,AnimalFood,200
+Yak Food Bait,860c9dc0,2248973760,AnimalFood,50
+Yellow Cymbidum Flower,ba506bf6,3125832694,BuildTools,50
+Yellow Decorative Box,ea576481,3931595905,BuildTools,50
+Yellow Eyes,4abf715a,1254060378,Equipment,1
+Yellow Fabric,ccd6cdee,3436629486,Materials,250
+Yellow Flower,5b02fa4c,1526921804,BuildTools,50
+Yellow Flower,09c3bf9d,163823517,BuildTools,50
+Yellow Flower,483eb2cd,1212068557,BuildTools,50
+Yellow Flower,5f0c6c77,1594649719,BuildTools,50
+Yellow Flower,3060c5db,811648475,BuildTools,50
+Yellow Fountain,e617ea5c,3860327004,BuildTools,20
+Yellow Glow Soup,1233cfa4,305385380,Consumables,20
+Yellow Hair,bc61704f,3160502351,Equipment,1
+Yellow Lily Flower,e60eb0f8,3859722488,BuildTools,50
+Yellow Luminescent Block,c403dcaa,3288587434,BuildTools,5000
+Yellow Wall Flower,d93049b0,3643820464,BuildTools,50
+Yellow Wall Flower,aa9baaf4,2862328564,BuildTools,50
+Yellowfin,2e87689f,780626079,Consumables,30
+Yucca Fruit,77b6f21b,2008478235,Consumables,20
+Yucca Palm Seedling,451bd018,1159450648,BuildTools,100

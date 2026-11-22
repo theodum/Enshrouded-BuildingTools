@@ -2,6 +2,9 @@
 *.S text eol=lf
 *.btproject text eol=lf
 *.btbp binary
+# Attributed CSV bytes are fingerprinted by the generated native item index.
+catalog/** -text whitespace=cr-at-eol
+src/native_item_index.h text eol=lf
 # Existing translation blobs are CRLF in the repository; preserve their bytes.
 lang/*.txt -text whitespace=cr-at-eol
 # Generated castle deliverables have SHA-256 inventories; preserve exact bytes.

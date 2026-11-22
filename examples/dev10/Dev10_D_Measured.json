@@ -1,0 +1,131 @@
+{
+  "sourceReport": "NativeCatalog_20261122_701307234.json",
+  "sourceReportSHA256": "c9e7c49178530016fb5bb6bfa8075c26b00afc0570e67ad76a8b225ad89b1fe1",
+  "gameImage": {
+    "timeDateStamp": 1793791052,
+    "sizeOfImage": 44298240
+  },
+  "nativePlacementTested": false,
+  "nativeEntries": [
+    {
+      "item": 1449954814,
+      "name": "Lit en bois brut",
+      "nameMayBeTruncated": false,
+      "category": "beds",
+      "resolution": "policy_compatible",
+      "flags": 0,
+      "compatible": true,
+      "logicLinkCopied": false,
+      "bounds": {
+        "low": [
+          -1.514455,
+          0.0,
+          -0.757414
+        ],
+        "high": [
+          1.514455,
+          1.007178,
+          0.757414
+        ]
+      },
+      "placedEntity": "2a0e7d1c4055394e9ff7650e2c5654d8",
+      "placementCalls": {
+        "accepted": 0,
+        "failed": 0
+      },
+      "interactionValidated": false,
+      "requiredSupport": "not_exposed",
+      "constraints": "contact, nonoverlap, altar coverage; native interaction untested"
+    },
+    {
+      "item": 1727027190,
+      "name": "Torche murale",
+      "nameMayBeTruncated": false,
+      "category": "wall_lights",
+      "resolution": "policy_compatible",
+      "flags": 524288,
+      "compatible": true,
+      "logicLinkCopied": false,
+      "bounds": {
+        "low": [
+          -0.129753,
+          -0.358858,
+          -0.110265
+        ],
+        "high": [
+          0.129753,
+          0.358858,
+          0.405391
+        ]
+      },
+      "placedEntity": "8be15d416a139c47beedd5776d6e5a13",
+      "placementCalls": {
+        "accepted": 0,
+        "failed": 0
+      },
+      "interactionValidated": false,
+      "requiredSupport": "not_exposed",
+      "constraints": "contact, nonoverlap, altar coverage; native interaction untested"
+    },
+    {
+      "item": 3507087400,
+      "name": "Table en bois brut",
+      "nameMayBeTruncated": false,
+      "category": "tables",
+      "resolution": "policy_compatible",
+      "flags": 0,
+      "compatible": true,
+      "logicLinkCopied": false,
+      "bounds": {
+        "low": [
+          -1.240024,
+          0.0,
+          -0.650846
+        ],
+        "high": [
+          1.247342,
+          0.9,
+          0.649154
+        ]
+      },
+      "placedEntity": "ddae6400a2e77345961e551beb051aa0",
+      "placementCalls": {
+        "accepted": 0,
+        "failed": 0
+      },
+      "interactionValidated": false,
+      "requiredSupport": "not_exposed",
+      "constraints": "contact, nonoverlap, altar coverage; native interaction untested"
+    },
+    {
+      "item": 3714026425,
+      "name": "Chaise en bois",
+      "nameMayBeTruncated": false,
+      "category": "seating",
+      "resolution": "policy_compatible",
+      "flags": 0,
+      "compatible": true,
+      "logicLinkCopied": false,
+      "bounds": {
+        "low": [
+          -0.239282,
+          0.0171,
+          -0.313819
+        ],
+        "high": [
+          0.239282,
+          1.079451,
+          0.234222
+        ]
+      },
+      "placedEntity": "450430d98d94094fb1915a2f479b9823",
+      "placementCalls": {
+        "accepted": 0,
+        "failed": 0
+      },
+      "interactionValidated": false,
+      "requiredSupport": "not_exposed",
+      "constraints": "contact, nonoverlap, altar coverage; native interaction untested"
+    }
+  ]
+}

@@ -55,8 +55,21 @@ static volatile LONG g_bpProbeHits = 0;              // the comfort system was s
 static volatile DWORD g_bpProbeSeen = 0;             // ... last time
 static uint32_t g_bpItemComp = 0xffffffff;           // component index holding the item id (found on the first prop)
 // found objects of the current probe (world positions; the save turns them into box offsets)
-struct BpFound { uint32_t entity, item; int64_t pos[3]; float rot[4]; };
+#include "blueprint_object_data.h"
 static BpFound g_bpFound[core::BP_MAX_OBJS]; static int g_bpFoundN = 0;
+static bool g_bpFoundOverflow=false;
+static volatile LONG g_bpSnapshotState=0; // 0 idle, 1 requested, 2 scanning, 3 complete, -1 failed
+static props::WorldObject g_bpSnapshot[props::MaxWorldObjects];static int g_bpSnapshotCount=0;
+static props::Bounds g_bpSnapshotRegion;
+static DWORD g_bpSnapshotTick=0,g_bpSnapshotCompleted=0;static uint32_t g_bpSnapshotBadItem=0;
+static nativescan::Trace g_bpSnapshotTrace;
+static bool g_bpWorldAbi=false;
+static bool bp_snapshot_fail(nativescan::Error,uint32_t=0,uint32_t=0);
+static bool bp_calibration_capture(const BpFound&,const core::BpObject&);
+static int g_calibrateNextCapture=0;
+static void bp_snapshot_step(uint8_t*,uint8_t*);
+static bool bp_classic_scan_requested();
+static void bp_classic_snapshot_step(uint8_t*,uint8_t*);
 static void bp_probe_finished(bool answered);        // blueprint.h: writes the pending save
 
 static bool prop_item(const uint8_t* it);            // objects.h
@@ -69,62 +82,7 @@ static uint32_t bp_sys_entity(uint8_t* sys) {          // 9bf9e0: the entity the
     if (!arr || !readable(arr + (size_t)(idx - 1) * 16, 4)) return 0;
     return *(uint32_t*)(arr + (size_t)(idx - 1) * 16);
 }
-// inline component data of entity record `e` for component index k (null if absent)
-static uint8_t* bp_comp(uint8_t* e, uint32_t k, uint32_t* size) {
-    if (!e || !readable(e, 0x38) || k >= 640) return nullptr;
-    uint8_t* arch = *(uint8_t**)(e + 0x18);
-    if (!arch || !readable(arch, 0xa84 + 640 * 2)) return nullptr;
-    if (!((*(uint64_t*)(arch + (k >> 6) * 8) >> (k & 63)) & 1)) return nullptr;
-    uint32_t stride = *(uint16_t*)(arch + 0xa84 + k * 2), off = *(uint16_t*)(arch + 0x84 + k * 2);
-    uint8_t* data = *(uint8_t**)(e + 0x20);
-    uint32_t row = *(uint32_t*)(e + 0x30);
-    if (size) *size = stride;
-    if (!data) return nullptr;
-    uint8_t* p = data + off + (size_t)row * stride;
-    return readable(p, stride ? stride : 8) ? p : nullptr;
-}
-// The same without a memory check per call, for the scan of the whole entity table: checking
-// every record with VirtualQuery took 36 s for 27671 entities (0.32.0-dev13). The records come
-// from the game's own table; each archetype (a few hundred) is checked once.
-static uint8_t* g_bpArchOk[512]; static int g_bpArchN = 0;
-static bool bp_ptr(const void* p) { uintptr_t v = (uintptr_t)p; return v > 0x10000 && v < 0x7fffffff0000ull && !(v & 7); }
-static uint8_t* bp_comp_fast(uint8_t* e, uint32_t k, uint32_t* size) {
-    if (!bp_ptr(e) || k >= 640) return nullptr;
-    uint8_t* arch = *(uint8_t**)(e + 0x18);
-    if (!bp_ptr(arch)) return nullptr;
-    bool known = false;
-    for (int q = 0; q < g_bpArchN && !known; q++) known = g_bpArchOk[q] == arch;
-    if (!known) {
-        if (!readable(arch, 0xa84 + 640 * 2)) return nullptr;
-        if (g_bpArchN < 512) g_bpArchOk[g_bpArchN++] = arch;
-    }
-    if (!((*(uint64_t*)(arch + (k >> 6) * 8) >> (k & 63)) & 1)) return nullptr;
-    uint32_t stride = *(uint16_t*)(arch + 0xa84 + k * 2), off = *(uint16_t*)(arch + 0x84 + k * 2);
-    uint8_t* data = *(uint8_t**)(e + 0x20);
-    if (!bp_ptr(data)) return nullptr;
-    if (size) *size = stride;
-    return data + off + (size_t)*(uint32_t*)(e + 0x30) * stride;
-}
-// The item a placed prop came from: the 4-byte component holding an item id the lookup knows.
-static uint32_t bp_entity_item(uint8_t* e) {
-    if (!g_bpItemById || !g_bpItemReg) return 0;
-    uint32_t sz = 0;
-    auto test = [&](uint32_t k) -> uint32_t {
-        uint8_t* c = bp_comp(e, k, &sz);
-        if (!c || sz != 4) return 0;
-        uint32_t v = *(uint32_t*)c;
-        if (v < 0x10000) return 0;
-        uint8_t* it = g_bpItemById(v, g_bpItemReg);
-        return it && prop_item(it) ? v : 0;
-    };
-    if (g_bpItemComp < 640) { if (uint32_t v = test(g_bpItemComp)) return v; }
-    for (uint32_t k = 0; k < 640; k++)
-        if (uint32_t v = test(k)) {
-            if (g_bpItemComp != k) LOG(.str("blueprint objects: the item is in component ").u(k));
-            g_bpItemComp = k; return v;
-        }
-    return 0;
-}
+#include "blueprint_object_components.h"
 static void bp_probe_collect(uint8_t* sys, uint8_t* frame, int q, const BpQResult& r) {
     uint16_t* trH = frame && readable(frame + 0x60, 8) ? *(uint16_t**)(frame + 0x60) : nullptr;
     const uint32_t trIdx = trH && readable(trH, 2) ? *trH : 0xffff;
@@ -148,7 +106,7 @@ static void bp_probe_collect(uint8_t* sys, uint8_t* frame, int q, const BpQResul
         }
         uint32_t item = inside ? bp_entity_item(e) : 0;
         if (!item) continue;
-        BpFound& f = g_bpFound[g_bpFoundN++];
+        BpFound& f = g_bpFound[g_bpFoundN++];f={};
         f.entity = id; f.item = item;
         memcpy(f.pos, pos, 24); memcpy(f.rot, t + 0x18, 16);
         added++;
@@ -162,62 +120,25 @@ static void bp_probe_collect(uint8_t* sys, uint8_t* frame, int q, const BpQResul
 // values (entity record pointers) at +0x188 by slot. Every entity in the box whose 4-byte item
 // component names a placeable object is kept: the range queries above only reach entities with
 // a queried component (usable, comfort, ladders), this reaches windows, fences and decorations too.
-static void bp_scan_entities(uint8_t* sys, uint8_t* frame) {
-    uint16_t* trH = frame && readable(frame + 0x60, 8) ? *(uint16_t**)(frame + 0x60) : nullptr;
-    const uint32_t trIdx = trH && readable(trH, 2) ? *trH : 0xffff;
-    uint8_t* w = *(uint8_t**)sys;
-    uint8_t* base = readable(w + 0x30, 8) ? *(uint8_t**)(w + 0x30) : nullptr;
-    if (!base || trIdx >= 640 || !readable(base + 0x148, 0x48)) { LOG(.str("blueprint objects: entity table not readable")); return; }
-    uint8_t* map = base + 0x148;
-    uint64_t* bits = *(uint64_t**)(map + 8);
-    const uint64_t slots = *(uint64_t*)(map + 0x10);
-    uint8_t** vals = *(uint8_t***)(base + 0x188);
-    if (!bits || !vals || !slots || slots > (1u << 24) || !readable(bits, (size_t)((slots + 63) / 64) * 8) || !readable(vals, (size_t)slots * 8)) {
-        LOG(.str("blueprint objects: entity table looks wrong (").u(slots).str(" slots)")); return;
-    }
-    const DWORD t0 = GetTickCount();
-    g_bpArchN = 0;
-    uint32_t seen = 0, inBox = 0;
-    for (uint64_t s = 0; s < slots && g_bpFoundN < core::BP_MAX_OBJS; s++) {
-        if (!((bits[s >> 6] >> (s & 63)) & 1)) continue;
-        uint8_t* e = vals[s];
-        if (!e) continue;
-        seen++;
-        uint32_t sz = 0;
-        uint8_t* t = bp_comp_fast(e, trIdx, &sz);
-        if (!t || sz < 0x28) continue;
-        const int64_t* pos = (const int64_t*)t;
-        bool inside = true;
-        for (int a = 0; a < 3 && inside; a++) {
-            float v = (float)((double)pos[a] / core::kFix);
-            if (v < g_bpProbeBox[a] - 0.01f || v > g_bpProbeBox[4 + a] + 0.01f) inside = false;
-        }
-        if (!inside) continue;
-        inBox++;
-        if (!readable(e, 0x38)) continue;                   // the few in the box get the full checks
-        uint32_t item = bp_entity_item(e);
-        if (!item) continue;
-        BpFound& f = g_bpFound[g_bpFoundN++];
-        f.entity = 0; f.item = item;
-        memcpy(f.pos, pos, 24); memcpy(f.rot, t + 0x18, 16);
-        LOG(.str("  object ").x(item).str(" at (").fix(pos[0]).c(',').fix(pos[1]).c(',').fix(pos[2]).str(") rot (")
-            .f(f.rot[0]).c(',').f(f.rot[1]).c(',').f(f.rot[2]).c(',').f(f.rot[3]).c(')'));
-    }
-    LOG(.str("blueprint objects: ").u(seen).str(" entities scanned in ").u(GetTickCount() - t0).str(" ms, ").u(inBox)
-        .str(" in the box, ").i(g_bpFoundN).str(" objects"));
-}
+#include "blueprint_object_scan.h"
 // the comfort system's results call: the game's own read, then the mod's scan
 static uint8_t bt_comfort_read_body(uint8_t* sys, BpQResult* out, uint32_t id, uint8_t* frame) {
     uint8_t r = g_bpQResults(sys, out, id);
     g_bpProbeSeen = GetTickCount();
     if (!InterlockedExchange(&g_bpProbeHits, 1)) LOG(.str("blueprint objects: comfort system seen"));
+    if(g_bpSnapshotState==1||g_bpSnapshotState==2){
+        EnterCriticalSection(&g_stateLock);if(bp_classic_scan_requested())bp_classic_snapshot_step(sys,frame);else bp_snapshot_step(sys,frame);LeaveCriticalSection(&g_stateLock);return r;
+    }
     if (!sys || !readable(sys, 0x10) || !readable(*(uint8_t**)sys, 0x838)) return r;
     if (InterlockedExchange(&g_bpProbeReq, 0)) {           // a save asked: every entity in its box, now
+        EnterCriticalSection(&g_stateLock);
         g_bpFoundN = 0;
+        g_bpFoundOverflow=false;
         g_bpScanning = 1;
         bp_scan_entities(sys, frame);
         g_bpScanning = 0;
         bp_probe_finished(true);
+        LeaveCriticalSection(&g_stateLock);
         return r;
     }
     void* writer = *(void**)(*(uint8_t**)sys + 8);
@@ -277,6 +198,7 @@ static bool bp_item_registry(void* ctx, void* state) {
 // The save asks for the objects in its box (server thread). False = they cannot be found now
 // (signatures missing, no item registry, or the comfort system is not running).
 static bool bp_probe_request(const I3* c, const float* step, void* ctx, void* state) {
+    if(g_bpSnapshotState==1||g_bpSnapshotState==2)return false;
     if (!g_bpQResults || !bp_item_registry(ctx, state)) return false;
     if (!g_bpProbeHits || GetTickCount() - g_bpProbeSeen > 3000) { LOG(.str("blueprint objects: the comfort system is not running here")); return false; }
     for (int a = 0; a < 3; a++) {
@@ -311,17 +233,33 @@ static bool bp_logic_item(const uint8_t* it) { return (*(const uint32_t*)(it + 0
 static bool extended_prop_item(const uint8_t* it, bool nativeContext = false) {
     return g_nativeObjectAbi && prop_item(it) && readable(it + 0x5d8, 4) && extended::object_flags_allowed(*(const uint32_t*)(it + 0x5d8), nativeContext);
 }
+static int g_projectBlueprintLogic=0; // explicit session opt-in; upstream logic-link event is not copied
+static nativecatalog::Outcomes g_nativeItemOutcomes;
+static bool project_prop_item(const uint8_t* it){return extended_prop_item(it)||
+    (g_projectBlueprintLogic&&extended_prop_item(it,true));}
 static bool bp_logic_object(void*, const uint8_t*) { return false; }   // placed with the mod's writer (bp_place_object)
 // An item's local bounds as the prop system gives them to PlaceProp (494210: float4 min, float4 max).
 typedef void (*BpLocalBoundsFn)(float* out, uint8_t* item);
 static BpLocalBoundsFn g_bpLocalBounds = nullptr;
-static bool bp_item_bounds(uint8_t* it, float* mn, float* mx) {
+static bool bp_item_bounds_raw(uint8_t* it, float* mn, float* mx) {
     if (!g_bpLocalBounds || !it) return false;
     alignas(16) float b[8] = {};
     g_bpLocalBounds(b, it);
     for (int a = 0; a < 3; a++) { mn[a] = b[a]; mx[a] = b[4 + a]; }
-    return mx[0] >= mn[0] && mx[1] >= mn[1] && mx[2] >= mn[2];
+    return true;
 }
+static bool bp_item_bounds(uint8_t* it,float* mn,float* mx){
+    return bp_item_bounds_raw(it,mn,mx)&&mx[0]>=mn[0]&&mx[1]>=mn[1]&&mx[2]>=mn[2];
+}
+#include "native_item_resolution.h"
+// Fresh per-callback region checks avoid thousands of repeated VirtualQuery
+// calls without carrying page permissions across world updates.
+static bool bp_snapshot_memory_region(const void* p,uintptr_t* begin,uintptr_t* end){
+    MEMORY_BASIC_INFORMATION region;if(!VirtualQuery(p,&region,sizeof region)||region.State!=MEM_COMMIT||(region.Protect&(PAGE_NOACCESS|PAGE_GUARD)))return false;
+    *begin=(uintptr_t)region.BaseAddress;*end=*begin+region.RegionSize;return *end>*begin;
+}
+#include "native_snapshot_runtime.h"
+#include "blueprint_classic_collision.h"
 // Mirroring an object: the game has no mirrored models, so the copy is turned and one of the
 // object's own horizontal axes comes out reversed against a true mirror image. That must be the
 // axis along which the model is the same at both ends, whichever way it stands. r' = M r M
@@ -367,33 +305,7 @@ static bool bp_mirror_half_turn(uint32_t item) {
     LOG(.str("  mirror: object ").x(item).str(half ? " half turn" : " as is").str(c >= 0 ? " (chosen in the window)" : ""));
     return half;
 }
-static bool bp_place_object(void* ctx, uint32_t item, const double* posM, const float* rot) {
-    if (!g_placePropOrig || !g_bpItemById || !g_bpItemReg) return false;
-    uint8_t* it = g_bpItemById(item, g_bpItemReg);
-    if (!it || !prop_item(it) || bp_logic_object(ctx, it)) return false;
-    alignas(16) uint8_t info[0x50] = {};
-    memcpy(info, it + 0x3c0, 16);                        // the placed entity template
-    for (int a = 0; a < 3; a++) *(float*)(info + 0x10 + a * 4) = (float)posM[a];
-    memcpy(info + 0x1c, rot, 16);
-    float mn[3] = { -0.25f, -0.25f, -0.25f }, mx[3] = { 0.25f, 0.25f, 0.25f };
-    bp_item_bounds(it, mn, mx);                          // local bounds (as the prop system passes them)
-    for (int a = 0; a < 3; a++) { *(float*)(info + 0x2c + a * 4) = mn[a]; *(float*)(info + 0x38 + a * 4) = mx[a]; }
-    void** evSlot = (void**)((uint8_t*)ctx + 0xe0);
-    void* evSaved = *evSlot;
-    const bool logic = bp_logic_item(it) && !evSaved;
-    if (logic) {
-        g_bpEvBuf.data = g_bpEvData; g_bpEvBuf.cap = sizeof g_bpEvData; g_bpEvBuf.used = 0;
-        *(uint16_t*)(g_bpEvWriter + 0xb8) = 0;
-        *(BpEventBuf**)(g_bpEvWriter + 0x1b8) = &g_bpEvBuf;
-        *evSlot = g_bpEvWriter;
-    }
-    g_bpObjRecord = 1;
-    uint8_t r = g_placePropOrig(ctx, info, item);
-    g_bpObjRecord = 0;
-    if (logic) *evSlot = evSaved;
-    if (logic) LOG(.str("  logic object ").x(item).str(r ? " placed (its logic link event dropped)" : " not placed"));
-    return r != 0;
-}
+#include "blueprint_object_place.h"
 
 // ---- item names (the window's material and object rows; UI thread)
 // ItemInfo +0x48 is the name's loca reference (16 bytes); its LocaTagId is FNV-1a 32 over those
@@ -445,6 +357,12 @@ static void bp_objects_install() {
     g_bpQFree = (BpQFreeFn)tgt(fr + 8);
     g_bpItemById = (BpItemByIdFn)tgt(ib + 5);
     g_bpQResults = (BpQResultsFn)tgt(site);
+    const auto* pe=(const IMAGE_NT_HEADERS64*)(g_base+((const IMAGE_DOS_HEADER*)g_base)->e_lfanew);const uint64_t imageSize=pe->OptionalHeader.SizeOfImage;
+    const auto* getter=(const uint8_t*)g_bpEntity;
+    const auto* mapLookup=readable(getter,0x33)&&extended::entity_table_abi(getter)?tgt((uint8_t*)getter+0x1d):nullptr;
+    g_bpWorldAbi=mapLookup&&readable(mapLookup,0x62)&&extended::entity_map_abi(mapLookup)&&extended::transform_abi((uint64_t)g_base,[&](uint64_t a,uint64_t n)->const uint8_t*{
+        uint64_t off=a-(uint64_t)g_base;return off<imageSize&&n<=imageSize-off&&readable((void*)a,(size_t)n)?(const uint8_t*)a:nullptr;});
+    LOG(.str("native world reader ABI: ").i(g_bpWorldAbi).str(" CurrentTransform=56 position=0 quaternion=24 scale=40"));
     if (hook_calls((uint8_t*)g_bpQResults, (void*)bp_comfort_thunk, &site, 1) != 1) { g_bpQResults = nullptr; LOG(.str("blueprint objects: hook failed")); return; }
     LOG(.str("blueprint objects: available"));
 }

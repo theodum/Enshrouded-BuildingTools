@@ -19,6 +19,7 @@ struct ProjectStateGuard {};
 static bool g_projectRunning=false,g_projectLoaded=false,g_projectList=false,g_projectProblem=false;
 static bool g_projectModuleVisible[project::MaxModules]{};
 static int g_projectGeneration=0,g_bpPage=0,g_bpMirror=0,g_projectNeedN=0,g_bpBitsOk=0,g_bpRot=0;
+static int g_projectUseObjects=0;
 static const char* g_projectLastProblem=nullptr;
 static project::Plan g_projectPlan{};static project::Manifest g_projectManifest{};
 static extended::Box g_projectModuleBoxes[project::MaxModules],g_projectPieceBoxes[project::MaxPieces];
@@ -92,6 +93,10 @@ static void GetLocalTime(SYSTEMTIME* t){*t=SYSTEMTIME{};}
 static DWORD GetTickCount(){return 2000;}
 static fs::path exportFolder;
 static std::string narrow(const wchar_t* s){std::string out;while(*s)out+=(char)*s++;return out;}
+static int lstrlenW(const wchar_t* s){return std::wcslen(s);}static void lstrcpyW(wchar_t* a,const wchar_t* b){std::wcscpy(a,b);}static void lstrcatW(wchar_t* a,const wchar_t* b){std::wcscat(a,b);}
+static char* read_file(const wchar_t* path,DWORD* size){std::ifstream file(narrow(path),std::ios::binary);if(!file)return nullptr;
+    std::string data((std::istreambuf_iterator<char>(file)),{});*size=data.size();char* p=(char*)std::malloc(data.size()+1);memcpy(p,data.c_str(),data.size()+1);return p;}
+static uint64_t g_projectClassicObjects=0,g_projectClassicFiles[project::MaxModules]{};
 static int MultiByteToWideChar(int,int,const char* s,int,wchar_t* out,int n){int i=0;do{if(i==n)return 0;out[i]=(unsigned char)s[i];}while(s[i++]);return i;}
 static BOOL CreateDirectoryW(const wchar_t* p,void*){return fs::create_directory(narrow(p));}
 static HANDLE CreateFileW(const wchar_t* p,int,int,void*,int,int,void*){if(fs::exists(narrow(p)))return nullptr;return std::fopen(narrow(p).c_str(),"wb");}
@@ -104,5 +109,6 @@ struct Buf {
     char s[1024]{};int n=0;Buf& c(char v){if(n<1023)s[n++]=v;return *this;}Buf& str(const char* v){while(*v)c(*v++);return *this;}
     Buf& u(uint64_t v,int base=10,int width=0){char b[64];int k=0;do{int d=v%base;b[k++]=d<10?'0'+d:'a'+d-10;v/=base;}while(v);while(k<width)b[k++]='0';while(k)c(b[--k]);return *this;}
     Buf& i(int64_t v){if(v<0){c('-');v=-v;}return u((uint64_t)v);}Buf& f(double v,int digits){char b[80];std::snprintf(b,sizeof b,"%.*f",digits,v);return str(b);}const char* z(){s[n]=0;return s;}
+    Buf& x(uint64_t v){return str("0x").u(v,16);}template<class... A> Buf& fmt(const char* value,A...){return str(value);}
 };
 #include "../src/project_export.h"

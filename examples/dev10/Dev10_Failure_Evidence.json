@@ -1,0 +1,84 @@
+{
+  "format": "BuildingToolsFailureEvidence",
+  "version": 1,
+  "logSource": "BuildingTools.log",
+  "logSHA256": "2cbe735dd401a8c62aa88c0dca3c72a93cf58135b2d510c27e8efebf276cce60",
+  "reportSource": "NativeCatalog_20261122_701307234.json",
+  "reportSHA256": "c9e7c49178530016fb5bb6bfa8075c26b00afc0570e67ad76a8b225ad89b1fe1",
+  "gameImage": {
+    "timeDateStamp": 1793791052,
+    "sizeOfImage": 44298240
+  },
+  "observedFailures": 4,
+  "objects": [
+    {
+      "item": 2939168228,
+      "name": "Bougie",
+      "nameMayBeTruncated": false,
+      "category": "lights",
+      "resolution": "special_flags",
+      "flags": 524289,
+      "compatible": false,
+      "logicLinkCopied": false,
+      "bounds": null,
+      "placedEntity": "8feef47021df954287f64f6d9549cc9f",
+      "placementCalls": {
+        "accepted": 0,
+        "failed": 0
+      },
+      "interactionValidated": false,
+      "requiredSupport": "not_exposed",
+      "constraints": "contact, nonoverlap, altar coverage; native interaction untested"
+    },
+    {
+      "item": 3491672504,
+      "name": "La carte des dragons",
+      "nameMayBeTruncated": false,
+      "category": "other",
+      "resolution": "policy_compatible",
+      "flags": 0,
+      "compatible": true,
+      "logicLinkCopied": false,
+      "bounds": {
+        "low": [
+          -0.3,
+          -0.3,
+          0.0
+        ],
+        "high": [
+          0.3,
+          0.3,
+          0.1
+        ]
+      },
+      "placedEntity": "a777862cb53bf446bbe27d4ae8ada0c7",
+      "placementCalls": {
+        "accepted": 0,
+        "failed": 0
+      },
+      "interactionValidated": false,
+      "requiredSupport": "not_exposed",
+      "constraints": "contact, nonoverlap, altar coverage; native interaction untested"
+    },
+    {
+      "item": 3520367051,
+      "name": "Semis de riz",
+      "nameMayBeTruncated": false,
+      "category": "special_review",
+      "resolution": "invalid_bounds",
+      "flags": 0,
+      "compatible": false,
+      "logicLinkCopied": false,
+      "bounds": null,
+      "placedEntity": "e5f43c5204dc014c8d19d07d42e1529a",
+      "placementCalls": {
+        "accepted": 0,
+        "failed": 0
+      },
+      "interactionValidated": false,
+      "requiredSupport": "not_exposed",
+      "constraints": "contact, nonoverlap, altar coverage; native interaction untested"
+    }
+  ],
+  "limits": "Dev9 did not record raw invalid bounds or world transforms of the failing rice entity; numerical subcase cannot be reconstructed from these logs."
+}

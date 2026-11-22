@@ -1,0 +1,25 @@
+{
+  "format": "BuildingToolsFurnishingRecipe",
+  "version": 1,
+  "anchor": [
+    0,
+    0,
+    0
+  ],
+  "objects": [
+    {
+      "item": 3507087400,
+      "position": [
+        -0.003658999999999968,
+        -0.0,
+        0.0008460000000000134
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    }
+  ]
+}

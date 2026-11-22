@@ -3,6 +3,84 @@
 Each `## x.y.z` section is used as the release notes on GitHub and as the file
 changelog on Nexus Mods, so keep it short and written for players.
 
+## 0.34.0-dev12
+
+- The classic collision consumer compares two reads by the historical reader,
+  including same-count entity/item/transform mutations, before publishing candidates.
+
+- Reuse the original blueprint pricing/commit queue for composite native objects,
+  preserving the shared PlaceProp bridge, native payment and logic writer.
+- Import the user's actual five-object table blueprint byte for byte. New
+  objects-only modules retain captured support contacts without building voxels.
+- Add explicit classic-composition admission without changing global catalogue
+  approvals. Use the historical capture reader for outside collisions; retain
+  unknown-item, bounds, voxel, support, altar and incomplete-read refusals.
+- Add in-game classic blueprint import, source-preserving furniture export, a
+  composition catalogue and reusable placement tool. Keep source order and refuse
+  silent splits or loss of individual edits. Supply the real composition test.
+- Add byte/payload equivalence, four-rotation, capture, contact, collision,
+  import/export and refusal regressions. Classic reconstruction is user-confirmed;
+  composite placement and persistence still await the game test. Castle unchanged.
+
+## 0.34.0-dev11
+
+- Replace the million-slot, multi-callback prop scan that repeatedly restarted
+  on normal world activity with a complete occupied-bitset snapshot in one
+  native server callback, using the classic blueprint reader's context.
+- Validate headers, occupancy, keys, entity rows, item IDs and prop transforms
+  before publishing results. Bound callback time/work, discard cancelled or stale
+  results, and keep explicit refusals for incomplete or unstable reads.
+- Log structure addresses, before/after values, exact mutation fields, attempts,
+  examined/relevant counts, duration and separate collision outcomes. Check map
+  lookup and UsedItem ABI; retain collisions, support, altars and native placement.
+- Add sparse-million-slot, mutation, cancellation and stale-result regressions.
+  Reuse the unchanged one-table project; actual placement and persistence await
+  the user's game test. No castle furnishing or structure changes.
+
+## 0.34.0-dev10
+
+- Diagnose world-object reading separately from actual collisions, with entity,
+  item, raw placement bounds, transform and a precise refusal code. Read native
+  world scale; check transform reflection and entity table ABI before scanning.
+- Filter finite degenerate native proxies by their transformed placement bounds;
+  keep nearby unresolved or corrupt bounds blocking. Preserve collision, support,
+  altar and item-policy checks; remove the original guessed fallback cube.
+- Calibrate one manually placed furniture object through classic blueprint
+  capture; save/reload measured definitions without manual IDs. Reject changed
+  game builds, templates, bounds and unsupported scale explicitly.
+- Supply one measured-table project and a gated five-object follow-up, both with
+  zero structure, exact diagnostics and an A–E game protocol. Add reader,
+  calibration and exporter regressions. Actual placement and persistence await
+  the user's game test; the castle is unchanged.
+
+## 0.34.0-dev9
+
+- Import 3,526 attributed public inventory IDs with name/ID search, category
+  hints and explicit native resolution states. CSV membership never authorizes
+  placement; missing or refused objects now stop project loading with their ID.
+- Export the native template GUID, measured bounds, refusal reason, game context
+  and accepted/failed native-call counters without claiming interaction validity.
+- Add furniture-only export preserving anchor/transforms and writing zero voxels
+  or native pieces. Supply a real-ID 11-object draft and exact measured-demo role
+  selection, plus precise reusable recipes and castle reference fingerprints.
+- Add catalogue refresh/merge tools which discard stale approvals. Keep the
+  original PlaceProp/payment path and require real game validation before castle
+  furnishing. Emberforge's KFC3 reader is incompatible with this KFC4 installation.
+
+## 0.34.0-dev8
+
+- Export observed native furniture IDs, names and model bounds from the live game
+  registry. Prepare a furnished 12 x 10 m room with 11 selected native objects;
+  save/reload it through the existing composite/BTBP exporter. No guessed IDs.
+- Reuse the original blueprint PlaceProp bridge after voxel construction, add
+  conservative object collisions, support contacts and altar checks, and record
+  successful/failed placement calls. Creative uses the existing payment hooks.
+- Offer explicit experimental original-blueprint logic copying. Wiring, logic
+  links and chest contents are not copied; special items remain refused.
+- Add host roundtrip, native-bridge, catalogue, support/collision and objects-only
+  export tests. Live capture, actual placement, interaction and creative payment
+  still require the included in-game protocol before decorating the castle.
+
 ## 0.34.0-dev7
 
 - Add voxel stairs: straight, L, U and monumental layouts, total height/risers,

@@ -126,6 +126,13 @@ static void binary_checks(const char* exe) {
             CHECK(n == 2 && sites[0] == &img[mf + 0x137] && sites[1] == &img[mf + 0x2d7], "magic chests: StockCount calls at missing +0x137 / +0x2d7");
         } else CHECK(false, "magic chests: StockCount signature unique");
     }
+    CHECK(extended::transform_abi(imageBase,readImage),"world reader: reflected 56-byte CurrentTransform with position/rotation/scale offsets");
+    CHECK(extended::entity_table_abi(img.data()+0x9b25f0),"world reader: entity table getter uses checked world +30/map +148/values +188 layout");
+    CHECK(extended::entity_map_abi(img.data()+0x9b4dc0),"world reader: native map lookup confirms count +54, bits +8, keys +28, capacity +10");
+    img[0x9b4dc0+12]^=1;CHECK(!extended::entity_map_abi(img.data()+0x9b4dc0),"world reader: changed native map count offset disables reads");img[0x9b4dc0+12]^=1;
+    img[0x9b25f0+0x2e]^=1;CHECK(!extended::entity_table_abi(img.data()+0x9b25f0),"world reader: changed entity map offsets disable reads");img[0x9b25f0+0x2e]^=1;
+    img[0x194a4c0+0x40]^=1;CHECK(!extended::transform_abi(imageBase,readImage),"world reader: changed CurrentTransform ABI disables reads");img[0x194a4c0+0x40]^=1;
+    img[0x1a3f1b0+0x40]^=1;CHECK(!extended::transform_abi(imageBase,readImage),"world reader: changed UsedItem ABI disables reads");img[0x1a3f1b0+0x40]^=1;
     // call-site distance check used by the mod
     CHECK(0x2d8943 > 0x2d85fb && 0x2d8943 - 0x2d85fb < 0x400, "call-site layout check passes");
 

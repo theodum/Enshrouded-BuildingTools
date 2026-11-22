@@ -48,6 +48,7 @@ static bool bp_save_confirm() {
     return true;
 }
 static bool bp_build_confirm() {
+    if (!g_exactOpen || g_exactArmed || g_bpWin != BPW_PLACE || g_bpPage != 1) return false;
     if(g_projectList)return project_request_action(project::Action::Build,"enter");
     if (!g_exactOpen || g_exactArmed || g_bpWin != BPW_PLACE || g_bpPage != 1 || !g_bp.ok) return false;
     g_bpMinArm = bp_min_from(bp_anchor_now());
@@ -57,6 +58,7 @@ static bool bp_build_confirm() {
     return true;
 }
 static bool bp_confirm() {                       // Enter: ends typing the name, else Save / Build
+    if(g_catalogSearchEdit){g_catalogSearchEdit=0;return false;}
     if (g_bpNameEdit) { g_bpNameEdit = 0; return false; }
     return g_bpWin == BPW_SAVE ? bp_save_confirm() : bp_build_confirm();
 }
@@ -93,6 +95,11 @@ static void bp_type_keys(bool focus) {
     if (!init) { for (bool& p : prev) p = true; init = true; }
     if (g_bpNameEdit && (g_bpWin != BPW_SAVE || !g_exactOpen || g_exactHidden)) g_bpNameEdit = 0;   // the window went (or hid)
     bool live = focus && g_bpNameEdit && g_bpWin == BPW_SAVE && g_exactOpen && !g_exactHidden && g_menuOpen;
+    const bool searchWindow=g_bpWin==BPW_PLACE&&g_bpPage==3&&g_exactOpen&&!g_exactHidden;
+    if(!searchWindow)g_catalogSearchEdit=0;
+    const bool searching=focus&&g_catalogSearchEdit&&searchWindow&&g_menuOpen;
+    live=live||searching;
+    char* typed=searching?g_catalogSearch:g_bpTyped;
     BYTE kb[256] = {};
     auto held = [](int vk) { return (GetAsyncKeyState(vk) & 0x8000) != 0; };
     if (held(VK_SHIFT)) kb[VK_SHIFT] = 0x80;
@@ -109,9 +116,9 @@ static void bp_type_keys(bool focus) {
         if (!typing) continue;
         bool d = held(vk);
         if (d && !prev[vk] && live && !ctrlOnly) {
-            int n = g_bpTypedLen;
+            int n = searching?g_catalogSearchLen:g_bpTypedLen;
             if (vk == VK_BACK) {
-                while (n > 0 && ((uint8_t)g_bpTyped[n - 1] & 0xC0) == 0x80) n--;       // UTF-8 continuation bytes
+                while (n > 0 && ((uint8_t)typed[n - 1] & 0xC0) == 0x80) n--;       // UTF-8 continuation bytes
                 if (n > 0) n--;
             } else {
                 BYTE k2[256]; memcpy(k2, kb, sizeof k2); k2[vk] = 0x80;
@@ -119,10 +126,10 @@ static void bp_type_keys(bool focus) {
                 int r = ToUnicodeEx((UINT)vk, MapVirtualKeyW((UINT)vk, 0), k2, wc, 4, 4, layout);   // 4: keep the dead-key state
                 if (r == 1 && wc[0] >= 32) {
                     char u[8]; int un = WideCharToMultiByte(CP_UTF8, 0, wc, 1, u, sizeof u, nullptr, nullptr);
-                    if (un > 0 && n + un < (int)sizeof g_bpTyped - 1 && n < 60) { memcpy(g_bpTyped + n, u, (size_t)un); n += un; }
+                    if (un > 0 && n + un < 63 && n < 60) { memcpy(typed + n, u, (size_t)un); n += un; }
                 }
             }
-            g_bpTyped[n] = 0; g_bpTypedLen = n;
+            typed[n] = 0;if(searching)g_catalogSearchLen=n;else g_bpTypedLen=n;
         }
         prev[vk] = d;
     }
@@ -217,6 +224,8 @@ static void draw_bp_save_window() {
         bp_row_end(r);
     }
     bp_text(T(S_BP_NAME_HINT));
+    {const char* values[]={T(S_OPT_OFF),T(S_OPT_ON)};LONG value;if(ui_option(T(S_EXT_CALIBRATE),values,2,g_calibrateNextCapture,&value))g_calibrateNextCapture=value;
+        if(g_calibrateNextCapture)bp_text(T(S_EXT_CALIBRATION_HELP));}
     {   LONG v;
         if (ref_option(T(S_EXACT_REF), g_cfg.bpRef, &v)) g_cfg.bpRef = v; }
     bp_offset_rows(S_BP_MOVE_POINT, g_bpSaveOff);
@@ -307,6 +316,10 @@ static void draw_bp_place_window() {
             if (ui_option(lbl[q & 63], how, 2, cur, &v)) { bp_mirror_set(item, (int)v); LOG(.str("blueprint: mirror ").x(item).str(v ? " turned" : " as is")); }
         }
     }
+    if(!g_projectList&&g_bp.h.objects&&ui_button(T(S_EXT_CLASSIC_IMPORT))){
+        bp_frame_rows_end(f);bp_keys(S_COUNT);bp_frame_end(f);
+        if(!project_import_classic_blueprint())flash(T(S_EXT_EXPORT_FAIL));return;
+    }
     if (!g_projectList && ref_option(T(S_BP_REF), g_cfg.bpPlaceRef, &v)) g_cfg.bpPlaceRef = v;
     {
         BpRow r; bp_row_begin(r);
@@ -326,7 +339,7 @@ static void draw_bp_place_window() {
         { Buf pieces; pieces.fmt(T(S_EXT_NATIVE_COUNT), num(g_projectManifest.pieceCount).s); bp_text(pieces.z()); }
         const char* objectOptions[] = {T(S_BP_OBJ_LEAVE), T(S_BP_OBJ_BUILD)};
         if (ui_option(T(S_EXT_OBJECTS), objectOptions, 2, g_projectUseObjects, &v)) { g_projectUseObjects = v; g_projectNeedN=0; g_projectLastProblem=nullptr; ++g_projectGeneration; extended_save_ui(); }
-        if (g_projectUseObjects && g_projectObjectCount) bp_text(T(S_EXT_OBJECT_HELP));
+        if (g_projectUseObjects && g_projectObjectCount) bp_text(T(project_classic_mode()?S_EXT_CLASSIC_HELP:S_EXT_OBJECT_HELP));
         if (g_projectLastProblem) bp_text(g_projectLastProblem);
         const char* tabs[] = {T(S_EXT_OVERVIEW),T(S_EXT_PREVIEW),T(S_EXT_MATERIALS),T(S_EXT_ALTARS)};
         if (ui_option(T(S_EXT_SECTION),tabs,4,g_projectTab,&v)) g_projectTab=v;
@@ -340,6 +353,10 @@ static void draw_bp_place_window() {
         if (ui_button(T(S_EXT_EXPORT))) {
             char filename[128];
             if (project_export(filename, sizeof filename)) { Buf b; b.fmt(T(S_EXT_EXPORTED), filename); flash(b.z()); }
+            else flash(T(S_EXT_EXPORT_FAIL));
+        }
+        if(ui_button(T(S_EXT_FURNITURE_EXPORT),g_projectObjectCount>0)){
+            char filename[128];if(project_export(filename,sizeof filename,true)){Buf b;b.fmt(T(S_EXT_EXPORTED),filename);flash(b.z());}
             else flash(T(S_EXT_EXPORT_FAIL));
         }
         for (int m = 0; m < g_projectPlan.materialCount; ++m) {

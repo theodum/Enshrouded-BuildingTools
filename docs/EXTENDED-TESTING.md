@@ -1,4 +1,32 @@
-# Building Tools Extended 0.34.0-dev7 — installation et recette
+# Building Tools Extended 0.34.0-dev12 — installation et recette
+
+**Priorité actuelle : le vrai blueprint « esaai blueprint tabel ».** Sa table
+et ses quatre décorations ont été reconstruites en classique par l'utilisateur.
+Installer la dev12 et suivre [DEV12-CLASSIC-COMPOSITIONS.md](DEV12-CLASSIC-COMPOSITIONS.md)
+pour tester le même BTBP dans un composite, avec zéro voxel construit.
+Les procédures dev9–dev11 ci-dessous gardent leur contexte historique.
+
+**Recette historique dev11 : une seule table.** Après le refus dev10
+`E_TABLE_CHANGED`, [DEV11-TABLE-CHANGED.md](DEV11-TABLE-CHANGED.md) documente la
+collecte contrôlée dans un seul callback. La recette actuelle utilise la composition
+classique de cinq objets et son lecteur d'origine ; le château reste hors périmètre.
+
+Pour corriger les refus dev9, commencer par **un seul meuble** et la recette
+A–E de [DEV10-NATIVE-PLACEMENT-FIX.md](DEV10-NATIVE-PLACEMENT-FIX.md).
+Elle précise les erreurs de lecture, la calibration via le blueprint classique,
+le composite sans voxels et la vérification après rechargement. Ne pas commencer
+par la pièce de 11 objets : la bougie de cette ancienne recette est refusée
+par la politique native. Aucune réussite en jeu n'est déduite des tests hôtes.
+
+Pour la bibliothèque CSV, les refus au chargement, le démonstrateur livré et
+l'export uniquement mobilier aligné sur un bâtiment existant, suivre
+[DEV9-CATALOG.md](DEV9-CATALOG.md). Les tests automatiques ne certifient pas la
+compatibilité physique ou les interactions d'un modèle dans le jeu.
+
+Pour la nouvelle pièce de 11 objets natifs, le catalogue réel et la sauvegarde
+meublée d'origine, suivre [DEV8-NATIVE-OBJECTS.md](DEV8-NATIVE-OBJECTS.md).
+Les tests automatiques et les validations en jeu restantes sont séparés dans
+[DEV8-VALIDATION.md](DEV8-VALIDATION.md). Le château reste inchangé.
 
 Version de développement du fork, basée sur Building Tools 0.33.2.
 La compilation et les tests automatisés ne remplacent pas votre test dans le jeu.
@@ -9,14 +37,15 @@ demandent encore une validation personnelle.
 ## Installation manuelle
 
 Fermer le jeu. Utiliser l'archive locale
-`dist/EnshroudedBuildingTools-0.34.0-dev7.zip`, ou l'archive Shroudforge si ce
+`dist/EnshroudedBuildingTools-0.34.0-dev12.zip`, ou l'archive Shroudforge si ce
 chargeur est déjà utilisé. Les deux archives contiennent la même DLL.
 
 1. Conserver une copie de votre DLL de mod précédente si vous souhaitez revenir
    à la version d'origine. Ne pas écraser les fichiers d'un autre chargeur.
 2. Extraire l'archive standard à côté de `enshrouded.exe`. Elle contient
    `dinput8.dll`, la licence MIT, les langues, la documentation et le dossier
-   `BuildingTools-Projects` avec 68 fichiers `.btbp` et six manifestes.
+   `BuildingTools-Projects` avec les manifestes, leurs modules `.btbp` et les
+   fichiers d'analyse, dont le démonstrateur `Dev12_Table_Classique`.
 3. Avec Shroudforge, extraire l'archive correspondante : la DLL est dans
    `mods/building-tools/BuildingTools.dll`. Conserver une seule copie de Building
    Tools chargée. Les projets restent à côté de l'exécutable du jeu.

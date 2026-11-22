@@ -9,7 +9,7 @@ struct ArchitectureEdit {
         project::Plan plan; project::Manifest manifest; core::BpHeader header;
         extended::Box modules[project::MaxModules], pieces[project::MaxPieces];
         bool visible[project::MaxModules], loaded, list, ok, problem;
-        int objectCount, filled, generation, page, mirror, needCount;
+        int objectCount, filled, generation, page, mirror, needCount, useObjects;
         const char* lastProblem; extended::Object* objects;
     };
     Snapshot* before = nullptr; bool committed = false;
@@ -22,6 +22,7 @@ struct ArchitectureEdit {
         before->loaded = g_projectLoaded; before->list = g_projectList; before->ok = g_bp.ok; before->problem = g_projectProblem;
         before->objectCount = g_projectObjectCount; before->objects = g_projectObjects; before->filled = g_bp.filled; before->generation = g_projectGeneration;
         before->page = g_bpPage; before->mirror = g_bpMirror; before->needCount = g_projectNeedN; before->lastProblem = g_projectLastProblem;
+        before->useObjects=g_projectUseObjects;
         if (g_projectPlan.count) memcpy(cells, g_projectPlan.cells, (size_t)g_projectPlan.count * sizeof(*cells));
         g_projectPlan.cells = cells; g_projectPlan.capacity = project::MaxCells;
     }
@@ -36,6 +37,7 @@ struct ArchitectureEdit {
             g_projectLoaded = before->loaded; g_projectList = before->list; g_bp.ok = before->ok; g_projectProblem = before->problem;
             g_projectObjectCount = before->objectCount; g_bp.filled = before->filled; g_projectGeneration = before->generation + 1;
             g_bpPage = before->page; g_bpMirror = before->mirror; g_projectNeedN = before->needCount; g_projectLastProblem = before->lastProblem; g_bpBitsOk = 0;
+            g_projectUseObjects=before->useObjects;
         }
         HeapFree(GetProcessHeap(), 0, before);
     }

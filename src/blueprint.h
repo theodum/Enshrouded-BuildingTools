@@ -21,7 +21,8 @@
 //            material's item definition; see bp_find_item), and the commit hook writes every
 //            shape with the replace blit's force byte set to its material (the commit itself
 //            builds the material picked in the game). Undo budget and partial build as Area.
-// Building pieces and objects are not saved yet; a dedicated server cannot use blueprints yet.
+// Native props keep item/transform through bpobjects.h. Native building pieces
+// are not captured; a dedicated server cannot use blueprints yet.
 
 static const long kBpMaxCells = 65536;          // a save may hold this many cells (MaxShapes limits building)
 static const int kBpMaxFiles = 64;
@@ -53,6 +54,7 @@ static int g_bpSaveOff[3];                       // save window: the reference p
 static char g_bpTyped[64];                       // save window: the name typed so far (UTF-8)
 static volatile LONG g_bpTypedLen = 0;
 static volatile LONG g_bpNameEdit = 0;         // the name was clicked: keys type into it (until Enter or another click)
+static char g_catalogSearch[64]={};static int g_catalogSearchLen=0;static volatile LONG g_catalogSearchEdit=0;
 static bool bp_tool() { return g_cfg.toolBlueprint != 0; }
 static bool remote_session();
 
@@ -277,14 +279,20 @@ static char g_bpSaveName[64];
 static volatile LONG g_bpSavePending = 0;
 static volatile DWORD g_bpSaveTick = 0;
 static void bp_save_write(bool looked) {
+    if(g_calibrateNextCapture){g_calibrateNextCapture=0;
+        if(!looked||g_bpFoundOverflow||g_bpFoundN!=1){Buf reason;reason.fmt(T(S_EXT_CALIBRATION_ERROR),"E_CAPTURE_NEEDS_EXACTLY_ONE");flash(reason.z());LOG(.str("calibration REFUSED code=E_CAPTURE_NEEDS_EXACTLY_ONE count=").i(g_bpFoundN).str(" answered=").i(looked));return;}
+        core::BpObject source{};if(!props::capture(&source,g_bpFound[0].item,g_bpFound[0].pos,g_bpFound[0].rot,g_bpSaveLo)||!bp_calibration_capture(g_bpFound[0],source))return;
+    }
+    if(looked&&g_bpFoundOverflow){g_bpFoundN=0;flash(T(S_EXT_PROP_SCAN_LIMIT));LOG(.str("blueprint save REFUSED: more than 512 objects"));return;}
     core::BpHeader& h = g_bpSaveH;
     h.objects = 0;
     for (int k = 0; k < g_bpFoundN && h.objects < core::BP_MAX_OBJS; k++) {
         const BpFound& f = g_bpFound[k];
         core::BpObject& o = h.obj[h.objects++];
-        o.item = f.item;
-        for (int a = 0; a < 3; a++) o.pos[a] = (float)((double)f.pos[a] / core::kFix - g_bpSaveLo[a]);
-        memcpy(o.rot, f.rot, 16);
+        if(!props::capture(&o,f.item,f.pos,f.rot,g_bpSaveLo)) {
+            LOG(.str("blueprint save REFUSED invalid object item=").x(f.item).str(" index=").i(k));
+            g_bpFoundN=0;flash(T(S_BP_WRITE_FAIL));return;
+        }
     }
     g_bpFoundN = 0;
     if (!g_bpSaveFilled && !h.objects) { flash(T(S_BP_EMPTY)); beep(MB_ICONHAND); return; }
@@ -312,6 +320,7 @@ static void bp_save_watchdog() {                            // input thread
 // The box: corners fixed at Save (g_exactC). Each cell is probed with a removal dry run in
 // the placement context (as Replace measures what it may repaint).
 static uint8_t bp_save_box(void* ctx, void* state, const CursorXf& tmpl) {
+    if(g_bpSnapshotState==1||g_bpSnapshotState==2){flash(T(S_EXT_ACTION_BUSY));return 0;}
     Aabb box; shape_bounds(state, &tmpl, &box);
     float step[3] = { box.mx[0] - box.mn[0], box.mx[1] - box.mn[1], box.mx[2] - box.mn[2] };
     I3 c[3] = { g_exactC[0], g_exactC[1], g_exactC[1] };
@@ -485,6 +494,7 @@ static uint8_t bp_commit_material(int i) {       // main.cpp's commit hook, per 
     uint8_t mi = g_pendMat[i];
     return mi < core::BP_MAX_MATS ? g_bpMatByte[mi] : 0;
 }
+#include "blueprint_object_queue.h"
 static uint8_t bp_fill(CostList* list, void* ctx, void* state, uint8_t* pdata, const CursorXf& target) {
     if (!g_bp.ok || !pdata) { flash(T(S_BP_NOTHING)); beep(MB_ICONHAND); return 0; }
     Aabb box; shape_bounds(state, &target, &box);
@@ -586,16 +596,9 @@ static uint8_t bp_fill(CostList* list, void* ctx, void* state, uint8_t* pdata, c
         for (int k = 0; k < g_bp.h.objects && g_pend.n < kMaxPending; k++) {
             const uint32_t item = g_bp.h.obj[k].item;
             uint8_t* it = g_bpItemById(item, g_bpItemReg);
-            if (!it || !prop_item(it)) { objMissing++; continue; }
+            if (!it || !readable(it,4) || *(uint32_t*)it!=item || !prop_item(it)) { objMissing++; continue; }
             if (bp_logic_object(ctx, it)) { objLogic++; continue; }
-            const uint32_t before = (uint32_t)list->count;
-            CostEntry* e = list_push(list);
-            if (!e) break;
-            const uint32_t one = 1;
-            memcpy(e->b, it + 4, 16); memcpy(e->b + 0x10, &item, 4); memcpy(e->b + 0x14, &one, 4);
-            g_pendCost[g_pend.n] = before; g_pendMat[g_pend.n] = 0xff; g_pendObj[g_pend.n] = (uint16_t)(k + 1);
-            memset(g_pendPos[g_pend.n], 0, 24);
-            g_pend.n++; objN++;
+            if(!bp_queue_native_object(list,it,item,(uint16_t)(k+1)))break;++objN;
         }
     if (objMissing || objLogic) {
         Buf b;
@@ -606,6 +609,7 @@ static uint8_t bp_fill(CostList* list, void* ctx, void* state, uint8_t* pdata, c
         LOG(.str("blueprint build: objects left out: ").i(objMissing).str(" unknown, ").i(objLogic).str(" logic"));
     }
     if (objN) { priced += objN; LOG(.str("blueprint build: ").i(objN).str(" objects queued").str(objMissing ? ", some unknown" : "")); }
+    if(g_projectBatch&&objN!=g_bp.h.objects){list->count=listBefore;g_pend.n=0;g_pend.bp=false;LOG(.str("blueprint composite queue REFUSED code=E_INCOMPLETE_OBJECT_QUEUE expected=").i(g_bp.h.objects).str(" queued=").i(objN));return 0;}
     g_pendCost[g_pend.n] = (uint32_t)list->count;
     LOG(.str("blueprint build: turn ").i(g_bpRot).str(", priced ").i(priced).str(" of ").i(g_bp.filled)
         .str(" blocks, cost entries ").u(list->count - listBefore));

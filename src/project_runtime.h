@@ -10,8 +10,17 @@ static project::Manifest g_projectManifest;
 static extended::Box g_projectModuleBoxes[project::MaxModules];
 static extended::Object* g_projectObjects = nullptr;
 static int g_projectObjectCount = 0, g_projectObjectsInJob = 0;
+static props::Counts g_projectPropCounts;
+static char g_projectPropsError[512]={};
+static bool project_prepare_objects();
+static void project_trace_object(int,const char*,const char*);
 static constexpr int kProjectMaxObjects = project::MaxModules * core::BP_MAX_OBJS;
 static project::Plan g_projectPlan{};
+#include "blueprint_composition.h"
+static project::Plan g_projectCapturedSupport{};
+static uint64_t g_projectClassicFiles[project::MaxModules]{},g_projectClassicObjects=0;
+static bool project_classic_mode(){return composition::classic(g_projectManifest);}
+static nativecatalog::Status project_object_resolution(uint32_t item){return native_item_resolution(item,project_classic_mode());}
 static project::Job g_projectJob;
 static bool project_object_batch() { return g_projectJob.next >= g_projectPlan.count + g_projectManifest.pieceCount; }
 static bool project_piece_batch() { return g_projectJob.next >= g_projectPlan.count && !project_object_batch(); }
@@ -146,6 +155,7 @@ static bool project_report(char* name, int capacity) {
         .str("\r\nWorst check duration (ms): ").u(g_projectWorstCheck).str("\r\nAdaptive batch ceiling: ").i(g_projectActiveLimit).str("\r\n");
     bool ok=true; auto write=[&](Buf& b) { DWORD written=0; if (b.n >= (int)sizeof(b.s)-1 || !WriteFile(file,b.z(),b.n,&written,nullptr) || written!=(DWORD)b.n) ok=false; };
     write(report); Buf result; result.str("Result: ").str(g_projectRunError ? g_projectRunError : g_projectRunInspect ? "inspection completed" : g_projectJob.phase == project::Phase::Complete ? "completed" : "stopped").str("\r\n"); write(result);
+    Buf objectCounts;objectCounts.str("Object placement calls attempted/placed/failed: ").i(g_projectPropCounts.attempted).c('/').i(g_projectPropCounts.placed).c('/').i(g_projectPropCounts.failed).str("\r\n");write(objectCounts);
     const auto& d=g_projectRunDiagnostics;
     Buf dimensions;dimensions.str("Modules: ").i(d.modules).str("\r\nRotated dimensions (m): ");
     for(int a=0;a<3;++a){if(a)dimensions.c('x');dimensions.f(d.dimensions[a]/16.0);}
@@ -163,11 +173,13 @@ static bool project_report(char* name, int capacity) {
 static bool project_load(const wchar_t* name) {
     ProjectStateGuard guard;
     if (g_projectRunning) return false;
+    bp_snapshot_cancel("project_load");g_bpSnapshotTrace={};
     memset(g_projectModuleVisible, 1, sizeof g_projectModuleVisible);
     g_projectLoaded = false; g_bp.ok = false; g_bpBitsOk = 0;
     g_projectNeedN = 0; g_projectLastProblem = nullptr; g_projectProblem = false;
     if (g_projectObjects) VirtualFree(g_projectObjects, 0, MEM_RELEASE);
     g_projectObjectCount = 0;
+    if(g_projectCapturedSupport.cells)VirtualFree(g_projectCapturedSupport.cells,0,MEM_RELEASE);g_projectCapturedSupport={};g_projectClassicObjects=0;
     g_projectObjects = (extended::Object*)VirtualAlloc(nullptr, sizeof(extended::Object) * kProjectMaxObjects, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
     if (g_projectPlan.cells) VirtualFree(g_projectPlan.cells, 0, MEM_RELEASE);
     g_projectPlan = project::Plan{};
@@ -191,11 +203,18 @@ static bool project_load(const wchar_t* name) {
         }
         data = read_file(path, &size);
         if (!data) { e.message = "Referenced blueprint is missing or unreadable"; project_error(e); return false; }
+        g_projectClassicFiles[m]=composition::bytes(14695981039346656037ull,data,size);
         ok = core::bp_decode((const uint8_t*)data, (int)size, &h, cells, kBpMaxCells);
         HeapFree(GetProcessHeap(), 0, data);
         if (!ok) { e.message = "Referenced blueprint is invalid or exceeds 65536 source cells"; project_error(e); return false; }
         if (!project::add(&g_projectPlan, g_projectManifest.modules[m], m, h, cells, &e)) { project_error(e); return false; }
         const auto& module = g_projectManifest.modules[m];
+        if(module.classicObjects){
+            if(!g_projectCapturedSupport.cells){g_projectCapturedSupport.cells=(project::CellEntry*)VirtualAlloc(nullptr,sizeof(project::CellEntry)*composition::MaxSupportCells,MEM_RESERVE|MEM_COMMIT,PAGE_READWRITE);g_projectCapturedSupport.capacity=composition::MaxSupportCells;
+                if(!g_projectCapturedSupport.cells){e.message="Cannot allocate captured support mask";project_error(e);return false;}}
+            auto captured=module;captured.objectsOnly=false;
+            if(!project::add(&g_projectCapturedSupport,captured,m,h,cells,&e)){project_error(e);return false;}
+        }
         for (int k = 0; k < h.objects; ++k) {
             if (g_projectObjectCount == kProjectMaxObjects || !extended::transform_object(module, m, h, h.obj[k], &g_projectObjects[g_projectObjectCount])) {
                 e.message = "Invalid object position or quaternion"; project_error(e); return false;
@@ -215,6 +234,10 @@ static bool project_load(const wchar_t* name) {
     else for (int a = 0; a < 3; ++a) { g_projectPlan.lo[a] = 0; g_projectPlan.hi[a] = 8; }
     for (int i = 0; i < g_projectObjectCount; ++i) {
         const auto& o = g_projectObjects[i]; float lo[3],hi[3]; extended::Box box{};
+        auto resolution=project_object_resolution(o.item);
+        bp_item_name(o.item);project_trace_object(i,nativecatalog::admitted(resolution)?"load_resolved":"load_refused",nativecatalog::name(resolution));
+        if(!nativecatalog::admitted(resolution)){Buf detail;detail.str("Native object ").x(o.item).str(" refused at load: ").str(nativecatalog::name(resolution));
+            copy_text(g_projectLoadError,detail.z(),sizeof g_projectLoadError);e.message=g_projectLoadError;project_error(e);return false;}
         uint8_t* item = g_bpItemById ? g_bpItemById(o.item,g_bpItemReg) : nullptr;
         if (bp_item_bounds(item,lo,hi) && extended::object_box(o.p,o.rotation,lo,hi,&box)) for (int a = 0; a < 3; ++a) {
             int low = box.lo[a]>=0 ? box.lo[a]/8*8 : -((-box.lo[a]+7)/8*8), high = box.hi[a]>=0 ? (box.hi[a]+7)/8*8 : -((-box.hi[a])/8*8);
@@ -230,6 +253,8 @@ static bool project_load(const wchar_t* name) {
     g_bp.h.nm = g_projectPlan.materialCount;
     for (int m = 0; m < g_bp.h.nm; ++m) g_bp.h.m[m] = g_projectPlan.materials[m];
     g_bp.filled = g_projectPlan.count; g_bp.ok = true; g_bpMirror = 0; g_projectLoaded = true; ++g_projectGeneration;
+    g_projectClassicObjects=composition::fingerprint(g_projectObjects,g_projectObjectCount);
+    if(project_classic_mode())LOG(.str("classic composition LOADED source=BTBP method=original_blueprint objects=").i(g_projectObjectCount).str(" build_voxels=0 captured_support_cells=").i(g_projectCapturedSupport.count).str(" internal_contacts=preserved catalogue_approval=unchanged"));
     LOG(.str("project loaded: ").str(g_projectManifest.name).str(" modules=").i(g_projectManifest.count)
         .str(" occupied native cells=").i(g_projectPlan.count).str(" duplicates removed=").i(g_projectPlan.duplicates)
         .str(" objects loaded=").i(g_projectObjectCount).str(" captured shape size=(").f(g_scStep[0],4).c(',').f(g_scStep[1],4).c(',').f(g_scStep[2],4).str(")m"));
@@ -303,6 +328,7 @@ static void project_stop(const char* why) {
     g_projectJob.phase = project::Phase::Stopped;
     project_journal("STOP", why);
     g_projectRunning = 0; g_projectWaiting = 0; g_projectBatch = false;
+    bp_snapshot_cancel("project_stopped");
     g_projectLaunch.reset();
     g_exactArmed = 0; g_exactFire = 0; g_bpWin = BPW_NONE; g_bpGhost = 0;
     g_pend.n = 0; // preserve the project marker to suppress a late native commit
@@ -356,7 +382,8 @@ static void project_refuse(project::Action action,project::ActionIssue issue,con
     default:break;
     }
     Buf reason;
-    if(issue==project::ActionIssue::Shape) {
+    if(issue==project::ActionIssue::Limits && g_projectPropsError[0])reason.str(g_projectPropsError);
+    else if(issue==project::ActionIssue::Shape) {
         Buf sizes[3];project_shape_dimensions(sizes,context.step);
         reason.fmt(T(key),sizes[0].z(),sizes[1].z(),sizes[2].z());
     } else reason.str(T(key));
@@ -365,10 +392,12 @@ static void project_refuse(project::Action action,project::ActionIssue issue,con
     LOG(.str("project action REFUSED action=").str(project::action_name(action)).str(" code=").str(project::issue_code(issue)).str(" reason=").str(reason.z()));
 }
 static project::ActionIssue project_start(project::Action action) {
+    g_projectPropsError[0]=0;
     const auto issue=project::action_issue(project_action_context()); if(issue!=project::ActionIssue::None)return issue;
     g_projectInspect=action==project::Action::Inspect;
     g_projectPublishedBatch=false;
     g_projectOrigin = project_origin_now(); g_projectRotation = g_bpRot;
+    if(!project_prepare_objects())return project::ActionIssue::Limits;
     g_projectProblem = false; g_projectLastProblem = nullptr;
     g_projectObjectsInJob = g_projectUseObjects ? g_projectObjectCount : 0;
     g_projectJob.start(g_projectPlan.count + g_projectManifest.pieceCount + g_projectObjectsInJob); g_projectWaiting = 0; g_projectNeedN = 0;
@@ -573,6 +602,8 @@ static uint8_t project_queue_pieces(CostList* list, void* ctx, void* state, uint
     g_projectPublishedBatch=true;
     return 1;
 }
+#include "project_props_runtime.h"
+#include "native_object_diagnostics.h"
 static bool project_check(void* ctx, void* state, uint8_t* pdata, const CursorXf& target, bool costs) {
     g_projectBuildNeedN = 0;
     Aabb box; shape_bounds(state, &target, &box);
@@ -584,43 +615,7 @@ static bool project_check(void* ctx, void* state, uint8_t* pdata, const CursorXf
     if (!bp_item_registry(ctx, state)) { project_stop(T(S_PROJECT_UNAVAILABLE)); return false; }
     if(costs && !g_projectJob.next && !project_validate_spaces()){project_stop(g_projectSpaceError);return false;}
     if (project_piece_batch()) return project_check_pieces(ctx, state, target, costs);
-    if (project_object_batch()) {
-        if (creative_on() && !g_creativeProps) { project_stop(T(S_EXT_OBJECT_CREATIVE)); return false; }
-        for (int i = 0; i < g_projectJob.batch; ++i) {
-            const auto& o = g_projectObjects[g_projectJob.next - g_projectPlan.count - g_projectManifest.pieceCount + i];
-            uint8_t* it = g_bpItemById(o.item, g_bpItemReg);
-            if (!extended_prop_item(it)) { project_stop(T(S_EXT_OBJECT_UNSAFE)); return false; }
-            double pos[3]; float rot[4]; extended::object_world(o, g_projectManifest.anchor, g_projectRotation, g_projectOrigin, pos, rot);
-            I3 center{(int64_t)(pos[0] * core::kFix), (int64_t)(pos[1] * core::kFix), (int64_t)(pos[2] * core::kFix)};
-            if (!project_covered(center)) return project_spatial_stop(S_PROJECT_COVERAGE,center,-1,o.module);
-            float low[3], high[3];
-            if (!bp_item_bounds(it, low, high)) { project_stop(T(S_PROJECT_UNAVAILABLE)); return false; }
-            const double x = rot[0], y = rot[1], z = rot[2], w = rot[3];
-            for (int corner = 0; corner < 8; ++corner) {
-                double p[3]; for (int a = 0; a < 3; ++a) { double eps = (high[a] - low[a]) * 0.001; p[a] = (corner >> a) & 1 ? high[a] - eps : low[a] + eps; }
-                float v[] = {(float)(pos[0] + (1-2*(y*y+z*z))*p[0] + 2*(x*y-w*z)*p[1] + 2*(x*z+w*y)*p[2]),
-                             (float)(pos[1] + 2*(x*y+w*z)*p[0] + (1-2*(x*x+z*z))*p[1] + 2*(y*z-w*x)*p[2]),
-                             (float)(pos[2] + 2*(x*z-w*y)*p[0] + 2*(y*z+w*x)*p[1] + (1-2*(x*x+y*y))*p[2])};
-                if (!extended::finite(v[0]) || !extended::finite(v[1]) || !extended::finite(v[2])) { project_stop(T(S_PROJECT_RANGE)); return false; }
-                if (base_at(g_projectBaseSys, v) < 0) {I3 corner{(int64_t)(v[0]*core::kFix),(int64_t)(v[1]*core::kFix),(int64_t)(v[2]*core::kFix)};return project_spatial_stop(S_PROJECT_COVERAGE,corner,-1,o.module);}
-            }
-            extended::Box worldBox{},localBox{};
-            if (!extended::object_box(pos,rot,low,high,&worldBox) || !extended::object_box(o.p,o.rotation,low,high,&localBox)) { project_stop(T(S_PROJECT_RANGE)); return false; }
-            int first[3],end[3]; int64_t probes=1;
-            for (int a=0;a<3;++a) { first[a]=worldBox.lo[a]>=0 ? worldBox.lo[a]/8 : -((-worldBox.lo[a]+7)/8); end[a]=worldBox.hi[a]>=0 ? (worldBox.hi[a]+7)/8 : -((-worldBox.hi[a])/8); probes*=end[a]-first[a]; }
-            if (probes>512) { project_stop(T(S_EXT_OBJECT_BUDGET)); return false; }
-            if (costs && extended::plan_intersects(g_projectPlan,localBox)) { project_stop(T(S_EXT_PIECE_OVERLAP)); return false; }
-            for (int y=first[1];y<end[1];++y) for (int z=first[2];z<end[2];++z) for (int x=first[0];x<end[0];++x) {
-                I3 p{(int64_t)(x*8+4)*kProjectFixUnit,(int64_t)(y*8+4)*kProjectFixUnit,(int64_t)(z*8+4)*kProjectFixUnit};
-                CursorXf probe=target; probe.pos[0]=p.x+off[0]; probe.pos[1]=p.y+off[1]; probe.pos[2]=p.z+off[2];
-                CostList scratch{entries,0,256,nullptr}; memset(g_remVols,0,sizeof g_remVols); price_removal(&scratch,ctx,state,&probe); g_refundN=0; g_refundList=nullptr;
-                for (int m=0x80;m<256;++m) if (g_remVols[m]>0) return project_spatial_stop(S_PROJECT_COLLISION,p,-1,o.module);
-            }
-            ProjectMaterialContext mc; mc.module = o.module; mc.saved = mc.native = o.item;
-            if (!project_cost(o.item, 1, mc, costs, true)) return false;
-        }
-        return true;
-    }
+    if (project_object_batch()) return project_check_props(ctx,state,target,off,costs);
     for (int m = 0; m < g_projectPlan.materialCount; ++m) {
         const auto& bm = g_projectPlan.materials[m];
         if (!bm.cells) continue;
@@ -714,20 +709,19 @@ static uint8_t project_click(CostList* list, void* ctx, void* state, uint8_t* pd
     g_bpRot = 0; g_bpMirror = 0; g_projectBatch = true;
     if (project_piece_batch()) return project_queue_pieces(list, ctx, state, pdata, target);
     if (project_object_batch()) {
-        const uint64_t before = list->count;
-        pend_begin(ctx, target, false, state ? *(uint32_t*)state : 0); g_pend.bp = g_pend.project = true; g_pend.list = list;
+        // The SAME blueprint pricing/queue path as a classic reconstruction.
+        // The commit dispatcher still applies the composite's world transform.
+        static core::BpHeader savedHeader;savedHeader=g_bp.h;const auto savedCell=g_bp.cell[0];const int savedFilled=g_bp.filled;
+        memset(&g_bp.h,0,sizeof g_bp.h);for(int a=0;a<3;++a){g_bp.h.n[a]=1;g_bp.h.step[a]=.5f;}g_bp.cell[0]=core::BP_EMPTY;
+        g_bp.h.objects=g_projectJob.batch;g_bp.filled=g_projectJob.batch;
         for (int i = 0; i < g_projectJob.batch; ++i) {
             const auto& o = g_projectObjects[g_projectJob.next - g_projectPlan.count - g_projectManifest.pieceCount + i];
-            uint8_t* it = g_bpItemById(o.item, g_bpItemReg); g_pendCost[i] = (uint32_t)list->count;
-            CostEntry* e = list_push(list);
-            if (!e) { list->count = before; project_stop(T(S_PROJECT_NATIVE)); return 0; }
-            const uint32_t one = 1; memcpy(e->b, it + 4, 16); memcpy(e->b + 0x10, &o.item, 4); memcpy(e->b + 0x14, &one, 4);
-            g_pendObj[i] = (uint16_t)(i + 1); g_pendMat[i] = 0xff; memset(g_pendPos[i], 0, 24); ++g_pend.n;
+            g_bp.h.obj[i].item=o.item;for(int a=0;a<3;++a)g_bp.h.obj[i].pos[a]=(float)o.p[a];memcpy(g_bp.h.obj[i].rot,o.rotation,16);
         }
-        g_pendCost[g_pend.n] = (uint32_t)list->count;
-        if (!project_journal("OBJECT_BATCH_BEGIN")) { list->count = before; project_stop(T(S_PROJECT_JOURNAL)); return 0; }
-        g_projectPublishedBatch=true;
-        g_pend.tick = GetTickCount(); g_actList = list; g_actShapes = g_pend.n; return 1;
+        if(!project_journal("OBJECT_BATCH_BEGIN","method=bp_fill/original_native_queue")){g_bp.h=savedHeader;g_bp.cell[0]=savedCell;g_bp.filled=savedFilled;project_stop(T(S_PROJECT_JOURNAL));return 0;}
+        const auto result=bp_fill(list,ctx,state,pdata,target);
+        g_bp.h=savedHeader;g_bp.cell[0]=savedCell;g_bp.filled=savedFilled;
+        if(!result||g_pend.n!=g_projectJob.batch){project_stop(T(S_PROJECT_NATIVE));return 0;}g_projectPublishedBatch=true;return result;
     }
     g_bp.h.n[0] = g_projectJob.batch; g_bp.h.n[1] = g_bp.h.n[2] = 1;
     g_bp.h.objects = 0; g_bp.filled = g_projectJob.batch;
@@ -744,7 +738,10 @@ static bool project_commit_object(int index, void* ctx) {
     if (!project_object_batch()) return false;
     const auto& o = g_projectObjects[g_projectJob.next - g_projectPlan.count - g_projectManifest.pieceCount + index];
     double pos[3]; float rot[4]; extended::object_world(o, g_projectManifest.anchor, g_projectRotation, g_projectOrigin, pos, rot);
-    return bp_place_object(ctx, o.item, pos, rot);
+    const bool wrote=bp_place_object(ctx,o.item,pos,rot);g_projectPropCounts.result(wrote);
+    project_trace_object(g_projectJob.next-g_projectPlan.count-g_projectManifest.pieceCount+index,wrote?"native_accepted":"native_failed",wrote?"NATIVE_CALL_ACCEPTED":"E_NATIVE_CALL_REJECTED");
+    Buf detail;detail.str("index=").i(g_projectJob.next-g_projectPlan.count-g_projectManifest.pieceCount+index).str(" item=").x(o.item).str(" success=").i(wrote).str(" placed=").i(g_projectPropCounts.placed).str(" failed=").i(g_projectPropCounts.failed);
+    project_journal("OBJECT_RESULT",detail.z());return wrote;
 }
 static void project_committed(int expected, int written) {
     if (!g_projectRunning) return;
@@ -789,7 +786,12 @@ static bool project_poll(bool focus, bool inGame, uint8_t* held) {
     if (g_projectJob.next < g_projectPlan.count && limit > g_projectPlan.count - g_projectJob.next) limit = g_projectPlan.count - g_projectJob.next;
     if (project_piece_batch() && limit > g_projectPlan.count + g_projectManifest.pieceCount - g_projectJob.next) limit = g_projectPlan.count + g_projectManifest.pieceCount - g_projectJob.next;
     if (project_piece_batch() && limit > 1) limit = 1;
-    if (project_object_batch() && limit > 4) limit = 4;
+    if(project_object_batch()&&project_classic_mode()){
+        const int first=g_projectJob.next-g_projectPlan.count-g_projectManifest.pieceCount;int count=0;
+        while(first+count<g_projectObjectsInJob&&g_projectObjects[first+count].module==g_projectObjects[first].module)++count;
+        if(count>limit){project_stop(T(S_EXT_CLASSIC_BATCH));return false;}limit=count;
+    }else if(project_object_batch()&&limit>4)limit=4;
+    if(project_object_batch() && !project_prop_scan_ready())return false;
     g_projectJob.prepare(limit); g_projectWaiting = 1; g_projectWaitSince = now;
     LOG(.str("project native click SCHEDULED op=").x(g_projectOperation).str(" phase=").i((int)g_projectJob.phase).str(" next=").i(g_projectJob.next).str(" batch=").i(g_projectJob.batch));
     g_exactArmed = 1; g_exactFire = 0; g_bpWin = BPW_PLACE;

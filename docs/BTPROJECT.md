@@ -1,5 +1,35 @@
 # Format `.btproject` — version 1
 
+Dev12 ajoute deux champs de module optionnels : `content` (`all` par défaut,
+ou `objects`) et `objectPlacement` (`checked` par défaut, ou `blueprint`).
+Le mode `blueprint` exige `content=objects` et un projet indépendant constitué
+uniquement de ces modules, sans pièces natives ni espaces de structure.
+Le BTBP source reste intact : ses voxels servent aux contacts capturés mais ne
+sont pas construits. Les anciens projets gardent leurs règles par défaut ;
+une DLL antérieure à dev12 refuse les nouveaux champs. Voir
+[DEV12-CLASSIC-COMPOSITIONS.md](DEV12-CLASSIC-COMPOSITIONS.md) pour les garanties,
+limites de propriétés, admission native et export par références originales.
+
+Dev10 conserve ce format et les entrées d'objets BTBP v1. Un fichier séparé
+`.btcalibration` garde les mesures natives d'une capture classique pour préparer
+un nouveau brouillon ; il ne se substitue ni au module BTBP ni à la résolution
+du registre actuel. L'échelle non unitaire reste refusée, le BTBP ne la stockant
+pas. Voir [DEV10-NATIVE-PLACEMENT-FIX.md](DEV10-NATIVE-PLACEMENT-FIX.md).
+
+Dev9 vérifie chaque ID d'objet dans le registre actuel **au chargement** et
+refuse les références non résolues avec leur motif. L'export uniquement mobilier
+conserve l'ancre et les transforms, sans voxel, pièce native ni espace structurel.
+Les recettes d'auteur acceptent les positions décimales et quaternions précis ;
+voir [DEV9-CATALOG.md](DEV9-CATALOG.md). Aucun changement de format BTBP n'est requis.
+
+Dev8 réutilise les objets des BTBP existants : aucun champ JSON `objects` et
+aucun nouveau format binaire. Un module BTBP peut contenir uniquement des objets
+(toutes les cellules vides, palette vide) ; le composite peut donc placer du
+mobilier avec **zéro voxel et zéro pièce native**. Identifiant, position en mètres
+et quaternion sont conservés. Les voxels sont traités avant les objets et les
+supports meubles avant les décorations. Voir [DEV8-NATIVE-OBJECTS.md](DEV8-NATIVE-OBJECTS.md)
+pour le catalogue réel, les contraintes et les limites de propriétés copiées.
+
 Manifeste JSON UTF-8 sans BOM. Les anciens `.btbp` ne changent pas de format.
 Tous les fichiers référencés sont des `.btbp` placés dans le même répertoire
 `BuildingTools-Projects`, à côté de `enshrouded.exe`.
@@ -200,8 +230,9 @@ avec ancrage/rotation, budgets et préfixe acquitté. L'export peut répartir un
 en plusieurs tuiles/catégories et regrouper les objets dans des sources distinctes ;
 positions, matériaux, pivots et rotations sont conservés, pas les indices de modules.
 
-Uniquement dans un monde hébergé localement, clavier/souris. Les collisions de
-meubles/entités, les fantômes texturés, une spirale arrondie vérifiée, la reprise
-de chantier et le rollback complet restent indisponibles. Le moteur peut encore
+Uniquement dans un monde hébergé localement, clavier/souris. Les objets disposent
+de contrôles conservateurs utilisant les AABB natives de placement ; les meshes
+physiques exacts ne sont pas testés. Les fantômes texturés, une spirale arrondie
+vérifiée, la reprise de chantier et le rollback complet restent indisponibles. Le moteur peut encore
 refuser un placement après contrôle. Voir `EXTENDED-STATUS.md` pour les limites
 et le protocole de validation en jeu.

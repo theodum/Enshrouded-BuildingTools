@@ -1,4 +1,4 @@
-Enshrouded Building Tools 0.34.0-dev7
+Enshrouded Building Tools 0.34.0-dev12
 ================================
 
 Files in the game folder
@@ -9,16 +9,52 @@ Files in the game folder
   BuildingTools.log     what the mod did (previous session: BuildingTools.prev.log)
   BuildingTools-Languages\   the translations, one text file per language
   BuildingTools-Projects\    composite manifests and their BTBP modules
+  BuildingTools-Catalog\     attributed CSV snapshot and local searchable index
   BuildingTools-Projects.log diagnostic batch journal (created when used)
   BuildingTools-Extended.ini.example reference defaults; never replaces your INI
 
 Building Tools Extended (development build)
+  Dev12 CURRENT TEST: Dev12_Table_Classique, the user's real side table with
+  bowl, candle and two coasters. Read BuildingToolsExtended-CLASSIC-COMPOSITIONS.md.
+  The source BTBP is copied byte for byte. Its 64 floor cells are contact
+  references only; the composite builds FIVE objects and ZERO structure.
+  Objects reuse bp_fill, its native cost/commit queue and the original PlaceProp
+  bridge. Explicit classic-composition mode preserves source order/contacts and
+  uses the historical blueprint reader for outside collision checks.
+  Keep Objects: Build enabled in classic options and enable native composite
+  objects. Unknown IDs, invalid bounds, outside obstacles and altar limits still
+  refuse placement. This does not approve all candles or all furniture categories.
+  Classic Place now imports a selected blueprint as a new furniture composite;
+  furniture export preserves original source references and checks their hashes.
+  The original classic rebuild is user-confirmed. Composite placement and world
+  reload/persistence still need the game test. The castle is unchanged.
+  Dev11 historical retest: ONE table, Dev10_A_Table_Unique.
+  Follow BuildingToolsExtended-TABLE-CHANGED.md for E_TABLE_CHANGED diagnosis,
+  installation and the collision/placement/reload test. The entity reader now
+  completes a checked occupied-entry snapshot in one native server callback.
+  Partial, changed, cancelled, slow or stale results never declare the area free.
+  Collision, support, altar and native item checks remain enabled. New logs show
+  structure addresses, exact changed fields, before/after values and timings.
+  Those older scanner tests do not validate the dev12 composite. Use its
+  five-object classic-composition test first; castle furnishing remains deferred.
+  Dev10: start with Dev10_A_Table_Unique (ONE table, zero structure).
+  Follow BuildingToolsExtended-NATIVE-PLACEMENT-FIX.md for installation and
+  the A/B/C/D/E tests. It diagnoses the rice-seedling world-read failure,
+  keeps corrupt/nearby unresolved bounds blocking, and separates policy refusals.
+  Capture one manually placed furniture object through classic blueprint Save
+  with calibration enabled; load its saved calibration in the native library.
+  No hexadecimal IDs or guessed dimensions are required. Game/template/bounds
+  changes require fresh calibration. Native scale other than one is refused.
+  Use Dev10_D_Cinq_Meubles ONLY AFTER A/B/C pass, on the existing floor/wall
+  described in the guide. Its wall torch requires explicit original logic opt-in.
+  Neither project changes structure. Host checks pass; actual placement and
+  persistence remain to be tested by you. No DLL or world is updated automatically.
   Blueprint mode -> Place -> Composite projects. Select the 0.5 m cube,
   load Trois_modules_test, move/turn the whole project, press Build once.
   The mod checks every cell, then builds progressive batches automatically.
   Escape stops future batches. Existing blocks stay; large actions have only
   partial native undo. Compatible props and native pieces are now supported;
-  logic-linked and progression objects are refused in composites.
+  progression objects remain refused; logic copying needs explicit opt-in.
   Home: virtual altitude plane, persistent levels, Creative native objects.
   The virtual plane requires Free Placement (F10 by default).
   Place window: real item library, architectural components, material replacement,
@@ -33,6 +69,23 @@ Building Tools Extended (development build)
   a 75,648-cell village. The native stair example is generated in-game using the
   selected real registry IDs, then can be exported as a complete project.
   See BuildingToolsExtended-TESTING.md and BuildingToolsExtended-FORMAT.md.
+  Dev8: the live item library exports a real native catalogue and prepares a
+  room with 11 selected native furniture objects, including tabletop decorations.
+  No guessed furniture IDs are shipped. Read BuildingToolsExtended-NATIVE-OBJECTS.md
+  for the export/reload, original blueprint capture and in-game test procedure.
+  Collision boxes and support contacts are conservative checks. They do not prove
+  native interaction or attachment. Links, wiring and chest contents are not copied.
+  Object call successes/failures appear in diagnostics and the batch journal.
+  The castle is unchanged; its furniture-only overlay waits for a successful game test.
+  Dev9: 3,526 source IDs with name/ID search and category hints. Every project
+  object is resolved through the current native item registry at load; unknown
+  or refused objects stop loading with their exact ID and reason.
+  The supplied 11-object furnishing draft contains real CSV IDs, zero structure,
+  and needs native support/pivot validation. The CSV demo role button prepares
+  the measured room using the actual native bounds. No guessed bounds are shipped.
+  Export furniture only preserves anchor/transforms and emits no structure cells.
+  See BuildingToolsExtended-CATALOG.md for the protocol, precise recipes,
+  castle alignment requirements and catalogue refresh after game updates.
   BuildingToolsExtended-STATUS.md lists remaining limits and extra test cases.
   BuildingToolsExtended-EXAMPLES.md describes each included project.
   Dev4: Build/Check clicks log their outcome and show any refusal by the buttons.

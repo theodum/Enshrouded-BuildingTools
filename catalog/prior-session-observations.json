@@ -1,0 +1,54 @@
+{
+  "format": "BuildingToolsPriorHeldItemEvidence",
+  "version": 1,
+  "source": "BuildingTools.prev.log",
+  "sourceSHA256": "23aeddb20397c81b5813e418fe13c8bd4b9f7c81f95b9edb1885a10b751aff3f",
+  "evidence": "native_item_held_in_prior_session",
+  "currentRegistryVerified": false,
+  "nativePlacementTested": false,
+  "bounds": null,
+  "items": [
+    {
+      "item": 484740866,
+      "hex": "1ce48f02",
+      "name": "Large Iron Window Frame",
+      "csvMatch": true,
+      "flags": 0
+    },
+    {
+      "item": 3519271952,
+      "hex": "d1c3d410",
+      "name": null,
+      "csvMatch": false,
+      "flags": 524288
+    },
+    {
+      "item": 3103489139,
+      "hex": "b8fb7c73",
+      "name": "Silver Candleholder",
+      "csvMatch": true,
+      "flags": 524289
+    },
+    {
+      "item": 659354544,
+      "hex": "274cf3b0",
+      "name": "Steel Chandelier",
+      "csvMatch": true,
+      "flags": 524288
+    },
+    {
+      "item": 1851651517,
+      "hex": "6e5df5bd",
+      "name": "Small Steel Brazier",
+      "csvMatch": true,
+      "flags": 524288
+    },
+    {
+      "item": 3134588483,
+      "hex": "bad60643",
+      "name": "Boreal Wood Banquet Table",
+      "csvMatch": true,
+      "flags": 0
+    }
+  ]
+}

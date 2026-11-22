@@ -5,7 +5,7 @@ include local and dedicated-server building; Extended composite projects require
 a locally hosted world. The user validated the dev5 block composites described
 below; the new dev6 native stair demonstration still requires in-game testing.
 
-This fork's **Building Tools Extended 0.34.0-dev7** adds native composite projects:
+This fork's **Building Tools Extended 0.34.0-dev12** adds native composite projects:
 one anchor, relative module rotations, one Build confirmation, preflight and progressive
 batches. Start with the included three-module example. See the
 [installation and in-game test protocol](docs/EXTENDED-TESTING.md),
@@ -15,6 +15,34 @@ compatible native props, native-piece stair layouts, architectural components,
 material replacement, read-only altar assistance and project export. See the
 [feature status and limits](docs/EXTENDED-STATUS.md). In-game behavior awaits
 personal validation. Original tools and classic `.btbp` files remain available.
+
+Dev12 imports the user's **esaai blueprint tabel** unchanged: a side table,
+bowl, candle and two coasters. Its manifest selects objects only; the 64 source
+floor voxels are retained as contact references and never rebuilt. Composite
+objects now reuse the original `bp_fill` cost/commit queue and PlaceProp bridge.
+An explicit classic-composition mode uses the historical capture reader for
+outside collisions and preserves the saved internal contacts/source order.
+See the [technical comparison and actual-blueprint test](docs/DEV12-CLASSIC-COMPOSITIONS.md).
+The classic reconstruction is confirmed by the user; composite placement and
+persistence still require the game test. The castle structure is unchanged.
+
+Dev11 replaces dev10's multi-callback entity scan with a bounded, complete
+snapshot of occupied entries inside one native server callback. Header, occupancy,
+entry, item and prop-transform changes invalidate the working result; a partial
+read never declares the area free. New traces record exact changes and timings.
+This historical dev11 retest used **Dev10_A_Table_Unique**. See the
+[E_TABLE_CHANGED diagnosis and single-table retest](docs/DEV11-TABLE-CHANGED.md).
+Real placement and persistence remain to be validated by the user in game.
+
+Dev10 diagnoses the user's native-object failures, separates world-reader errors
+from collisions, validates the full transform layout including scale, and removes
+guessed fallback bounds from the original placement bridge. Capture one manually
+placed furniture object through classic blueprints to save a reusable calibration,
+without typing IDs. Start with the supplied **one-table, zero-structure** project;
+the five-object follow-up waits for the A/B/C tests. See the
+[diagnosis, calibration and precise A–E game protocol](docs/DEV10-NATIVE-PLACEMENT-FIX.md).
+Host tests and compilation pass; actual native placement and persistence still
+require the user's game test. The castle structure is unchanged.
 
 Dev3 consolidates Home navigation, French controls, configuration persistence,
 whole-stair rotations, bounded/adaptive batches and operation reports. Automatic
@@ -53,6 +81,23 @@ voxel building needs no experimental native pieces. The current backend uses
 full 0.5 m cubes: unsupported smaller rises are refused, and walkability requires
 an actual game test. See the [voxel stair guide and protocol](docs/DEV7-VOXEL-STAIRS.md)
 and [dev7 validation report](docs/DEV7-VALIDATION.md).
+
+Dev9 adds an attributed 3,526-ID local index, name/ID search, category hints and
+fresh native registry checks at project load. The supplied real-ID furnishing
+draft and furniture-only export contain zero structure. Precise reusable recipes,
+castle alignment safeguards and catalogue updates are described in the
+[dev9 catalogue guide](docs/DEV9-CATALOG.md). CSV IDs remain unverified until
+native resolution; actual placement and interaction require an in-game test.
+
+Dev8 reuses the original blueprint object pipeline for composite furniture.
+The live registry exports IDs/names/bounds, and a measured room generator prepares
+11 selected native objects for export/reload and placement after its voxels.
+Conservative collision/support/altar checks and placement-call counts are included.
+No furniture IDs are guessed; the full project is generated from the live choices.
+Interactions, real capture and creative payment still need the
+[native object in-game protocol](docs/DEV8-NATIVE-OBJECTS.md); see the
+[audit and host-test scope](docs/DEV8-VALIDATION.md). The castle stays unchanged
+and its furniture-only overlay waits for a successful in-game demonstration.
 
 The user has since confirmed the dev7 multistorey voxel demonstration in game.
 The first complete [royal castle](docs/ROYAL-CASTLE.md) is now provided as a single
